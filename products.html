@@ -2629,10 +2629,17 @@ function updateFilterState() {
             filtersSidebar.classList.add('active');
             body.classList.add('filter-open');
             
-            // Add backdrop click handler after a delay to prevent immediate close
-            setTimeout(() => {
-                document.addEventListener('click', handleFilterBackdropClick, true);
-            }, 100);
+            // Add close button if not exists
+            if (!filtersSidebar.querySelector('.filter-close-btn')) {
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'filter-close-btn';
+                closeBtn.innerHTML = '✕';
+                closeBtn.onclick = function(e) {
+                    e.stopPropagation();
+                    closeFilterSheet();
+                };
+                filtersSidebar.insertBefore(closeBtn, filtersSidebar.firstChild);
+            }
         }
     }
 
@@ -2644,14 +2651,12 @@ function updateFilterState() {
             console.log('Closing filter sidebar');
             filtersSidebar.classList.remove('active');
             body.classList.remove('filter-open');
-            document.removeEventListener('click', handleFilterBackdropClick, true);
         }
     }
     
     function handleFilterBackdropClick(e) {
         const filtersSidebar = document.getElementById('filtersSidebar');
         const mobileFilterBtn = document.querySelector('.mobile-filter-btn');
-        const filterCloseBtn = filtersSidebar ? filtersSidebar.querySelector('.filter-close-btn') : null;
         
         // Close if clicking outside sidebar and not on the filter button
         if (filtersSidebar && 
@@ -2668,18 +2673,6 @@ function updateFilterState() {
         const filtersSidebar = document.getElementById('filtersSidebar');
         const mobileFilterBtn = document.querySelector('.mobile-filter-btn');
         
-        // Add close button if it doesn't exist
-        if (filtersSidebar && !filtersSidebar.querySelector('.filter-close-btn')) {
-            const closeBtn = document.createElement('button');
-            closeBtn.className = 'filter-close-btn';
-            closeBtn.innerHTML = '✕';
-            closeBtn.onclick = function(e) {
-                e.stopPropagation();
-                closeFilterSheet();
-            };
-            filtersSidebar.insertBefore(closeBtn, filtersSidebar.firstChild);
-        }
-        
         // Setup mobile filter button
         if (mobileFilterBtn) {
             mobileFilterBtn.onclick = function(e) {
@@ -2687,6 +2680,19 @@ function updateFilterState() {
                 openFilterSheet();
             };
         }
+        
+        // Handle backdrop clicks
+        document.addEventListener('click', function(e) {
+            if (!filtersSidebar) return;
+            
+            const isClickInside = filtersSidebar.contains(e.target);
+            const isFilterBtn = mobileFilterBtn && mobileFilterBtn.contains(e.target);
+            const isSidebarActive = filtersSidebar.classList.contains('active');
+            
+            if (isSidebarActive && !isClickInside && !isFilterBtn) {
+                closeFilterSheet();
+            }
+        });
         
         // Handle escape key
         document.addEventListener('keydown', function(e) {
