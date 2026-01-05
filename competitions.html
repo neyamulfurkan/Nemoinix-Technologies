@@ -162,22 +162,34 @@
                 gap: var(--spacing-4);
             }
         }
-        /* Sidebar Filters */
+       /* Sidebar Filters */
+    .filters-sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        height: 100vh;
+        width: 320px;
+        max-width: 85vw;
+        background: white;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+        z-index: 10002;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+        padding: 4rem 1.5rem 1.5rem;
+        border-radius: 0;
+        display: block;
+    }
+    
+    @media (min-width: 1200px) {
         .filters-sidebar {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            height: 100vh;
-            width: 320px;
-            max-width: 85vw;
-            background: white;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
-            z-index: 10002;
-            transition: left 0.3s ease;
-            overflow-y: auto;
-            padding: 4rem 1.5rem 1.5rem;
-            border-radius: 0;
+            position: relative;
+            left: 0;
+            width: 280px;
+            height: auto;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
+    }
         
         .filters-sidebar.active {
             left: 0;
@@ -1914,20 +1926,34 @@
             const filtersSidebar = document.getElementById('filtersSidebar');
             const body = document.body;
             
+            // Create backdrop if it doesn't exist
+            let backdrop = document.querySelector('.filter-backdrop');
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.className = 'filter-backdrop';
+                backdrop.onclick = closeFilterSheet;
+                document.body.appendChild(backdrop);
+            }
+            
             if (filtersSidebar) {
                 filtersSidebar.classList.add('active');
+                backdrop.classList.add('active');
                 body.classList.add('filter-open');
             }
         }
 
         function closeFilterSheet() {
             const filtersSidebar = document.getElementById('filtersSidebar');
+            const backdrop = document.querySelector('.filter-backdrop');
             const body = document.body;
             
             if (filtersSidebar) {
                 filtersSidebar.classList.remove('active');
-                body.classList.remove('filter-open');
             }
+            if (backdrop) {
+                backdrop.classList.remove('active');
+            }
+            body.classList.remove('filter-open');
         }
         
         // Close filter on backdrop click

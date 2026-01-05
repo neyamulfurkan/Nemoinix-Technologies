@@ -327,7 +327,7 @@
             max-width: 85vw;
             background: white;
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
-            z-index: 10001;
+            z-index: 10002;
             transition: left 0.3s ease;
             overflow-y: auto;
             padding: 4rem 1.5rem 1.5rem;
@@ -876,8 +876,8 @@
         overflow: hidden;
     }
     
-    body.filter-open::before {
-        content: '';
+    .filter-backdrop {
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
@@ -886,6 +886,10 @@
         background: rgba(0, 0, 0, 0.6);
         z-index: 10001;
         backdrop-filter: blur(2px);
+    }
+    
+    .filter-backdrop.active {
+        display: block;
     }
         
         body.filter-open::before {
