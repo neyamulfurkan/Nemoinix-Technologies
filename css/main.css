@@ -328,7 +328,7 @@ a:hover {
   width: 40px;
   height: 40px;
   position: relative;
-  z-index: 1001;
+  z-index: 1051;
 }
 
 .mobile-menu-toggle span {
@@ -341,7 +341,7 @@ a:hover {
 }
 
 .mobile-menu-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(8px, 8px);
+  transform: rotate(45deg) translate(7px, 7px);
 }
 
 .mobile-menu-toggle.active span:nth-child(2) {
@@ -371,7 +371,7 @@ a:hover {
     flex-direction: column;
     gap: var(--spacing-4);
     transition: right 0.3s ease;
-    z-index: 1000;
+    z-index: 1050;
     overflow-y: auto;
   }
 

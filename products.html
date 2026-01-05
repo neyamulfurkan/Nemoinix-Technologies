@@ -28,7 +28,7 @@
         margin: 0 auto;
         padding: 0.75rem 1rem;
         position: sticky;
-        top: 80px;
+        top: 72px;
         z-index: 100;
         background: var(--gray-50);
     }
@@ -157,7 +157,7 @@
     .main-container {
         max-width: 1280px;
         margin: 2rem auto;
-        padding: 0 1.5rem;
+        padding: 0 1rem;
         display: grid;
         grid-template-columns: 280px 1fr;
         gap: 1.5rem;
@@ -173,6 +173,45 @@
         position: sticky;
         top: 90px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (max-width: 1199px) {
+        .main-container {
+            padding: 0 1rem;
+            grid-template-columns: 1fr;
+        }
+        
+        .filters-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            height: 100vh;
+            width: 320px;
+            max-width: 85vw;
+            background: white;
+            box-shadow: var(--shadow-xl);
+            z-index: 1050;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            padding: var(--spacing-6);
+            border-radius: 0;
+        }
+
+        .filters-sidebar.active {
+            left: 0;
+        }
+        
+        .filters-sidebar.active::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 320px;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: -1;
+        }
     }
     
     .filters-header {
@@ -424,6 +463,28 @@
         gap: var(--spacing-6);
     }
     
+    @media (max-width: 1199px) {
+        .products-grid,
+        .products-grid.cols-4,
+        .products-grid.cols-5 {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1rem;
+        }
+    }
+    
+    @media (max-width: 640px) {
+        .products-grid,
+        .products-grid.cols-4,
+        .products-grid.cols-5 {
+            grid-template-columns: 1fr !important;
+            gap: 1rem;
+        }
+        
+        .products-grid.list-view .product-card {
+            grid-template-columns: 1fr;
+        }
+    }
+    
     .products-grid.list-view .product-image-wrapper {
         aspect-ratio: 1;
     }
@@ -443,9 +504,32 @@
         font-size: 1rem;
         box-shadow: 0 8px 24px rgba(25, 145, 235, 0.4);
         cursor: pointer;
-        z-index: 999;
+        z-index: 1049;
         align-items: center;
         gap: 0.5rem;
+    }
+    
+    .filter-close-btn {
+        display: none;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--gray-100);
+        border: none;
+        font-size: 1.25rem;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        z-index: 10;
+    }
+
+    .filter-close-btn:hover {
+        background: var(--gray-200);
+        transform: rotate(90deg);
     }
     
     @media (max-width: 1199px) {
@@ -453,23 +537,8 @@
             display: flex !important;
         }
         
-        .filters-sidebar {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            height: 100vh;
-            width: 320px;
-            max-width: 85vw;
-            background: white;
-            box-shadow: var(--shadow-xl);
-            z-index: 1050;
-            transition: left 0.3s ease;
-            overflow-y: auto;
-            padding: var(--spacing-6);
-        }
-
-        .filters-sidebar.active {
-            left: 0;
+        .filter-close-btn {
+            display: flex !important;
         }
         
         .main-container {
@@ -687,7 +756,7 @@
             max-width: 85vw;
             background: white;
             box-shadow: var(--shadow-xl);
-            z-index: 1050;
+            z-index: 1052;
             transition: left 0.3s ease;
             overflow-y: auto;
             padding: var(--spacing-6);
@@ -2523,6 +2592,11 @@ function updateFilterState() {
         if (filtersSidebar) {
             filtersSidebar.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Add backdrop click handler
+            setTimeout(() => {
+                document.addEventListener('click', filterBackdropHandler);
+            }, 100);
         }
     }
 
@@ -2531,6 +2605,15 @@ function updateFilterState() {
         if (filtersSidebar) {
             filtersSidebar.classList.remove('active');
             document.body.style.overflow = '';
+            document.removeEventListener('click', filterBackdropHandler);
+        }
+    }
+    
+    function filterBackdropHandler(e) {
+        const filtersSidebar = document.getElementById('filtersSidebar');
+        if (filtersSidebar && !filtersSidebar.contains(e.target) && 
+            !e.target.closest('.mobile-filter-btn')) {
+            closeFilterSheet();
         }
     }
     
