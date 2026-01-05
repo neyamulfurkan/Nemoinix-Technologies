@@ -21,7 +21,12 @@
         const navMenu = document.querySelector('.nav-menu');
         const body = document.body;
 
-        if (!mobileMenuToggle || !navMenu) return;
+        if (!mobileMenuToggle || !navMenu) {
+            console.warn('Mobile menu elements not found');
+            return;
+        }
+        
+        console.log('Mobile menu initialized');
 
         // Toggle mobile menu
         mobileMenuToggle.addEventListener('click', function(e) {

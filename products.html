@@ -413,18 +413,35 @@
     .mobile-filter-btn {
         display: none;
         position: fixed;
-        bottom: var(--spacing-6);
-        right: var(--spacing-6);
+        bottom: 1.5rem;
+        right: 1.5rem;
         background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
         color: white;
         border: none;
-        padding: var(--spacing-4) var(--spacing-6);
-        border-radius: var(--radius-full);
+        padding: 1rem 1.5rem;
+        border-radius: 3rem;
         font-weight: 700;
         font-size: 1rem;
-        box-shadow: var(--shadow-xl);
+        box-shadow: 0 8px 24px rgba(25, 145, 235, 0.4);
         cursor: pointer;
-        z-index: 100;
+        z-index: 999;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    @media (max-width: 1199px) {
+        .mobile-filter-btn {
+            display: flex !important;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .mobile-filter-btn {
+            bottom: 1rem;
+            right: 1rem;
+            padding: 0.875rem 1.25rem;
+            font-size: 0.9375rem;
+        }
     }
     
     .mobile-filter-btn .filter-count-badge {
@@ -575,39 +592,61 @@
             font-size: 0.9375rem;
         }
     }
-    /* Mobile Filter Sheet - Hidden by Default */
-    .filter-sheet-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1001;
-        backdrop-filter: blur(4px);
-    }
+    /* Mobile Filter Sidebar */
+    @media (max-width: 1199px) {
+        .filters-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            height: 100vh;
+            width: 320px;
+            max-width: 85vw;
+            background: white;
+            box-shadow: var(--shadow-xl);
+            z-index: 1050;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            padding: var(--spacing-6);
+        }
 
-    .filter-sheet-overlay.active {
-        display: block;
-    }
+        .filters-sidebar.active {
+            left: 0;
+        }
+        
+        .filters-sidebar.active::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 320px;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: -1;
+        }
 
-    .filter-sheet {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: white;
-        border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
-        max-height: 80vh;
-        overflow-y: auto;
-        transform: translateY(100%);
-        transition: transform 0.3s;
-        z-index: 1002;
-        padding: var(--spacing-6);
-        display: none; /* Hidden by default */
-    }
+        .filter-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gray-100);
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 10;
+        }
 
-    .filter-sheet.active {
-        display: block;
-        transform: translateY(0);
+        .filter-close-btn:hover {
+            background: var(--gray-200);
+            transform: rotate(90deg);
+        }
     }
 
     .filter-sheet-header {
@@ -2396,16 +2435,38 @@ function updateFilterState() {
     }
 
     function openFilterSheet() {
-        document.getElementById('filterSheetOverlay').classList.add('active');
-        document.getElementById('filterSheet').classList.add('active');
-        document.body.style.overflow = 'hidden';
+        const filtersSidebar = document.getElementById('filtersSidebar');
+        if (filtersSidebar) {
+            filtersSidebar.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
     }
 
     function closeFilterSheet() {
-        document.getElementById('filterSheetOverlay').classList.remove('active');
-        document.getElementById('filterSheet').classList.remove('active');
-        document.body.style.overflow = '';
+        const filtersSidebar = document.getElementById('filtersSidebar');
+        if (filtersSidebar) {
+            filtersSidebar.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     }
+    
+    // Add close button functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const filtersSidebar = document.getElementById('filtersSidebar');
+        const mobileFilterBtn = document.querySelector('.mobile-filter-btn');
+        
+        if (filtersSidebar && !filtersSidebar.querySelector('.filter-close-btn')) {
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'filter-close-btn';
+            closeBtn.innerHTML = '✕';
+            closeBtn.onclick = closeFilterSheet;
+            filtersSidebar.insertBefore(closeBtn, filtersSidebar.firstChild);
+        }
+        
+        if (mobileFilterBtn) {
+            mobileFilterBtn.onclick = openFilterSheet;
+        }
+    });
 
     function applyFiltersAndClose() {
         applyFilters();

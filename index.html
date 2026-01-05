@@ -61,12 +61,54 @@
         }
         /* Hero Stats Visibility Fix */
         .hero-stats {
-            background: rgba(255, 255, 255, 0.15) !important;
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.25) !important;
+            backdrop-filter: blur(16px) !important;
             padding: 1.5rem 2rem !important;
             border-radius: 16px !important;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.4) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+            margin-top: 2rem !important;
+        }
+        
+        .hero-stats .stat-value {
+            color: white !important;
+            text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4) !important;
+            font-weight: 800 !important;
+            font-size: 2.5rem !important;
+            line-height: 1 !important;
+        }
+        
+        .hero-stats .stat-label {
+            color: rgba(255, 255, 255, 1) !important;
+            font-weight: 600 !important;
+            font-size: 0.875rem !important;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        .hero-stats .stat-divider {
+            background: rgba(255, 255, 255, 0.4) !important;
+            width: 1px;
+            height: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-stats {
+                flex-direction: column !important;
+                gap: 1.5rem !important;
+                padding: 1.25rem 1.5rem !important;
+            }
+            
+            .hero-stats .stat-value {
+                font-size: 1.75rem !important;
+            }
+            
+            .hero-stats .stat-label {
+                font-size: 0.75rem !important;
+            }
+            
+            .hero-stats .stat-divider {
+                display: none !important;
+            }
         }
         
         .hero-stats .stat-value {
