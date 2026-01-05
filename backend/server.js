@@ -44,6 +44,7 @@ const corsOptions = {
             'http://localhost:3000',
             'http://127.0.0.1:3000',
             'https://nemionix-technologies.onrender.com',
+            'https://nemoinix-technologies.onrender.com',
             process.env.FRONTEND_URL
         ].filter(Boolean);
         
