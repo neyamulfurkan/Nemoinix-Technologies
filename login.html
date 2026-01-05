@@ -852,7 +852,7 @@
         // Configuration - ensure we're using the correct API URL
         const API_BASE_URL = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
             ? 'http://localhost:3000/api'
-            : 'https://nemionix-technologies.onrender.com/api';
+            : `${window.location.origin}/api`;
         
         // DOM Elements
         const loginForm = document.getElementById('login-form');

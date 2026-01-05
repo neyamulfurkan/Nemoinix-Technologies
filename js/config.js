@@ -7,7 +7,7 @@
   // API Configuration - Auto-detect environment
   const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3000/api' 
-    : 'https://nemionix-technologies.onrender.com/api';
+    : `${window.location.origin}/api`;
   
   const API_TIMEOUT = 30000; // 30 seconds
 
