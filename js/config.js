@@ -4,18 +4,15 @@
 (function(global) {
   'use strict';
 
-  // API Configuration
-  // Force localhost for development - change this when deploying
-  const API_BASE_URL = 'http://localhost:3000/api';
+  // API Configuration - Auto-detect environment
+  const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000/api' 
+    : 'https://nemoinix-technologies.onrender.com/api';
   
-  // Use this for production:
-  // const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  //   ? 'http://localhost:3000/api' 
-  //   : 'https://api.nemionix.com.bd/api';
   const API_TIMEOUT = 30000; // 30 seconds
 
   // Cloudinary Configuration (public values only)
-  const CLOUDINARY_CLOUD_NAME = 'your_cloud_name';
+  const CLOUDINARY_CLOUD_NAME = 'da35fjcqb';
   const CLOUDINARY_UPLOAD_PRESET = 'your_preset';
   const CLOUDINARY_API_BASE = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}`;
 
@@ -222,4 +219,3 @@
   }
 
 })(typeof window !== 'undefined' ? window : this);
-
