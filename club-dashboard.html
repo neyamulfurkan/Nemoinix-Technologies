@@ -1639,20 +1639,28 @@
             const userStr = localStorage.getItem('user');
             
             if (!token || !userStr) {
-                window.location.href = 'login.html';
+                window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
                 return;
             }
             
-            currentUser = JSON.parse(userStr);
+            try {
+                currentUser = JSON.parse(userStr);
+            } catch (e) {
+                console.error('Failed to parse user data:', e);
+                localStorage.clear();
+                window.location.href = '/login.html';
+                return;
+            }
             
             if (!currentUser || currentUser.role !== 'club_admin') {
-                window.location.href = 'login.html';
+                console.error('Not a club admin, redirecting...');
+                window.location.href = '/login.html';
                 return;
             }
 
             if (currentUser.club_status !== 'approved') {
                 showToast('Your club application is pending approval', 'warning');
-                setTimeout(() => window.location.href = 'index.html', 2000);
+                setTimeout(() => window.location.href = '/index.html', 2000);
                 return;
             }
 
@@ -1684,7 +1692,7 @@
             const API_BASE_URL = window.CONFIG && window.CONFIG.API_BASE_URL ? window.CONFIG.API_BASE_URL : 
                 (window.location.hostname === 'localhost' 
                     ? 'http://localhost:3000/api' 
-                    : 'https://api.nemionix.com.bd/api');
+                    : 'https://nemoinix-technologies.onrender.com/api');
 
             const response = await fetch(`${API_BASE_URL}${endpoint}`, {
                 ...options,

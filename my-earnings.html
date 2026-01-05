@@ -1473,7 +1473,7 @@
         // Configuration
         const API_BASE_URL = window.location.hostname === 'localhost' 
             ? 'http://localhost:3000/api' 
-            : 'https://api.nemionix.com.bd/api';
+            : 'https://nemoinix-technologies.onrender.com/api';
         
         // State
         let currentUser = null;
@@ -1504,7 +1504,7 @@
         async function checkAuth() {
             const token = localStorage.getItem('token');
             if (!token) {
-                window.location.href = 'login.html';
+                window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
                 return;
             }
 
@@ -1513,19 +1513,25 @@
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
-                if (!response.ok) throw new Error('Authentication failed');
+                if (!response.ok) {
+                    console.error('Auth verification failed:', response.status);
+                    localStorage.clear();
+                    window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
+                    return;
+                }
 
                 const data = await response.json();
                 currentUser = data.user;
 
                 if (!currentUser || currentUser.role !== 'club_admin') {
-                    window.location.href = 'login.html';
+                    console.error('User is not club admin');
+                    window.location.href = '/login.html';
                     return;
                 }
 
                 if (currentUser.club_status !== 'approved') {
                     showToast('Your club application is pending approval', 'warning');
-                    setTimeout(() => window.location.href = 'index.html', 2000);
+                    setTimeout(() => window.location.href = '/index.html', 2000);
                     return;
                 }
 

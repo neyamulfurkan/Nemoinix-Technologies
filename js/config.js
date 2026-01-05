@@ -6,7 +6,9 @@
 
   // API Configuration
   // Force localhost for development - change this when deploying
-  const API_BASE_URL = 'https://nemoinix-technologies.onrender.com/api';
+  const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000/api' 
+    : 'https://nemoinix-technologies.onrender.com/api';
   
   // Use this for production:
   // const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
