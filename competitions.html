@@ -873,6 +873,25 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* MOBILE FILTER FIX */
+@media (max-width: 1199px) {
+    .mobile-filter-btn {
+        z-index: 10005 !important;
+    }
+    
+    body.filter-open::before {
+        z-index: 10001 !important;
+    }
+    
+    .filters-sidebar {
+        z-index: 10002 !important;
+    }
+    
+    .filter-close-btn {
+        z-index: 10006 !important;
+    }
+}
     </style>
 </head>
 <body>
