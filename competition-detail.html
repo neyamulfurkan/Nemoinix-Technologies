@@ -343,6 +343,57 @@
             grid-template-columns: 280px 1fr;
             gap: 2rem;
         }
+        
+        @media (max-width: 1199px) {
+            .content-wrapper {
+                grid-template-columns: 1fr !important;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .left-sidebar {
+                display: none !important;
+            }
+
+            .content-grid {
+                grid-column: 1 / -1 !important;
+            }
+            
+            .sidebar {
+                display: block !important;
+                position: relative !important;
+                top: 0 !important;
+                margin-bottom: 2rem;
+            }
+            
+            .similar-section {
+                margin-top: 2rem;
+                padding-top: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 0.5rem;
+            }
+            
+            .card {
+                padding: 1rem;
+            }
+            
+            .competition-hero {
+                height: 400px;
+            }
+            
+            .competition-title {
+                font-size: 1.5rem;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
 
         .content-grid {
             grid-column: 2 / 2;
@@ -3081,6 +3132,56 @@
     }
 
     
+</script>
+<script>
+// Mobile menu toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const body = document.body;
+
+    if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isActive = navMenu.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+            
+            if (isActive) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
+            }
+        });
+
+        // Close menu when clicking nav link
+        const navLinks = navMenu.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+    }
+});
 </script>
 </body>
 </html>
