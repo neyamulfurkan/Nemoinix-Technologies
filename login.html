@@ -852,7 +852,7 @@
         // Configuration - ensure we're using the correct API URL
         const API_BASE_URL = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
             ? 'http://localhost:3000/api'
-            : 'https://nemoinix-technologies.onrender.com/api';
+            : 'https://nemionix-technologies.onrender.com/api';
         
         // DOM Elements
         const loginForm = document.getElementById('login-form');
@@ -999,13 +999,13 @@
                     const redirectUrl = (() => {
                         switch(data.user.role) {
                             case 'student':
-                                return 'http://localhost:3000/student-dashboard.html';
+                                return '/student-dashboard.html';
                             case 'club_admin':
-                                return 'http://localhost:3000/club-dashboard.html';
+                                return '/club-dashboard.html';
                             case 'super_admin':
-                                return 'http://localhost:3000/super-admin-dashboard.html';
+                                return '/super-admin-dashboard.html';
                             default:
-                                return 'http://localhost:3000/index.html';
+                                return '/index.html';
                         }
                     })();
                     
@@ -1042,13 +1042,13 @@
             const redirectUrl = (() => {
                 switch(role) {
                     case 'student':
-                        return 'http://localhost:3000/student-dashboard.html';
+                        return '/student-dashboard.html';
                     case 'club_admin':
-                        return 'http://localhost:3000/club-dashboard.html';
+                        return '/club-dashboard.html';
                     case 'super_admin':
-                        return 'http://localhost:3000/super-admin-dashboard.html';
+                        return '/super-admin-dashboard.html';
                     default:
-                        return 'http://localhost:3000/index.html';
+                        return '/index.html';
                 }
             })();
             
