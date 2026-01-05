@@ -33,6 +33,25 @@
         background: var(--gray-50);
     }
     
+    @media (max-width: 768px) {
+        .search-section {
+            padding: 0.75rem 1rem;
+            top: 60px;
+        }
+        
+        .search-box {
+            padding: 0.625rem 0.875rem;
+        }
+        
+        .search-input {
+            font-size: 0.875rem;
+        }
+        
+        .voice-search-btn {
+            display: none;
+        }
+    }
+    
     .search-wrapper {
         max-width: 100%;
         margin: 0 auto;
@@ -286,6 +305,35 @@
         gap: var(--spacing-4);
     }
     
+    @media (max-width: 768px) {
+        .results-bar {
+            flex-direction: column;
+            align-items: stretch;
+            gap: var(--spacing-3);
+        }
+        
+        .results-count {
+            font-size: 0.875rem;
+        }
+        
+        .results-controls {
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        
+        .sort-select,
+        .grid-cols-select {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .view-toggle {
+            order: -1;
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    
     .results-count {
         font-size: 0.9375rem;
         color: var(--gray-600);
@@ -389,14 +437,17 @@
     }
     
     /* Responsive Design */
-    @media (max-width: 1024px) {
+    @media (max-width: 1199px) {
         .main-container {
             grid-template-columns: 1fr;
         }
         
         .filters-sidebar {
-            position: relative;
-            top: 0;
+            display: none;
+        }
+        
+        .mobile-filter-btn {
+            display: flex !important;
         }
         
         .products-grid {
@@ -509,6 +560,20 @@
         color: rgba(255, 255, 255, 0.95);
         max-width: 700px;
         margin: 0 auto;
+    }
+    
+    @media (max-width: 768px) {
+        .page-header {
+            padding: 2rem 0;
+        }
+        
+        .page-header h1 {
+            font-size: 1.75rem;
+        }
+        
+        .page-header p {
+            font-size: 0.9375rem;
+        }
     }
     /* Mobile Filter Sheet - Hidden by Default */
     .filter-sheet-overlay {
@@ -814,6 +879,27 @@
         display: flex;
         flex-direction: column;
         gap: var(--spacing-2);
+    }
+    
+    @media (max-width: 768px) {
+        .product-content {
+            padding: var(--spacing-3);
+            gap: var(--spacing-1);
+        }
+        
+        .product-name {
+            font-size: 0.875rem;
+            min-height: 2.4em;
+        }
+        
+        .current-price {
+            font-size: 1.25rem;
+        }
+        
+        .add-to-cart-btn {
+            padding: var(--spacing-2) var(--spacing-3);
+            font-size: 0.875rem;
+        }
     }
     
     .product-name {
