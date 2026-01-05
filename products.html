@@ -327,7 +327,7 @@
             max-width: 85vw;
             background: white;
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
-            z-index: 10000;
+            z-index: 10001;
             transition: left 0.3s ease;
             overflow-y: auto;
             padding: 4rem 1.5rem 1.5rem;
@@ -351,7 +351,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.6);
-            z-index: 9999;
+            z-index: 10000;
             backdrop-filter: blur(2px);
         }
     }
@@ -1624,20 +1624,7 @@
     <span class="filter-count-badge" id="filterCountBadge">0</span>
 </button>
 
-<!-- Mobile Filter Sheet -->
-<div class="filter-sheet-overlay" id="filterSheetOverlay" onclick="closeFilterSheet()"></div>
-<div class="filter-sheet" id="filterSheet">
-    <div class="filter-sheet-header">
-        <h3>Filters</h3>
-        <button class="clear-filters" onclick="clearAllFilters()">Clear All</button>
-    </div>
-    <!-- Same filter content as sidebar -->
-    <div id="mobileFiltersContent"></div>
-    <div class="filter-sheet-actions">
-        <button class="btn btn-secondary" onclick="closeFilterSheet()">Cancel</button>
-        <button class="btn btn-primary" onclick="applyFiltersAndClose()">Apply Filters</button>
-    </div>
-</div>
+<!-- Mobile filter handled by main sidebar -->
 
 <!-- Quick View Modal -->
 <div class="modal-overlay" id="quickViewModal">
@@ -2639,10 +2626,11 @@ function updateFilterState() {
         const body = document.body;
         
         if (filtersSidebar) {
+            console.log('Opening filter sidebar');
             filtersSidebar.classList.add('active');
             body.classList.add('filter-open');
             
-            // Add backdrop click handler after a delay
+            // Add backdrop click handler after a delay to prevent immediate close
             setTimeout(() => {
                 document.addEventListener('click', handleFilterBackdropClick, true);
             }, 100);
@@ -2654,6 +2642,7 @@ function updateFilterState() {
         const body = document.body;
         
         if (filtersSidebar) {
+            console.log('Closing filter sidebar');
             filtersSidebar.classList.remove('active');
             body.classList.remove('filter-open');
             document.removeEventListener('click', handleFilterBackdropClick, true);
@@ -2663,11 +2652,12 @@ function updateFilterState() {
     function handleFilterBackdropClick(e) {
         const filtersSidebar = document.getElementById('filtersSidebar');
         const mobileFilterBtn = document.querySelector('.mobile-filter-btn');
+        const filterCloseBtn = filtersSidebar ? filtersSidebar.querySelector('.filter-close-btn') : null;
         
         // Close if clicking outside sidebar and not on the filter button
         if (filtersSidebar && 
             !filtersSidebar.contains(e.target) && 
-            !mobileFilterBtn.contains(e.target)) {
+            (!mobileFilterBtn || !mobileFilterBtn.contains(e.target))) {
             e.preventDefault();
             e.stopPropagation();
             closeFilterSheet();
