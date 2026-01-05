@@ -2575,3 +2575,480 @@ a:hover {
     page-break-inside: avoid;
   }
 }
+/* ========================================
+   MOBILE RESPONSIVENESS ENHANCEMENTS
+   ======================================== */
+
+/* Mobile Menu Styles */
+@media (max-width: 1023px) {
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 280px;
+    max-width: 85vw;
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-xl);
+    padding: var(--spacing-8) var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    transition: right 0.3s ease;
+    z-index: var(--z-modal);
+    overflow-y: auto;
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-link {
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--radius-lg);
+    transition: all 0.2s;
+  }
+
+  .nav-link:hover {
+    background: var(--gray-100);
+  }
+
+  .nav-link.active {
+    background: var(--primary-50);
+    color: var(--primary-600);
+  }
+
+  .nav-link.active::after {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+  }
+
+  .mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+  }
+}
+
+/* Mobile Overlay for Menu */
+@media (max-width: 1023px) {
+  .nav-menu.active::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 280px;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: -1;
+  }
+}
+
+/* Filter Sidebar Mobile */
+@media (max-width: 1199px) {
+  .filters-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    width: 320px;
+    max-width: 85vw;
+    background: white;
+    box-shadow: var(--shadow-xl);
+    z-index: var(--z-modal);
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    padding: var(--spacing-6);
+  }
+
+  .filters-sidebar.active {
+    left: 0;
+  }
+
+  .filter-close-btn {
+    position: absolute;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background: var(--gray-100);
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    z-index: 10;
+  }
+
+  .filter-close-btn:hover {
+    background: var(--gray-200);
+    transform: rotate(90deg);
+  }
+
+  .mobile-filter-btn {
+    display: flex !important;
+  }
+}
+
+/* Hero Section Mobile */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 550px;
+    padding: 60px 0;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-badge {
+    font-size: 0.75rem;
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .hero-search form {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .search-button {
+    width: 100%;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: var(--spacing-4);
+    align-items: stretch;
+  }
+
+  .stat-item {
+    padding: var(--spacing-4);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .hero-illustration {
+    display: none;
+  }
+}
+
+/* Grids Mobile Responsive */
+@media (max-width: 639px) {
+  .competitions-grid,
+  .products-grid,
+  .clubs-grid,
+  .features-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--spacing-4);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .competitions-grid,
+  .products-grid,
+  .clubs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Cards Mobile Optimization */
+@media (max-width: 768px) {
+  .card {
+    padding: var(--spacing-4);
+  }
+
+  .card-product,
+  .card-competition,
+  .club-card {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .product-name,
+  .competition-title,
+  .club-name {
+    font-size: 0.9375rem;
+  }
+}
+
+/* Section Spacing Mobile */
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+  }
+}
+
+/* Footer Mobile */
+@media (max-width: 768px) {
+  .footer {
+    padding: var(--spacing-12) 0 var(--spacing-6);
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-4);
+  }
+
+  .footer-bottom-links {
+    justify-content: center;
+  }
+}
+
+/* Modal Mobile */
+@media (max-width: 640px) {
+  .modal {
+    max-width: 100%;
+    margin: 0;
+    border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+    max-height: 95vh;
+  }
+
+  .modal-content {
+    padding: var(--spacing-4);
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+}
+
+/* Toast Mobile */
+@media (max-width: 640px) {
+  .toast-container {
+    left: var(--spacing-4);
+    right: var(--spacing-4);
+    bottom: var(--spacing-4);
+  }
+
+  .toast {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+/* Table Responsive Wrapper */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: var(--spacing-4);
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-base);
+  }
+
+  .table {
+    min-width: 600px;
+  }
+
+  .table thead th {
+    padding: var(--spacing-3) var(--spacing-4);
+    font-size: 0.75rem;
+  }
+
+  .table tbody td {
+    padding: var(--spacing-3) var(--spacing-4);
+    font-size: 0.875rem;
+  }
+}
+
+/* Buttons Mobile */
+@media (max-width: 640px) {
+  .btn-group {
+    flex-direction: column;
+  }
+
+  .btn-group .btn {
+    width: 100%;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+  }
+
+  .btn-cta-primary,
+  .btn-cta-secondary {
+    width: 100%;
+  }
+}
+
+/* Form Elements Mobile */
+@media (max-width: 640px) {
+  .form-input,
+  .form-textarea,
+  .form-select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Logo Mobile */
+@media (max-width: 640px) {
+  .logo-name {
+    font-size: 1rem;
+  }
+
+  .logo-tagline {
+    font-size: 0.65rem;
+  }
+
+  .logo-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Competition Detail Page Mobile */
+@media (max-width: 1199px) {
+  .content-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+
+  .left-sidebar {
+    position: relative;
+    top: 0;
+    width: 100%;
+    margin-bottom: var(--spacing-6);
+  }
+
+  .sidebar {
+    position: relative;
+    top: 0;
+  }
+}
+
+/* How It Works Mobile */
+@media (max-width: 768px) {
+  .guide-tabs {
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .guide-tab {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .step-card {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+    padding: var(--spacing-6);
+  }
+
+  .step-number {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    margin: 0 auto;
+  }
+}
+
+/* Touch-Active States for Mobile */
+.touch-active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* Prevent Horizontal Scroll */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Safe Area Insets for iOS */
+@supports (padding: max(0px)) {
+  .navbar,
+  .footer,
+  .modal {
+    padding-left: max(var(--spacing-4), env(safe-area-inset-left));
+    padding-right: max(var(--spacing-4), env(safe-area-inset-right));
+  }
+
+  .nav-menu.active {
+    padding-bottom: max(var(--spacing-8), env(safe-area-inset-bottom));
+  }
+}
+
+/* Orientation Changes */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero {
+    min-height: 400px;
+  }
+
+  .nav-menu {
+    padding: var(--spacing-4);
+  }
+}
