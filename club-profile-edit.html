@@ -1708,7 +1708,11 @@
 
             // Make API call with FormData
             const token = localStorage.getItem('token');
-            const response = await fetch(`${window.API_BASE_URL || 'http://localhost:3000/api'}/club-admin/profile`, {
+            const API_BASE_URL = window.CONFIG && window.CONFIG.API_BASE_URL ? window.CONFIG.API_BASE_URL : 
+                (window.location.hostname === 'localhost' 
+                    ? 'http://localhost:3000/api' 
+                    : 'https://nemoinix-technologies.onrender.com/api');
+            const response = await fetch(`${API_BASE_URL}/club-admin/profile`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -1808,7 +1812,11 @@
             delete headers['Content-Type'];
         }
 
-        const response = await fetch(`${window.API_BASE_URL || 'http://localhost:3000/api'}${endpoint}`, {
+        const API_BASE_URL = window.CONFIG && window.CONFIG.API_BASE_URL ? window.CONFIG.API_BASE_URL : 
+            (window.location.hostname === 'localhost' 
+                ? 'http://localhost:3000/api' 
+                : 'https://nemoinix-technologies.onrender.com/api');
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
             ...options,
             headers
         });
