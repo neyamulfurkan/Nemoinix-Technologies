@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Fulfillment - Nemionix Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-500: #1991EB;
+            --primary-600: #1474BC;
+            --primary-700: #0F578D;
+            --primary-50: #E8F4FD;
+            --secondary-500: #19B969;
+            --accent-500: #FF9119;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-500);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-500);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: var(--gray-50);
+            color: var(--primary-500);
+        }
+
+        .nav-link.active {
+            background: rgba(25, 145, 235, 0.1);
+            color: var(--primary-500);
+            border-right: 3px solid var(--primary-500);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .order-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-warning { background: rgba(245, 158, 11, 0.1); color: #D97706; }
+        .badge-info { background: rgba(59, 130, 246, 0.1); color: #2563EB; }
+        .badge-primary { background: rgba(25, 145, 235, 0.1); color: var(--primary-500); }
+        .badge-success { background: rgba(16, 185, 129, 0.1); color: #059669; }
+        .badge-error { background: rgba(239, 68, 68, 0.1); color: #DC2626; }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        /* Grid Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-base);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Customer Info */
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+        }
+
+        .info-value {
+            color: var(--gray-900);
+            font-size: 0.875rem;
+            text-align: right;
+        }
+
+        .address-block {
+            background: var(--gray-50);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            color: var(--gray-700);
+            line-height: 1.7;
+            margin-top: 0.5rem;
+        }
+
+        /* Order Items */
+        .order-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1rem;
+        }
+
+        .order-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            border: 2px solid white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .item-meta {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: var(--primary-500);
+            font-size: 1.125rem;
+        }
+
+        .items-total {
+            background: var(--primary-50);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        /* Payment Info */
+        .payment-screenshot {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .payment-screenshot img {
+            max-width: 100%;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--gray-200);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-screenshot img:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 0.625rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gray-200);
+        }
+
+        .timeline-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(180deg, var(--primary-500), var(--secondary-500));
+            transition: height 0.5s ease;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--gray-300);
+            transition: all 0.3s;
+        }
+
+        .timeline-item.completed .timeline-dot {
+            border-color: var(--primary-500);
+            background: var(--primary-500);
+        }
+
+        .timeline-item.active .timeline-dot {
+            border-color: var(--primary-500);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(25, 145, 235, 0.2);
+        }
+
+        .timeline-dot svg {
+            width: 0.625rem;
+            height: 0.625rem;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+
+        .timeline-item.completed .timeline-content {
+            background: var(--gray-50);
+        }
+
+        .timeline-item.active .timeline-content {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-time {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        /* Actions Section */
+        .actions-card {
+            background: linear-gradient(135deg, var(--primary-50), white);
+            border: 2px solid var(--primary-200);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-500);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-600);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--error);
+            border: 2px solid var(--error);
+        }
+
+        .btn-danger:hover {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-500);
+            color: var(--primary-500);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Shipping Form */
+        .shipping-form {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--primary-200);
+        }
+
+        .shipping-form.show {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .required {
+            color: var(--error);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(25, 145, 235, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-help {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 0.25rem;
+        }
+
+        /* Notes Section */
+        .notes-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .note-item {
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--primary-500);
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .note-author {
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 0.875rem;
+        }
+
+        .note-time {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .note-text {
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-xl);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-500);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        /* Loading & Toast */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary-500);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast-success { border-left: 4px solid var(--success); }
+        .toast-error { border-left: 4px solid var(--error); }
+        .toast-info { border-left: 4px solid var(--info); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .header-top {
+                flex-direction: column;
+            }
+
+            .order-item {
+                flex-direction: column;
+            }
+
+            .item-image {
+                width: 100%;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">NX</div>
+                    Nemionix
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Dashboard</div>
+                <a href="club-dashboard.html" class="nav-link">
+                    <span>🏠</span> Dashboard
+                </a>
+                <a href="manage-orders.html" class="nav-link active">
+                    <span>📦</span> Orders
+                </a>
+                <a href="manage-products.html" class="nav-link">
+                    <span>🛍️</span> Products
+                </a>
+                <a href="manage-competitions.html" class="nav-link">
+                    <span>🏆</span> Competitions
+                </a>
+                <a href="my-earnings.html" class="nav-link">
+                    <span>💰</span> Earnings
+                </a>
+                <a href="reward-status.html" class="nav-link">
+                    <span>🏅</span> Rewards
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-top">
+                    <div>
+                        <h1 class="page-title" id="page-title">Order #BD12345</h1>
+                        <div class="order-meta">
+                            <div class="meta-item">
+                                <span>📅</span>
+                                <span id="order-date">Loading...</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>👤</span>
+                                <span id="customer-name">Loading...</span>
+                            </div>
+                            <div class="badge badge-warning" id="status-badge">Pending</div>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" onclick="window.history.back()">
+                            ← Back to Orders
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Left Column -->
+                <div>
+                    <!-- Customer Information -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="card-icon">👤</span>
+                                Customer Information
+                            </h2>
+                            <button class="btn btn-secondary" onclick="copyAddress()">
+                                📋 Copy Address
+                            </button>
+                        </div>
+                        <div id="customer-info">
+                            <!-- Loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Order Items -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="card-icon">📦</span>
+                                Order Items
+                            </h2>
+                            <span class="badge badge-info" id="items-count">0 Items</span>
+                        </div>
+                        <div id="order-items">
+                            <!-- Loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Order Notes -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="card-icon">📝</span>
+                                Internal Notes
+                            </h2>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-textarea" id="new-note" placeholder="Add a note for internal reference..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="addNote()">Add Note</button>
+                        <div class="notes-list" id="notes-list" style="margin-top: 1rem;">
+                            <!-- Notes loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div>
+                    <!-- Payment Information -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="card-icon">💳</span>
+                                Payment Details
+                            </h2>
+                        </div>
+                        <div id="payment-info">
+                            <!-- Loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Status Timeline -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="card-icon">⏱️</span>
+                                Order Timeline
+                            </h2>
+                        </div>
+                        <div class="timeline" id="timeline">
+                            <!-- Loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="card actions-card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="card-icon">⚡</span>
+                                Actions
+                            </h2>
+                        </div>
+                        <div class="action-buttons" id="action-buttons">
+                            <!-- Loaded dynamically based on status -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Reject Order Modal -->
+    <div class="modal" id="reject-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reject Order</h3>
+                <button class="modal-close" onclick="closeModal('reject-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 1rem; color: var(--gray-700);">
+                    Please provide a reason for rejecting this order. The customer will be notified.
+                </p>
+                <div class="form-group">
+                    <label class="form-label">Rejection Reason <span class="required">*</span></label>
+                    <select class="form-select" id="reject-reason">
+                        <option value="">Select a reason</option>
+                        <option value="Out of stock">Out of stock</option>
+                        <option value="Product discontinued">Product discontinued</option>
+                        <option value="Pricing error">Pricing error</option>
+                        <option value="Cannot fulfill delivery">Cannot fulfill delivery</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Additional Details</label>
+                    <textarea class="form-textarea" id="reject-details" placeholder="Provide more information..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('reject-modal')">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmReject()">Reject Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div class="modal" id="image-modal" onclick="closeModal('image-modal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title">Payment Screenshot</h3>
+                <button class="modal-close" onclick="closeModal('image-modal')">×</button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <img id="<img id="lightbox-image" src="" alt="Payment Screenshot" style="max-width: 100%; border-radius: 12px;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = 'http://localhost:3000/api';
+        
+        // State
+        let currentOrder = null;
+        let currentUser = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadOrderDetails();
+        });
+
+        // Check Authentication
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || 'null');
+
+            if (!token || !user || user.role !== 'club_admin') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            currentUser = user;
+        }
+
+        function getToken() {
+            return localStorage.getItem('token');
+        }
+
+        // Get Order ID from URL
+        function getOrderId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // Load Order Details
+        async function loadOrderDetails() {
+            const orderId = getOrderId();
+            
+            if (!orderId) {
+                showToast('No order ID provided', 'error');
+                setTimeout(() => window.location.href = 'manage-orders.html', 2000);
+                return;
+            }
+
+            try {
+                showLoading();
+                
+                const token = getToken();
+                const response = await fetch(`${API_BASE_URL}/club-admin/orders/${orderId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to load order details');
+                }
+
+                const data = await response.json();
+                currentOrder = data.order;
+                
+                renderOrderDetails();
+                
+            } catch (error) {
+                console.error('Error loading order:', error);
+                showToast('Failed to load order details', 'error');
+                setTimeout(() => window.location.href = 'manage-orders.html', 2000);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Render Order Details
+        function renderOrderDetails() {
+            // Header
+            document.getElementById('page-title').textContent = `Order #${currentOrder.order_number}`;
+            document.getElementById('order-date').textContent = formatDateTime(currentOrder.created_at);
+            document.getElementById('customer-name').textContent = currentOrder.customer_name;
+            
+            const statusBadge = document.getElementById('status-badge');
+            statusBadge.textContent = formatStatus(currentOrder.order_status);
+            statusBadge.className = `badge badge-${getStatusClass(currentOrder.order_status)}`;
+
+            // Customer Info
+            renderCustomerInfo();
+            
+            // Order Items
+            renderOrderItems();
+            
+            // Payment Info
+            renderPaymentInfo();
+            
+            // Timeline
+            renderTimeline();
+            
+            // Actions
+            renderActions();
+            
+            // Load Notes
+            loadNotes();
+        }
+
+        // Render Customer Info
+        function renderCustomerInfo() {
+            const container = document.getElementById('customer-info');
+            container.innerHTML = `
+                <div class="info-row">
+                    <span class="info-label">Name:</span>
+                    <span class="info-value">${currentOrder.customer_name}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Phone:</span>
+                    <span class="info-value">${currentOrder.customer_phone}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">${currentOrder.customer_email}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Delivery Address:</span>
+                </div>
+                <div class="address-block" id="delivery-address">
+                    ${currentOrder.delivery_address}<br>
+                    ${currentOrder.delivery_city}, ${currentOrder.delivery_district}<br>
+                    ${currentOrder.delivery_division} - ${currentOrder.delivery_postal_code}
+                </div>
+            `;
+        }
+
+        // Render Order Items
+        function renderOrderItems() {
+            const container = document.getElementById('order-items');
+            const itemsCount = document.getElementById('items-count');
+            
+            itemsCount.textContent = `${currentOrder.items.length} ${currentOrder.items.length === 1 ? 'Item' : 'Items'}`;
+            
+            const itemsHTML = currentOrder.items.map(item => `
+                <div class="order-item">
+                    <img src="${item.product_image || '/assets/default-product.png'}" alt="${item.product_name}" class="item-image">
+                    <div class="item-details">
+                        <div class="item-name">${item.product_name}</div>
+                        <div class="item-meta">
+                            <span>Qty: ${item.quantity}</span>
+                            <span>₹${item.price.toLocaleString('en-BD')} each</span>
+                        </div>
+                    </div>
+                    <div class="item-price">৳${item.subtotal.toLocaleString('en-BD')}</div>
+                </div>
+            `).join('');
+            
+            const total = currentOrder.items.reduce((sum, item) => sum + item.subtotal, 0);
+            
+            container.innerHTML = itemsHTML + `
+                <div class="items-total">
+                    <span>Total Amount:</span>
+                    <span>৳${total.toLocaleString('en-BD')}</span>
+                </div>
+            `;
+        }
+
+        // Render Payment Info
+        function renderPaymentInfo() {
+            const container = document.getElementById('payment-info');
+            
+            let paymentHTML = `
+                <div class="info-row">
+                    <span class="info-label">Payment Method:</span>
+                    <span class="info-value">${formatPaymentMethod(currentOrder.payment_method)}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Payment Status:</span>
+                    <span class="info-value">
+                        <span class="badge badge-${getStatusClass(currentOrder.payment_status)}">
+                            ${formatStatus(currentOrder.payment_status)}
+                        </span>
+                    </span>
+                </div>
+            `;
+            
+            if (currentOrder.transaction_id) {
+                paymentHTML += `
+                    <div class="info-row">
+                        <span class="info-label">Transaction ID:</span>
+                        <span class="info-value">${currentOrder.transaction_id}</span>
+                    </div>
+                `;
+            }
+            
+            paymentHTML += `
+                <div class="info-row">
+                    <span class="info-label">Total Amount:</span>
+                    <span class="info-value" style="font-weight: 700; color: var(--primary-500);">৳${currentOrder.grand_total.toLocaleString('en-BD')}</span>
+                </div>
+            `;
+            
+            if (currentOrder.payment_screenshot_url) {
+                paymentHTML += `
+                    <div class="payment-screenshot" style="margin-top: 1rem;">
+                        <img src="${currentOrder.payment_screenshot_url}" alt="Payment Screenshot" onclick="showImageLightbox('${currentOrder.payment_screenshot_url}')" style="max-width: 100%; border-radius: 0.75rem; border: 2px solid var(--gray-200); cursor: pointer; transition: all 0.3s;">
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = paymentHTML;
+        }
+
+        // Render Timeline
+        function renderTimeline() {
+            const container = document.getElementById('timeline');
+            const statuses = ['pending', 'confirmed', 'processing', 'shipped', 'delivered'];
+            const currentStatusIndex = statuses.indexOf(currentOrder.order_status);
+            const progressPercentage = ((currentStatusIndex + 1) / statuses.length) * 100;
+            
+            const timelineItems = [
+                { status: 'pending', title: 'Order Placed', time: currentOrder.created_at },
+                { status: 'confirmed', title: 'Order Confirmed', time: currentOrder.confirmed_at },
+                { status: 'processing', title: 'Processing', time: currentOrder.processing_at },
+                { status: 'shipped', title: 'Shipped', time: currentOrder.shipped_at },
+                { status: 'delivered', title: 'Delivered', time: currentOrder.delivered_at }
+            ];
+            
+            let timelineHTML = `
+                <div class="timeline-line">
+                    <div class="timeline-progress" style="height: ${progressPercentage}%"></div>
+                </div>
+            `;
+            
+            timelineHTML += timelineItems.map((item, index) => {
+                const isCompleted = statuses.indexOf(item.status) < currentStatusIndex;
+                const isActive = item.status === currentOrder.order_status;
+                
+                if (!isCompleted && !isActive) return '';
+                
+                return `
+                    <div class="timeline-item ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''}">
+                        <div class="timeline-dot">
+                            ${isCompleted ? '<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>' : ''}
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">${item.title}</div>
+                            ${item.time ? `<div class="timeline-time">${formatDateTime(item.time)}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            container.innerHTML = timelineHTML;
+        }
+
+        // Render Actions
+        function renderActions() {
+            const container = document.getElementById('action-buttons');
+            let actionsHTML = '';
+            
+            if (currentOrder.order_status === 'pending') {
+                actionsHTML = `
+                    <button class="btn btn-success" onclick="confirmOrder()">
+                        ✓ Confirm Order
+                    </button>
+                    <button class="btn btn-danger" onclick="openRejectModal()">
+                        ✗ Reject Order
+                    </button>
+                `;
+            } else if (currentOrder.order_status === 'confirmed' || currentOrder.order_status === 'processing') {
+                actionsHTML = `
+                    <button class="btn btn-primary" onclick="toggleShippingForm()">
+                        🚚 Mark as Shipped
+                    </button>
+                    <div class="shipping-form" id="shipping-form">
+                        <div class="form-group">
+                            <label class="form-label">Courier Name <span class="required">*</span></label>
+                            <select class="form-select" id="courier-name">
+                                <option value="">Select Courier</option>
+                                <option value="Sundarban Courier">Sundarban Courier</option>
+                                <option value="Pathao">Pathao</option>
+                                <option value="Paperfly">Paperfly</option>
+                                <option value="RedX">RedX</option>
+                                <option value="SA Paribahan">SA Paribahan</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tracking Number <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="tracking-number" placeholder="Enter tracking number">
+                            <div class="form-help">Enter the courier's tracking number for this shipment</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Shipping Notes (Optional)</label>
+                            <textarea class="form-textarea" id="shipping-notes" placeholder="Add any shipping notes..."></textarea>
+                        </div>
+                        <button class="btn btn-success" onclick="submitShipping()">Submit Shipping Details</button>
+                    </div>
+                `;
+            } else if (currentOrder.order_status === 'shipped') {
+                actionsHTML = `
+                    <div style="background: var(--gray-50); padding: 1rem; border-radius: var(--radius-lg); margin-bottom: 1rem;">
+                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Tracking Information:</div>
+                        <div style="font-size: 0.875rem; color: var(--gray-700);">
+                            <strong>Courier:</strong> ${currentOrder.courier_name || 'N/A'}<br>
+                            <strong>Tracking #:</strong> ${currentOrder.tracking_number || 'N/A'}
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="updateTracking()">
+                        Update Tracking Info
+                    </button>
+                `;
+            } else if (currentOrder.order_status === 'delivered') {
+                actionsHTML = `
+                    <div style="background: var(--success); color: white; padding: 1rem; border-radius: var(--radius-lg); text-align: center; font-weight: 600;">
+                        ✓ Order Successfully Delivered
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = actionsHTML;
+        }
+
+        // Confirm Order
+        async function confirmOrder() {
+            if (!confirm('Confirm this order? The customer will be notified.')) return;
+            
+            try {
+                showLoading();
+                
+                const token = getToken();
+                const response = await fetch(`${API_BASE_URL}/club-admin/orders/${currentOrder.id}/confirm`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to confirm order');
+                
+                showToast('Order confirmed successfully!', 'success');
+                await loadOrderDetails();
+                
+            } catch (error) {
+                console.error('Error confirming order:', error);
+                showToast('Failed to confirm order', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Open Reject Modal
+        function openRejectModal() {
+            document.getElementById('reject-modal').classList.add('show');
+        }
+
+        // Confirm Reject
+        async function confirmReject() {
+            const reason = document.getElementById('reject-reason').value;
+            const details = document.getElementById('reject-details').value;
+            
+            if (!reason) {
+                showToast('Please select a rejection reason', 'error');
+                return;
+            }
+            
+            try {
+                showLoading();
+                closeModal('reject-modal');
+                
+                const token = getToken();
+                const response = await fetch(`${API_BASE_URL}/club-admin/orders/${currentOrder.id}/reject`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ reason, details })
+                });
+
+                if (!response.ok) throw new Error('Failed to reject order');
+                
+                showToast('Order rejected', 'success');
+                setTimeout(() => window.location.href = 'manage-orders.html', 2000);
+                
+            } catch (error) {
+                console.error('Error rejecting order:', error);
+                showToast('Failed to reject order', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Toggle Shipping Form
+        function toggleShippingForm() {
+            const form = document.getElementById('shipping-form');
+            form.classList.toggle('show');
+        }
+
+        // Submit Shipping
+        async function submitShipping() {
+            const courierName = document.getElementById('courier-name').value;
+            const trackingNumber = document.getElementById('tracking-number').value;
+            const notes = document.getElementById('shipping-notes').value;
+            
+            if (!courierName || !trackingNumber) {
+                showToast('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            if (trackingNumber.length < 5) {
+                showToast('Please enter a valid tracking number', 'error');
+                return;
+            }
+            
+            try {
+                showLoading();
+                
+                const token = getToken();
+                const response = await fetch(`${API_BASE_URL}/club-admin/orders/${currentOrder.id}/ship`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        courier_name: courierName,
+                        tracking_number: trackingNumber,
+                        notes
+                    })
+                });
+
+                if (!response.ok) throw new Error('Failed to mark as shipped');
+                
+                showToast('Order marked as shipped successfully!', 'success');
+                await loadOrderDetails();
+                
+            } catch (error) {
+                console.error('Error shipping order:', error);
+                showToast('Failed to update shipping status', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Update Tracking
+        function updateTracking() {
+            // Reopen shipping form with current values
+            const actionsContainer = document.getElementById('action-buttons');
+            actionsContainer.innerHTML = `
+                <div class="shipping-form show">
+                    <div class="form-group">
+                        <label class="form-label">Courier Name <span class="required">*</span></label>
+                        <select class="form-select" id="courier-name">
+                            <option value="">Select Courier</option>
+                            <option value="Sundarban Courier" ${currentOrder.courier_name === 'Sundarban Courier' ? 'selected' : ''}>Sundarban Courier</option>
+                            <option value="Pathao" ${currentOrder.courier_name === 'Pathao' ? 'selected' : ''}>Pathao</option>
+                            <option value="Paperfly" ${currentOrder.courier_name === 'Paperfly' ? 'selected' : ''}>Paperfly</option>
+                            <option value="RedX" ${currentOrder.courier_name === 'RedX' ? 'selected' : ''}>RedX</option>
+                            <option value="SA Paribahan" ${currentOrder.courier_name === 'SA Paribahan' ? 'selected' : ''}>SA Paribahan</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tracking Number <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="tracking-number" value="${currentOrder.tracking_number || ''}" placeholder="Enter tracking number">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Shipping Notes (Optional)</label>
+                        <textarea class="form-textarea" id="shipping-notes" placeholder="Add any shipping notes..."></textarea>
+                    </div>
+                    <button class="btn btn-success" onclick="submitShipping()">Update Shipping Details</button>
+                    <button class="btn btn-secondary" onclick="renderActions()">Cancel</button>
+                </div>
+            `;
+        }
+
+        // Load Notes
+        async function loadNotes() {
+            try {
+                const token = getToken();
+                const response = await fetch(`${API_BASE_URL}/club-admin/orders/${currentOrder.id}/notes`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to load notes');
+                
+                const data = await response.json();
+                renderNotes(data.notes || []);
+                
+            } catch (error) {
+                console.error('Error loading notes:', error);
+            }
+        }
+
+        // Render Notes
+        function renderNotes(notes) {
+            const container = document.getElementById('notes-list');
+            
+            if (notes.length === 0) {
+                container.innerHTML = '<p style="color: var(--gray-500); font-size: 0.875rem; text-align: center; padding: 1rem;">No notes yet</p>';
+                return;
+            }
+            
+            container.innerHTML = notes.map(note => `
+                <div class="note-item">
+                    <div class="note-header">
+                        <span class="note-author">${note.author_name}</span>
+                        <span class="note-time">${formatDateTime(note.created_at)}</span>
+                    </div>
+                    <div class="note-text">${note.note_text}</div>
+                </div>
+            `).join('');
+        }
+
+        // Add Note
+        async function addNote() {
+            const noteText = document.getElementById('new-note').value.trim();
+            
+            if (!noteText) {
+                showToast('Please enter a note', 'error');
+                return;
+            }
+            
+            try {
+                showLoading();
+                
+                const token = getToken();
+                const response = await fetch(`${API_BASE_URL}/club-admin/orders/${currentOrder.id}/notes`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ note_text: noteText })
+                });
+
+                if (!response.ok) throw new Error('Failed to add note');
+                
+                document.getElementById('new-note').value = '';
+                showToast('Note added successfully', 'success');
+                await loadNotes();
+                
+            } catch (error) {
+                console.error('Error adding note:', error);
+                showToast('Failed to add note', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Copy Address
+        function copyAddress() {
+            const addressBlock = document.getElementById('delivery-address');
+            const address = addressBlock.textContent.trim();
+            
+            navigator.clipboard.writeText(address).then(() => {
+                showToast('Address copied to clipboard!', 'success');
+            }).catch(() => {
+                showToast('Failed to copy address', 'error');
+            });
+        }
+
+        // Show Image Lightbox
+        function showImageLightbox(imageUrl) {
+            document.getElementById('lightbox-image').src = imageUrl;
+            document.getElementById('image-modal').classList.add('show');
+        }
+
+        // Close Modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // Format Functions
+        function formatDateTime(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-BD', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatStatus(status) {
+            const statusMap = {
+                'pending': 'Pending',
+                'confirmed': 'Confirmed',
+                'processing': 'Processing',
+                'shipped': 'Shipped',
+                'delivered': 'Delivered',
+                'cancelled': 'Cancelled',
+                'verified': 'Verified'
+            };
+            return statusMap[status] || status;
+        }
+
+        function formatPaymentMethod(method) {
+            const methodMap = {
+                'cash_on_delivery': 'Cash on Delivery',
+                'bkash': 'bKash',
+                'nagad': 'Nagad',
+                'rocket': 'Rocket'
+            };
+            return methodMap[method] || method;
+        }
+
+        function getStatusClass(status) {
+            const classMap = {
+                'pending': 'warning',
+                'confirmed': 'info',
+                'processing': 'info',
+                'shipped': 'primary',
+                'delivered': 'success',
+                'cancelled': 'error',
+                'verified': 'success'
+            };
+            return classMap[status] || 'info';
+        }
+
+        // Loading & Toast
+        function showLoading() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        function showToast(message, type = 'info') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <span>${type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ'}</span>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('show');
+            }
+        }
+    </script>
+</body>
+</html>

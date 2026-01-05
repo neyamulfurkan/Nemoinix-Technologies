@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Clubs - Super Admin | Nemionix Technologies</title>
+    <meta name="description" content="Manage all university robotics clubs on the Nemionix platform">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-50: #FFF8E1;
+            --primary-100: #FFECB3;
+            --primary-500: #FFC107;
+            --primary-600: #FFB300;
+            --primary-700: #FFA000;
+            --secondary-500: #1991EB;
+            --secondary-600: #1474BC;
+            --accent-500: #FF9119;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+            --tier-bronze: #CD7F32;
+            --tier-silver: #C0C0C0;
+            --tier-gold: #FFD700;
+            --tier-platinum: #E5E4E2;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .navbar-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--gray-900);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.25rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logo-text h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, var(--error), #DC2626);
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-500);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - 72px);
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            position: fixed;
+            height: calc(100vh - 72px);
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-500);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem;
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: var(--gray-50);
+            color: var(--primary-600);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 193, 7, 0.1);
+            color: var(--primary-600);
+            border-right: 3px solid var(--primary-500);
+            font-weight: 600;
+        }
+
+        .nav-link-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-badge {
+            background: var(--error);
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: var(--gray-600);
+            font-size: 0.9375rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .stat-card.total::before {
+            background: linear-gradient(90deg, var(--info), #2563EB);
+        }
+
+        .stat-card.approved::before {
+            background: linear-gradient(90deg, var(--success), #059669);
+        }
+
+        .stat-card.pending::before {
+            background: linear-gradient(90deg, var(--warning), #D97706);
+        }
+
+        .stat-card.suspended::before {
+            background: linear-gradient(90deg, var(--error), #DC2626);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            color: var(--gray-900);
+        }
+
+        /* Filters Section */
+        .filters-section {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-base);
+            margin-bottom: 2rem;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .filter-input,
+        .filter-select {
+            padding: 0.625rem 0.875rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .filter-input:focus,
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        /* Clubs Table */
+        .clubs-table-container {
+            background: white;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-base);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .bulk-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .bulk-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-500);
+        }
+
+        .bulk-actions-dropdown {
+            position: relative;
+        }
+
+        .bulk-btn {
+            padding: 0.5rem 1rem;
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bulk-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.5rem;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            min-width: 200px;
+            z-index: 100;
+        }
+
+        .bulk-menu.show {
+            display: block;
+        }
+
+        .bulk-menu-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bulk-menu-item:hover {
+            background: var(--gray-50);
+        }
+
+        .bulk-menu-item.danger {
+            color: var(--error);
+        }
+
+        .bulk-menu-item.danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        thead {
+            background: var(--gray-50);
+        }
+
+        th {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-700);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th.sortable:hover {
+            background: var(--gray-100);
+        }
+
+        td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.875rem;
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        .club-info-cell {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .club-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .club-details {
+            flex: 1;
+        }
+
+        .club-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .club-university {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-approved {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-suspended {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .status-rejected {
+            background: rgba(107, 114, 128, 0.1);
+            color: var(--gray-600);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-approved .status-dot {
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        .status-pending .status-dot {
+            background: var(--warning);
+            box-shadow: 0 0 8px var(--warning);
+        }
+
+        .status-suspended .status-dot {
+            background: var(--error);
+            box-shadow: 0 0 8px var(--error);
+        }
+
+        .tier-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .tier-bronze {
+            background: linear-gradient(135deg, var(--tier-bronze), #B87333);
+            color: white;
+        }
+
+        .tier-silver {
+            background: linear-gradient(135deg, var(--tier-silver), #A8A8A8);
+            color: white;
+        }
+
+        .tier-gold {
+            background: linear-gradient(135deg, var(--tier-gold), #FFA500);
+            color: white;
+        }
+
+        .tier-platinum {
+            background: linear-gradient(135deg, var(--tier-platinum), #B4B4B4);
+            color: #333;
+        }
+
+        .actions-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .action-btn-view {
+            background: var(--info);
+            color: white;
+        }
+
+        .action-btn-view:hover {
+            background: #2563EB;
+            transform: translateY(-1px);
+        }
+
+        .action-btn-suspend {
+            background: var(--warning);
+            color: white;
+        }
+
+        .action-btn-suspend:hover {
+            background: #D97706;
+            transform: translateY(-1px);
+        }
+
+        .action-btn-delete {
+            background: var(--error);
+            color: white;
+        }
+
+        .action-btn-delete:hover {
+            background: #DC2626;
+            transform: translateY(-1px);
+        }
+
+        .action-btn-logs {
+            background: var(--gray-600);
+            color: white;
+        }
+
+        .action-btn-logs:hover {
+            background: var(--gray-700);
+            transform: translateY(-1px);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .pagination-info {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .pagination-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .page-btn {
+            padding: 0.5rem 0.875rem;
+            border: 1px solid var(--gray-300);
+            background: white;
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--gray-50);
+            border-color: var(--primary-500);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-btn.active {
+            background: var(--primary-500);
+            color: white;
+            border-color: var(--primary-500);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--radius-2xl);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-500);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-text {
+            color: var(--gray-700);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        /* Loading */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary-500);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 10001;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--error);
+        }
+
+        .toast-info {
+            border-left: 4px solid var(--info);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-text {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1280px) {
+            .filters-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .filters-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                min-width: 900px;
+                font-size: 0.8125rem;
+            }
+
+            .action-btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .pagination {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        .club-logo.error {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.25rem;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">NX</div>
+                <div class="logo-text">
+                    <h1>Nemionix Technologies</h1>
+                    <p>Engineering the Future, Today</p>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <div class="admin-badge">SUPER ADMIN</div>
+                <div class="user-info">
+                    <img src="assets/default-avatar.png" alt="Admin" class="user-avatar" id="userAvatar">
+                    <span id="userName">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Overview</div>
+                <a href="super-admin-dashboard.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </div>
+                </a>
+
+                <div class="nav-section-title">Management</div>
+                <a href="manage-clubs.html" class="nav-link active">
+                    <div class="nav-link-content">
+                        <span>🏢</span>
+                        <span>Manage Clubs</span>
+                    </div>
+                </a>
+                <a href="club-applications.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📝</span>
+                        <span>Club Applications</span>
+                    </div>
+                    <span class="nav-badge" id="pendingClubsBadge">0</span>
+                </a>
+                <a href="manage-users.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>👥</span>
+                        <span>Manage Users</span>
+                    </div>
+                </a>
+                <a href="manage-all-products.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📦</span>
+                        <span>Manage Products</span>
+                    </div>
+                </a>
+                <a href="manage-all-competitions.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>🏆</span>
+                        <span>Manage Competitions</span>
+                    </div>
+                </a>
+                <a href="manage-all-orders.html" class="nav-link">
+<div class="nav-link-content">
+<span>🛒</span>
+<span>Orders Overview</span>
+</div>
+</a>
+            <div class="nav-section-title">Financial</div>
+            <a href="financial-admin.html" class="nav-link">
+                <div class="nav-link-content">
+                    <span>💰</span>
+                    <span>Financial Management</span>
+                </div>
+            </a>
+            <a href="reward-system-admin.html" class="nav-link">
+                <div class="nav-link-content">
+                    <span>🏅</span>
+                    <span>Reward System</span>
+                </div>
+            </a>
+
+            <div class="nav-section-title">System</div>
+            <a href="platform-settings.html" class="nav-link">
+                <div class="nav-link-content">
+                    <span>⚙️</span>
+                    <span>Platform Settings</span>
+                </div>
+            </a>
+            <a href="analytics.html" class="nav-link">
+                <div class="nav-link-content">
+                    <span>📈</span>
+                    <span>Analytics</span>
+                </div>
+            </a>
+            <a href="activity-logs.html" class="nav-link">
+                <div class="nav-link-content">
+                    <span>📋</span>
+                    <span>Activity Logs</span>
+                </div>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Manage Clubs</h1>
+            <p class="page-subtitle">View and manage all university robotics clubs on the platform</p>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-card total">
+                <div class="stat-label">Total Clubs</div>
+                <div class="stat-value" id="totalClubs">0</div>
+            </div>
+            <div class="stat-card approved">
+                <div class="stat-label">Approved</div>
+                <div class="stat-value" id="approvedClubs">0</div>
+            </div>
+            <div class="stat-card pending">
+                <div class="stat-label">Pending</div>
+                <div class="stat-value" id="pendingClubs">0</div>
+            </div>
+            <div class="stat-card suspended">
+                <div class="stat-label">Suspended</div>
+                <div class="stat-value" id="suspendedClubs">0</div>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Status</label>
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">All</option>
+                        <option value="approved">Approved</option>
+                        <option value="pending">Pending</option>
+                        <option value="suspended">Suspended</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">University</label>
+                    <select class="filter-select" id="universityFilter">
+                        <option value="">All Universities</option>
+                        <option value="BUET">BUET</option>
+                        <option value="CUET">CUET</option>
+                        <option value="RUET">RUET</option>
+                        <option value="Green University">Green University</option>
+                        <option value="DIU">DIU</option>
+                        <option value="NSU">NSU</option>
+                        <option value="BRAC University">BRAC University</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Tier</label>
+                    <select class="filter-select" id="tierFilter">
+                        <option value="">All Tiers</option>
+                        <option value="bronze">Bronze</option>
+                        <option value="silver">Silver</option>
+                        <option value="gold">Gold</option>
+                        <option value="platinum">Platinum</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Search</label>
+                    <input type="text" class="filter-input" id="searchFilter" placeholder="Club name, university...">
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Sort By</label>
+                    <select class="filter-select" id="sortFilter">
+                        <option value="name_asc">Name (A-Z)</option>
+                        <option value="name_desc">Name (Z-A)</option>
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="sales_desc">Highest Sales</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn btn-primary" id="applyFiltersBtn">Apply Filters</button>
+                <button class="btn btn-secondary" id="clearFiltersBtn">Clear All</button>
+            </div>
+        </div>
+
+        <!-- Clubs Table -->
+        <div class="clubs-table-container">
+            <div class="table-header">
+                <h2 class="table-title">Clubs List</h2>
+                <div class="bulk-actions">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" class="bulk-checkbox" id="selectAllCheckbox">
+                        <span style="font-size: 0.875rem; color: var(--gray-700);">Select All</span>
+                    </label>
+                    <div class="bulk-actions-dropdown">
+                        <button class="bulk-btn" id="bulkActionsBtn">
+                            <span>Bulk Actions</span>
+                            <span>▼</span>
+                        </button>
+                        <div class="bulk-menu" id="bulkMenu">
+                            <div class="bulk-menu-item" onclick="handleBulkAction('suspend')">
+                                <span>⛔</span>
+                                <span>Suspend Selected</span>
+                            </div>
+                            <div class="bulk-menu-item danger" onclick="handleBulkAction('delete')">
+                                <span>🗑️</span>
+                                <span>Delete Selected</span>
+                            </div>
+                            <div class="bulk-menu-item" onclick="handleBulkAction('export')">
+                                <span>📥</span>
+                                <span>Export to Excel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;"></th>
+                            <th style="width: 60px;">Logo</th>
+                            <th class="sortable" data-sort="name" style="min-width: 200px;">Club Name</th>
+                            <th class="sortable" data-sort="university" style="min-width: 150px;">University</th>
+                            <th class="sortable" data-sort="status" style="min-width: 120px;">Status</th>
+                            <th class="sortable" data-sort="tier" style="min-width: 100px;">Tier</th>
+                            <th class="sortable" data-sort="products" style="min-width: 80px;">Products</th>
+                            <th class="sortable" data-sort="competitions" style="min-width: 100px;">Comps</th>
+                            <th class="sortable" data-sort="sales" style="min-width: 120px;">Sales</th>
+                            <th class="sortable" data-sort="joined" style="min-width: 120px;">Joined</th>
+                            <th style="width: 200px; min-width: 200px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clubsTableBody">
+                        <!-- Data loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <div class="pagination-info" id="paginationInfo">
+                    Showing 0 of 0 clubs
+                </div>
+                <div class="pagination-controls" id="paginationControls">
+                    <!-- Pagination buttons loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Suspend Modal -->
+<div class="modal-overlay" id="suspendModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Suspend Club</h3>
+            <button class="modal-close" onclick="closeModal('suspendModal')">×</button>
+        </div>
+        <div class="modal-body">
+            <p class="modal-text">Are you sure you want to suspend this club? The club will not be able to list products or create competitions while suspended.</p>
+            <p class="modal-text" style="font-weight: 600; color: var(--gray-900);" id="suspendClubName"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal('suspendModal')">Cancel</button>
+            <button class="btn btn-primary" style="background: var(--warning);" id="confirmSuspendBtn">Suspend Club</button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" id="deleteModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Delete Club</h3>
+            <button class="modal-close" onclick="closeModal('deleteModal')">×</button>
+        </div>
+        <div class="modal-body">
+            <p class="modal-text" style="color: var(--error); font-weight: 600;">⚠️ This action cannot be undone!</p>
+            <p class="modal-text">Are you sure you want to permanently delete this club? All associated products, competitions, and data will be removed.</p>
+            <p class="modal-text" style="font-weight: 600; color: var(--gray-900);" id="deleteClubName"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal('deleteModal')">Cancel</button>
+            <button class="btn btn-primary" style="background: var(--error);" id="confirmDeleteBtn">Delete Permanently</button>
+        </div>
+    </div>
+</div>
+<!-- Activate Modal -->
+<div class="modal-overlay" id="activateModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Activate Club</h3>
+            <button class="modal-close" onclick="closeModal('activateModal')">×</button>
+        </div>
+        <div class="modal-body">
+            <p class="modal-text">Are you sure you want to activate this club? The club will be able to list products and create competitions again.</p>
+            <p class="modal-text" style="font-weight: 600; color: var(--gray-900);" id="activateClubName"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal('activateModal')">Cancel</button>
+            <button class="btn btn-primary" style="background: var(--success);" id="confirmActivateBtn">Activate Club</button>
+        </div>
+    </div>
+</div>
+<script>
+    // Configuration
+    const API_BASE_URL = 'http://localhost:3000/api';
+    
+    // State
+    let currentUser = null;
+    let allClubs = [];
+    let filteredClubs = [];
+    let selectedClubs = new Set();
+    let currentPage = 1;
+    const itemsPerPage = 20;
+    let currentClubAction = null;
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        checkAuth();
+        loadClubs();
+        initializeEventListeners();
+    });
+
+    // Check Authentication
+    function checkAuth() {
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user') || 'null');
+
+        if (!token || !user || user.role !== 'super_admin') {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        currentUser = user;
+        document.getElementById('userName').textContent = currentUser.full_name;
+        if (currentUser.avatar_url) {
+            document.getElementById('userAvatar').src = currentUser.avatar_url;
+        }
+    }
+
+    // Initialize Event Listeners
+    function initializeEventListeners() {
+        // Apply filters
+        document.getElementById('applyFiltersBtn').addEventListener('click', applyFilters);
+
+        // Clear filters
+        document.getElementById('clearFiltersBtn').addEventListener('click', clearFilters);
+
+        // Search input with debounce
+        let searchTimeout;
+        document.getElementById('searchFilter').addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                applyFilters();
+            }, 500);
+        });
+
+        // Select all checkbox
+        document.getElementById('selectAllCheckbox').addEventListener('change', (e) => {
+            const checkboxes = document.querySelectorAll('.club-checkbox');
+            checkboxes.forEach(cb => {
+                cb.checked = e.target.checked;
+                if (e.target.checked) {
+                    selectedClubs.add(parseInt(cb.dataset.clubId));
+                } else {
+                    selectedClubs.delete(parseInt(cb.dataset.clubId));
+                }
+            });
+        });
+
+        // Bulk actions dropdown
+        document.getElementById('bulkActionsBtn').addEventListener('click', () => {
+            document.getElementById('bulkMenu').classList.toggle('show');
+        });
+
+        // Close bulk menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const bulkDropdown = document.querySelector('.bulk-actions-dropdown');
+            if (!bulkDropdown.contains(e.target)) {
+                document.getElementById('bulkMenu').classList.remove('show');
+            }
+        });
+
+        // Confirm suspend
+        document.getElementById('confirmSuspendBtn').addEventListener('click', confirmSuspend);
+
+        // Confirm delete
+        document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDelete);
+
+        // Confirm activate
+        document.getElementById('confirmActivateBtn').addEventListener('click', confirmActivate);
+    }
+
+    // Load Clubs
+    async function loadClubs() {
+        try {
+            showLoading();
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/super-admin/clubs`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) throw new Error('Failed to load clubs');
+
+            const data = await response.json();
+            allClubs = data.clubs || [];
+            filteredClubs = [...allClubs];
+
+            updateStats(data.stats);
+            updatePendingBadge(data.stats.pending);
+            renderClubs();
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('Failed to load clubs', 'error');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // Update Stats
+    function updateStats(stats) {
+        document.getElementById('totalClubs').textContent = stats.total || 0;
+        document.getElementById('approvedClubs').textContent = stats.approved || 0;
+        document.getElementById('pendingClubs').textContent = stats.pending || 0;
+        document.getElementById('suspendedClubs').textContent = stats.suspended || 0;
+    }
+
+    // Update Pending Badge
+    function updatePendingBadge(count) {
+        document.getElementById('pendingClubsBadge').textContent = count || 0;
+    }
+
+    // Apply Filters
+    function applyFilters() {
+        const status = document.getElementById('statusFilter').value;
+        const university = document.getElementById('universityFilter').value;
+        const tier = document.getElementById('tierFilter').value;
+        const search = document.getElementById('searchFilter').value.toLowerCase();
+        const sort = document.getElementById('sortFilter').value;
+
+        filteredClubs = allClubs.filter(club => {
+            if (status && club.status !== status) return false;
+            if (university && club.university !== university) return false;
+            if (tier && club.reward_tier !== tier) return false;
+            if (search) {
+                const searchStr = `${club.club_name} ${club.university}`.toLowerCase();
+                if (!searchStr.includes(search)) return false;
+            }
+            return true;
+        });
+
+        // Sort
+        sortClubs(sort);
+
+        currentPage = 1;
+        selectedClubs.clear();
+        renderClubs();
+    }
+
+    // Sort Clubs
+    function sortClubs(sortBy) {
+        switch (sortBy) {
+            case 'name_asc':
+                filteredClubs.sort((a, b) => a.club_name.localeCompare(b.club_name));
+                break;
+            case 'name_desc':
+                filteredClubs.sort((a, b) => b.club_name.localeCompare(a.club_name));
+                break;
+            case 'newest':
+                filteredClubs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                break;
+            case 'oldest':
+                filteredClubs.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+                break;
+            case 'sales_desc':
+                filteredClubs.sort((a, b) => (b.total_sales || 0) - (a.total_sales || 0));
+                break;
+        }
+    }
+
+    // Clear Filters
+    function clearFilters() {
+        document.getElementById('statusFilter').value = '';
+        document.getElementById('universityFilter').value = '';
+        document.getElementById('tierFilter').value = '';
+        document.getElementById('searchFilter').value = '';
+        document.getElementById('sortFilter').value = 'name_asc';
+        applyFilters();
+    }
+
+    // Render Clubs
+    function renderClubs() {
+        const tbody = document.getElementById('clubsTableBody');
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const pageClubs = filteredClubs.slice(startIndex, endIndex);
+
+        if (pageClubs.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="11">
+                        <div class="empty-state">
+                            <div class="empty-icon">🏢</div>
+                            <h3 class="empty-title">No Clubs Found</h3>
+                            <p class="empty-text">No clubs match your current filters. Try adjusting your search criteria.</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            updatePaginationInfo(0, 0, 0);
+            return;
+        }
+
+        tbody.innerHTML = pageClubs.map(club => `
+            <tr>
+                <td>
+                    <input type="checkbox" class="bulk-checkbox club-checkbox" data-club-id="${club.id}" 
+                           onchange="handleClubSelect(${club.id}, this.checked)">
+                </td>
+                <td>
+                    <img src="${club.logo_url || 'assets/default-club-logo.png'}" 
+                         alt="${club.club_name}" 
+                         class="club-logo"
+                         onerror="this.onerror=null; this.src='assets/default-club-logo.png';">
+                </td>
+                <td>
+                    <div class="club-details">
+                        <div class="club-name">${club.club_name}</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="club-university">${club.university}</div>
+                </td>
+                <td>
+                    <span class="status-badge status-${club.status}">
+                        <span class="status-dot"></span>
+                        ${club.status.charAt(0).toUpperCase() + club.status.slice(1)}
+                    </span>
+                </td>
+                <td>
+                    <span class="tier-badge tier-${club.reward_tier}">
+                        ${getTierIcon(club.reward_tier)} ${club.reward_tier.charAt(0).toUpperCase() + club.reward_tier.slice(1)}
+                    </span>
+                </td>
+                <td>${club.product_count || 0}</td>
+                <td>${club.competition_count || 0}</td>
+                <td>৳${(club.total_sales || 0).toLocaleString('en-BD')}</td>
+                <td>${formatDate(club.created_at)}</td>
+                <td>
+                    <div class="actions-cell" style="flex-wrap: nowrap; justify-content: flex-start;">
+                        <button class="action-btn action-btn-view" onclick="viewClub(${club.id})" title="View">
+                            👁️
+                        </button>
+                        ${club.status === 'suspended' ? `
+                            <button class="action-btn" style="background: var(--success);" onclick="openActivateModal(${club.id}, '${club.club_name}')" title="Activate">
+                                ✅
+                            </button>
+                        ` : `
+                            <button class="action-btn action-btn-suspend" onclick="openSuspendModal(${club.id}, '${club.club_name}')" title="Suspend">
+                                ⛔
+                            </button>
+                        `}
+                        <button class="action-btn action-btn-delete" onclick="openDeleteModal(${club.id}, '${club.club_name}')" title="Delete">
+                            🗑️
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        updatePaginationInfo(startIndex + 1, Math.min(endIndex, filteredClubs.length), filteredClubs.length);
+        renderPagination();
+    }
+
+    // Handle Club Select
+    function handleClubSelect(clubId, isChecked) {
+        if (isChecked) {
+            selectedClubs.add(clubId);
+        } else {
+            selectedClubs.delete(clubId);
+        }
+    }
+
+    // Handle Bulk Action
+    async function handleBulkAction(action) {
+        document.getElementById('bulkMenu').classList.remove('show');
+
+        if (selectedClubs.size === 0) {
+            showToast('Please select at least one club', 'error');
+            return;
+        }
+
+        if (action === 'export') {
+            exportToExcel();
+            return;
+        }
+
+        const confirmMessage = action === 'suspend' 
+            ? `Are you sure you want to suspend ${selectedClubs.size} club(s)?`
+            : `Are you sure you want to delete ${selectedClubs.size} club(s)? This action cannot be undone!`;
+
+        if (!confirm(confirmMessage)) return;
+
+        try {
+            showLoading();
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/super-admin/clubs/bulk-${action}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    club_ids: Array.from(selectedClubs)
+                })
+            });
+
+            if (!response.ok) throw new Error(`Failed to ${action} clubs`);
+
+            showToast(`Successfully ${action}ed ${selectedClubs.size} club(s)`, 'success');
+            selectedClubs.clear();
+            document.getElementById('selectAllCheckbox').checked = false;
+            await loadClubs();
+        } catch (error) {
+            console.error('Error:', error);
+            showToast(`Failed to ${action} clubs`, 'error');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // Export to Excel
+    function exportToExcel() {
+        const clubs = selectedClubs.size > 0 
+            ? allClubs.filter(c => selectedClubs.has(c.id))
+            : filteredClubs;
+
+        const csvContent = [
+            ['Club Name', 'University', 'Status', 'Tier', 'Products', 'Competitions', 'Total Sales', 'Joined Date'].join(','),
+            ...clubs.map(club => [
+                club.club_name,
+                club.university,
+                club.status,
+                club.reward_tier,
+                club.product_count || 0,
+                club.competition_count || 0,
+                club.total_sales || 0,
+                formatDate(club.created_at)
+            ].join(','))
+        ].join('\n');
+
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `clubs_export_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+
+        showToast('Clubs exported successfully', 'success');
+    }
+
+    // View Club
+    function viewClub(clubId) {
+        const club = allClubs.find(c => c.id === clubId);
+        if (club) {
+            window.location.href = `club-profile.html?slug=${club.slug}`;
+        }
+    }
+
+    // Open Suspend Modal
+    function openSuspendModal(clubId, clubName) {
+        currentClubAction = clubId;
+        document.getElementById('suspendClubName').textContent = clubName;
+        document.getElementById('suspendModal').classList.add('show');
+    }
+
+    // Confirm Suspend
+    async function confirmSuspend() {
+        if (!currentClubAction) return;
+
+        try {
+            showLoading();
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/super-admin/clubs/${currentClubAction}/suspend`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    reason: 'Suspended by super admin'
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to suspend club');
+            }
+
+            showToast('Club suspended successfully', 'success');
+            closeModal('suspendModal');
+            await loadClubs();
+        } catch (error) {
+            console.error('Error:', error);
+            showToast(error.message || 'Failed to suspend club', 'error');
+        } finally {
+            hideLoading();
+            currentClubAction = null;
+        }
+    }
+
+    // Open Delete Modal
+    function openDeleteModal(clubId, clubName) {
+        currentClubAction = clubId;
+        document.getElementById('deleteClubName').textContent = clubName;
+        document.getElementById('deleteModal').classList.add('show');
+    }
+
+    // Confirm Delete
+    async function confirmDelete() {
+        if (!currentClubAction) return;
+
+        try {
+            showLoading();
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/super-admin/clubs/${currentClubAction}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to delete club');
+            }
+
+            showToast('Club deleted successfully', 'success');
+            closeModal('deleteModal');
+            await loadClubs();
+        } catch (error) {
+            console.error('Error:', error);
+            showToast(error.message || 'Failed to delete club', 'error');
+        } finally {
+            hideLoading();
+            currentClubAction = null;
+        }
+    }
+
+    // Open Activate Modal
+    function openActivateModal(clubId, clubName) {
+        currentClubAction = clubId;
+        document.getElementById('activateClubName').textContent = clubName;
+        document.getElementById('activateModal').classList.add('show');
+    }
+
+    // Confirm Activate
+    async function confirmActivate() {
+        if (!currentClubAction) return;
+
+        try {
+            showLoading();
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/super-admin/clubs/${currentClubAction}/activate`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to activate club');
+            }
+
+            showToast('Club activated successfully', 'success');
+            closeModal('activateModal');
+            await loadClubs();
+        } catch (error) {
+            console.error('Error:', error);
+            showToast(error.message || 'Failed to activate club', 'error');
+        } finally {
+            hideLoading();
+            currentClubAction = null;
+        }
+    }
+
+    // View Activity Logs
+    function viewActivityLogs(clubId) {
+        window.location.href = `activity-logs.html?club_id=${clubId}`;
+    }
+
+    // Update Pagination Info
+    function updatePaginationInfo(start, end, total) {
+        document.getElementById('paginationInfo').textContent = 
+            `Showing ${start}-${end} of ${total} clubs`;
+    }
+
+    // Render Pagination
+    function renderPagination() {
+        const totalPages = Math.ceil(filteredClubs.length / itemsPerPage);
+        const controls = document.getElementById('paginationControls');
+
+        if (totalPages <= 1) {
+            controls.innerHTML = '';
+            return;
+        }
+
+        let html = `
+            <button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">
+                Previous
+            </button>
+        `;
+
+        const maxVisiblePages = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+        if (endPage - startPage < maxVisiblePages - 1) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            html += `
+                <button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                    ${i}
+                </button>
+            `;
+        }
+
+        html += `
+            <button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">
+                Next
+            </button>
+        `;
+
+        controls.innerHTML = html;
+    }
+
+    // Change Page
+    function changePage(page) {
+        const totalPages = Math.ceil(filteredClubs.length / itemsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderClubs();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Close Modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('show');
+        currentClubAction = null;
+    }
+
+    // Helper Functions
+    function getTierIcon(tier) {
+        const icons = {
+            bronze: '🥉',
+            silver: '🥈',
+            gold: '🥇',
+            platinum: '💎'
+        };
+        return icons[tier] || '🏅';
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-BD', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    }
+
+    function showLoading() {
+        document.getElementById('loadingOverlay').classList.add('show');
+    }
+
+    function hideLoading() {
+        document.getElementById('loadingOverlay').classList.remove('show');
+    }
+
+    function showToast(message, type = 'info') {
+        const existingToast = document.querySelector('.toast');
+        if (existingToast) existingToast.remove();
+
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.innerHTML = `
+            <span style="font-size: 1.25rem;">${type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ'}</span>
+            <span>${message}</span>
+        `;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // Add slide out animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideOut {
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    // Handle Image Error
+    function handleImageError(img, clubName) {
+        img.onerror = null; // Prevent infinite loop
+        img.style.display = 'none';
+        
+        // Create a colored box with initials
+        const container = img.parentElement;
+        const placeholder = document.createElement('div');
+        placeholder.className = 'club-logo error';
+        placeholder.textContent = clubName.substring(0, 2).toUpperCase();
+        
+        container.appendChild(placeholder);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse and join exciting robotics competitions organized by university clubs across Bangladesh. Line Following, Maze Solving, Soccer Robots and more.">
+    <title>Robotics Competitions | Nemionix Technologies - Engineering the Future, Today</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    
+    <!-- Flatpickr CSS for Date Picker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" />
+    
+    <!-- noUiSlider CSS for Range Slider -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" />
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    
+    <style>
+        :root {
+            --primary-500: #1991EB;
+            --primary-600: #1474BC;
+            --secondary-500: #19B969;
+            --accent-500: #FF9119;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-500: #6B7280;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--gray-900);
+            background: var(--gray-50);
+            line-height: 1.6;
+        }
+
+        /* Remove these - already defined in main.css */
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1rem 0;
+        }
+
+        .breadcrumb .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .breadcrumb-list {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            list-style: none;
+            font-size: 0.875rem;
+        }
+
+        .breadcrumb-list a {
+            color: var(--gray-500);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb-list a:hover {
+            color: var(--primary-500);
+        }
+
+        .breadcrumb-list .active {
+            color: var(--gray-900);
+            font-weight: 500;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .page-header .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            opacity: 0.95;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar Filters */
+        .filters-sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .filters-header h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .clear-filters {
+            background: none;
+            border: none;
+            color: var(--primary-500);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .clear-filters:hover {
+            opacity: 0.8;
+        }
+
+        .filter-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .filter-section:last-child {
+            border-bottom: none;
+        }
+
+        .filter-section h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            color: var(--gray-700);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(25, 145, 235, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            color: var(--gray-700);
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .date-range {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .date-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .date-input-group label {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        #prizeRangeSlider {
+            margin: 1rem 0;
+        }
+
+        .prize-range-values {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            font-weight: 600;
+        }
+
+        .apply-filters-btn {
+            width: 100%;
+            background: var(--primary-500);
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 1rem;
+        }
+
+        .apply-filters-btn:hover {
+            background: var(--primary-600);
+            transform: translateY(-1px);
+        }
+
+        .filter-count-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-500);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        /* Content Area */
+        .content-area {
+            min-height: 600px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .results-info {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .view-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--gray-300);
+        }
+
+        .view-toggle button {
+            background: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .view-toggle button.active {
+            background: var(--primary-500);
+            color: white;
+        }
+
+        .sort-select {
+            padding: 0.5rem 0.875rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        /* Competitions Grid */
+        .competitions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .competition-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .competition-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .competition-banner {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .card-badges {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-category {
+            background: rgba(25, 145, 235, 0.9);
+            color: white;
+        }
+
+        .badge-featured {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .card-content {
+            padding: 1.25rem;
+        }
+
+        .competition-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--gray-900);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .club-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .club-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .club-name {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .competition-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+        }
+
+        .detail-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--primary-500);
+        }
+
+        .registration-info {
+            background: var(--gray-50);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .registration-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .registration-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .registration-label {
+            color: var(--gray-600);
+        }
+
+        .registration-value {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .prize-total {
+            color: var(--secondary-500);
+            font-weight: 700;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.625rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-open {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-closing {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-closed {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            flex: 1;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-500);
+            border: 1px solid var(--primary-500);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-50);
+        }
+
+        /* Map View */
+        .map-container {
+            width: 100%;
+            height: 600px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .map-container.active {
+            display: block;
+        }
+
+        #competitionsMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        .leaflet-popup-content {
+            margin: 0;
+            padding: 0;
+        }
+
+        .map-popup {
+            min-width: 250px;
+        }
+
+        .map-popup-header {
+            background: var(--primary-500);
+            color: white;
+            padding: 0.75rem;
+            font-weight: 600;
+        }
+
+        .map-popup-body {
+            padding: 0.75rem;
+        }
+
+        .map-popup-body p {
+            margin: 0.5rem 0;
+            font-size: 0.875rem;
+        }
+
+        .map-popup-link {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary-500);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* Loading State */
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .skeleton-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .skeleton-banner {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        .skeleton-content {
+            padding: 1.25rem;
+        }
+
+        .skeleton-line {
+            height: 16px;
+            background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .skeleton-line.title {
+            height: 20px;
+            width: 80%;
+        }
+
+        .skeleton-line.short {
+            width: 60%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-300);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--primary-50);
+            border-color: var(--primary-500);
+            color: var(--primary-500);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-btn.active {
+            background: var(--primary-500);
+            color: white;
+            border-color: var(--primary-500);
+        }
+
+        
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-sidebar {
+                position: relative;
+                top: 0;
+            }
+
+            .competitions-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .competitions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .view-controls {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Spinner */
+        .spinner {
+            border: 3px solid var(--gray-200);
+            border-top: 3px solid var(--primary-500);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+                            <path d="M20 10L28 16V24L20 30L12 24V16L20 10Z" fill="white" opacity="0.9"/>
+                            <circle cx="20" cy="20" r="3" fill="white"/>
+                            <defs>
+                                <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" stop-color="#1991EB"/>
+                                    <stop offset="100%" stop-color="#0F578D"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">Nemionix Technologies</span>
+                        <span class="logo-tagline">Engineering the Future, Today</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="competitions.html" class="nav-link active">Competitions</a>
+                    <a href="products.html" class="nav-link">Products</a>
+                    <a href="clubs.html" class="nav-link">Clubs</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="how-it-works.html" class="nav-link">How It Works</a>
+                </div>
+
+                <!-- Auth Buttons -->
+                <div class="nav-actions">
+                    <button class="cart-btn" onclick="window.location.href='cart.html'">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </button>
+                    <a href="login.html" class="btn btn-secondary">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb-list">
+                <li><a href="index.html">Home</a></li>
+                <li>›</li>
+                <li class="active">Competitions</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>Robotics Competitions</h1>
+            <p>Join exciting competitions organized by university clubs across Bangladesh</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar" id="filtersSidebar">
+            <div class="filters-header">
+                <h3>Filters <span class="filter-count-badge" id="filterCountBadge" style="display: none;">0</span></h3>
+                <button class="clear-filters" id="clearFiltersBtn">Clear All</button>
+            </div>
+
+            <!-- Search -->
+            <div class="filter-section">
+                <h4>Search</h4>
+                <input type="text" class="form-input" id="searchInput" placeholder="Search competitions...">
+            </div>
+
+            <!-- Location Filter -->
+            <div class="filter-section">
+                <h4>Location</h4>
+                <select class="form-select" id="locationFilter">
+                    <option value="">All Districts</option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Chittagong">Chittagong</option>
+                    <option value="Rajshahi">Rajshahi</option>
+                    <option value="Khulna">Khulna</option>
+                    <option value="Sylhet">Sylhet</option>
+                    <option value="Barisal">Barisal</option>
+                    <option value="Rangpur">Rangpur</option>
+                    <option value="Mymensingh">Mymensingh</option>
+                </select>
+            </div>
+
+            <!-- Date Range -->
+            <div class="filter-section">
+                <h4>Date Range</h4>
+                <div class="date-range">
+                    <div class="date-input-group">
+                        <label>From Date</label>
+                        <input type="text" class="form-input" id="dateFromInput" placeholder="Select date">
+                    </div>
+                    <div class="date-input-group">
+                        <label>To Date</label>
+                        <input type="text" class="form-input" id="dateToInput" placeholder="Select date">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="filter-section">
+                <h4>Category</h4>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Line Following" class="category-checkbox">
+                        <span>Line Following</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Maze Solving" class="category-checkbox">
+                        <span>Maze Solving</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Soccer Robot" class="category-checkbox">
+                        <span>Soccer Robot</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Sumo Robot" class="category-checkbox">
+                        <span>Sumo Robot</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Project Showcase" class="category-checkbox">
+                        <span>Project Showcase</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Drone Racing" class="category-checkbox">
+                        <span>Drone Racing</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Other" class="category-checkbox">
+                        <span>Other</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Prize Range -->
+            <div class="filter-section">
+                <h4>Prize Range</h4>
+                <div id="prizeRangeSlider"></div>
+                <div class="prize-range-values">
+                    <span id="prizeMinValue">৳0</span>
+                    <span id="prizeMaxValue">৳100,000</span>
+                </div>
+            </div>
+
+            <!-- Registration Status -->
+            <div class="filter-section">
+                <h4>Registration Status</h4>
+                <select class="form-select" id="statusFilter">
+                    <option value="">All</option>
+                    <option value="open">Open</option>
+                    <option value="closing">Closing Soon</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </div>
+
+            <button class="apply-filters-btn" id="applyFiltersBtn">Apply Filters</button>
+        </aside>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Content Header -->
+            <div class="content-header">
+                <div class="results-info" id="resultsInfo">
+                    Showing <strong>0</strong> competitions
+                </div>
+                <div class="view-controls">
+                    <div class="view-toggle">
+                        <button id="gridViewBtn" class="active">
+                            <span>⊞</span>
+                            Grid
+                        </button>
+                        <button id="mapViewBtn">
+                            <span>🗺</span>
+                            Map
+                        </button>
+                    </div>
+                    <select class="sort-select" id="sortSelect">
+                        <option value="date_asc">Date (Nearest First)</option>
+                        <option value="date_desc">Date (Farthest First)</option>
+                        <option value="prize_desc">Prize (High to Low)</option>
+                        <option value="fee_asc">Registration Fee (Low to High)</option>
+                        <option value="popular">Most Popular</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid View -->
+            <div id="competitionsGrid" class="competitions-grid">
+                <!-- Loading State -->
+                <div class="loading-container">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <!-- Map View -->
+            <div id="mapContainer" class="map-container">
+                <div id="competitionsMap"></div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" style="display: none;">
+                <button class="pagination-btn" id="prevBtn">Previous</button>
+                <div id="pageNumbers"></div>
+                <button class="pagination-btn" id="nextBtn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- About Column -->
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="url(#footerGradient)"/>
+                            <path d="M20 10L28 16V24L20 30L12 24V16L20 10Z" fill="white" opacity="0.9"/>
+                            <circle cx="20" cy="20" r="3" fill="white"/>
+                            <defs>
+                                <linearGradient id="footerGradient" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" stop-color="#1991EB"/>
+                                    <stop offset="100%" stop-color="#0F578D"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span>Nemionix Technologies</span>
+                    </div>
+                    <p class="footer-tagline">Engineering the Future</p>
+                    <p class="footer-description">Bangladesh's premier robotics marketplace connecting students, clubs, and innovation through cutting-edge technology.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M20 10C20 4.477 15.523 0 10 0S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 0C7.284 0 6.944.012 5.877.06 4.813.109 4.086.278 3.45.525a4.88 4.88 0 00-1.771 1.154A4.908 4.908 0 00.525 3.45C.278 4.086.109 4.813.06 5.877.012 6.944 0 7.284 0 10s.012 3.056.06 4.123c.049 1.064.218 1.791.465 2.427a4.883 4.883 0 001.154 1.771 4.915 4.915 0 001.771 1.154c.636.247 1.363.416 2.427.465C6.944 19.988 7.284 20 10 20s3.056-.012 4.123-.06c1.064-.049 1.791-.218 2.427-.465a4.89 4.89 0 001.771-1.154 4.904 4.904 0 001.154-1.771c.247-.636.416-1.363.465-2.427C19.988 13.056 20 12.716 20 10s-.012-3.056-.06-4.123c-.049-1.064-.218-1.791-.465-2.427a4.893 4.893 0 00-1.154-1.771A4.886 4.886 0 0016.55.525C15.914.278 15.187.109 14.123.06 13.056.012 12.716 0 10 0zm0 1.802c2.67 0 2.987.01 4.041.059.976.045 1.505.207 1.858.344.466.182.8.399 1.15.748.35.35.566.684.748 1.15.137.353.3.882.344 1.857.048 1.055.058 1.37.058 4.04 0 2.671-.01 2.986-.058 4.041-.045.976-.207 1.505-.344 1.858a3.097 3.097 0 01-.748 1.15c-.35.35-.684.566-1.15.748-.353.137-.882.3-1.857.344-1.054.048-1.37.058-4.041.058-2.67 0-2.987-.01-4.04-.058-.976-.045-1.505-.207-1.858-.344a3.098 3.098 0 01-1.15-.748 3.098 3.098 0 01-.748-1.15c-.137-.353-.3-.882-.344-1.857-.048-1.055-.058-1.37-.058-4.041 0-2.67.01-2.986.058-4.04.045-.976.207-1.505.344-1.858.182-.466.399-.8.748-1.15.35-.35.684-.566 1.15-.748.353-.137.882-.3 1.857-.344 1.055-.048 1.37-.058 4.041-.058zM10 13.333A3.333 3.333 0 1110 6.667a3.333 3.333 0 010 6.666zm0-8.468a5.135 5.135 0 100 10.27 5.135 5.135 0 000-10.27zm6.538-.203a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/>
+                            </svg>
+                        </a>
+                        <a href="mailto:support@nemionix.com" aria-label="Email">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="competitions.html">Competitions</a></li>
+                        <li><a href="clubs.html">Clubs</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                    </ul>
+                </div>
+
+                <!-- For Students -->
+                <div class="footer-column">
+                    <h3 class="footer-heading">For Students</h3>
+                    <ul class="footer-links">
+                        <li><a href="signup.html?role=student">Sign Up</a></li>
+                        <li><a href="products.html">Browse Products</a></li>
+                        <li><a href="competitions.html">Find Competitions</a></li>
+                        <li><a href="my-orders.html">Track Orders</a></li>
+                        <li><a href="my-registrations.html">My Registrations</a></li>
+                    </ul>
+                </div>
+
+                <!-- For Clubs -->
+                <div class="footer-column">
+                    <h3 class="footer-heading">For Clubs</h3>
+                    <ul class="footer-links">
+                        <li><a href="signup.html?role=club_admin">Become a Seller</a></li>
+                        <li><a href="create-competition.html">Create Competition</a></li>
+                        <li><a href="reward-status.html">Reward System</a></li>
+                        <li><a href="my-earnings.html">Earnings Dashboard</a></li>
+                        <li><a href="clubs.html">View Leaderboard</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">&copy; 2025 Nemionix Technologies. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Terms of Service</a>
+                        <span class="separator">•</span>
+                        <a href="#">Privacy Policy</a>
+                        <span class="separator">•</span>
+                        <a href="mailto:support@nemionix.com">Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    
+    <!-- Flatpickr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    
+    <!-- noUiSlider JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = 'http://localhost:3000/api';
+        const ITEMS_PER_PAGE = 12;
+
+        // State
+        let currentPage = 1;
+        let totalPages = 1;
+        let allCompetitions = [];
+        let filteredCompetitions = [];
+        let map = null;
+        let markers = [];
+
+        // Filter State
+        const filters = {
+            search: '',
+            location: '',
+            categories: [],
+            dateFrom: '',
+            dateTo: '',
+            prizeMin: 0,
+            prizeMax: 100000,
+            status: '',
+            sortBy: 'date_asc'
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeDatePickers();
+            initializePrizeSlider();
+            initializeEventListeners();
+            loadCompetitions();
+            checkAuthStatus();
+            readURLParams();
+        });
+
+        // Initialize Date Pickers
+        function initializeDatePickers() {
+            flatpickr('#dateFromInput', {
+                dateFormat: 'Y-m-d',
+                minDate: 'today',
+                onChange: (selectedDates, dateStr) => {
+                    filters.dateFrom = dateStr;
+                }
+            });
+
+            flatpickr('#dateToInput', {
+                dateFormat: 'Y-m-d',
+                minDate: 'today',
+                onChange: (selectedDates, dateStr) => {
+                    filters.dateTo = dateStr;
+                }
+            });
+        }
+
+        // Initialize Prize Slider
+        function initializePrizeSlider() {
+            const slider = document.getElementById('prizeRangeSlider');
+            noUiSlider.create(slider, {
+                start: [0, 100000],
+                connect: true,
+                range: {
+                    'min': 0,
+                    'max': 100000
+                },
+                step: 1000,
+                format: {
+                    to: value => Math.round(value),
+                    from: value => Math.round(value)
+                }
+            });
+
+            slider.noUiSlider.on('update', (values) => {
+                filters.prizeMin = parseInt(values[0]);
+                filters.prizeMax = parseInt(values[1]);
+                document.getElementById('prizeMinValue').textContent = `৳${parseInt(values[0]).toLocaleString('en-BD')}`;
+                document.getElementById('prizeMaxValue').textContent = `৳${parseInt(values[1]).toLocaleString('en-BD')}`;
+            });
+        }
+
+        // Initialize Event Listeners
+        function initializeEventListeners() {
+            // Search with debounce
+            let searchTimeout;
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    filters.search = e.target.value;
+                    applyFilters();
+                }, 300);
+            });
+            }
+
+            // Location filter
+            const locationFilter = document.getElementById('locationFilter');
+            if (locationFilter) {
+                locationFilter.addEventListener('change', (e) => {
+                    filters.location = e.target.value;
+                });
+            }
+
+            // Category checkboxes
+            document.querySelectorAll('.category-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        filters.categories.push(e.target.value);
+                    } else {
+                        filters.categories = filters.categories.filter(cat => cat !== e.target.value);
+                    }
+                });
+            });
+
+            // Status filter
+            document.getElementById('statusFilter').addEventListener('change', (e) => {
+                filters.status = e.target.value;
+            });
+
+            // Sort
+            document.getElementById('sortSelect').addEventListener('change', (e) => {
+                filters.sortBy = e.target.value;
+                applyFilters();
+            });
+
+            // Apply Filters Button
+            document.getElementById('applyFiltersBtn').addEventListener('click', applyFilters);
+
+            // Clear Filters
+            document.getElementById('clearFiltersBtn').addEventListener('click', clearFilters);
+
+            // View Toggle
+            document.getElementById('gridViewBtn').addEventListener('click', () => switchView('grid'));
+            document.getElementById('mapViewBtn').addEventListener('click', () => switchView('map'));
+
+            // Mobile Menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+
+            // Pagination
+            document.getElementById('prevBtn').addEventListener('click', () => changePage(currentPage - 1));
+            document.getElementById('nextBtn').addEventListener('click', () => changePage(currentPage + 1));
+        }
+// Helper to get competition image safely
+        function getCompetitionImage(comp) {
+            if (comp.banner_url && comp.banner_url !== '/assets/default-competition.jpg') {
+                return comp.banner_url;
+            }
+            return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23f3f4f6' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='sans-serif' font-size='24' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3E🏆 Competition%3C/text%3E%3C/svg%3E";
+        }
+
+        // Helper to get club logo safely
+        function getClubLogo(comp) {
+            if (comp.club_logo_url || comp.club_logo) {
+                return comp.club_logo_url || comp.club_logo;
+            }
+            const initial = comp.club_name ? comp.club_name.charAt(0).toUpperCase() : 'C';
+            return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect fill='%23e5e7eb' width='64' height='64' rx='32'/%3E%3Ctext fill='%236b7280' font-family='sans-serif' font-size='24' font-weight='bold' x='50%25' y='50%25' text-anchor='middle' dy='.35em'%3E${initial}%3C/text%3E%3C/svg%3E`;
+        }
+        // Load Competitions
+        async function loadCompetitions() {
+            try {
+                showLoading();
+                
+                // Try to get token (optional for public view)
+                const token = localStorage.getItem('token');
+                const headers = {};
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                }
+                
+                const response = await fetch(`${API_BASE_URL}/competitions`, {
+                    headers: headers
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to load competitions');
+                }
+                
+                const data = await response.json();
+                console.log('Competitions loaded:', data);
+                
+                // Handle different response structures
+                allCompetitions = data.data || data.competitions || data || [];
+                
+                // Ensure it's an array
+                if (!Array.isArray(allCompetitions)) {
+                    console.error('Invalid competitions data:', allCompetitions);
+                    allCompetitions = [];
+                }
+                
+                console.log('Total competitions:', allCompetitions.length);
+                applyFilters();
+                
+            } catch (error) {
+                console.error('Error loading competitions:', error);
+                showEmptyState('Failed to load competitions. Please try again.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Apply Filters
+        function applyFilters() {
+            filteredCompetitions = allCompetitions.filter(comp => {
+                // Search filter
+                if (filters.search && !comp.title.toLowerCase().includes(filters.search.toLowerCase())) {
+                    return false;
+                }
+
+                // Location filter
+                if (filters.location && !comp.venue.includes(filters.location)) {
+                    return false;
+                }
+
+                // Category filter
+                if (filters.categories.length > 0 && !filters.categories.includes(comp.category)) {
+                    return false;
+                }
+
+                // Date range filter
+                const compDate = new Date(comp.competition_date);
+                if (filters.dateFrom && compDate < new Date(filters.dateFrom)) {
+                    return false;
+                }
+                if (filters.dateTo && compDate > new Date(filters.dateTo)) {
+                    return false;
+                }
+
+                // Prize range filter
+                const totalPrize = (comp.prize_first || 0) + (comp.prize_second || 0) + (comp.prize_third || 0);
+                if (totalPrize < filters.prizeMin || totalPrize > filters.prizeMax) {
+                    return false;
+                }
+
+                // Status filter
+                if (filters.status) {
+                    const status = getRegistrationStatus(comp).status;
+                    if (status !== filters.status) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+            // Sort
+            sortCompetitions();
+
+            // Update UI
+            updateFilterCount();
+            updateURLParams();
+            currentPage = 1;
+            renderCompetitions();
+        }
+
+        // Sort Competitions
+        function sortCompetitions() {
+            switch (filters.sortBy) {
+                case 'date_asc':
+                    filteredCompetitions.sort((a, b) => new Date(a.competition_date) - new Date(b.competition_date));
+                    break;
+                case 'date_desc':
+                    filteredCompetitions.sort((a, b) => new Date(b.competition_date) - new Date(a.competition_date));
+                    break;
+                case 'prize_desc':
+                    filteredCompetitions.sort((a, b) => {
+                        const prizeA = (a.prize_first || 0) + (a.prize_second || 0) + (a.prize_third || 0);
+                        const prizeB = (b.prize_first || 0) + (b.prize_second || 0) + (b.prize_third || 0);
+                        return prizeB - prizeA;
+                    });
+                    break;
+                case 'fee_asc':
+                    filteredCompetitions.sort((a, b) => a.registration_fee - b.registration_fee);
+                    break;
+                case 'popular':
+                    filteredCompetitions.sort((a, b) => (b.views || 0) - (a.views || 0));
+                    break;
+            }
+        }
+
+        // Clear Filters
+        function clearFilters() {
+            filters.search = '';
+            filters.location = '';
+            filters.categories = [];
+            filters.dateFrom = '';
+            filters.dateTo = '';
+            filters.prizeMin = 0;
+            filters.prizeMax = 100000;
+            filters.status = '';
+
+            document.getElementById('searchInput').value = '';
+            document.getElementById('locationFilter').value = '';
+            document.querySelectorAll('.category-checkbox').forEach(cb => cb.checked = false);
+            document.getElementById('dateFromInput').value = '';
+            document.getElementById('dateToInput').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('prizeRangeSlider').noUiSlider.set([0, 100000]);
+
+            applyFilters();
+        }
+
+        // Update Filter Count
+        function updateFilterCount() {
+            let count = 0;
+            if (filters.search) count++;
+            if (filters.location) count++;
+            if (filters.categories.length > 0) count++;
+            if (filters.dateFrom || filters.dateTo) count++;
+            if (filters.prizeMin > 0 || filters.prizeMax < 100000) count++;
+            if (filters.status) count++;
+
+            const badge = document.getElementById('filterCountBadge');
+            if (count > 0) {
+                badge.textContent = count;
+                badge.style.display = 'inline-flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Render Competitions
+        function renderCompetitions() {
+            const grid = document.getElementById('competitionsGrid');
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const pageCompetitions = filteredCompetitions.slice(startIndex, endIndex);
+
+            // Update results info
+            document.getElementById('resultsInfo').innerHTML = `
+                Showing <strong>${startIndex + 1}-${Math.min(endIndex, filteredCompetitions.length)}</strong> of <strong>${filteredCompetitions.length}</strong> competitions
+            `;
+
+            if (pageCompetitions.length === 0) {
+                showEmptyState();
+                return;
+            }
+
+            grid.innerHTML = pageCompetitions.map(comp => createCompetitionCard(comp)).join('');
+
+            // Update pagination
+            totalPages = Math.ceil(filteredCompetitions.length / ITEMS_PER_PAGE);
+            renderPagination();
+
+            // Update map if in map view
+            if (document.getElementById('mapViewBtn').classList.contains('active')) {
+                updateMapMarkers();
+            }
+        }
+
+        // Create Competition Card
+        function createCompetitionCard(comp) {
+            const status = getRegistrationStatus(comp);
+            const totalPrize = (comp.prize_first || 0) + (comp.prize_second || 0) + (comp.prize_third || 0);
+            const spotsRemaining = comp.max_participants ? comp.max_participants - (comp.registration_count || 0) : null;
+            const compDate = new Date(comp.competition_date);
+            const deadline = new Date(comp.registration_deadline);
+
+            return `
+                <div class="competition-card" onclick="window.location.href='competition-detail.html?id=${comp.id}'">
+                    <div style="position: relative;">
+                        <img src="${comp.banner_url || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23f3f4f6' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='sans-serif' font-size='24' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3E🏆 Competition%3C/text%3E%3C/svg%3E"}" alt="${comp.title}" class="competition-banner" onerror="if(this.src.indexOf('data:image')===-1){this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27400%27 height=%27300%27%3E%3Crect fill=%27%23f3f4f6%27 width=%27400%27 height=%27300%27/%3E%3Ctext fill=%27%239ca3af%27 font-family=%27sans-serif%27 font-size=%2724%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27%3E🏆%3C/text%3E%3C/svg%3E';}">
+                        <div class="card-badges">
+                            <span class="badge badge-category">${comp.category}</span>
+                            ${comp.is_featured ? '<span class="badge badge-featured">⭐ Featured</span>' : ''}
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="competition-title">${comp.title}</h3>
+                        
+                        <div class="club-info">
+                            <img src="${comp.club_logo_url || comp.club_logo || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect fill='%23e5e7eb' width='64' height='64' rx='32'/%3E%3Ctext fill='%236b7280' font-family='sans-serif' font-size='24' font-weight='bold' x='50%25' y='50%25' text-anchor='middle' dy='.35em'%3E${comp.club_name ? comp.club_name.charAt(0).toUpperCase() : 'C'}%3C/text%3E%3C/svg%3E"}" alt="${comp.club_name}" class="club-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2764%27 height=%2764%27%3E%3Crect fill=%27%23e5e7eb%27 width=%2764%27 height=%2764%27 rx=%2732%27/%3E%3Ctext fill=%27%236b7280%27 font-family=%27sans-serif%27 font-size=%2724%27 font-weight=%27bold%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.35em%27%3EC%3C/text%3E%3C/svg%3E';">
+                            <span class="club-name">${comp.club_name}</span>
+                        </div>
+
+                        <div class="competition-details">
+                            <div class="detail-item">
+                                <svg class="detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>${formatDate(compDate)}${comp.competition_time ? ' at ' + comp.competition_time.substring(0, 5) : ''}</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg class="detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span>${comp.venue}</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg class="detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                <span>${comp.registration_count || 0} Applied${comp.max_participants ? ` / ${comp.max_participants} Max` : ''}</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg class="detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>Deadline: ${formatDate(deadline)} ${status.status === 'closing' ? `(${status.text})` : ''}</span>
+                            </div>
+                        </div>
+
+                        <div class="registration-info">
+                            <div class="registration-row">
+                                <span class="registration-label">Registration Fee:</span>
+                                <span class="registration-value">৳${comp.registration_fee.toLocaleString('en-BD')}</span>
+                            </div>
+                            ${spotsRemaining !== null ? `
+                                <div class="registration-row">
+                                    <span class="registration-label">Spots Remaining:</span>
+                                    <span class="registration-value">${spotsRemaining}/${comp.max_participants}</span>
+                                </div>
+                            ` : ''}
+                            ${totalPrize > 0 ? `
+                                <div class="registration-row">
+                                    <span class="registration-label">Total Prize:</span>
+                                    <span class="registration-value prize-total">৳${totalPrize.toLocaleString('en-BD')}</span>
+                                </div>
+                            ` : ''}
+                            <div class="registration-row">
+                                <span class="registration-label">Status:</span>
+                                <span class="status-badge status-${status.status}">${status.text}</span>
+                            </div>
+                        </div>
+
+                        <div class="card-actions">
+                    <button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); window.location.href='competition-detail.html?id=${comp.id}'">View Details</button>
+                    ${comp.user_registration_status ? `
+                        <button class="btn btn-success btn-small" disabled style="cursor: not-allowed;">
+                            ${comp.user_registration_status === 'approved' ? '✅ Registered' : '⏳ Application Submitted'}
+                        </button>
+                    ` : status.status !== 'closed' ? `
+                        <button class="btn btn-primary btn-small" onclick="event.stopPropagation(); handleRegister(${comp.id})">Register Now</button>
+                    ` : ''}
+                </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Get Registration Status
+        function getRegistrationStatus(competition) {
+            const now = new Date();
+            const deadline = new Date(competition.registration_deadline);
+            const isFull = competition.max_participants && competition.registration_count >= competition.max_participants;
+            
+            if (deadline < now) {
+                return { status: 'closed', text: 'Registration Closed', color: 'error' };
+            }
+            if (isFull) {
+                return { status: 'closed', text: 'Spots Full', color: 'warning' };
+            }
+            
+            const daysLeft = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
+            if (daysLeft <= 7) {
+                return { status: 'closing', text: `${daysLeft} days left`, color: 'warning' };
+            }
+            
+            return { status: 'open', text: 'Open for Registration', color: 'success' };
+        }
+
+        // Handle Register
+        function handleRegister(competitionId) {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = `login.html?redirect=competition-detail.html?id=${competitionId}`;
+            } else {
+                window.location.href = `competition-detail.html?id=${competitionId}#register`;
+            }
+        }
+
+        // Switch View
+        function switchView(view) {
+            const gridBtn = document.getElementById('gridViewBtn');
+            const mapBtn = document.getElementById('mapViewBtn');
+            const gridContainer = document.getElementById('competitionsGrid');
+            const mapContainer = document.getElementById('mapContainer');
+
+            if (view === 'grid') {
+                gridBtn.classList.add('active');
+                mapBtn.classList.remove('active');
+                gridContainer.style.display = 'grid';
+                mapContainer.classList.remove('active');
+                localStorage.setItem('competitions_view', 'grid');
+            } else {
+                gridBtn.classList.remove('active');
+                mapBtn.classList.add('active');
+                gridContainer.style.display = 'none';
+                mapContainer.classList.add('active');
+                localStorage.setItem('competitions_view', 'map');
+                initializeMap();
+            }
+        }
+
+        // Initialize Map
+        function initializeMap() {
+            if (!map) {
+                map = L.map('competitionsMap').setView([23.8103, 90.4125], 7);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+            }
+            updateMapMarkers();
+        }
+
+        // Update Map Markers
+        function updateMapMarkers() {
+            if (!map) return;
+
+            // Clear existing markers
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+
+            // Add markers for filtered competitions
+            filteredCompetitions.forEach(comp => {
+                if (comp.location_lat && comp.location_lng) {
+                    const marker = L.marker([comp.location_lat, comp.location_lng]).addTo(map);
+                    const totalPrize = (comp.prize_first || 0) + (comp.prize_second || 0) + (comp.prize_third || 0);
+                    
+                    marker.bindPopup(`
+                        <div class="map-popup">
+                            <div class="map-popup-header">${comp.title}</div>
+                            <div class="map-popup-body">
+                                <p><strong>Date:</strong> ${formatDate(new Date(comp.competition_date))}</p>
+                                <p><strong>Venue:</strong> ${comp.venue}</p>
+                                <p><strong>Prize:</strong> ৳${totalPrize.toLocaleString('en-BD')}</p>
+                                <a href="competition-detail.html?id=${comp.id}" class="map-popup-link">View Details</a>
+                            </div>
+                        </div>
+                    `);
+                    markers.push(marker);
+                }
+            });
+
+            // Fit bounds if markers exist
+            if (markers.length > 0) {
+                const group = new L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.1));
+            }
+        }
+
+        // Render Pagination
+        function renderPagination() {
+            const paginationContainer = document.getElementById('pagination');
+            const pageNumbers = document.getElementById('pageNumbers');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (totalPages <= 1) {
+                paginationContainer.style.display = 'none';
+                return;
+            }
+
+            paginationContainer.style.display = 'flex';
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+
+            let pagesHTML = '';
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if (endPage - startPage < maxVisiblePages - 1) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                pagesHTML += `
+                    <button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>
+                `;
+            }
+
+            pageNumbers.innerHTML = pagesHTML;
+        }
+
+        // Change Page
+        function changePage(page) {
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderCompetitions();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show Empty State
+        function showEmptyState(message = null) {
+            const grid = document.getElementById('competitionsGrid');
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">NX</div>
+                    <h3>${message || 'No competitions found'}</h3>
+                    <p>Try adjusting your filters or search terms</p>
+                    <button class="btn btn-primary" onclick="clearFilters()">Clear Filters</button>
+                </div>
+            `;
+            document.getElementById('pagination').style.display = 'none';
+        }
+
+        // Show Loading
+        function showLoading() {
+            const grid = document.getElementById('competitionsGrid');
+            grid.innerHTML = `
+                <div class="loading-container">
+                    <div class="spinner"></div>
+                </div>
+            `;
+        }
+
+        // Hide Loading
+        function hideLoading() {
+            // Handled by renderCompetitions
+        }
+
+        // Format Date
+        function formatDate(date) {
+            return date.toLocaleDateString('en-BD', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // URL Parameter Management
+        function updateURLParams() {
+            const params = new URLSearchParams();
+            if (filters.search) params.set('search', filters.search);
+            if (filters.location) params.set('location', filters.location);
+            if (filters.categories.length) params.set('category', filters.categories.join(','));
+            if (filters.dateFrom) params.set('from', filters.dateFrom);
+            if (filters.dateTo) params.set('to', filters.dateTo);
+            if (filters.status) params.set('status', filters.status);
+            if (filters.sortBy !== 'date_asc') params.set('sort', filters.sortBy);
+
+            const newURL = params.toString() ? `?${params.toString()}` : window.location.pathname;
+            window.history.replaceState({}, '', newURL);
+        }
+
+        function readURLParams() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('search')) {
+                filters.search = params.get('search');
+                document.getElementById('searchInput').value = filters.search;
+            }
+            if (params.has('location')) {
+                filters.location = params.get('location');
+                document.getElementById('locationFilter').value = filters.location;
+            }
+            if (params.has('category')) {
+                filters.categories = params.get('category').split(',');
+                document.querySelectorAll('.category-checkbox').forEach(cb => {
+                    if (filters.categories.includes(cb.value)) {
+                        cb.checked = true;
+                    }
+                });
+            }
+            if (params.has('from')) {
+                filters.dateFrom = params.get('from');
+                document.getElementById('dateFromInput').value = filters.dateFrom;
+            }
+            if (params.has('to')) {
+                filters.dateTo = params.get('to');
+                document.getElementById('dateToInput').value = filters.dateTo;
+            }
+            if (params.has('status')) {
+                filters.status = params.get('status');
+                document.getElementById('statusFilter').value = filters.status;
+            }
+            if (params.has('sort')) {
+                filters.sortBy = params.get('sort');
+                document.getElementById('sortSelect').value = filters.sortBy;
+            }
+        }
+
+        // Check Authentication Status
+        function checkAuthStatus() {
+            // This functionality should be handled by auth.js
+            // Remove this function or keep it minimal
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        }
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('navbarMenu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Restore view preference
+        const savedView = localStorage.getItem('competitions_view');
+        if (savedView === 'map') {
+            switchView('map');
+        }
+        
+        // Initialize cart badge on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (typeof Cart !== 'undefined' && Cart.updateCartBadge) {
+                await Cart.updateCartBadge();
+                console.log('Cart badge initialized on competitions page');
+            }
+        });
+    </script>
+</body>
+</html>

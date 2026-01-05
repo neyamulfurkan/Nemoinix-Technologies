@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Successful - Nemionix Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-500: #1991EB;
+            --success: #10B981;
+            --gray-50: #F9FAFB;
+            --gray-600: #4B5563;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .success-container {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3rem;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .order-number {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+
+        .order-number strong {
+            color: var(--primary-500);
+            font-family: 'Courier New', monospace;
+        }
+
+        p {
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary-500);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #1474BC;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gray-900);
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-500);
+            color: var(--primary-500);
+        }
+
+        .info-box {
+            background: var(--gray-50);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .info-box h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--gray-900);
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box li {
+            padding: 0.5rem 0;
+            color: var(--gray-600);
+            font-size: 0.9375rem;
+        }
+
+        .info-box li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✓</div>
+        
+        <h1>Order Placed Successfully!</h1>
+        
+        <p class="order-number">
+            Your order number is <strong id="orderNumber">Loading...</strong>
+        </p>
+        
+        <p>
+            Thank you for your purchase! We've sent a confirmation email with your order details. 
+            You can track your order status from your dashboard.
+        </p>
+
+        <div class="button-group">
+            <a href="my-orders.html" class="btn btn-primary">
+                📦 View My Orders
+            </a>
+            <a href="products.html" class="btn btn-secondary">
+                🛍️ Continue Shopping
+            </a>
+        </div>
+
+        <div class="info-box">
+            <h3>What happens next?</h3>
+            <ul>
+                <li>You'll receive an email confirmation shortly</li>
+                <li>The seller will review and confirm your order</li>
+                <li>You'll be notified when your order is shipped</li>
+                <li>Track your order status anytime from your dashboard</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Get order number from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderNumber = urlParams.get('order');
+        
+        if (orderNumber) {
+            document.getElementById('orderNumber').textContent = orderNumber;
+        } else {
+            document.getElementById('orderNumber').textContent = 'N/A';
+        }
+    </script>
+</body>
+</html>

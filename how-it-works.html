@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Nemionix | Complete Platform Guide</title>
+    <meta name="description" content="Learn how to buy robotics components, register for competitions, and sell products on Bangladesh's premier robotics marketplace.">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* How It Works Specific Styles */
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1rem 0;
+        }
+
+        .breadcrumb .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .breadcrumb a {
+            color: var(--gray-600);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-600);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-700) 100%);
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            font-weight: 400;
+            opacity: 0.95;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .guide-tabs-section {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 2rem 0 0;
+        }
+        
+        .guide-tabs {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .guide-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-bottom: none;
+            border-radius: 0.75rem 0.75rem 0 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--gray-700);
+        }
+        
+        .guide-tab:hover {
+            background: var(--gray-50);
+            border-color: var(--primary-300);
+        }
+        
+        .guide-tab.active {
+            background: var(--primary-500);
+            color: white;
+            border-color: var(--primary-500);
+            transform: translateY(2px);
+        }
+        
+        .guide-tab.active svg {
+            color: white;
+        }
+        
+        .guide-content {
+            display: none;
+        }
+        
+        .guide-content.active {
+            display: block;
+        }
+        
+        .guide-section {
+            padding: 5rem 0;
+        }
+        
+        .guide-section.alt-bg {
+            background: var(--gray-50);
+        }
+        
+        .section-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+        
+        .section-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--primary-100);
+            color: var(--primary-700);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+        
+        .section-description {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+        
+        .steps-container {
+            display: grid;
+            gap: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -1.5rem;
+            left: 2.5rem;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 12px rgba(25, 145, 235, 0.4);
+        }
+        
+        .step-number.secondary {
+            background: linear-gradient(135deg, var(--secondary-500), #0F8A50);
+        }
+        
+        .step-number.accent {
+            background: linear-gradient(135deg, var(--accent-500), #CC7414);
+        }
+        
+        .step-icon {
+            width: 4rem;
+            height: 4rem;
+            background: var(--primary-100);
+            color: var(--primary-600);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-icon.secondary {
+            background: rgba(25, 185, 105, 0.1);
+            color: var(--secondary-600);
+        }
+        
+        .step-icon.accent {
+            background: rgba(255, 145, 25, 0.1);
+            color: var(--accent-600);
+        }
+        
+        .step-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+        
+        .step-description {
+            font-size: 1rem;
+            color: var(--gray-700);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-features {
+            display: grid;
+            gap: 0.75rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9375rem;
+            color: var(--gray-700);
+        }
+        
+        .feature-item svg {
+            flex-shrink: 0;
+            color: var(--success);
+        }
+        
+        .step-requirements {
+            background: var(--gray-50);
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        
+        .step-requirements strong {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: var(--gray-900);
+        }
+        
+        .step-requirements ul {
+            margin-left: 1.25rem;
+            color: var(--gray-700);
+        }
+        
+        .step-requirements li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-note {
+            display: flex;
+            gap: 0.75rem;
+            background: var(--primary-50);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--primary-500);
+        }
+        
+        .step-note svg {
+            flex-shrink: 0;
+            color: var(--primary-600);
+        }
+        
+        .step-note span {
+            font-size: 0.9375rem;
+            color: var(--gray-700);
+        }
+        
+        .step-cta {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: var(--primary-100);
+            color: var(--primary-600);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+        
+        .feature-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--gray-900);
+        }
+        
+        .feature-description {
+            font-size: 0.9375rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        
+        .steps-horizontal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .step-horizontal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            max-width: 140px;
+        }
+        
+        .step-h-number {
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary-500);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .step-h-content {
+            text-align: center;
+        }
+        
+        .step-h-content h4 {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin-bottom: 0.25rem;
+            color: var(--gray-900);
+        }
+        
+        .step-h-content p {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+        }
+        
+        .step-arrow {
+            color: var(--primary-400);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .info-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-icon {
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary-100);
+            color: var(--primary-600);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+        
+        .info-card h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-card li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            color: var(--gray-700);
+            font-size: 0.9375rem;
+        }
+        
+        .info-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+        }
+        
+        .competition-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefit-icon {
+            width: 4rem;
+            height: 4rem;
+            background: var(--primary-100);
+            color: var(--primary-600);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+        }
+        
+        .benefit-card h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--gray-900);
+        }
+        
+        .benefit-card p {
+            color: var(--gray-600);
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+        
+        .reward-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .tier-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+        
+        .tier-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tier-card.bronze {
+            border-color: var(--tier-bronze);
+        }
+        
+        .tier-card.silver {
+            border-color: var(--tier-silver);
+        }
+        
+        .tier-card.gold {
+            border-color: var(--tier-gold);
+            transform: scale(1.05);
+        }
+        
+        .tier-card.platinum {
+            border-color: var(--tier-platinum);
+        }
+        
+        .tier-badge {
+            margin-bottom: 1.5rem;
+        }
+        
+        .tier-card.bronze .tier-badge svg {
+            color: var(--tier-bronze);
+        }
+        
+        .tier-card.silver .tier-badge svg {
+            color: var(--tier-silver);
+        }
+        
+        .tier-card.gold .tier-badge svg {
+            color: var(--tier-gold);
+        }
+        
+        .tier-card.platinum .tier-badge svg {
+            color: var(--tier-platinum);
+        }
+        
+        .tier-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tier-range {
+            color: var(--gray-600);
+            font-size: 0.9375rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .tier-benefits {
+            list-style: none;
+            text-align: left;
+            padding: 0;
+        }
+        
+        .tier-benefits li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-700);
+            font-size: 0.9375rem;
+        }
+        
+        .tier-benefits li:last-child {
+            border-bottom: none;
+        }
+        
+        .points-earning {
+            background: white;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+        
+        .points-earning h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--gray-900);
+        }
+        
+        .earning-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .earning-method {
+            text-align: center;
+        }
+        
+        .method-points {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-600);
+            margin-bottom: 0.5rem;
+        }
+        
+        .method-desc {
+            color: var(--gray-700);
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+        
+        .faq-section {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 0;
+        }
+        
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            transition: color 0.3s;
+        }
+        
+        .faq-question:hover {
+            color: var(--primary-600);
+        }
+        
+        .faq-icon {
+            flex-shrink: 0;
+            transition: transform 0.3s;
+            color: var(--primary-500);
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-answer p {
+            color: var(--gray-700);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        
+        .faq-answer ul, .faq-answer ol {
+            margin-left: 1.5rem;
+            color: var(--gray-700);
+        }
+        
+        .faq-answer li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .faq-answer strong {
+            color: var(--gray-900);
+        }
+        
+        .contact-support-section {
+            padding: 5rem 0;
+            background: var(--gray-50);
+        }
+        
+        .support-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+        
+        .support-icon {
+            width: 5rem;
+            height: 5rem;
+            background: var(--primary-100);
+            color: var(--primary-600);
+            border-radius: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .support-card h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+        
+        .support-card > p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        
+        .support-contact {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--gray-700);
+            font-size: 0.9375rem;
+        }
+        
+        .contact-method svg {
+            color: var(--primary-500);
+        }
+        
+        .contact-method a {
+            color: var(--primary-600);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .contact-method a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-lg {
+            padding: 1rem 2.5rem;
+            font-size: 1.125rem;
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.875rem;
+            }
+            
+            .steps-horizontal {
+                flex-direction: column;
+            }
+            
+            .step-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .reward-tiers {
+                grid-template-columns: 1fr;
+            }
+            
+            .tier-card.gold {
+                transform: none;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+                            <path d="M20 10L28 16V24L20 30L12 24V16L20 10Z" fill="white" opacity="0.9"/>
+                            <circle cx="20" cy="20" r="3" fill="white"/>
+                            <defs>
+                                <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" stop-color="#1991EB"/>
+                                    <stop offset="100%" stop-color="#0F578D"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">Nemionix Technologies</span>
+                        <span class="logo-tagline">Engineering the Future, Today</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="competitions.html" class="nav-link">Competitions</a>
+                    <a href="products.html" class="nav-link">Products</a>
+                    <a href="clubs.html" class="nav-link">Clubs</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="how-it-works.html" class="nav-link active">How It Works</a>
+                </div>
+
+                <!-- Auth Buttons -->
+                <div class="nav-actions">
+                    <button class="cart-btn" onclick="window.location.href='cart.html'">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </button>
+                    <a href="login.html" class="btn btn-secondary">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span>›</span>
+            <span class="active">How It Works</span>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>How It Works</h1>
+            <p>Your complete guide to using Bangladesh's premier robotics marketplace</p>
+        </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <section class="guide-tabs-section">
+        <div class="container">
+            <div class="guide-tabs">
+                <button class="guide-tab active" data-tab="students">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="8.5" cy="7" r="4"/>
+                        <polyline points="17 11 19 13 23 9"/>
+                    </svg>
+                    <span>For Students</span>
+                </button>
+                <button class="guide-tab" data-tab="clubs">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2"/>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                    <span>For Clubs</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Students Content -->
+    <div class="guide-content active" id="students-content">
+        <!-- Buying Products Section -->
+        <section class="guide-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <div class="section-tag">Student Guide</div>
+                    <h2 class="section-title">Buying Products</h2>
+                    <p class="section-description">Purchase authentic robotics components from verified university clubs</p>
+                </div>
+
+                <div class="steps-container">
+                    <div class="step-card">
+                        <div class="step-number">
+                            <span>01</span>
+                        </div>
+                        <div class="step-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Browse Products</h3>
+                        <p class="step-description">Explore our marketplace with 500+ robotics components. Use filters for category, price range, seller, and ratings to find exactly what you need.</p>
+                        <div class="step-features">
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Advanced search filters</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Compare products side-by-side</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Read verified reviews</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">
+                            <span>02</span>
+                        </div>
+                        <div class="step-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="21" r="1"/>
+                                <circle cx="20" cy="21" r="1"/>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Add to Cart</h3>
+                        <p class="step-description">Click "Add to Cart" on any product page. Your cart saves automatically, so you can continue shopping or checkout later at your convenience.</p>
+                        <div class="step-features">
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Persistent cart across sessions</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Real-time stock updates</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Quick quantity adjustments</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">
+                            <span>03</span>
+                        </div>
+                        <div class="step-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2"/>
+                                <line x1="1" y1="10" x2="23" y2="10"/>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Checkout & Payment</h3>
+                        <p class="step-description">Enter your delivery address and choose payment method: Cash on Delivery, bKash, or Nagad. For mobile payments, upload screenshot and transaction ID.</p>
+                        <div class="step-features">
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Multiple payment options</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Secure checkout process</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Instant order confirmation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">
+                            <span>04</span>
+                        </div>
+                        <div class="step-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Track Your Order</h3>
+                        <p class="step-description">Monitor order status in real-time: Pending → Confirmed → Shipped → Delivered. Get tracking number and courier details when shipped.</p>
+                        <div class="step-features">
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Real-time status updates</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Email notifications</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Courier tracking integration</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">
+                            <span>05</span>
+                        </div>
+                        <div class="step-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Receive & Review</h3>
+                        <p class="step-description">Confirm delivery in your dashboard. Write a review with photos to help other students and earn clubs reward points for excellent service.</p>
+                        <div class="step-features">
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Photo reviews supported</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Verified purchase badge</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>Help improve community quality</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competition Registration Section -->
+        <section class="guide-section alt-bg">
+            <div class="container">
+                <div class="section-header-center">
+                    <div class="section-tag">Competitions</div>
+                    <h2 class="section-title">Registering for Competitions</h2>
+                    <p class="section-description">Participate in robotics competitions organized by top university clubs</p>
+                </div>
+
+                <div class="steps-container">
+                    <div class="step-card">
+                        <div class="step-number secondary">
+                            <span>01</span>
+                        </div>
+                        <div class="step-icon secondary">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Browse Competitions</h3>
+                        <p class="step-description">Explore upcoming robotics competitions across Bangladesh. Filter by location, date, category, and prize money to find the perfect match.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number secondary">
+                            <span>02</span>
+                        </div>
+                        <div class="step-icon secondary">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="12" y1="18" x2="12" y2="12"/>
+                                <line x1="9" y1="15" x2="15" y2="15"/>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Check Requirements</h3>
+                        <p class="step-description">Review competition rules, eligibility criteria, and required components. See linked products you can purchase directly for the competition.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number secondary">
+                            <span>03</span>
+                        </div>
+                        <div class="step-icon secondary">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="8.5" cy="7" r="4"/>
+                                <line x1="20" y1="8" x2="20" y2="14"/>
+                                <line x1="23" y1="11" x2="17" y2="11"/>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Register Team</h3>
+                        <p class="step-description">Fill registration form with team name, members, and contact info. Pay registration fee via Cash on Delivery, bKash, or Nagad.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number secondary">
+                            <span>04</span>
+                        </div>
+                        <div class="step-icon secondary">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 11 12 14 22 4"/>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Get Confirmation</h3>
+                        <p class="step-description">Receive confirmation email with registration details, venue information, and downloadable participation certificate.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number secondary">
+                            <span>05</span>
+                        </div>
+                        <div class="step-icon secondary">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                                <path d="M4 22h16"/>
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Participate & Win</h3>
+                        <p class="step-description">Show up on competition day with your robot. Compete for prizes, gain experience, and network with robotics enthusiasts nationwide.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Account Management Section -->
+        <section class="guide-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <div class="section-tag">Your Account</div>
+                    <h2 class="section-title">Managing Your Account</h2>
+                    <p class="section-description">Everything you need to track orders, registrations, and profile settings</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10H3M21 6H3M21 14H3M21 18H3"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">View Orders</h3>
+                        <p class="feature-description">Access complete order history with status, tracking numbers, and downloadable invoices.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="3" width="15" height="13"/>
+                                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                                <circle cx="5.5" cy="18.5" r="2.5"/>
+                                <circle cx="18.5" cy="18.5" r="2.5"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Track Deliveries</h3>
+                        <p class="feature-description">Real-time tracking with courier details, estimated delivery, and status notifications.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Write Reviews</h3>
+                        <p class="feature-description">Share experience with photos, rate products, and help the robotics community.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Competition Registrations</h3>
+                        <p class="feature-description">View all registered competitions, payment status, and download certificates.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Update Profile</h3>
+                        <p class="feature-description">Manage personal info, university details, avatar, and notification preferences.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<rect x="5" y="2" width="14" height="20" rx="2"/>
+<line x1="12" y1="18" x2="12.01" y2="18"/>
+</svg>
+</div>
+<h3 class="feature-title">Mobile Access</h3>
+<p class="feature-description">Access dashboard from any device with responsive design and fast loading.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- For Clubs Content -->
+<div class="guide-content" id="clubs-content">
+    <!-- Getting Started Section -->
+    <section class="guide-section">
+        <div class="container">
+            <div class="section-header-center">
+                <div class="section-tag">Club Guide</div>
+                <h2 class="section-title">Getting Started as a Club</h2>
+                <p class="section-description">Join Bangladesh's premier robotics marketplace and reach thousands of students</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card accent">
+                    <div class="step-number accent">
+                        <span>01</span>
+                    </div>
+                    <div class="step-icon accent">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Apply with Documents</h3>
+                    <p class="step-description">Submit application with club details, university information, logo, and registration certificate. Provide .edu.bd email for verification.</p>
+                    <div class="step-requirements">
+                        <strong>Required Documents:</strong>
+                        <ul>
+                            <li>Club registration certificate (PDF/JPG)</li>
+                            <li>High-resolution club logo (PNG)</li>
+                            <li>Official university email address</li>
+                            <li>Club description (min 50 characters)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-card accent">
+                    <div class="step-number accent">
+                        <span>02</span>
+                    </div>
+                    <div class="step-icon accent">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Wait for Approval</h3>
+                    <p class="step-description">Our verification team reviews applications within 24-48 hours. You'll receive email notification with approval status.</p>
+                    <div class="step-note">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="16" x2="12" y2="12"/>
+                            <line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                        <span>Average approval time: 36 hours. Check spam folder for response.</span>
+                    </div>
+                </div>
+
+                <div class="step-card accent">
+                    <div class="step-number accent">
+                        <span>03</span>
+                    </div>
+                    <div class="step-icon accent">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Setup Profile</h3>
+                    <p class="step-description">Complete club profile with cover photo, detailed description, social media links, and contact information for potential customers.</p>
+                    <div class="step-features">
+                        <div class="feature-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Custom club URL slug</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Social media integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card accent">
+                    <div class="step-number accent">
+                        <span>04</span>
+                    </div>
+                    <div class="step-icon accent">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Start Selling</h3>
+                    <p class="step-description">Add your first products, create competitions, and start earning. Benefit from our reward system and climb the leaderboard!</p>
+                    <div class="step-cta">
+                        <a href="signup.html" class="btn-primary">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selling Products Section -->
+    <section class="guide-section alt-bg">
+        <div class="container">
+            <div class="section-header-center">
+                <div class="section-tag">Marketplace</div>
+                <h2 class="section-title">Selling Products</h2>
+                <p class="section-description">List and manage robotics components with our easy-to-use platform</p>
+            </div>
+
+            <div class="steps-horizontal">
+                <div class="step-horizontal">
+                    <div class="step-h-number">1</div>
+                    <div class="step-h-content">
+                        <h4>Add Product Details</h4>
+                        <p>Name, description, category, specifications</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-horizontal">
+                    <div class="step-h-number">2</div>
+                    <div class="step-h-content">
+                        <h4>Upload Images</h4>
+                        <p>Up to 5 high-quality photos</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-horizontal">
+                    <div class="step-h-number">3</div>
+                    <div class="step-h-content">
+                        <h4>Set Price & Stock</h4>
+                        <p>Pricing, discounts, inventory</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-horizontal">
+                    <div class="step-h-number">4</div>
+                    <div class="step-h-content">
+                        <h4>Publish</h4>
+                        <p>Live immediately on marketplace</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-horizontal">
+                    <div class="step-h-number">5</div>
+                    <div class="step-h-content">
+                        <h4>Manage Orders</h4>
+                        <p>Fulfill, ship, track earnings</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-cards-grid">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                    </div>
+                    <h4>Product Management</h4>
+                    <ul>
+                        <li>Edit anytime with instant updates</li>
+                        <li>Bulk stock adjustments</li>
+                        <li>Duplicate listings for variants</li>
+                        <li>Performance analytics per product</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h4>Pricing & Discounts</h4>
+                    <ul>
+                        <li>Set original price for discount display</li>
+                        <li>Automatic discount percentage calculation</li>
+                        <li>Flash sale support</li>
+                        <li>Bulk pricing tools</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="3" width="15" height="13"/>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                            <circle cx="5.5" cy="18.5" r="2.5"/>
+                            <circle cx="18.5" cy="18.5" r="2.5"/>
+                        </svg>
+                    </div>
+                    <h4>Order Fulfillment</h4>
+                    <ul>
+                        <li>Instant email notifications</li>
+                        <li>Integrated shipping workflow</li>
+                        <li>Automated invoice generation</li>
+                        <li>Customer communication tools</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organizing Competitions Section -->
+    <section class="guide-section">
+        <div class="container">
+            <div class="section-header-center">
+                <div class="section-tag">Events</div>
+                <h2 class="section-title">Organizing Competitions</h2>
+                <p class="section-description">Create engaging robotics competitions and attract participants nationwide</p>
+            </div>
+
+            <div class="steps-horizontal">
+                <div class="step-horizontal">
+                    <div class="step-h-number">1</div>
+                    <div class="step-h-content">
+                        <h4>Create Competition</h4>
+                        <p>Title, description, category</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-horizontal">
+                    <div class="step-h-number">2</div>
+                    <div class="step-h-content">
+                        <h4>Set Details</h4>
+                        <p>Date, venue, prizes, rules</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-horizontal">
+                    <div class="step-h-number">3</div>
+                    <div class="step-h-content">
+                        <h4>Link Products</h4>
+                        <p>Required components for purchase</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-horizontal">
+                    <div class="step-h-number">4</div>
+                    <div class="step-h-content">
+                        <h4>Publish</h4>
+                        <p>Live with registration open</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-horizontal">
+                    <div class="step-h-number">5</div>
+                    <div class="step-h-content">
+                        <h4>Manage Registrations</h4>
+                        <p>Approve teams, communicate</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="competition-benefits">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h4>Reach Thousands</h4>
+                    <p>Access to 5000+ registered students across Bangladesh</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                        </svg>
+                    </div>
+                    <h4>Boost Sales</h4>
+                    <p>Linked products get 3x more visibility and direct purchases</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </div>
+                    <h4>Earn Rewards</h4>
+                    <p>+100 points per competition, climb leaderboard rankings</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <h4>Easy Management</h4>
+                    <p>Built-in registration, payment, and communication tools</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reward System Section -->
+    <section class="guide-section alt-bg">
+        <div class="container">
+            <div class="section-header-center">
+                <div class="section-tag">Rewards</div>
+                <h2 class="section-title">Gamified Reward System</h2>
+                <p class="section-description">Earn points, unlock tiers, and get exclusive benefits</p>
+            </div>
+
+            <div class="reward-tiers">
+                <div class="tier-card bronze">
+                    <div class="tier-badge">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                            <path d="M4 22h16"/>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                        </svg>
+                    </div>
+                    <h3>Bronze</h3>
+                    <div class="tier-range">0 - 499 points</div>
+                    <ul class="tier-benefits">
+                        <li>5% platform commission</li>
+                        <li>Basic analytics</li>
+                        <li>Standard listing</li>
+                        <li>Email support</li>
+                    </ul>
+                </div>
+
+                <div class="tier-card silver">
+                    <div class="tier-badge">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                            <path d="M4 22h16"/>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                        </svg>
+                    </div>
+                    <h3>Silver</h3>
+                    <div class="tier-range">500 - 1,499 points</div>
+                    <ul class="tier-benefits">
+                        <li>3% platform commission</li>
+                        <li>Verified club badge</li>
+                        <li>Homepage featuring (weekly)</li>
+                        <li>Advanced analytics</li>
+                        <li>Priority support</li>
+                    </ul>
+                </div>
+
+                <div class="tier-card gold">
+                    <div class="tier-badge">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                            <path d="M4 22h16"/>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                        </svg>
+                    </div>
+                    <h3>Gold</h3>
+                    <div class="tier-range">1,500 - 4,999 points</div>
+                    <ul class="tier-benefits">
+                        <li>2% platform commission</li>
+                        <li>Gold verified badge</li>
+                        <li>Free featured posts (3/month)</li>
+                        <li>Premium analytics</li>
+                        <li>API access</li>
+                        <li>Dedicated support</li>
+                    </ul>
+                </div>
+
+                <div class="tier-card platinum">
+                    <div class="tier-badge">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                            <path d="M4 22h16"/>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                        </svg>
+                    </div>
+                    <h3>Platinum</h3>
+                    <div class="tier-range">5,000+ points</div>
+                    <ul class="tier-benefits">
+                        <li>1% platform commission</li>
+                        <li>Platinum elite badge</li>
+                        <li>Unlimited featured posts</li>
+                        <li>Free premium ads</li>
+                        <li>Revenue sharing program</li>
+                        <li>Physical trophy</li>
+                        <li>VIP support</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="points-earning">
+                <h3>How to Earn Points</h3>
+                <div class="earning-methods">
+                    <div class="earning-method">
+                        <div class="method-points">+100</div>
+                        <div class="method-desc">Organize Competition</div>
+                    </div>
+                    <div class="earning-method">
+                        <div class="method-points">+10</div>
+                        <div class="method-desc">Per ৳100 in Sales</div>
+                    </div>
+                    <div class="earning-method">
+                        <div class="method-points">+20</div>
+                        <div class="method-desc">5-Star Review Received</div>
+                    </div>
+                    <div class="earning-method">
+                        <div class="method-points">+5</div>
+                        <div class="method-desc">Fast Shipping Bonus</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container">
+        <div class="section-header-center">
+            <div class="section-tag">FAQ</div>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-description">Find answers to common questions about using our platform</p>
+        </div>
+
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How do I track my order?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>After placing an order, go to "My Orders" in your student dashboard. Click on any order to see detailed tracking information including current status, tracking number (once shipped), and estimated delivery date. You'll also receive email notifications for each status change.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What payment methods are accepted?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>We accept three payment methods:</p>
+                    <ul>
+                        <li><strong>Cash on Delivery:</strong> Pay when you receive the product</li>
+                        <li><strong>bKash:</strong> Send payment to club's number, upload screenshot & transaction ID</li>
+                        <li><strong>Nagad:</strong> Send payment to club's number, upload screenshot & transaction ID</li>
+                    </ul>
+                    <p>For mobile payments, clubs verify payments before shipping.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How long does delivery take?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Delivery time depends on your location:</p>
+                    <ul>
+                        <li><strong>Dhaka City:</strong> 2-3 business days</li>
+                        <li><strong>Major Cities:</strong> 3-5 business days</li>
+                        <li><strong>Other Areas:</strong> 5-7 business days</li>
+                    </ul>
+                    <p>Clubs typically ship within 24 hours of order confirmation. You'll receive tracking details once shipped.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How do I become a verified club?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>To become a verified club:</p>
+                    <ol>
+                        <li>Click "Sign Up" and select "University Club"</li>
+                        <li>Fill application with club details, university information</li>
+                        <li>Upload club logo and registration certificate</li>
+                        <li>Use official university email (.edu.bd domain)</li>
+                        <li>Submit and wait 24-48 hours for approval</li>
+                    </ol>
+                    <p>Our team verifies documents and university affiliation. You'll receive email notification with approval status.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What is the platform commission rate?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Commission rates vary by reward tier:</p>
+                    <ul>
+                        <li><strong>Bronze (0-499 points):</strong> 5%</li>
+                        <li><strong>Silver (500-1,499 points):</strong> 3%</li>
+                        <li><strong>Gold (1,500-4,999 points):</strong> 2%</li>
+                        <li><strong>Platinum (5,000+ points):</strong> 1%</li>
+                    </ul>
+                    <p>Commission is automatically deducted from each sale. Higher tiers unlock lower rates and more benefits.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How do club payoutswork?</span>
+<svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<polyline points="6 9 12 15 18 9"/>
+</svg>
+</button>
+<div class="faq-answer">
+<p>Clubs receive payouts on a weekly or monthly basis (based on preference):</p>
+<ul>
+<li>View earnings in "My Earnings" dashboard</li>
+<li>See breakdown by order with commission deduction</li>
+<li>Minimum payout threshold: ৳1,000</li>
+<li>Payments processed via bank transfer or bKash</li>
+<li>Processing time: 2-3 business days</li>
+</ul>
+<p>You'll receive email notification when payment is processed.</p>
+</div>
+</div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How do I earn reward points?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Clubs earn points through various activities:</p>
+                    <ul>
+                        <li><strong>+100 points:</strong> Organize a competition</li>
+                        <li><strong>+10 points:</strong> For every ৳100 in sales</li>
+                        <li><strong>+20 points:</strong> Receive 5-star review</li>
+                        <li><strong>+5 points:</strong> Ship orders within 24 hours</li>
+                    </ul>
+                    <p>Points accumulate automatically and determine your tier level. Track progress in "Reward Status" dashboard.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Can I cancel or modify my order?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Order modification depends on status:</p>
+                    <ul>
+                        <li><strong>Pending:</strong> Contact club directly to cancel or modify</li>
+                        <li><strong>Confirmed/Processing:</strong> Contact club; may be possible before shipping</li>
+                        <li><strong>Shipped:</strong> Cannot cancel; wait for delivery or arrange return</li>
+                    </ul>
+                    <p>Use the "Contact Seller" button on order details page to communicate with clubs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Still Have Questions Section -->
+<section class="contact-support-section">
+    <div class="container">
+        <div class="support-card">
+            <div class="support-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+            </div>
+            <h2>Still Have Questions?</h2>
+            <p>Our support team is here to help you with any inquiries about using the platform, orders, or technical issues.</p>
+            <div class="support-contact">
+                <div class="contact-method">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <a href="mailto:support@nemionix.com.bd">support@nemionix.com.bd</a>
+                </div>
+                <div class="contact-method">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    <span>Response time: 24 hours</span>
+                </div>
+            </div>
+            <a href="mailto:support@nemionix.com.bd" class="btn-primary btn-lg">Contact Support</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="10" fill="url(#footer-logo-gradient)"/>
+                        <path d="M12 20L18 14L24 20L30 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="18" cy="26" r="2" fill="white"/>
+                        <circle cx="24" cy="26" r="2" fill="white"/>
+                        <defs>
+                            <linearGradient id="footer-logo-gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#1991EB"/>
+                                <stop offset="100%" stop-color="#0F578D"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div>
+                        <div class="footer-brand">Nemionix</div>
+                        <div class="footer-tagline">Engineering the Future, Today</div>
+                    </div>
+                </div>
+                <p class="footer-description">Bangladesh's premier robotics marketplace connecting university clubs with students nationwide.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="YouTube" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="competitions.html">Browse Competitions</a></li>
+                    <li><a href="products.html">Marketplace</a></li>
+                    <li><a href="clubs.html">All Clubs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="footer-title">For Clubs</h3>
+                <ul class="footer-links">
+                    <li><a href="signup.html">Become a Seller</a></li>
+                    <li><a href="club-dashboard.html">Club Dashboard</a></li>
+                    <li><a href="#">Seller Guidelines</a></li>
+                    <li><a href="#">Reward System</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="footer-title">Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="mailto:support@nemionix.com.bd">Contact Support</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Nemionix Technologies. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/cart.js"></script>
+<script>
+    // Tab Switching
+    document.querySelectorAll('.guide-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const targetTab = this.dataset.tab;
+            
+            // Update active tab
+            document.querySelectorAll('.guide-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Update active content
+            document.querySelectorAll('.guide-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${targetTab}-content`).classList.add('active');
+            
+            // Scroll to content
+            window.scrollTo({
+                top: document.querySelector('.guide-content.active').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function() {
+            const faqItem = this.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        });
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    mobileMenuToggle.addEventListener('click', () => {
+        mobileMenuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // User Dropdown
+    const userAvatar = document.getElementById('userAvatar');
+    const userDropdown = document.getElementById('userDropdown');
+
+    if (userAvatar) {
+        userAvatar.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', () => {
+            userDropdown.classList.remove('active');
+        });
+    }
+
+    // Smooth Scroll for Anchor Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

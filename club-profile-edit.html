@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Edit Club Profile - Update your club information, photos, and social links on Nemionix Technologies">
+    <title>Edit Club Profile | Nemionix Technologies</title>
+    
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-50: #FFF8E1;
+            --primary-100: #FFECB3;
+            --primary-500: #FFC107;
+            --primary-600: #FFB300;
+            --primary-700: #FFA000;
+            --secondary-500: #1991EB;
+            --secondary-600: #1474BC;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --sidebar-width: 280px;
+            --topbar-height: 72px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --transition-base: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .dashboard-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar - Exact match from dashboard */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 40;
+            overflow-y: auto;
+            transition: transform 0.3s var(--transition-base);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 3px;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            transition: transform 0.2s var(--transition-base);
+        }
+
+        .brand-logo:hover {
+            transform: translateX(2px);
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            line-height: 1.2;
+        }
+
+        .brand-tagline {
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-nav {
+            padding: 1.5rem 0;
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .nav-section-title {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-500);
+            padding: 0 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 0.75rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: 0.9375rem;
+            transition: all 0.15s var(--transition-base);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: var(--gray-50);
+            color: var(--primary-600);
+            transform: translateX(2px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-50), rgba(25, 145, 235, 0.05));
+            color: var(--primary-600);
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 24px;
+            background: var(--primary-500);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .nav-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--error);
+            color: white;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            padding: 0.125rem 0.5rem;
+            border-radius: 999px;
+            min-width: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            margin-top: auto;
+            position: sticky;
+            bottom: 0;
+            background: white;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 0.75rem;
+            border-radius: var(--radius-lg);
+            transition: background 0.15s var(--transition-base);
+            cursor: pointer;
+        }
+
+        .user-profile:hover {
+            background: var(--gray-50);
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            border: 2px solid var(--primary-500);
+            flex-shrink: 0;
+        }
+
+        .user-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-900);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Topbar - Exact match from dashboard */
+        .topbar {
+            height: var(--topbar-height);
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            gap: 1.5rem;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-700);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: background 0.15s var(--transition-base);
+        }
+
+        .mobile-menu-toggle:hover {
+            background: var(--gray-100);
+        }
+
+        .page-title-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            line-height: 1.2;
+        }
+
+        .page-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-top: 0.25rem;
+        }
+
+        .page-breadcrumb a {
+            color: var(--gray-500);
+            text-decoration: none;
+            transition: color 0.15s var(--transition-base);
+        }
+
+        .page-breadcrumb a:hover {
+            color: var(--primary-500);
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .icon-button {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-lg);
+            border: none;
+            background: var(--gray-50);
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: all 0.15s var(--transition-base);
+        }
+
+        .icon-button:hover {
+            background: var(--gray-100);
+            transform: scale(1.05);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s var(--transition-base);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 1.5px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            padding-bottom: 120px;
+        }
+
+        /* Section - Consistent with dashboard */
+        .section {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        /* Cover Photo Section */
+        .cover-photo-wrapper {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--gray-200), var(--gray-100));
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .cover-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cover-photo-wrapper:hover .cover-overlay {
+            opacity: 1;
+        }
+
+        .change-cover-btn {
+            background: white;
+            color: var(--gray-900);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.2s;
+        }
+
+        .change-cover-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .cover-info {
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+        }
+
+        /* Logo Section */
+        .logo-section-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.5rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-xl);
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            flex-shrink: 0;
+        }
+
+        .logo-display {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-500);
+            background: var(--gray-100);
+        }
+
+        .logo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .logo-wrapper:hover .logo-overlay {
+            opacity: 1;
+        }
+
+        .change-logo-btn {
+            background: white;
+            color: var(--gray-900);
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .logo-info-content {
+            flex: 1;
+        }
+
+        .logo-info-content h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-info-content p {
+            color: var(--gray-600);
+            font-size: 0.8125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Form Elements */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+        }
+
+        .form-label .required {
+            color: var(--error);
+            margin-left: 0.25rem;
+        }
+
+        .form-label .readonly-badge {
+            display: inline-block;
+            background: var(--gray-200);
+            color: var(--gray-600);
+            font-size: 0.75rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: var(--radius-sm);
+            margin-left: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+            outline: none;
+        }
+
+        .form-input:disabled,
+        .form-select:disabled,
+        .form-textarea:disabled {
+            background: var(--gray-100);
+            cursor: not-allowed;
+            color: var(--gray-500);
+        }
+
+        .form-input.error {
+            border-color: var(--error);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-help {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 0.375rem;
+        }
+
+        .form-error {
+            font-size: 0.75rem;
+            color: var(--error);
+            margin-top: 0.375rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .char-counter {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-align: right;
+            margin-top: 0.25rem;
+        }
+
+        .char-counter.warning {
+            color: var(--warning);
+        }
+
+        .char-counter.error {
+            color: var(--error);
+        }
+
+        /* Quill Editor Customization */
+        .quill-container {
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: white;
+        }
+
+        .quill-container .ql-toolbar {
+            border: none;
+            border-bottom: 1px solid var(--gray-200);
+            background: var(--gray-50);
+        }
+
+        .quill-container .ql-container {
+            border: none;
+            font-size: 0.875rem;
+            min-height: 200px;
+        }
+
+        .quill-container .ql-editor {
+            min-height: 200px;
+        }
+
+        /* Sticky Save Bar */
+        .sticky-save-bar {
+            position: fixed;
+            bottom: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--gray-200);
+            padding: 1rem 2rem;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 90;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .save-info {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .save-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Loading & Toast */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary-500);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s var(--transition-base);
+            min-width: 320px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--error);
+        }
+
+        .toast.info {
+            border-left: 4px solid var(--secondary-500);
+        }
+
+        .toast.warning {
+            border-left: 4px solid var(--warning);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .sticky-save-bar {
+                left: 0;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-section-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 1rem;
+            }
+
+            .topbar {
+                padding: 0 1rem;
+            }
+
+            .cover-photo-wrapper {
+                height: 200px;
+            }
+
+            .logo-wrapper {
+                width: 120px;
+                height: 120px;
+            }
+
+            .sticky-save-bar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .save-actions {
+                width: 100%;
+            }
+
+            .save-actions button {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-title {
+                font-size: 1.25rem;
+            }
+
+            .section {
+                padding: 1rem;
+            }
+
+            .logo-section-wrapper {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="logo-icon">NX</div>
+                    <div class="brand-text">
+                        <div class="brand-name">Nemionix</div>
+                        <div class="brand-tagline">ENGINEERING THE FUTURE</div>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Main</div>
+                    <div class="nav-menu">
+                        <a href="club-dashboard.html" class="nav-link">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="club-profile-edit.html" class="nav-link active">
+                            <span class="nav-icon">🏛️</span>
+                            <span>Club Profile</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Products</div>
+                    <div class="nav-menu">
+                        <a href="manage-products.html" class="nav-link">
+                            <span class="nav-icon">📦</span>
+                            <span>All Products</span>
+                        </a>
+                        <a href="create-product.html" class="nav-link">
+                            <span class="nav-icon">➕</span>
+                            <span>Add Product</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Competitions</div>
+                    <div class="nav-menu">
+                        <a href="manage-competitions.html" class="nav-link">
+                            <span class="nav-icon">🏆</span>
+                            <span>All Competitions</span>
+                        </a>
+                        <a href="create-competition.html" class="nav-link">
+                            <span class="nav-icon">➕</span>
+                            <span>Create Competition</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Orders</div>
+                    <div class="nav-menu">
+                        <a href="manage-orders.html" class="nav-link">
+                            <span class="nav-icon">📋</span>
+                            <span>Orders</span>
+                            <span class="nav-badge" id="pendingOrdersBadge">0</span>
+                        </a>
+                        <a href="my-earnings.html" class="nav-link">
+                            <span class="nav-icon">💰</span>
+                            <span>Earnings</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Performance</div>
+                    <div class="nav-menu">
+                        <a href="reward-status.html" class="nav-link">
+                            <span class="nav-icon">⭐</span>
+                            <span>Reward Status</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <img src="assets/default-club-logo.png" alt="Club Logo" class="user-avatar" id="sidebarClubLogo">
+                <div class="user-info">
+                    <div class="user-name" id="sidebarClubName">Loading...</div>
+                    <div class="user-role">Club Admin</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Topbar -->
+        <div class="topbar">
+            <button class="mobile-menu-toggle" id="mobileMenuBtn">☰</button>
+
+            <div class="page-title-wrapper">
+                <h1 class="page-title">Edit Club Profile</h1>
+                <div class="page-breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span>›</span>
+                    <a href="club-dashboard.html">Dashboard</a>
+                    <span>›</span>
+                    <span>Edit Profile</span>
+                </div>
+            </div>
+
+            <div class="topbar-actions">
+                <button class="icon-button" id="notificationBtn" title="Notifications">
+                    🔔
+                </button>
+                <a href="#" class="btn btn-secondary" id="viewProfileBtn">
+                    👁️ View Public Profile
+                </a>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Cover Photo Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Cover Photo</h2>
+                </div>
+                <div class="cover-photo-wrapper">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=400&fit=crop&q=80" alt="Club Cover Photo" class="cover-photo" id="coverPhotoDisplay">
+                    <div class="cover-overlay">
+                        <button class="change-cover-btn" onclick="document.getElementById('coverInput').click()">
+                            📷 Change Cover Photo
+                        </button>
+                    </div>
+                </div>
+                <div class="cover-info">
+                    <span>Recommended size: 1920 x 400 pixels</span>
+                    <span>Max file size: 5 MB (JPG, PNG)</span>
+                </div>
+                <input type="file" id="coverInput" accept="image/jpeg,image/png" style="display: none;">
+            </div>
+
+            <!-- Logo Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Club Logo</h2>
+                </div>
+                <div class="logo-section-wrapper">
+                    <div class="logo-wrapper">
+                        <img src="assets/default-club-logo.png" alt="Club Logo" class="logo-display" id="logoDisplay">
+                        <div class="logo-overlay">
+                            <button class="change-logo-btn" onclick="document.getElementById('logoInput').click()">
+                                📷 Change
+                            </button>
+                        </div>
+                    </div>
+                    <div class="logo-info-content">
+                        <h3>Club Logo Guidelines</h3>
+                        <p>• Recommended size: 200 x 200 pixels (square)</p>
+                        <p>• Max file size: 2 MB</p>
+                        <p>• Accepted formats: JPG, PNG</p>
+                        <p>• Logo will be displayed in circular shape</p>
+                    </div>
+                </div>
+                <input type="file" id="logoInput" accept="image/jpeg,image/png" style="display: none;">
+            </div>
+
+            <!-- Basic Information -->
+            <form id="profileForm">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Basic Information</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Club Name<span class="required">*</span>
+                                <span class="readonly-badge">Read-only</span>
+                            </label>
+                            <input type="text" class="form-input" id="clubName" disabled>
+                            <p class="form-help">Contact support to change your club name</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                University<span class="required">*</span>
+                                <span class="readonly-badge">Read-only</span>
+                            </label>
+                            <input type="text" class="form-input" id="university" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                Established Year<span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-input" id="establishedYear" min="1990" max="2025" required>
+                            <p class="form-help">Year when your club was founded</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Club Slug</label>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span style="color: var(--gray-500); font-size: 0.875rem;">nemionix.com.bd/club/</span>
+                                <input type="text" class="form-input" id="clubSlug" disabled style="flex: 1;">
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                Club Description<span class="required">*</span>
+                            </label>
+                            <div class="quill-container">
+                                <div id="descriptionEditor"></div>
+                            </div>
+                            <div class="char-counter" id="descriptionCounter">0 / 1000 characters (minimum 50)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Contact Information</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Contact Email<span class="required">*</span>
+                            </label>
+                            <input type="email" class="form-input" id="contactEmail" required>
+                            <p class="form-help">Email for customer inquiries</p>
+                            <div class="form-error" id="emailError" style="display: none;">
+                                <span>⚠️</span>
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                Contact Phone<span class="required">*</span>
+                            </label>
+                            <input type="tel" class="form-input" id="contactPhone" placeholder="01XXXXXXXXX" required>
+                            <p class="form-help">Bangladesh phone number (01XXXXXXXXX)</p>
+                            <div class="form-error" id="phoneError" style="display: none;">
+                                <span>⚠️</span>
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                bKash Payment Number<span class="required">*</span>
+                            </label>
+                            <input type="tel" class="form-input" id="bkashNumber" placeholder="01XXXXXXXXX" required>
+                            <p class="form-help">Your bKash merchant/personal number for receiving payments</p>
+                            <div class="form-error" id="bkashError" style="display: none;">
+                                <span>⚠️</span>
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                Nagad Payment Number<span class="required">*</span>
+                            </label>
+                            <input type="tel" class="form-input" id="nagadNumber" placeholder="01XXXXXXXXX" required>
+                            <p class="form-help">Your Nagad merchant/personal number for receiving payments</p>
+                            <div class="form-error" id="nagadError" style="display: none;">
+                                <span>⚠️</span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Social Media Links</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Facebook Page URL</label>
+                            <input type="url" class="form-input" id="facebookUrl" placeholder="https://facebook.com/yourclub">
+                            <div class="form-error" id="facebookError" style="display: none;">
+                                <span>⚠️</span>
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Instagram Profile URL</label>
+                            <input type="url" class="form-input" id="instagramUrl" placeholder="https://instagram.com/yourclub">
+                            <div class="form-error" id="instagramError" style="display: none;">
+                                <span>⚠️</span>
+                                <span></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label">Website URL</label>
+                            <input type="url" class="form-input" id="websiteUrl" placeholder="https://yourclub.edu.bd">
+                            <div class="form-error" id="websiteError" style="display: none;">
+                                <span>⚠️</span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sticky Save Bar -->
+        <div class="sticky-save-bar">
+            <div class="save-info">
+                <span id="saveStatus">No unsaved changes</span>
+            </div>
+            <div class="save-actions">
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='club-dashboard.html'">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary" id="saveBtn" form="profileForm">
+                    💾 Save Changes
+                </button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script>
+    // Global state
+    let currentUser = null;
+    let clubData = null;
+    let quillEditor = null;
+    let hasUnsavedChanges = false;
+    let coverPhotoFile = null;
+    let logoFile = null;
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Check authentication
+        currentUser = await checkAuth();
+        if (!currentUser || currentUser.role !== 'club_admin') {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        // Check if club is approved
+        if (currentUser.club_status !== 'approved') {
+            showToast('Your club application is pending approval', 'warning');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+            return;
+        }
+
+        initializeQuillEditor();
+        await loadClubData();
+        initializeEventListeners();
+    });
+
+    // Initialize Quill editor
+    function initializeQuillEditor() {
+        quillEditor = new Quill('#descriptionEditor', {
+            theme: 'snow',
+            placeholder: 'Write a compelling description about your club, its mission, activities, and achievements...',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['blockquote', 'code-block'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'header': [1, 2, 3, false] }],
+                    ['link'],
+                    ['clean']
+                ]
+            }
+        });
+
+        // Track changes
+        quillEditor.on('text-change', () => {
+            updateCharCounter();
+            markAsChanged();
+        });
+    }
+
+    // Load club data
+    async function loadClubData() {
+        try {
+            showLoading();
+            const response = await apiCall(`/club-admin/profile`);
+            
+            if (!response || !response.data) {
+                throw new Error('No club data received');
+            }
+            
+            clubData = response.data;
+            console.log('Loaded club data:', clubData);
+            populateForm();
+        } catch (error) {
+            console.error('Load club data error:', error);
+            handleAPIError(error);
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // Populate form with club data
+    function populateForm() {
+        if (!clubData) {
+            console.error('No club data to populate');
+            return;
+        }
+
+        // Cover photo
+        if (clubData.cover_photo_url) {
+            document.getElementById('coverPhotoDisplay').src = clubData.cover_photo_url;
+        }
+
+        // Logo
+        if (clubData.logo_url) {
+            document.getElementById('logoDisplay').src = clubData.logo_url;
+            document.getElementById('sidebarClubLogo').src = clubData.logo_url;
+        } else {
+            const fallbackLogo = `https://ui-avatars.com/api/?name=${encodeURIComponent(clubData.club_name || 'Club')}&size=400&background=FFC107&color=fff&bold=true`;
+            document.getElementById('logoDisplay').src = fallbackLogo;
+            document.getElementById('sidebarClubLogo').src = fallbackLogo;
+        }
+
+        // Basic info
+        document.getElementById('clubName').value = clubData.club_name || '';
+        document.getElementById('sidebarClubName').textContent = clubData.club_name || 'Loading...';
+        document.getElementById('university').value = clubData.university || '';
+        document.getElementById('establishedYear').value = clubData.established_year || '';
+        document.getElementById('clubSlug').value = clubData.slug || '';
+
+        // Description (Quill editor)
+        if (quillEditor && clubData.description) {
+            quillEditor.root.innerHTML = clubData.description;
+            updateCharCounter();
+        }
+
+        // Contact
+        document.getElementById('contactEmail').value = clubData.contact_email || '';
+        document.getElementById('contactPhone').value = clubData.contact_phone || '';
+        document.getElementById('bkashNumber').value = clubData.bkash_number || '';
+        document.getElementById('nagadNumber').value = clubData.nagad_number || '';
+
+        // Social links
+        document.getElementById('facebookUrl').value = clubData.facebook_url || '';
+        document.getElementById('instagramUrl').value = clubData.instagram_url || '';
+        document.getElementById('websiteUrl').value = clubData.website_url || '';
+
+        // Set view profile button
+        document.getElementById('viewProfileBtn').href = `club-profile.html?slug=${clubData.slug}`;
+
+        // Update pending orders badge if available
+        if (clubData.pending_orders !== undefined) {
+            document.getElementById('pendingOrdersBadge').textContent = clubData.pending_orders;
+        }
+    }
+
+    // Update character counter
+    function updateCharCounter() {
+        const text = quillEditor.getText().trim();
+        const length = text.length;
+        const counter = document.getElementById('descriptionCounter');
+        
+        counter.textContent = `${length} / 1000 characters (minimum 50)`;
+        
+        if (length < 50) {
+            counter.className = 'char-counter error';
+        } else if (length > 900) {
+            counter.className = 'char-counter warning';
+        } else {
+            counter.className = 'char-counter';
+        }
+    }
+
+    // Initialize event listeners
+    function initializeEventListeners() {
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 1024 &&
+                    !sidebar.contains(e.target) &&
+                    !mobileMenuBtn.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        }
+
+        // Notification button
+        const notificationBtn = document.getElementById('notificationBtn');
+        if (notificationBtn) {
+            notificationBtn.addEventListener('click', () => {
+                showToast('Notifications feature coming soon!', 'info');
+            });
+        }
+
+        // Form submit
+        document.getElementById('profileForm').addEventListener('submit', handleFormSubmit);
+
+        // Track input changes
+        const inputs = document.querySelectorAll('.form-input, .form-textarea');
+        inputs.forEach(input => {
+            input.addEventListener('input', markAsChanged);
+        });
+
+        // Cover photo upload
+        document.getElementById('coverInput').addEventListener('change', handleCoverPhotoUpload);
+
+        // Logo upload
+        document.getElementById('logoInput').addEventListener('change', handleLogoUpload);
+
+        // Warn before leaving with unsaved changes
+        window.addEventListener('beforeunload', (e) => {
+            if (hasUnsavedChanges) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        // Real-time validation
+        document.getElementById('contactEmail').addEventListener('blur', validateEmail);
+        document.getElementById('contactPhone').addEventListener('blur', validatePhone);
+        document.getElementById('bkashNumber').addEventListener('blur', validateBkash);
+        document.getElementById('nagadNumber').addEventListener('blur', validateNagad);
+        document.getElementById('facebookUrl').addEventListener('blur', () => validateUrl('facebook'));
+        document.getElementById('instagramUrl').addEventListener('blur', () => validateUrl('instagram'));
+        document.getElementById('websiteUrl').addEventListener('blur', () => validateUrl('website'));
+    }
+
+    // Mark as changed
+    function markAsChanged() {
+        if (!hasUnsavedChanges) {
+            hasUnsavedChanges = true;
+            document.getElementById('saveStatus').innerHTML = '⚠️ You have unsaved changes';
+            document.getElementById('saveStatus').style.color = 'var(--warning)';
+        }
+    }
+
+    // Handle cover photo upload
+    function handleCoverPhotoUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Validate file
+        if (!file.type.match('image/(jpeg|png)')) {
+            showToast('Please upload a JPG or PNG image', 'error');
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            showToast('Cover photo must be less than 5MB', 'error');
+            return;
+        }
+
+        // Preview
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            document.getElementById('coverPhotoDisplay').src = event.target.result;
+            coverPhotoFile = file;
+            markAsChanged();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Handle logo upload
+    function handleLogoUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Validate file
+        if (!file.type.match('image/(jpeg|png)')) {
+            showToast('Please upload a JPG or PNG image', 'error');
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            showToast('Logo must be less than 2MB', 'error');
+            return;
+        }
+
+        // Preview
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            document.getElementById('logoDisplay').src = event.target.result;
+            document.getElementById('sidebarClubLogo').src = event.target.result;
+            logoFile = file;
+            markAsChanged();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Validate email
+    function validateEmail() {
+        const input = document.getElementById('contactEmail');
+        const error = document.getElementById('emailError');
+        const email = input.value.trim();
+
+        if (!email) {
+            showError(input, error, 'Email is required');
+            return false;
+        }
+
+        if (!isValidEmail(email)) {
+            showError(input, error, 'Please enter a valid email address');
+            return false;
+        }
+
+        hideError(input, error);
+        return true;
+    }
+
+    // Validate phone
+    function validatePhone() {
+        const input = document.getElementById('contactPhone');
+        const error = document.getElementById('phoneError');
+        const phone = input.value.trim();
+
+        if (!phone) {
+            showError(input, error, 'Phone number is required');
+            return false;
+        }
+
+        if (!isValidBDPhone(phone)) {
+            showError(input, error, 'Please enter a valid Bangladesh phone number (01XXXXXXXXX)');
+            return false;
+        }
+
+        hideError(input, error);
+        return true;
+    }
+
+    // Validate bKash number
+    function validateBkash() {
+        const input = document.getElementById('bkashNumber');
+        const error = document.getElementById('bkashError');
+        const number = input.value.trim();
+
+        if (!number) {
+            showError(input, error, 'bKash number is required');
+            return false;
+        }
+
+        if (!isValidBDPhone(number)) {
+            showError(input, error, 'Please enter a valid Bangladesh phone number (01XXXXXXXXX)');
+            return false;
+        }
+
+        hideError(input, error);
+        return true;
+    }
+
+    // Validate Nagad number
+    function validateNagad() {
+        const input = document.getElementById('nagadNumber');
+        const error = document.getElementById('nagadError');
+        const number = input.value.trim();
+
+        if (!number) {
+            showError(input, error, 'Nagad number is required');
+            return false;
+        }
+
+        if (!isValidBDPhone(number)) {
+            showError(input, error, 'Please enter a valid Bangladesh phone number (01XXXXXXXXX)');
+            return false;
+        }
+
+        hideError(input, error);
+        return true;
+    }
+
+    // Validate URL
+    function validateUrl(type) {
+        const input = document.getElementById(`${type}Url`);
+        const error = document.getElementById(`${type}Error`);
+        const url = input.value.trim();
+
+        if (!url) {
+            hideError(input, error);
+            return true; // Optional field
+        }
+
+        try {
+            new URL(url);
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                showError(input, error, 'URL must start with http:// or https://');
+                return false;
+            }
+            hideError(input, error);
+            return true;
+        } catch {
+            showError(input, error, 'Please enter a valid URL');
+            return false;
+        }
+    }
+
+    // Show error
+    function showError(input, errorElement, message) {
+        input.classList.add('error');
+        errorElement.querySelector('span:last-child').textContent = message;
+        errorElement.style.display = 'flex';
+    }
+
+    // Hide error
+    function hideError(input, errorElement) {
+        input.classList.remove('error');
+        errorElement.style.display = 'none';
+    }
+
+    // Handle form submit
+    async function handleFormSubmit(e) {
+        e.preventDefault();
+
+        // Validate all fields
+        const isEmailValid = validateEmail();
+        const isPhoneValid = validatePhone();
+        const isBkashValid = validateBkash();
+        const isNagadValid = validateNagad();
+        const isFacebookValid = validateUrl('facebook');
+        const isInstagramValid = validateUrl('instagram');
+        const isWebsiteValid = validateUrl('website');
+
+        if (!isEmailValid || !isPhoneValid || !isBkashValid || !isNagadValid || !isFacebookValid || !isInstagramValid || !isWebsiteValid) {
+            showToast('Please fix all validation errors', 'error');
+            return;
+        }
+
+        // Validate description
+        const description = quillEditor.root.innerHTML;
+        const descriptionText = quillEditor.getText().trim();
+        if (descriptionText.length < 50) {
+            showToast('Description must be at least 50 characters', 'error');
+            return;
+        }
+
+        try {
+            showLoading();
+            const saveBtn = document.getElementById('saveBtn');
+            saveBtn.disabled = true;
+
+            // Create FormData for file uploads
+            const formData = new FormData();
+            
+            // Add text fields
+            formData.append('established_year', document.getElementById('establishedYear').value);
+            formData.append('description', description);
+            formData.append('contact_email', document.getElementById('contactEmail').value.trim());
+            formData.append('contact_phone', document.getElementById('contactPhone').value.trim());
+            formData.append('bkash_number', document.getElementById('bkashNumber').value.trim());
+            formData.append('nagad_number', document.getElementById('nagadNumber').value.trim());
+            
+            const facebookUrl = document.getElementById('facebookUrl').value.trim();
+            const instagramUrl = document.getElementById('instagramUrl').value.trim();
+            const websiteUrl = document.getElementById('websiteUrl').value.trim();
+            
+            if (facebookUrl) formData.append('facebook_url', facebookUrl);
+            if (instagramUrl) formData.append('instagram_url', instagramUrl);
+            if (websiteUrl) formData.append('website_url', websiteUrl);
+            
+            // Add image files if changed
+            if (coverPhotoFile) {
+                formData.append('cover_photo', coverPhotoFile);
+            }
+            
+            if (logoFile) {
+                formData.append('logo', logoFile);
+            }
+
+            // Make API call with FormData
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${window.API_BASE_URL || 'http://localhost:3000/api'}/club-admin/profile`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || 'Update failed');
+            }
+
+            const result = await response.json();
+
+            hasUnsavedChanges = false;
+            coverPhotoFile = null;
+            logoFile = null;
+
+            document.getElementById('saveStatus').innerHTML = '✓ All changes saved';
+            document.getElementById('saveStatus').style.color = 'var(--success)';
+
+            showToast('Profile updated successfully!', 'success');
+
+            // Update clubData with fresh data
+            clubData = result.data;
+            
+            // Reload page to show all updates
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+
+        } catch (error) {
+            console.error('Form submit error:', error);
+            handleAPIError(error);
+        } finally {
+            hideLoading();
+            document.getElementById('saveBtn').disabled = false;
+        }
+    }
+
+    // Utility functions
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function isValidBDPhone(phone) {
+        return /^01[3-9]\d{8}$/.test(phone);
+    }
+
+    function showLoading() {
+        document.getElementById('loadingOverlay').classList.add('show');
+    }
+
+    function hideLoading() {
+        document.getElementById('loadingOverlay').classList.remove('show');
+    }
+
+    function showToast(message, type = 'info') {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = `toast ${type} show`;
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    function handleAPIError(error) {
+        console.error('API Error:', error);
+        showToast(error.message || 'Something went wrong', 'error');
+    }
+
+    async function checkAuth() {
+        const token = localStorage.getItem('token');
+        if (!token) return null;
+        
+        try {
+            const response = await apiCall('/auth/me');
+            return response.user;
+        } catch {
+            return null;
+        }
+    }
+
+    async function apiCall(endpoint, options = {}) {
+        const token = localStorage.getItem('token');
+        const headers = {
+            'Content-Type': 'application/json',
+            ...options.headers
+        };
+
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        if (options.body instanceof FormData) {
+            delete headers['Content-Type'];
+        }
+
+        const response = await fetch(`${window.API_BASE_URL || 'http://localhost:3000/api'}${endpoint}`, {
+            ...options,
+            headers
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Request failed');
+        }
+
+        return response.json();
+    }
+</script>
+</body>
+</html>

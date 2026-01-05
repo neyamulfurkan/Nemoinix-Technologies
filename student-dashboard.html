@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Nemionix - Bangladesh Robotics Marketplace</title>
+    <meta name="description" content="Your personalized robotics marketplace dashboard">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-50: #E8F4FD;
+            --primary-500: #1991EB;
+            --primary-600: #1474BC;
+            --primary-700: #0F578D;
+            --secondary-500: #19B969;
+            --accent-500: #FF9119;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.5;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #0F578D 0%, #1991EB 100%);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-500);
+            font-weight: 800;
+        }
+
+        .brand-text h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .brand-text p {
+            font-size: 0.625rem;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-profile {
+            padding: 1.5rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+
+        .profile-info h3 {
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.125rem;
+        }
+
+        .profile-info p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.75rem;
+        }
+
+        .profile-link {
+            margin-top: 0.75rem;
+            display: inline-block;
+            color: white;
+            font-size: 0.75rem;
+            text-decoration: none;
+            padding: 0.375rem 0.75rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .profile-link:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(2px);
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 600;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: white;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .menu-item i {
+            width: 20px;
+            font-size: 1.125rem;
+        }
+
+        .menu-badge {
+            margin-left: auto;
+            background: var(--accent-500);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0.5rem 1.25rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            min-height: 100vh;
+            background: var(--gray-50);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .breadcrumb i {
+            color: var(--gray-400);
+        }
+
+        .breadcrumb-current {
+            color: var(--gray-900);
+            font-weight: 600;
+        }
+
+        .top-bar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 320px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.625rem 1rem 0.625rem 2.5rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 10px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(25, 145, 235, 0.1);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 0.875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+        }
+
+        .icon-btn {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--gray-100);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: var(--gray-200);
+            color: var(--gray-900);
+        }
+
+        .icon-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .icon-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--error);
+            color: white;
+            font-size: 0.625rem;
+            padding: 0.125rem 0.375rem;
+            border-radius: 10px;
+            font-weight: 600;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .user-menu-trigger {
+            background: var(--primary-50);
+            color: var(--primary-600);
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-500) 100%);
+            border-radius: 20px;
+            padding: 1.5rem;
+            color: white;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .welcome-meta i {
+            margin-right: 0.375rem;
+        }
+
+        .welcome-message {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-base);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-500), var(--primary-600));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.primary {
+            background: var(--primary-50);
+            color: var(--primary-500);
+        }
+
+        .stat-icon.success {
+            background: #DCFCE7;
+            color: var(--success);
+        }
+
+        .stat-icon.warning {
+            background: #FEF3C7;
+            color: var(--warning);
+        }
+
+        .stat-icon.accent {
+            background: #FFF4E8;
+            color: var(--accent-500);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            color: var(--primary-500);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .stat-link:hover {
+            gap: 0.625rem;
+            color: var(--primary-600);
+        }
+
+        /* Section Container */
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-base);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--primary-500);
+        }
+
+        .section-link {
+            color: var(--primary-500);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            transition: all 0.2s;
+        }
+
+        .section-link:hover {
+            gap: 0.625rem;
+            color: var(--primary-600);
+        }
+
+        /* Order Row */
+        .order-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .order-row:hover {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+            transform: translateX(4px);
+        }
+
+        .order-info {
+            flex: 1;
+        }
+
+        .order-number {
+            font-weight: 700;
+            color: var(--primary-600);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.25rem;
+            transition: color 0.2s;
+        }
+
+        .order-number:hover {
+            color: var(--primary-700);
+        }
+
+        .order-date {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .order-details {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+        }
+
+        .order-total {
+            font-weight: 700;
+            color: var(--gray-900);
+            font-size: 1rem;
+        }
+
+        .badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            white-space: nowrap;
+        }
+
+        .badge-pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .badge-confirmed {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        .badge-processing {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        .badge-shipped {
+            background: var(--primary-50);
+            color: var(--primary-700);
+        }
+
+        .badge-delivered {
+            background: #DCFCE7;
+            color: #166534;
+        }
+
+        .badge-cancelled {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-200);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: var(--primary-500);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-600);
+            transform: translateY(-1px);
+        }
+
+        /* Competition Card */
+        .competition-card-horizontal {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .competition-card-horizontal:hover {
+            border-color: var(--primary-500);
+            box-shadow: var(--shadow-md);
+        }
+
+        .competition-banner-small {
+            width: 120px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .competition-info {
+            flex: 1;
+        }
+
+        .competition-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .competition-date,
+        .competition-venue {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 0.375rem;
+        }
+
+        .competition-date i,
+        .competition-venue i {
+            color: var(--primary-500);
+        }
+
+        /* Product Card */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid var(--gray-200);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-500);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: var(--error);
+            color: white;
+            padding: 0.25rem 0.625rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-info h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .club-name {
+            color: var(--gray-600);
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .rating {
+            color: var(--warning);
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .price {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .original-price {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            text-decoration: line-through;
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 0.625rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .empty-state img {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            color: var(--gray-600);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary-500);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Overlay for mobile menu */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .search-bar {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar {
+                padding: 1rem;
+            }
+
+            .search-bar {
+                display: none;
+            }
+
+            .dashboard-content {
+                padding: 1rem;
+            }
+
+            .welcome-section {
+                padding: 1.5rem;
+            }
+
+            .welcome-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1rem;
+            }
+
+            .order-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .competition-card-horizontal {
+                flex-direction: column;
+            }
+
+            .competition-banner-small {
+                width: 100%;
+                height: 150px;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-700);
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="/" class="brand-logo">
+                <div class="brand-icon">NX</div>
+                <div class="brand-text">
+                    <h2>Nemionix</h2>
+                    <p>Engineering Future</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="sidebar-profile">
+            <div class="profile-card">
+                <img src="https://ui-avatars.com/api/?name=User&background=1991EB&color=fff" alt="Profile" class="profile-avatar" id="sidebar-avatar">
+                <div class="profile-info">
+                    <h3 id="sidebar-name">Loading...</h3>
+                    <p id="sidebar-university">University</p>
+                </div>
+            </div>
+            <a href="/my-profile.html" class="profile-link">
+                <i class="fas fa-user-circle"></i> View Profile
+            </a>
+        </div>
+
+        <nav class="sidebar-menu">
+                <a href="/student-dashboard.html" class="menu-item active">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/my-orders.html" class="menu-item">
+                    <i class="fas fa-box"></i>
+                    <span>My Orders</span>
+                </a>
+                <a href="/cart.html" class="menu-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>My Cart</span>
+                    <span class="menu-badge" id="sidebar-cart-badge">0</span>
+                </a>
+                <a href="/my-registrations.html" class="menu-item">
+                    <i class="fas fa-list-check"></i>
+                    <span>My Registrations</span>
+                </a>
+                <a href="/my-profile.html" class="menu-item">
+                    <i class="fas fa-user-cog"></i>
+                    <span>My Profile</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="/products.html" class="menu-item">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Browse Products</span>
+                </a>
+                <a href="/competitions.html" class="menu-item">
+                    <i class="fas fa-trophy"></i>
+                    <span>Competitions</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="#" class="menu-item" onclick="logout(); return false;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+    </aside>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="mobile-menu-btn" id="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="breadcrumb">
+                    <i class="fas fa-home"></i>
+                    <span class="breadcrumb-current">Dashboard</span>
+                </div>
+            </div>
+
+            <div class="top-bar-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search products, competitions...">
+                </div>
+                <button class="icon-btn disabled" title="Notifications (Coming Soon)">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <a href="/cart.html" class="icon-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="icon-badge" id="cart-badge">0</span>
+                </a>
+                <button class="icon-btn user-menu-trigger">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="welcome-content">
+                    <h1>Welcome back, <span id="welcome-name">User</span>! 👋</h1>
+                    <div class="welcome-meta">
+                        <span><i class="fas fa-calendar"></i> <span id="current-date"></span></span>
+                        <span><i class="fas fa-clock"></i> <span id="current-time"></span></span>
+                    </div>
+                    <p class="welcome-message">Ready to build something amazing? 🚀</p>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number" id="active-orders-count">0</div>
+                    <div class="stat-label">Active Orders</div>
+                    <a href="/my-orders.html?status=active" class="stat-link">
+                        View All <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number" id="completed-orders-count">0</div>
+                    <div class="stat-label">Completed Orders</div>
+                    <a href="/my-orders.html?status=delivered" class="stat-link">
+                        View History <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number" id="upcoming-competitions-count">0</div>
+                    <div class="stat-label">Registered Competitions</div>
+                    <a href="/my-registrations.html" class="stat-link">
+                        View All <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon accent">
+                            <i class="fas fa-cart-shopping"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number" id="cart-items-count">0</div>
+                    <div class="stat-label">Items in Cart</div>
+                    <a href="/cart.html" class="stat-link">
+                        Checkout <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Orders Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-box"></i>
+                        Recent Orders
+                    </h2>
+                    <a href="/my-orders.html" class="section-link">
+                        View All Orders <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div id="recent-orders">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Upcoming Competitions Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-trophy"></i>
+                        Your Registered Competitions
+                    </h2>
+                    <a href="/my-registrations.html" class="section-link">
+                        View All Registrations <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div id="upcoming-competitions">
+                    <!-- Competitions will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Recommended Products Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-star"></i>
+                        Recommended for You
+                    </h2>
+                    <a href="/products.html" class="section-link">
+                        Browse All Products <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="products-grid" id="recommended-products">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = 'http://localhost:3000/api';
+        
+        // API Client
+        const apiClient = {
+            get: async (endpoint, options = {}) => {
+                const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token ? `Bearer ${token}` : '',
+                        ...options.headers
+                    }
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Request failed');
+                }
+                
+                return response.json();
+            },
+            
+            post: async (endpoint, data, options = {}) => {
+                const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token ? `Bearer ${token}` : '',
+                        ...options.headers
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Request failed');
+                }
+                
+                return response.json();
+            }
+        };
+
+        // Utility Functions
+        function formatPrice(amount) {
+            return `৳${Number(amount).toLocaleString('en-BD', {minimumFractionDigits: 2})}`;
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-BD', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function calculateDiscount(original, current) {
+            return Math.round(((original - current) / original) * 100);
+        }
+
+        function getOrderStatusClass(status) {
+            const classes = {
+                pending: 'badge-pending',
+                confirmed: 'badge-confirmed',
+                processing: 'badge-processing',
+                shipped: 'badge-shipped',
+                delivered: 'badge-delivered',
+                cancelled: 'badge-cancelled'
+            };
+            return classes[status] || 'badge-pending';
+        }
+
+        function getPaymentStatusClass(status) {
+            const classes = {
+                pending: 'badge-pending',
+                verified: 'badge-delivered',
+                failed: 'badge-cancelled'
+            };
+            return classes[status] || 'badge-pending';
+        }
+
+        function showLoading() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        function showToast(message, type = 'info') {
+            alert(message);
+        }
+
+        function handleAPIError(error) {
+            console.error('API Error:', error);
+            if (error.message === 'Unauthorized' || error.message.includes('authentication')) {
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
+                window.location.href = '/login.html';
+            } else {
+                showToast(error.message || 'Something went wrong', 'error');
+            }
+        }
+
+        // Authentication Check
+        async function checkAuth() {
+            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/login.html';
+                return;
+            }
+            
+            try {
+                const response = await apiClient.get('/auth/me');
+                const user = response.user;
+                
+                if (user.role !== 'student') {
+                    window.location.href = '/login.html';
+                    return;
+                }
+                
+                return user;
+                
+            } catch (error) {
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
+                window.location.href = '/login.html';
+            }
+        }
+
+        // Render User Info
+        function renderUserInfo(user) {
+            if (!user || !user.full_name) {
+                console.error('Invalid user data:', user);
+                return;
+            }
+            
+            document.getElementById('welcome-name').textContent = user.full_name.split(' ')[0];
+            document.getElementById('sidebar-name').textContent = user.full_name;
+            document.getElementById('sidebar-university').textContent = user.university || 'University';
+            
+            if (user.avatar_url) {
+                document.getElementById('sidebar-avatar').src = user.avatar_url;
+            } else {
+                document.getElementById('sidebar-avatar').src = 
+                    `https://ui-avatars.com/api/?name=${encodeURIComponent(user.full_name)}&background=1991EB&color=fff`;
+            }
+        }
+
+        // Update Date and Time
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-BD', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('current-time').textContent = now.toLocaleTimeString('en-BD', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Render Stats
+        function renderStats(stats) {
+            document.getElementById('active-orders-count').textContent = stats.active_orders || 0;
+            document.getElementById('completed-orders-count').textContent = stats.completed_orders || 0;
+            document.getElementById('upcoming-competitions-count').textContent = stats.upcoming_competitions || 0;
+            document.getElementById('cart-items-count').textContent = stats.cart_items || 0;
+        }
+
+        // Render Recent Orders
+        function renderRecentOrders(orders) {
+            const container = document.getElementById('recent-orders');
+            
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No orders yet</p>
+                        <a href="/products.html" class="btn-primary btn-sm">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = orders.map(order => `
+                <div class="order-row">
+                    <div class="order-info">
+                        <a href="/order-detail.html?order=${order.order_number}" class="order-number">
+                            #${order.order_number}
+                        </a>
+                        <span class="order-date">${formatDate(order.created_at)}</span>
+                    </div>
+                    <div class="order-details">
+                        <span>${order.items ? order.items.length : 0} item(s)</span>
+                        <span class="order-total">${formatPrice(order.grand_total)}</span>
+                    </div>
+                    <span class="badge ${getOrderStatusClass(order.order_status)}">
+                        ${order.order_status}
+                    </span>
+                    <a href="/order-detail.html?order=${order.order_number}" class="btn-sm btn-secondary">
+                        Track
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        // Render Upcoming Competitions
+        function renderUpcomingCompetitions(registrations) {
+            const container = document.getElementById('upcoming-competitions');
+            
+            if (registrations.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No registered competitions</p>
+                        <a href="/competitions.html" class="btn-primary btn-sm">Browse Competitions</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = registrations.map(reg => {
+                // Safety check for competition object
+                if (!reg.competition) {
+                    console.warn('Registration missing competition data:', reg);
+                    return '';
+                }
+                
+                return `
+                <div class="competition-card-horizontal">
+                    <img src="${reg.competition.banner_url || 'https://via.placeholder.com/300x200?text=Competition'}" 
+                         alt="${reg.competition.title}" 
+                         class="competition-banner-small">
+                    <div class="competition-info">
+                        <h4>${reg.competition.title}</h4>
+                        <p class="competition-date">
+                            <i class="fas fa-calendar"></i> ${formatDate(reg.competition.competition_date)} at ${reg.competition.competition_time}
+                        </p>
+                        <p class="competition-venue">
+                            <i class="fas fa-location-dot"></i> ${reg.competition.venue}
+                        </p>
+                        <span class="badge ${getPaymentStatusClass(reg.payment_status)}">
+                            Payment: ${reg.payment_status}
+                        </span>
+                    </div>
+                    <a href="/competition-detail.html?id=${reg.competition.id}" class="btn-sm btn-primary">
+                        View Details
+                    </a>
+                </div>
+            `;
+            }).filter(Boolean).join('');
+        }
+
+        // Render Recommended Products
+        function renderRecommendedProducts(products) {
+            const container = document.getElementById('recommended-products');
+            
+            container.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <a href="/product-detail.html?id=${product.id}">
+                        <img src="${(product.images && product.images[0]) ? product.images[0].image_url : 'https://via.placeholder.com/300?text=Product'}" 
+                             alt="${product.name}">
+                    </a>
+                    ${product.original_price ? `
+                        <span class="discount-badge">-${calculateDiscount(product.original_price, product.price)}%</span>
+                    ` : ''}
+                    <div class="product-info">
+                        <h4>${product.name}</h4>
+                        <p class="club-name">${product.club_name}</p>
+                        <div class="rating">
+                            ★ ${product.average_rating || 0}/5.0 (${product.review_count || 0})
+                        </div>
+                        <div class="price-row">
+                            <span class="price">${formatPrice(product.price)}</span>
+                            ${product.original_price ? `
+                                <span class="original-price">${formatPrice(product.original_price)}</span>
+                            ` : ''}
+                        </div>
+                        <button onclick="addToCart(${product.id})" class="btn-primary btn-block">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update Cart Badge
+        async function updateCartBadge() {
+            try {
+                const response = await apiClient.get('/students/cart');
+                
+                // Handle different response structures
+                let items = [];
+                if (response.success && response.data && response.data.items) {
+                    items = response.data.items;
+                } else if (response.data && Array.isArray(response.data)) {
+                    items = response.data;
+                }
+                
+                const count = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+                
+                document.getElementById('cart-badge').textContent = count;
+                document.getElementById('sidebar-cart-badge').textContent = count;
+                
+            } catch (error) {
+                console.error('Error updating cart badge:', error);
+                document.getElementById('cart-badge').textContent = '0';
+                document.getElementById('sidebar-cart-badge').textContent = '0';
+            }
+        }
+
+        // Add to Cart
+        async function addToCart(productId) {
+            try {
+                showLoading();
+                
+                await apiClient.post('/students/cart', {
+                    product_id: productId,
+                    quantity: 1
+                });
+                
+                updateCartBadge();
+                showToast('Product added to cart!', 'success');
+                
+            } catch (error) {
+                handleAPIError(error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Load Dashboard
+        async function loadDashboard() {
+            try {
+                showLoading();
+                
+                const user = await checkAuth();
+                
+                if (!user) {
+                    console.error('No user data returned from checkAuth');
+                    window.location.href = '/login.html';
+                    return;
+                }
+                
+                renderUserInfo(user);
+                updateDateTime();
+                
+                // Update time every minute
+                setInterval(updateDateTime, 60000);
+                
+                // Parallel API calls (with fallbacks for missing endpoints)
+                const [stats, recentOrders, upcomingCompetitions, recommendedProducts] = await Promise.all([
+                    apiClient.get('/students/dashboard/stats').catch(() => ({ success: false, data: { active_orders: 0, completed_orders: 0, upcoming_competitions: 0, cart_items: 0 } })),
+                    apiClient.get('/students/orders?limit=3').catch(() => ({ success: false, data: [] })),
+                    apiClient.get('/students/registrations?status=upcoming&limit=3').catch(() => ({ success: false, data: [] })),
+                    apiClient.get('/products?limit=4&featured=true').catch(() => ({ success: false, data: [] }))
+                ]);
+                
+                renderStats(stats.data || stats);
+                renderRecentOrders(recentOrders.data || []);
+                renderUpcomingCompetitions(upcomingCompetitions.data || []);
+                renderRecommendedProducts(recommendedProducts.data || []);
+                
+                await updateCartBadge();
+                
+            } catch (error) {
+                handleAPIError(error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Logout
+        async function logout() {
+            if (!confirm('Are you sure you want to logout?')) return;
+            
+            try {
+                await apiClient.post('/auth/logout');
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+            
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('user');
+            
+            window.location.href = '/login.html';
+        }
+
+        // Sidebar Toggle for Mobile
+        document.getElementById('sidebar-toggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDashboard();
+        });
+    </script>
+</body>
+</html>

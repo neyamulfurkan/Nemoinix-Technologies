@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Nemionix Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-500: #1991EB;
+            --primary-600: #1474BC;
+            --primary-700: #0F578D;
+            --secondary-500: #19B969;
+            --accent-500: #FF9119;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-500);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            background: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .progress-step::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 60%;
+            width: 100%;
+            height: 2px;
+            background: var(--gray-200);
+            z-index: -1;
+        }
+
+        .progress-step:last-child::after {
+            display: none;
+        }
+
+        .progress-step.active::after {
+            background: var(--primary-500);
+        }
+
+        .progress-step.completed::after {
+            background: var(--success);
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gray-200);
+            color: var(--gray-500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .progress-step.active .step-icon {
+            background: var(--primary-500);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(25, 145, 235, 0.2);
+        }
+
+        .progress-step.completed .step-icon {
+            background: var(--success);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .progress-step.active .step-label {
+            color: var(--primary-500);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .checkout-main {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        /* Saved Addresses */
+        .address-card {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .address-card:hover {
+            border-color: var(--primary-500);
+            background: rgba(25, 145, 235, 0.02);
+        }
+
+        .address-card.selected {
+            border-color: var(--primary-500);
+            background: rgba(25, 145, 235, 0.05);
+        }
+
+        .address-card input[type="radio"] {
+            margin-top: 0.25rem;
+        }
+
+        .address-details {
+            flex: 1;
+        }
+
+        .address-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .address-phone {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .address-text {
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .badge-primary {
+            display: inline-block;
+            background: var(--primary-500);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .address-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* Form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .form-grid.single {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-label .required {
+            color: var(--error);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(25, 145, 235, 0.1);
+        }
+
+        .form-input.error {
+            border-color: var(--error);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-input.error + .error-message {
+            display: block;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Payment Methods */
+        .payment-option {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary-500);
+            background: rgba(25, 145, 235, 0.02);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary-500);
+            background: rgba(25, 145, 235, 0.05);
+        }
+
+        .payment-option input[type="radio"] {
+            margin-top: 0.25rem;
+        }
+
+        .payment-content {
+            flex: 1;
+        }
+
+        .payment-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .payment-name {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .payment-fee {
+            margin-left: auto;
+            color: var(--accent-500);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .payment-description {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-details {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .payment-option.selected .payment-details {
+            display: block;
+        }
+
+        .payment-instructions {
+            background: var(--gray-50);
+            border-left: 3px solid var(--primary-500);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-instructions h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-instructions ol {
+            margin-left: 1.25rem;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+        }
+
+        .payment-instructions ol li {
+            margin-bottom: 0.25rem;
+        }
+
+        .payment-number {
+            background: white;
+            border: 2px solid var(--primary-500);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .payment-number-label {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .payment-number-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-500);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .file-upload {
+            position: relative;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 1rem;
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--primary-500);
+            background: rgba(25, 145, 235, 0.02);
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .file-upload-text {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .file-upload-text strong {
+            color: var(--primary-500);
+        }
+
+        .screenshot-preview {
+            display: none;
+            margin-top: 1rem;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screenshot-preview.show {
+            display: block;
+        }
+
+        .screenshot-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .remove-screenshot {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--error);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all 0.2s;
+        }
+
+        .remove-screenshot:hover {
+            transform: scale(1.1);
+        }
+
+        /* Order Summary */
+        .order-summary-card {
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .summary-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .summary-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+        }
+
+        .summary-item-details {
+            flex: 1;
+        }
+
+        .summary-item-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-item-club {
+            color: var(--gray-600);
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-item-qty {
+            color: var(--gray-500);
+            font-size: 0.75rem;
+        }
+
+        .summary-item-price {
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .summary-breakdown {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--gray-100);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .summary-row.total {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            padding-top: 1rem;
+            border-top: 2px solid var(--gray-200);
+            margin-top: 1rem;
+        }
+
+        .summary-row.total .amount {
+            color: var(--primary-500);
+        }
+
+        .terms-checkbox {
+            display: flex;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+            align-items: flex-start;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            margin-top: 0.25rem;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .terms-checkbox label {
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            cursor: pointer;
+        }
+
+        .terms-checkbox a {
+            color: var(--primary-500);
+            text-decoration: none;
+        }
+
+        .terms-checkbox a:hover {
+            text-decoration: underline;
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .security-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .security-badge-icon {
+            font-size: 1.5rem;
+        }
+
+        .security-badge-text {
+            font-size: 0.625rem;
+            color: var(--gray-600);
+            text-align: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-500);
+            color: white;
+            width: 100%;
+            font-size: 1rem;
+            padding: 1rem;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-600);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-500);
+            border: 2px solid var(--primary-500);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-500);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+
+        .btn-block {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--error);
+        }
+
+        .toast-warning {
+            border-left: 4px solid var(--warning);
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary-card {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-steps {
+                gap: 0.5rem;
+            }
+
+            .step-label {
+                font-size: 0.75rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .checkout-layout {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .card-title {
+                font-size: 1rem;
+            }
+
+            .address-card {
+                flex-direction: column;
+            }
+
+            .payment-option {
+                padding: 1rem;
+            }
+
+            .summary-item img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">NX</div>
+                    Nemionix
+                </a>
+                <div style="color: var(--gray-600); font-size: 0.875rem;" id="supportPhoneContainer">
+                    Need help? Call <strong style="color: var(--primary-500);" id="supportPhoneDisplay">Loading...</strong>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="container">
+            <div class="progress-steps">
+                <div class="progress-step completed">
+                    <div class="step-icon">✓</div>
+                    <div class="step-label">Cart</div>
+                </div>
+                <div class="progress-step active">
+                    <div class="step-icon">2</div>
+                    <div class="step-label">Checkout</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-icon">3</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-icon">4</div>
+                    <div class="step-label">Confirmation</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="checkout-layout">
+            <!-- Left Column -->
+            <div class="checkout-main">
+                <!-- Delivery Address -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Delivery Address</h2>
+                    </div>
+
+                    <!-- Saved Addresses Section -->
+                    <div id="saved-addresses-section" style="display: none;">
+                        <div id="saved-addresses"></div>
+                    </div>
+
+                    <!-- New Address Form -->
+                    <div id="new-address-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Full Name <span class="required">*</span></label>
+                                <input type="text" id="full-name" class="form-input" placeholder="Enter your full name">
+                                <div class="error-message">Full name is required</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Phone Number <span class="required">*</span></label>
+                                <input type="tel" id="phone" class="form-input" placeholder="01XXXXXXXXX" maxlength="11">
+                                <div class="error-message">Invalid phone number</div>
+                                <div style="font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem;">
+                                    Enter a different number if you want to use another contact
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid single">
+                            <div class="form-group">
+                                <label class="form-label">Address <span class="required">*</span></label>
+                                <textarea id="address" class="form-textarea" placeholder="House/Flat, Road, Area"></textarea>
+                                <div class="error-message">Address is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">City <span class="required">*</span></label>
+                                <input type="text" id="city" class="form-input" placeholder="City">
+                                <div class="error-message">City is required</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Division <span class="required">*</span></label>
+                                <select id="division" class="form-select">
+                                    <option value="">Select Division</option>
+                                    <option value="Dhaka">Dhaka</option>
+                                    <option value="Chittagong">Chittagong</option>
+                                    <option value="Rajshahi">Rajshahi</option>
+                                    <option value="Khulna">Khulna</option>
+                                    <option value="Barisal">Barisal</option>
+                                    <option value="Sylhet">Sylhet</option>
+                                    <option value="Rangpur">Rangpur</option>
+                                    <option value="Mymensingh">Mymensingh</option>
+                                </select>
+                                <div class="error-message">Division is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">District <span class="required">*</span></label>
+                                <select id="district" class="form-select">
+                                    <option value="">Select District</option>
+                                    <option value="Dhaka">Dhaka</option>
+                                    <option value="Gazipur">Gazipur</option>
+                                    <option value="Narayanganj">Narayanganj</option>
+                                    <option value="Chittagong">Chittagong</option>
+                                    <option value="Comilla">Comilla</option>
+                                </select>
+                                <div class="error-message">District is required</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Postal Code <span class="required">*</span></label>
+                                <input type="text" id="postal-code" class="form-input" placeholder="1234" maxlength="4">
+                                <div class="error-message">4-digit postal code required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="save-address">
+                            <label for="save-address">Save this address as default</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Payment Method</h2>
+                    </div>
+
+                    <!-- Cash on Delivery -->
+                    <div class="payment-option" data-method="cash_on_delivery">
+                        <input type="radio" name="payment-method" value="cash_on_delivery" id="payment-cod">
+                        <div class="payment-content">
+                            <div class="payment-header">
+                                <div class="payment-icon">💵</div>
+                                <label for="payment-cod" class="payment-name">Cash on Delivery</label>
+                                <span class="payment-fee">+৳50</span>
+                            </div>
+                            <p class="payment-description">Pay when you receive the product</p>
+                        </div>
+                    </div>
+
+                    <!-- bKash -->
+                    <div class="payment-option" data-method="bkash">
+                        <input type="radio" name="payment-method" value="bkash" id="payment-bkash">
+                        <div class="payment-content">
+                            <div class="payment-header">
+                                <div class="payment-icon" style="color: #E2136E;">📱</div>
+                                <label for="payment-bkash" class="payment-name">bKash</label>
+                            </div>
+                            <p class="payment-description">Pay via bKash mobile banking</p>
+
+                            <div class="payment-details">
+                                <div class="payment-number">
+                                    <div class="payment-number-label">Send Money To</div>
+                                    <div class="payment-number-value" id="bkashNumber">Loading...</div>
+                                </div>
+
+                                <div class="payment-instructions">
+                                    <h4>Payment Instructions:</h4>
+                                    <ol>
+                                        <li>Open your bKash app</li>
+                                        <li>Select "Send Money"</li>
+                                        <li>Enter the number above</li>
+                                        <li>Send the exact amount shown in order summary</li>
+                                        <li>Take a screenshot and upload below</li>
+                                    </ol>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Upload Payment Screenshot <span class="required">*</span></label>
+                                    <div class="file-upload">
+                                        <input type="file" id="bkash-screenshot" accept="image/*">
+                                        <label for="bkash-screenshot" class="file-upload-label">
+                                            <div class="file-upload-text">
+                                                <strong>Click to upload</strong> or drag and drop<br>
+                                                PNG, JPG (max 2MB)
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="screenshot-preview" id="bkash-preview">
+                                        <img src="" alt="Payment Screenshot">
+                                        <button type="button" class="remove-screenshot" onclick="removeScreenshot('bkash')">×</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Transaction ID <span class="required">*</span></label>
+                                    <input type="text" id="bkash-transaction-id" class="form-input" placeholder="Enter 10-15 digit transaction ID">
+                                    <div class="error-message">Transaction ID is required (10-15 characters)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nagad -->
+                    <div class="payment-option" data-method="nagad">
+                        <input type="radio" name="payment-method" value="nagad" id="payment-nagad">
+                        <div class="payment-content">
+                            <div class="payment-header">
+                                <div class="payment-icon" style="color: #EE4023;">📱</div>
+                                <label for="payment-nagad" class="payment-name">Nagad</label>
+                            </div>
+                            <p class="payment-description">Pay via Nagad mobile banking</p>
+
+                            <div class="payment-details">
+                                <div class="payment-number">
+                                    <div class="payment-number-label">Send Money To</div>
+                                    <div class="payment-number-value" id="nagadNumber">Loading...</div>
+                                </div>
+
+                                <div class="payment-instructions">
+                                    <h4>Payment Instructions:</h4>
+                                    <ol>
+                                        <li>Open your Nagad app</li>
+                                        <li>Select "Send Money"</li>
+                                        <li>Enter the number above</li>
+                                        <li>Send the exact amount shown in order summary</li>
+                                        <li>Take a screenshot and upload below</li>
+                                    </ol>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Upload Payment Screenshot <span class="required">*</span></label>
+                                    <div class="file-upload">
+                                        <input type="file" id="nagad-screenshot" accept="image/*">
+                                        <label for="nagad-screenshot" class="file-upload-label">
+                                            <div class="file-upload-text">
+                                                <strong>Click to upload</strong> or drag and drop<br>
+                                                PNG, JPG (max 2MB)
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="screenshot-preview" id="nagad-preview">
+                                        <img src="" alt="Payment Screenshot">
+                                        <button type="button" class="remove-screenshot" onclick="removeScreenshot('nagad')">×</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Transaction ID <span class="required">*</span></label>
+                                    <input type="text" id="nagad-transaction-id" class="form-input" placeholder="Enter 10-15 digit transaction ID">
+                                    <div class="error-message">Transaction ID is required (10-15 characters)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Notes -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Order Notes (Optional)</h2>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="order-notes" class="form-textarea" placeholder="e.g., Call before delivery, Deliver between 2-4 PM" maxlength="200"></textarea>
+                        <div style="text-align: right; font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem;">
+                            <span id="notes-count">0</span>/200
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Order Summary -->
+            <div>
+                <div class="card order-summary-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Order Summary</h2>
+                    </div>
+
+                    <div id="order-items">
+                        <!-- Items will be loaded here -->
+                    </div>
+
+                    <div class="summary-breakdown">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="order-subtotal">৳0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span id="order-shipping">৳80</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>COD Fee:</span>
+                            <span id="order-cod-fee">৳0</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span class="amount" id="order-total">৳0</span>
+                        </div>
+                    </div>
+
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms-checkbox">
+                        <label for="terms-checkbox">
+                            I agree to <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button class="btn btn-primary" id="place-order-btn" disabled>
+                        Place Order (৳0)
+                    </button>
+
+                    <div class="security-badges">
+                        <div class="security-badge">
+                            <div class="security-badge-icon">🔒</div>
+                            <div class="security-badge-text">Secure<br>Checkout</div>
+                        </div>
+                        <div class="security-badge">
+                            <div class="security-badge-icon">✓</div>
+                            <div class="security-badge-text">100%<br>Protection</div>
+                        </div>
+                        <div class="security-badge">
+                            <div class="security-badge-icon">⏰</div>
+                            <div class="security-badge-text">24/7<br>Support</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = 'http://localhost:3000/api';
+        
+        // State
+        let cart = { items: [], totalItems: 0, subtotal: 0 };
+        let selectedPaymentMethod = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadSupportPhone();
+            loadCart();
+            loadSavedAddresses();
+            initializeEventListeners();
+        });
+
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/login.html?redirect=checkout';
+            }
+        }
+
+        function getToken() {
+            return localStorage.getItem('token');
+        }
+
+        // Load Support Phone from Platform Settings
+        async function loadSupportPhone() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/platform-settings/public`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const supportPhone = data.data?.general?.support_phone || '+880 1812-345678';
+                    document.getElementById('supportPhoneDisplay').textContent = supportPhone;
+                } else {
+                    // Fallback to default
+                    document.getElementById('supportPhoneDisplay').textContent = '+880 1812-345678';
+                }
+            } catch (error) {
+                console.error('Failed to load support phone:', error);
+                // Fallback to default
+                document.getElementById('supportPhoneDisplay').textContent = '+880 1812-345678';
+            }
+        }
+
+        // Load Cart
+        async function loadCart() {
+            try {
+                // Fetch cart from backend API
+                const response = await fetch(`${API_BASE_URL}/students/cart`, {
+                    headers: {
+                        'Authorization': `Bearer ${getToken()}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error('Failed to load cart');
+                
+                const data = await response.json();
+                console.log('Raw cart data from API:', data);
+                
+                // Handle API response structure
+                let items = [];
+                if (data.success && data.data) {
+                    if (data.data.items && Array.isArray(data.data.items)) {
+                        items = data.data.items;
+                    } else if (Array.isArray(data.data)) {
+                        items = data.data;
+                    }
+                }
+                
+                console.log('Parsed cart items:', items);
+                
+                // Transform items to include subtotal
+                cart.items = items.map(item => {
+                    console.log('Processing item:', item);
+                    return {
+                        product_id: item.product_id,
+                        name: item.name || item.product_name,
+                        price: parseFloat(item.price),
+                        quantity: parseInt(item.quantity),
+                        image_url: item.image_url,
+                        club_id: item.club_id,
+                        club_name: item.club_name,
+                        stock: item.stock,
+                        subtotal: parseFloat(item.price) * parseInt(item.quantity)
+                    };
+                });
+                
+                console.log('Final cart.items:', cart.items);
+                
+                if (cart.items.length === 0) {
+                    window.location.href = '/cart.html';
+                    return;
+                }
+                
+                // Load club payment numbers
+                await loadClubPaymentNumbers();
+                
+                renderOrderSummary();
+            } catch (error) {
+                console.error('Cart loading error:', error);
+                showToast('Failed to load cart. Please try again.', 'error');
+                setTimeout(() => {
+                    window.location.href = '/cart.html';
+                }, 2000);
+            }
+        }
+
+        // Load Club Payment Numbers
+        async function loadClubPaymentNumbers() {
+            try {
+                // Get unique club IDs from cart
+                const clubIds = [...new Set(cart.items.map(item => item.club_id))];
+                
+                console.log('Cart items:', cart.items);
+                console.log('Club IDs found:', clubIds);
+                
+                if (clubIds.length === 0) {
+                    console.warn('No club IDs found in cart');
+                    return;
+                }
+                
+                // For now, use the first club's payment numbers
+                const clubId = clubIds[0];
+                
+                console.log('Fetching payment numbers for club ID:', clubId);
+                
+                const token = getToken();
+                const response = await fetch(`${API_BASE_URL}/students/clubs/${clubId}/payment-numbers`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                console.log('Payment numbers response status:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Payment numbers data:', data);
+                    
+                    if (data.success && data.data) {
+                        const bkashNumber = data.data.bkash_number || '01812-345678';
+                        const nagadNumber = data.data.nagad_number || '01912-345678';
+                        
+                        console.log('Setting bKash number:', bkashNumber);
+                        console.log('Setting Nagad number:', nagadNumber);
+                        
+                        document.getElementById('bkashNumber').textContent = bkashNumber;
+                        document.getElementById('nagadNumber').textContent = nagadNumber;
+                    } else {
+                        console.warn('Invalid data structure:', data);
+                        document.getElementById('bkashNumber').textContent = '01812-345678';
+                        document.getElementById('nagadNumber').textContent = '01912-345678';
+                    }
+                } else {
+                    console.error('API response not OK:', response.status);
+                    document.getElementById('bkashNumber').textContent = '01812-345678';
+                    document.getElementById('nagadNumber').textContent = '01912-345678';
+                }
+            } catch (error) {
+                console.error('Failed to load payment numbers:', error);
+                document.getElementById('bkashNumber').textContent = '01812-345678';
+                document.getElementById('nagadNumber').textContent = '01912-345678';
+            }
+        }
+
+        function renderOrderSummary() {
+            const container = document.getElementById('order-items');
+            container.innerHTML = cart.items.map(item => {
+                const itemSubtotal = item.price * item.quantity;
+                return `
+                    <div class="summary-item">
+                        <img src="${item.image_url || '/assets/default-product.png'}" alt="${item.name}">
+                        <div class="summary-item-details">
+                            <div class="summary-item-name">${item.name}</div>
+                            <div class="summary-item-club">${item.club_name}</div>
+                            <div class="summary-item-qty">Qty: ${item.quantity}</div>
+                        </div>
+                        <div class="summary-item-price">${formatPrice(itemSubtotal)}</div>
+                    </div>
+                `;
+            }).join('');
+
+            updateOrderTotal();
+        }
+
+        function updateOrderTotal() {
+            const subtotal = cart.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const district = document.getElementById('district').value;
+            const shipping = calculateShipping(district);
+            const codFee = selectedPaymentMethod === 'cash_on_delivery' ? 50 : 0;
+            const total = subtotal + shipping + codFee;
+
+            document.getElementById('order-subtotal').textContent = formatPrice(subtotal);
+            document.getElementById('order-shipping').textContent = formatPrice(shipping);
+            document.getElementById('order-cod-fee').textContent = codFee > 0 ? formatPrice(codFee) : '৳0';
+            document.getElementById('order-total').textContent = formatPrice(total);
+            document.getElementById('place-order-btn').textContent = `Place Order (${formatPrice(total)})`;
+
+            checkFormValidity();
+        }
+
+        function calculateShipping(district) {
+            const dhakaDistricts = ['Dhaka', 'Gazipur', 'Narayanganj', 'Narsingdi', 'Manikganj'];
+            return dhakaDistricts.includes(district) ? 60 : 80;
+        }
+
+        // Load Saved Addresses
+        async function loadSavedAddresses() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/students/addresses`, {
+                    headers: {
+                        'Authorization': `Bearer ${getToken()}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error('Failed to load addresses');
+                
+                const data = await response.json();
+                const addresses = data.data?.addresses || [];
+                
+                if (addresses.length > 0) {
+                    renderSavedAddresses(addresses);
+                    document.getElementById('saved-addresses-section').style.display = 'block';
+                    document.getElementById('new-address-form').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Failed to load addresses:', error);
+            }
+        }
+
+        function renderSavedAddresses(addresses) {
+            const container = document.getElementById('saved-addresses');
+            container.innerHTML = addresses.map(addr => `
+                <div class="address-card ${addr.is_default ? 'selected' : ''}" onclick="selectAddress(this)">
+                    <input type="radio" name="delivery-address" value="${addr.id}" ${addr.is_default ? 'checked' : ''}>
+                    <div class="address-details">
+                        <div class="address-name">${addr.full_name}</div>
+                        <div class="address-phone">${addr.phone}</div>
+                        <div class="address-text">
+                            ${addr.address}, ${addr.city}, ${addr.district}, ${addr.division} - ${addr.postal_code}
+                        </div>
+                        ${addr.is_default ? '<span class="badge-primary">Default</span>' : ''}
+                    </div>
+                    <div class="address-actions">
+                        <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); editAddress(${addr.id})">Edit</button>
+                        ${!addr.is_default ? `<button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); deleteAddress(${addr.id})">Delete</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML += `
+                <button class="btn btn-secondary btn-block" onclick="showNewAddressForm()">
+                    + Add New Address
+                </button>
+                <div style="padding: 1rem; background: var(--gray-50); border-radius: var(--radius-lg); margin-top: 1rem; font-size: 0.875rem; color: var(--gray-600);">
+                    💡 <strong>Tip:</strong> You can use a saved address but change the phone number below if needed.
+                </div>
+            `;
+        }
+
+        function selectAddress(card) {
+            document.querySelectorAll('.address-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            card.querySelector('input[type="radio"]').checked = true;
+            
+            // Clear the phone input to allow user to enter a different number
+            document.getElementById('phone').value = '';
+            document.getElementById('phone').placeholder = 'Enter contact number for this order';
+            
+            checkFormValidity();
+        }
+
+        function showNewAddressForm() {
+            document.getElementById('saved-addresses-section').style.display = 'none';
+            document.getElementById('new-address-form').style.display = 'block';
+            
+            // Reset phone field
+            document.getElementById('phone').value = '';
+            document.getElementById('phone').placeholder = '01XXXXXXXXX';
+        }
+
+        // Event Listeners
+        function initializeEventListeners() {
+            // Phone validation
+            document.getElementById('phone').addEventListener('blur', validatePhone);
+            
+            // Postal code validation
+            document.getElementById('postal-code').addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+            });
+
+            // District change - update shipping
+            document.getElementById('district').addEventListener('change', updateOrderTotal);
+
+            // Payment method selection
+            document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+                radio.addEventListener('change', handlePaymentMethodChange);
+            });
+
+            // Payment method card click
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'INPUT') {
+                        this.querySelector('input[type="radio"]').checked = true;
+                        handlePaymentMethodChange({ target: this.querySelector('input[type="radio"]') });
+                    }
+                });
+            });
+
+            // Screenshot uploads
+            document.getElementById('bkash-screenshot').addEventListener('change', (e) => handleScreenshotUpload(e, 'bkash'));
+            document.getElementById('nagad-screenshot').addEventListener('change', (e) => handleScreenshotUpload(e, 'nagad'));
+
+            // Order notes character count
+            document.getElementById('order-notes').addEventListener('input', (e) => {
+                document.getElementById('notes-count').textContent = e.target.value.length;
+            });
+
+            // Terms checkbox
+            document.getElementById('terms-checkbox').addEventListener('change', checkFormValidity);
+
+            // Place order button
+            document.getElementById('place-order-btn').addEventListener('click', placeOrder);
+
+            // Form inputs - check validity
+            const formInputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+            formInputs.forEach(input => {
+                input.addEventListener('input', checkFormValidity);
+            });
+        }
+
+        function validatePhone(e) {
+            const phone = e.target.value.trim();
+            const phoneRegex = /^01[3-9]\d{8}$/;
+            
+            if (!phoneRegex.test(phone)) {
+                e.target.classList.add('error');
+                return false;
+            }
+            
+            e.target.classList.remove('error');
+            return true;
+        }
+
+        function handlePaymentMethodChange(e) {
+            const method = e.target.value;
+            selectedPaymentMethod = method;
+
+            // Update selected class
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            e.target.closest('.payment-option').classList.add('selected');
+
+            updateOrderTotal();
+        }
+
+        function handleScreenshotUpload(e, method) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Validate file type
+            if (!['image/jpeg', 'image/png'].includes(file.type)) {
+                showToast('Only JPG/PNG images allowed', 'error');
+                e.target.value = '';
+                return;
+            }
+
+            // Validate file size (2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('Image must be less than 2MB', 'error');
+                e.target.value = '';
+                return;
+            }
+
+            // Preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById(`${method}-preview`);
+                preview.querySelector('img').src = e.target.result;
+                preview.classList.add('show');
+            };
+            reader.readAsDataURL(file);
+
+            checkFormValidity();
+        }
+
+        function removeScreenshot(method) {
+            document.getElementById(`${method}-screenshot`).value = '';
+            document.getElementById(`${method}-preview`).classList.remove('show');
+            checkFormValidity();
+        }
+
+        function checkFormValidity() {
+            let isValid = true;
+
+            // Check if address is filled (either saved or new)
+            const hasSelectedAddress = document.querySelector('input[name="delivery-address"]:checked');
+            const newAddressVisible = document.getElementById('new-address-form').style.display !== 'none';
+            const phoneValue = document.getElementById('phone').value.trim();
+
+            // If saved address is selected, that's valid (phone is optional override)
+            // If new address form is visible, check all fields including phone
+            if (!hasSelectedAddress) {
+                if (newAddressVisible) {
+                    const requiredFields = ['full-name', 'phone', 'address', 'city', 'district', 'division', 'postal-code'];
+                    requiredFields.forEach(fieldId => {
+                        const field = document.getElementById(fieldId);
+                        if (!field || !field.value.trim()) {
+                            isValid = false;
+                        }
+                    });
+                } else {
+                    // Neither saved address selected nor new form filled
+                    isValid = false;
+                }
+            } else {
+                // Saved address is selected, validate phone if provided
+                if (phoneValue && !isValidBDPhone(phoneValue)) {
+                    isValid = false;
+                }
+            }
+
+            // Check payment method
+            if (!selectedPaymentMethod) {
+                isValid = false;
+            }
+
+            // Check payment method specific requirements
+            if (selectedPaymentMethod === 'bkash') {
+                const screenshot = document.getElementById('bkash-screenshot').files[0];
+                const txnId = document.getElementById('bkash-transaction-id').value.trim();
+                if (!screenshot || !txnId || txnId.length < 10) {
+                    isValid = false;
+                }
+            } else if (selectedPaymentMethod === 'nagad') {
+                const screenshot = document.getElementById('nagad-screenshot').files[0];
+                const txnId = document.getElementById('nagad-transaction-id').value.trim();
+                if (!screenshot || !txnId || txnId.length < 10) {
+                    isValid = false;
+                }
+            }
+
+            // Check terms
+            if (!document.getElementById('terms-checkbox').checked) {
+                isValid = false;
+            }
+
+            document.getElementById('place-order-btn').disabled = !isValid;
+        }
+
+        // Place Order
+        async function placeOrder() {
+            const btn = document.getElementById('place-order-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Processing...';
+
+            try {
+                showLoading();
+                
+                // Get delivery info
+                let deliveryInfo;
+                const selectedAddress = document.querySelector('input[name="delivery-address"]:checked');
+                const phoneOverride = document.getElementById('phone').value.trim();
+                
+                if (selectedAddress) {
+                    deliveryInfo = {
+                        address_id: parseInt(selectedAddress.value)
+                    };
+                    
+                    // If phone number is provided, override the saved address phone
+                    if (phoneOverride) {
+                        deliveryInfo.phone_override = phoneOverride;
+                    }
+                } else {
+                    deliveryInfo = {
+                        full_name: document.getElementById('full-name').value.trim(),
+                        phone: phoneOverride,
+                        address: document.getElementById('address').value.trim(),
+                        city: document.getElementById('city').value.trim(),
+                        district: document.getElementById('district').value,
+                        division: document.getElementById('division').value,
+                        postal_code: document.getElementById('postal-code').value.trim()
+                    };
+                }
+
+                // Handle payment screenshot upload if needed
+                let paymentScreenshot = null;
+                let transactionId = null;
+
+                if (selectedPaymentMethod === 'bkash' || selectedPaymentMethod === 'nagad') {
+                    const screenshotFile = document.getElementById(`${selectedPaymentMethod}-screenshot`).files[0];
+                    
+                    if (screenshotFile) {
+                        // Convert to base64
+                        paymentScreenshot = await fileToBase64(screenshotFile);
+                    }
+                    
+                    transactionId = document.getElementById(`${selectedPaymentMethod}-transaction-id`).value.trim();
+                }
+
+                // Prepare order data for API
+                const orderData = {
+                    items: cart.items.map(item => ({
+                        product_id: item.product_id,
+                        club_id: item.club_id,
+                        quantity: item.quantity,
+                        price: item.price
+                    })),
+                    delivery_info: deliveryInfo,
+                    payment_method: selectedPaymentMethod,
+                    payment_screenshot: paymentScreenshot,
+                    transaction_id: transactionId
+                };
+
+                console.log('Submitting order:', orderData);
+
+                // Submit order to API
+                const token = getToken();
+                const response = await fetch(`${API_BASE_URL}/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to place order');
+                }
+
+                const result = await response.json();
+                console.log('Order result:', result);
+
+                if (!result.success) {
+                    throw new Error(result.message || 'Failed to place order');
+                }
+
+                const orderNumber = result.data.order_number;
+                
+                // Clear cart from localStorage
+                localStorage.removeItem('cart');
+                
+                // Redirect to success page
+                showToast('Order placed successfully!', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = `/order-success.html?order=${orderNumber}`;
+                }, 500);
+
+            } catch (error) {
+                console.error('Order error:', error);
+                showToast(error.message || 'Failed to place order. Please try again.', 'error');
+                
+                hideLoading();
+                const grandTotal = document.getElementById('order-total').textContent;
+                btn.disabled = false;
+                btn.innerHTML = `Place Order (${grandTotal})`;
+            }
+        }
+
+        // Helper function to convert file to base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function uploadImage(file) {
+            // Mock upload - in production, upload to Cloudinary
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve('https://via.placeholder.com/400');
+                }, 1000);
+            });
+        }
+
+        // Utilities
+        function formatPrice(amount) {
+            return `৳${amount.toLocaleString('en-BD', {minimumFractionDigits: 0})}`;
+        }
+
+        function showToast(message, type = 'info') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function showLoading() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Profile | Nemionix - Bangladesh Robotics Marketplace</title>
+    <meta name="description" content="View club profile, products, competitions, and reviews on Nemionix Robotics Marketplace">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F9FAFB;
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1991EB;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-accent {
+            color: #FF9119;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #1991EB;
+        }
+
+        .btn-primary {
+            background: #1991EB;
+            color: white;
+            padding: 0.625rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #1474BC;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(25, 145, 235, 0.3);
+        }
+
+        /* Club Header Banner */
+        .club-header {
+            position: relative;
+            background: linear-gradient(135deg, #1991EB 0%, #0F578D 100%);
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .club-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .cover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+        }
+
+        .club-info-wrapper {
+            position: relative;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 2rem;
+        }
+
+        .club-info {
+            display: flex;
+            align-items: flex-end;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .club-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid white;
+            background: white;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .club-details {
+            flex: 1;
+            color: white;
+            padding-bottom: 1rem;
+        }
+
+        .club-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .club-university {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .club-meta {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .tier-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .tier-bronze { background: linear-gradient(135deg, #CD7F32, #B87333); }
+        .tier-silver { background: linear-gradient(135deg, #C0C0C0, #A8A8A8); }
+        .tier-gold { background: linear-gradient(135deg, #FFD700, #FFA500); }
+        .tier-platinum { background: linear-gradient(135deg, #E5E4E2, #B4B4B4); color: #333; }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 4px 15px rgba(255,255,255,0.3); }
+            50% { box-shadow: 0 4px 25px rgba(255,255,255,0.6); }
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stats-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #1991EB;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .stat-label {
+            color: #6B7280;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Club Navigation Tabs */
+        .club-nav {
+            background: white;
+            border-bottom: 2px solid #E5E7EB;
+            position: sticky;
+            top: 73px;
+            z-index: 999;
+        }
+
+        .club-nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            gap: 0;
+        }
+
+        .club-nav-tab {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6B7280;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .club-nav-tab:hover {
+            color: #1991EB;
+            background: #F9FAFB;
+        }
+
+        .club-nav-tab.active {
+            color: #1991EB;
+        }
+
+        .club-nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #1991EB;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: #6B7280;
+            font-size: 1rem;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .description-text {
+            color: #374151;
+            line-height: 1.8;
+        }
+
+        .read-more {
+            color: #1991EB;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .contact-list {
+            list-style: none;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            color: #1991EB;
+            font-size: 1.25rem;
+        }
+
+        .contact-link {
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            color: #1991EB;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            color: #374151;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .social-link:hover {
+            background: #1991EB;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Reward Progress */
+        .reward-card {
+            background: linear-gradient(135deg, #1991EB 0%, #0F578D 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(25, 145, 235, 0.3);
+        }
+
+        .reward-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .current-tier-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .reward-points {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .progress-bar-container {
+            background: rgba(255,255,255,0.2);
+            border-radius: 1rem;
+            height: 12px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #19B969, #47C787);
+            border-radius: 1rem;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        /* Products Section */
+        .products-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #1991EB;
+            box-shadow: 0 0 0 3px rgba(25, 145, 235, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #1991EB;
+            box-shadow: 0 0 0 3px rgba(25, 145, 235, 0.1);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            padding-top: 100%;
+            background: #F9FAFB;
+            overflow: hidden;
+        }
+
+        .product-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            background: #EF4444;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .product-content {
+            padding: 1rem;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-price-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #1991EB;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .product-original-price {
+            font-size: 0.875rem;
+            color: #9CA3AF;
+            text-decoration: line-through;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            color: #6B7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .stars {
+            color: #FFA500;
+        }
+
+        .stock-status {
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .in-stock { color: #10B981; }
+        .low-stock { color: #F59E0B; }
+        .out-of-stock { color: #EF4444; }
+
+        .btn-add-cart {
+            width: 100%;
+            padding: 0.625rem;
+            background: #1991EB;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-add-cart:hover {
+            background: #1474BC;
+        }
+
+        .btn-add-cart:disabled {
+            background: #D1D5DB;
+            cursor: not-allowed;
+        }
+
+        /* Competitions Grid */
+        .competitions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .competition-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .competition-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+        }
+
+        .competition-banner {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .competition-content {
+            padding: 1.5rem;
+        }
+
+        .competition-title {
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.75rem;
+            font-size: 1.125rem;
+        }
+
+        .competition-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .meta-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .meta-icon {
+            color: #1991EB;
+        }
+
+        .competition-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #F3F4F6;
+        }
+
+        .prize-amount {
+            font-weight: 700;
+            color: #19B969;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-view-details {
+            padding: 0.5rem 1rem;
+            background: #F3F4F6;
+            color: #1991EB;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-view-details:hover {
+            background: #1991EB;
+            color: white;
+        }
+
+        /* Reviews Section */
+        .rating-summary {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .rating-overview {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .rating-score {
+            text-align: center;
+        }
+
+        .big-rating {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #1991EB;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1;
+        }
+
+        .rating-stars-big {
+            color: #FFA500;
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .total-reviews {
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+
+        .rating-breakdown {
+            flex: 1;
+        }
+
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .rating-label {
+            font-size: 0.875rem;
+            color: #6B7280;
+            width: 40px;
+        }
+
+        .rating-bar {
+            flex: 1;
+            height: 8px;
+            background: #F3F4F6;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .rating-bar-fill {
+            height: 100%;
+            background: #FFA500;
+        }
+
+        .rating-count {
+            font-size: 0.875rem;
+            color: #6B7280;
+            width: 50px;
+            text-align: right;
+        }
+
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .review-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .review-header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #E5E7EB;
+            object-fit: cover;
+        }
+
+        .reviewer-info {
+            flex: 1;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .review-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .review-stars {
+            color: #FFA500;
+        }
+
+        .review-product-link {
+            color: #1991EB;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
+        .review-text {
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: #D1D5DB;
+            margin-bottom: 1rem;
+        }
+
+        .empty-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-text {
+            color: #6B7280;
+        }
+
+        /* Load More Button */
+        .load-more-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-load-more {
+            padding: 0.75rem 2rem;
+            background: white;
+            color: #1991EB;
+            border: 2px solid #1991EB;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-load-more:hover {
+            background: #1991EB;
+            color: white;
+        }
+
+        .btn-load-more:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Similar Clubs */
+        .similar-clubs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .club-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .club-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+        }
+
+        .club-card-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            object-fit: cover;
+            border: 3px solid #F3F4F6;
+        }
+
+        .club-card-name {
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .club-card-university {
+            color: #6B7280;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .club-card-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .btn-visit-profile {
+            width: 100%;
+            padding: 0.625rem;
+            background: #F3F4F6;
+            color: #1991EB;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-visit-profile:hover {
+            background: #1991EB;
+            color: white;
+        }
+
+        /* Floating Action Buttons */
+        .floating-actions {
+            position: fixed;
+            right: 2rem;
+            bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 900;
+        }
+
+        .fab {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #1991EB;
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(25, 145, 235, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .fab:hover {
+            background: #1474BC;
+            transform: scale(1.1);
+        }
+
+        .fab.disabled {
+            background: #D1D5DB;
+            cursor: not-allowed;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #F3F4F6;
+            border-top-color: #1991EB;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .competitions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .similar-clubs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .club-header {
+                height: 300px;
+            }
+
+            .club-logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .club-name {
+                font-size: 1.75rem;
+            }
+
+            .club-university {
+                font-size: 1rem;
+            }
+
+            .club-info {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .club-nav-container {
+                overflow-x: auto;
+            }
+
+            .club-nav-tab {
+                padding: 0.75rem 1rem;
+                white-space: nowrap;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .competitions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .similar-clubs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .rating-overview {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .floating-actions {
+                right: 1rem;
+                bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span>Nemio</span><span class="logo-accent">nix</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="competitions.html">Competitions</a></li>
+                <li><a href="products.html">Marketplace</a></li>
+                <li><a href="clubs.html">Clubs</a></li>
+                <li><a href="login.html" class="btn-primary">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Club Header Banner -->
+    <div class="club-header">
+        <img src="" alt="" class="club-cover" id="club-cover">
+        <div class="cover-overlay"></div>
+        <div class="club-info-wrapper">
+            <div class="club-info">
+                <img src="" alt="" class="club-logo" id="club-logo">
+                <div class="club-details">
+                    <h1 class="club-name" id="club-name"></h1>
+                    <p class="club-university" id="club-university"></p>
+                    <div class="club-meta">
+                        <span class="tier-badge" id="tier-badge"></span>
+                        <span class="meta-item">
+                            📅 Est. <span id="established-year"></span>
+                        </span>
+                        <span class="meta-item">
+                            🏆 Rank #<span id="leaderboard-rank"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-icon">📦</div>
+                <div class="stat-value" id="total-products">0</div>
+                <div class="stat-label">Products</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-value" id="total-competitions">0</div>
+                <div class="stat-label">Competitions</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value" id="average-rating">0.0</div>
+                <div class="stat-label">Rating</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">💰</div>
+                <div class="stat-value" id="total-sales">0</div>
+                <div class="stat-label">Sales</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Club Navigation Tabs -->
+    <div class="club-nav">
+        <div class="club-nav-container">
+            <button class="club-nav-tab active" data-section="about">About</button>
+            <button class="club-nav-tab" data-section="products">Products</button>
+            <button class="club-nav-tab" data-section="competitions">Competitions</button>
+            <button class="club-nav-tab" data-section="reviews">Reviews</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- About Section -->
+        <section class="section" id="about">
+            <div class="about-grid">
+                <div>
+                    <div class="card">
+                        <h2 class="card-title">About</h2>
+                        <div class="description-text" id="club-description"></div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <h2 class="card-title">Contact Information</h2>
+                        <ul class="contact-list">
+                            <li class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <a href="#" class="contact-link" id="contact-email"></a>
+                            </li>
+                            <li class="contact-item">
+                                <span class="contact-icon">📱</span>
+                                <a href="#" class="contact-link" id="contact-phone"></a>
+                            </li>
+                        </ul>
+                        <div class="social-links" id="social-links"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="reward-card">
+                        <div class="reward-header">
+                            <span class="current-tier-badge" id="current-tier-badge"></span>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.25rem;">Reward Points</div>
+                            <div class="reward-points" id="reward-points"></div>
+                        </div>
+                        <div id="progress-container">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+                            </div>
+                            <div class="progress-text" id="progress-text"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="section" id="products">
+            <div class="section-header">
+                <h2 class="section-title">Products</h2>
+                <p class="section-subtitle">Browse all products from this club</p>
+            </div>
+
+            <div class="products-controls">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Search products..." id="product-search">
+                </div>
+                <select class="filter-select" id="category-filter">
+                    <option value="">All Categories</option>
+                    <option value="Microcontrollers">Microcontrollers</option>
+                    <option value="Sensors">Sensors</option>
+                    <option value="Motors">Motors</option>
+                    <option value="Wheels">Wheels</option>
+                    <option value="Chassis">Chassis</option>
+                    <option value="Tools">Tools</option>
+                </select>
+                <select class="filter-select" id="sort-filter">
+                    <option value="created_at-desc">Newest First</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="sales_count-desc">Best Selling</option>
+                </select>
+            </div>
+
+            <div class="products-grid" id="products-grid"></div>
+
+            <div class="load-more-container" id="products-load-more-container" style="display: none;">
+                <button class="btn-load-more" id="load-more-products">Load More Products</button>
+            </div>
+        </section>
+
+        <!-- Competitions Section -->
+        <section class="section" id="competitions">
+            <div class="section-header">
+                <h2 class="section-title">Competitions</h2>
+                <p class="section-subtitle">Upcoming and past competitions organized by this club</p>
+            </div>
+
+            <div class="products-controls">
+                <select class="filter-select" id="competition-status-filter">
+                    <option value="">All Competitions</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="past">Past</option>
+                </select>
+                <select class="filter-select" id="competition-sort">
+                    <option value="competition_date-asc">Date: Earliest First</option>
+                    <option value="competition_date-desc">Date: Latest First</option>
+                    <option value="prize_first-desc">Highest Prize</option>
+                </select>
+            </div>
+
+            <div class="competitions-grid" id="competitions-grid"></div>
+
+            <div class="load-more-container" id="competitions-load-more-container" style="display: none;">
+                <button class="btn-load-more" id="load-more-competitions">Load More Competitions</button>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section class="section" id="reviews">
+            <div class="section-header">
+                <h2 class="section-title">Reviews</h2>
+                <p class="section-subtitle">What customers say about this club</p>
+            </div>
+
+            <div class="rating-summary" id="rating-summary">
+                <div class="rating-overview">
+                    <div class="rating-score">
+                        <div class="big-rating" id="big-rating">0.0</div>
+                        <div class="rating-stars-big" id="rating-stars-big">★★★★★</div>
+                        <div class="total-reviews" id="total-reviews-text">0 reviews</div>
+                    </div>
+                    <div class="rating-breakdown" id="rating-breakdown"></div>
+                </div>
+            </div>
+
+            <div class="reviews-list" id="reviews-list"></div>
+
+            <div class="load-more-container" id="reviews-load-more-container" style="display: none;">
+                <button class="btn-load-more" id="load-more-reviews">Load More Reviews</button>
+            </div>
+        </section>
+
+        <!-- Similar Clubs -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Similar Clubs</h2>
+                <p class="section-subtitle">Other clubs you might like</p>
+            </div>
+            <div class="similar-clubs-grid" id="similar-clubs-grid"></div>
+        </section>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-actions">
+        <button class="fab disabled" title="Message Club (Coming Soon)">💬</button>
+        <button class="fab" id="share-profile" title="Share Profile">🔗</button>
+        <button class="fab" id="back-to-top" title="Back to Top">↑</button>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cart.js"></script>
+
+    <script>
+        // Show toast notification - MUST be defined early
+        function showToast(message, type = 'info') {
+            const colors = {
+                success: '#10B981',
+                error: '#EF4444',
+                warning: '#F59E0B',
+                info: '#3B82F6'
+            };
+
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${colors[type]};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                font-weight: 600;
+            `;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Global variables
+        let currentClub = null;
+        let currentClubId = null;
+        let productFilters = {
+            category: '',
+            search: '',
+            sortBy: 'created_at',
+            orderBy: 'desc',
+            page: 1
+        };
+        let competitionFilters = {
+            status: '',
+            sortBy: 'competition_date',
+            orderBy: 'asc',
+            page: 1
+        };
+        let reviewFilters = {
+            sortBy: 'created_at',
+            orderBy: 'desc',
+            page: 1
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const clubSlug = urlParams.get('slug');
+
+            if (!clubSlug) {
+                window.location.href = 'clubs.html';
+                return;
+            }
+
+            initializeTabNavigation();
+            initializeFilters();
+            initializeFloatingActions();
+            loadClubProfile(clubSlug);
+        });
+
+        // Load club profile
+        async function loadClubProfile(slug) {
+            try {
+                showLoading();
+                const response = await apiClient.get(`/clubs/${slug}`);
+                console.log('Club API response:', response);
+                
+                // Handle response structure - API returns {success: true, data: {...}}
+                if (response && response.success && response.data) {
+                    currentClub = response.data;
+                    currentClubId = currentClub.id;
+                } else if (response && response.data) {
+                    currentClub = response.data;
+                    currentClubId = currentClub.id;
+                } else {
+                    throw new Error('Invalid API response structure');
+                }
+
+                if (!currentClub || !currentClubId) {
+                    throw new Error('Club data not found in response');
+                }
+                
+                console.log('Loaded club:', currentClub);
+                renderClubProfile(currentClub);
+                await Promise.all([
+                    loadClubProducts(),
+                    loadClubCompetitions(),
+                    loadClubReviews(),
+                    loadSimilarClubs()
+                ]);
+            } catch (error) {
+                console.error('Error loading club profile:', error);
+                if (error?.status === 404 || error?.message?.includes('not found')) {
+                    showNotFoundMessage();
+                } else {
+                    const errorMessage = error?.response?.data?.message || error?.message || 'Failed to load club profile';
+                    showToast(errorMessage, 'error');
+                }
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Render club profile
+        function renderClubProfile(club) {
+            // Header
+            document.getElementById('club-cover').src = club.cover_photo_url || 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1920&h=400&fit=crop';
+            document.getElementById('club-logo').src = club.logo_url || 'assets/default-club-logo.png';
+            document.getElementById('club-name').textContent = club.club_name;
+            document.getElementById('club-university').textContent = club.university;
+            document.getElementById('established-year').textContent = club.established_year;
+            document.getElementById('leaderboard-rank').textContent = club.leaderboard_rank || 'N/A';
+
+            // Tier badge
+            const tierBadge = document.getElementById('tier-badge');
+            const tier = club.reward_tier || 'bronze';
+            tierBadge.className = `tier-badge tier-${tier}`;
+            tierBadge.innerHTML = `${getTierIcon(tier)} ${tier.charAt(0).toUpperCase() + tier.slice(1)}`;
+
+            // Stats
+            document.getElementById('total-products').textContent = club.product_count || 0;
+            document.getElementById('total-competitions').textContent = club.competition_count || 0;
+            document.getElementById('average-rating').textContent = Number(club.average_rating || 0).toFixed(1);
+            document.getElementById('total-sales').textContent = club.total_sales || 0;
+
+            // About
+            document.getElementById('club-description').textContent = club.description || 'No description available.';
+
+            // Contact
+            const contactEmail = club.contact_email || club.email || 'Not provided';
+            const contactPhone = club.phone || club.contact_phone || 'Not provided';
+            
+            document.getElementById('contact-email').href = contactEmail !== 'Not provided' ? `mailto:${contactEmail}` : '#';
+            document.getElementById('contact-email').textContent = contactEmail;
+            document.getElementById('contact-phone').href = contactPhone !== 'Not provided' ? `tel:${contactPhone}` : '#';
+            document.getElementById('contact-phone').textContent = contactPhone;
+
+            // Social links
+            const socialLinksContainer = document.getElementById('social-links');
+            socialLinksContainer.innerHTML = '';
+            if (club.facebook_url) {
+                socialLinksContainer.innerHTML += `<a href="${club.facebook_url}" target="_blank" class="social-link">📘</a>`;
+            }
+            if (club.instagram_url) {
+                socialLinksContainer.innerHTML += `<a href="${club.instagram_url}" target="_blank" class="social-link">📷</a>`;
+            }
+            if (club.website_url) {
+                socialLinksContainer.innerHTML += `<a href="${club.website_url}" target="_blank" class="social-link">🌐</a>`;
+            }
+
+            // Reward progress
+            renderRewardProgress(club);
+
+            // Update page title
+            document.title = `${club.club_name} | Nemionix`;
+        }
+
+        // Render reward progress
+        function renderRewardProgress(club) {
+            const tierThresholds = {
+                bronze: { min: 0, max: 500, next: 'Silver' },
+                silver: { min: 500, max: 1500, next: 'Gold' },
+                gold: { min: 1500, max: 5000, next: 'Platinum' },
+                platinum: { min: 5000, max: null, next: null }
+            };
+
+            const currentTier = club.reward_tier;
+            const points = club.reward_points || 0;
+            const threshold = tierThresholds[currentTier];
+
+            document.getElementById('reward-points').textContent = points.toLocaleString();
+
+            const tierBadge = document.getElementById('current-tier-badge');
+            tierBadge.className = `current-tier-badge tier-${currentTier}`;
+            tierBadge.innerHTML = `${getTierIcon(currentTier)} ${currentTier.charAt(0).toUpperCase() + currentTier.slice(1)}`;
+
+            if (currentTier === 'platinum') {
+                document.getElementById('progress-container').innerHTML = `
+                    <div style="text-align: center; padding: 1rem;">
+                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🏆</div>
+                        <div style="font-weight: 700; font-size: 1.125rem;">Maximum Tier Achieved!</div>
+                    </div>
+                `;
+            } else {
+                const progress = ((points - threshold.min) / (threshold.max - threshold.min)) * 100;
+                const pointsNeeded = threshold.max - points;
+
+                document.getElementById('progress-bar').style.width = `${Math.min(progress, 100)}%`;
+                document.getElementById('progress-text').textContent = 
+                    `${points.toLocaleString()}/${threshold.max.toLocaleString()} points (${Math.round(progress)}%) - ${pointsNeeded.toLocaleString()} more for ${threshold.next}!`;
+            }
+        }
+
+        // Load club products
+        async function loadClubProducts(append = false) {
+            try {
+                const params = new URLSearchParams({
+                    club_id: currentClubId,
+                    category: productFilters.category,
+                    search: productFilters.search,
+                    sort_by: productFilters.sortBy,
+                    order_by: productFilters.orderBy,
+                    page: productFilters.page,
+                    limit: 12
+                });
+
+                const response = await apiClient.get(`/products?${params}`);
+                console.log('Products API response:', response);
+                
+                // Handle response - API returns {success: true, data: [...]}
+                const products = response.success && response.data ? response.data : (Array.isArray(response) ? response : []);
+
+                if (append) {
+                    appendProducts(products);
+                } else {
+                    renderProducts(products);
+                }
+
+                // Show/hide load more button
+                const loadMoreContainer = document.getElementById('products-load-more-container');
+                if (products.length === 12) {
+                    loadMoreContainer.style.display = 'block';
+                } else {
+                    loadMoreContainer.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading products:', error);
+                const grid = document.getElementById('products-grid');
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-icon">⚠️</div>
+                        <h3 class="empty-title">Error Loading Products</h3>
+                        <p class="empty-text">Unable to load products. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Helper: Handle add to cart
+        async function handleAddToCart(productId) {
+            // Check if user is logged in
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showToast('Please login to add items to cart', 'warning');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+                return;
+            }
+            
+            try {
+                const response = await apiClient.post('/students/cart', {
+                    product_id: productId,
+                    quantity: 1
+                });
+                
+                if (response.success) {
+                    showToast('Product added to cart', 'success');
+                    
+                    // Update cart badge
+                    if (typeof Cart !== 'undefined' && Cart.updateCartBadge) {
+                        await Cart.updateCartBadge();
+                    }
+                } else {
+                    showToast(response.message || 'Failed to add to cart', 'error');
+                }
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+                showToast('Failed to add to cart', 'error');
+            }
+        }
+
+        // Render products
+        function renderProducts(products) {
+            const grid = document.getElementById('products-grid');
+
+            if (products.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-icon">📦</div>
+                        <h3 class="empty-title">No Products Yet</h3>
+                        <p class="empty-text">This club hasn't listed any products yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = products.map(product => {
+                // Get first image - handle both array of objects and array of URLs
+                let imageUrl = 'https://via.placeholder.com/400/cccccc/666666?text=No+Image';
+                if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+                    if (typeof product.images[0] === 'object' && product.images[0].image_url) {
+                        imageUrl = product.images[0].image_url;
+                    } else if (typeof product.images[0] === 'string') {
+                        imageUrl = product.images[0];
+                    }
+                } else if (product.primary_image) {
+                    imageUrl = product.primary_image;
+                } else if (product.image_url) {
+                    imageUrl = product.image_url;
+                }
+                
+                return `
+                <div class="product-card" onclick="window.location.href='product-detail.html?slug=${product.slug || product.id}'">
+                    <div class="product-image-wrapper">
+                        <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/400/cccccc/666666?text=No+Image'">
+                        ${product.original_price && product.original_price > product.price ? `
+                            <div class="discount-badge">${calculateDiscount(product.original_price, product.price)}% OFF</div>
+                        ` : ''}
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price-row">
+                            <span class="product-price">${formatPrice(product.price)}</span>
+                            ${product.original_price && product.original_price > product.price ? `
+                                <span class="product-original-price">${formatPrice(product.original_price)}</span>
+                            ` : ''}
+                        </div>
+                        <div class="product-rating">
+                            <span class="stars">${renderStars(product.average_rating || 0)}</span>
+                            <span>(${product.review_count || 0})</span>
+                        </div>
+                        <div class="stock-status ${getStockClass(product.stock)}">
+                            ${getStockText(product.stock)}
+                        </div>
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); handleAddToCart(${product.id})" ${product.stock === 0 ? 'disabled' : ''}>
+                            ${product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Append products (for load more)
+        function appendProducts(products) {
+            const grid = document.getElementById('products-grid');
+            products.forEach(product => {
+                // Get first image - handle all cases
+                let imageUrl = 'https://via.placeholder.com/400/cccccc/666666?text=No+Image';
+                if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+                    if (typeof product.images[0] === 'object' && product.images[0].image_url) {
+                        imageUrl = product.images[0].image_url;
+                    } else if (typeof product.images[0] === 'string') {
+                        imageUrl = product.images[0];
+                    }
+                } else if (product.primary_image) {
+                    imageUrl = product.primary_image;
+                } else if (product.image_url) {
+                    imageUrl = product.image_url;
+                }
+                
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.onclick = () => window.location.href = `product-detail.html?id=${product.id}`;
+                card.innerHTML = `
+                    <div class="product-image-wrapper">
+                        <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/400/cccccc/666666?text=No+Image'">
+                        ${product.original_price && product.original_price > product.price ? `
+                            <div class="discount-badge">${calculateDiscount(product.original_price, product.price)}% OFF</div>
+                        ` : ''}
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price-row">
+                            <span class="product-price">${formatPrice(product.price)}</span>
+                            ${product.original_price && product.original_price > product.price ? `
+                                <span class="product-original-price">${formatPrice(product.original_price)}</span>
+                            ` : ''}
+                        </div>
+                        <div class="product-rating">
+                            <span class="stars">${renderStars(product.average_rating || 0)}</span>
+                            <span>(${product.review_count || 0})</span>
+                        </div>
+                        <div class="stock-status ${getStockClass(product.stock)}">
+                            ${getStockText(product.stock)}
+                        </div>
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); handleAddToCart(${product.id})" ${product.stock === 0 ? 'disabled' : ''}>
+                            ${product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Load club competitions
+        async function loadClubCompetitions(append = false) {
+            try {
+                const params = new URLSearchParams({
+                    club_id: currentClubId,
+                    status: competitionFilters.status,
+                    sort_by: competitionFilters.sortBy,
+                    order_by: competitionFilters.orderBy,
+                    page: competitionFilters.page,
+                    limit: 9
+                });
+
+                const response = await apiClient.get(`/competitions?${params}`);
+                console.log('Competitions API response:', response);
+                
+                // Handle response - API returns {success: true, data: {...}}
+                const competitions = response.success && response.data && response.data.competitions 
+                    ? response.data.competitions 
+                    : (response.data && Array.isArray(response.data) ? response.data : []);
+
+                if (append) {
+                    appendCompetitions(competitions);
+                } else {
+                    renderCompetitions(competitions);
+                }
+
+                const loadMoreContainer = document.getElementById('competitions-load-more-container');
+                if (competitions.length === 9) {
+                    loadMoreContainer.style.display = 'block';
+                } else {
+                    loadMoreContainer.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading competitions:', error);
+                const grid = document.getElementById('competitions-grid');
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-icon">⚠️</div>
+                        <h3 class="empty-title">Error Loading Competitions</h3>
+                        <p class="empty-text">Unable to load competitions. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Render competitions
+        function renderCompetitions(competitions) {
+            const grid = document.getElementById('competitions-grid');
+
+            if (competitions.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-icon">🏆</div>
+                        <h3 class="empty-title">No Competitions Yet</h3>
+                        <p class="empty-text">This club hasn't organized any competitions yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = competitions.map(comp => `
+                <div class="competition-card" onclick="window.location.href='competition-detail.html?id=${comp.id}'">
+                    <img src="${comp.banner_url || 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop'}" alt="${comp.title}" class="competition-banner">
+                    <div class="competition-content">
+                        <h3 class="competition-title">${comp.title}</h3>
+                        <div class="competition-meta">
+                            <div class="meta-row">
+                                <span class="meta-icon">📅</span>
+                                <span>${formatDate(comp.competition_date)}</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-icon">📍</span>
+                                <span>${comp.venue}</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-icon">💰</span>
+                                <span>Fee: ${formatPrice(comp.registration_fee)}</span>
+                            </div>
+                        </div>
+                        <div class="competition-footer">
+                            <span class="prize-amount">🏆 ${formatPrice(comp.prize_first)}</span>
+                            <button class="btn-view-details" onclick="event.stopPropagation(); window.location.href='competition-detail.html?id=${comp.id}'">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Append competitions
+        function appendCompetitions(competitions) {
+            const grid = document.getElementById('competitions-grid');
+            competitions.forEach(comp => {
+                const card = document.createElement('div');
+                card.className = 'competition-card';
+                card.onclick = () => window.location.href = `competition-detail.html?id=${comp.id}`;
+                card.innerHTML = `
+                    <img src="${comp.banner_url || 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop'}" alt="${comp.title}" class="competition-banner">
+                    <div class="competition-content">
+                        <h3 class="competition-title">${comp.title}</h3>
+                        <div class="competition-meta">
+                            <div class="meta-row">
+                                <span class="meta-icon">📅</span>
+                                <span>${formatDate(comp.competition_date)}</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-icon">📍</span>
+                                <span>${comp.venue}</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-icon">💰</span>
+                                <span>Fee: ${formatPrice(comp.registration_fee)}</span>
+                            </div>
+                        </div>
+                        <div class="competition-footer">
+                            <span class="prize-amount">🏆 ${formatPrice(comp.prize_first)}</span>
+                            <button class="btn-view-details" onclick="event.stopPropagation(); window.location.href='competition-detail.html?id=${comp.id}'">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Load club reviews
+        async function loadClubReviews(append = false) {
+            try {
+                const params = new URLSearchParams({
+                    club_id: currentClubId,
+                    sort_by: reviewFilters.sortBy,
+                    order_by: reviewFilters.orderBy,
+                    page: reviewFilters.page,
+                    limit: 10
+                });
+
+                const response = await apiClient.get(`/reviews/club/${currentClubId}?${params}`);
+                console.log('Reviews API response:', response);
+                
+                // Handle response - API returns {success: true, data: {...}}
+                const reviewData = response.success && response.data ? response.data : response;
+                const reviews = reviewData.reviews || [];
+                const stats = reviewData.stats || { average_rating: 0, total_reviews: 0, breakdown: {} };
+
+                if (!append) {
+                    renderReviewSummary(stats);
+                }
+
+                if (append) {
+                    appendReviews(reviews);
+                } else {
+                    renderReviews(reviews);
+                }
+
+                const loadMoreContainer = document.getElementById('reviews-load-more-container');
+                if (reviews.length === 10) {
+                    loadMoreContainer.style.display = 'block';
+                } else {
+                    loadMoreContainer.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading reviews:', error);
+                const list = document.getElementById('reviews-list');
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <h3 class="empty-title">Error Loading Reviews</h3>
+                        <p class="empty-text">Unable to load reviews. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Render review summary
+        function renderReviewSummary(stats) {
+            document.getElementById('big-rating').textContent = Number(stats.average_rating || 0).toFixed(1);
+            document.getElementById('rating-stars-big').innerHTML = renderStars(stats.average_rating || 0);
+            document.getElementById('total-reviews-text').textContent = `Based on ${stats.total_reviews || 0} reviews`;
+
+            const breakdown = document.getElementById('rating-breakdown');
+            breakdown.innerHTML = '';
+            for (let i = 5; i >= 1; i--) {
+                const count = stats.breakdown?.[i] || 0;
+                const percentage = stats.total_reviews > 0 ? (count / stats.total_reviews) * 100 : 0;
+                breakdown.innerHTML += `
+                    <div class="rating-row">
+                        <span class="rating-label">${i}★</span>
+                        <div class="rating-bar">
+                            <div class="rating-bar-fill" style="width: ${percentage}%"></div>
+                        </div>
+                        <span class="rating-count">${count}</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Render reviews
+        function renderReviews(reviews) {
+            const list = document.getElementById('reviews-list');
+
+            if (reviews.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⭐</div>
+                        <h3 class="empty-title">No Reviews Yet</h3>
+                        <p class="empty-text">Be the first to review products from this club</p>
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = reviews.map(review => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="${review.user_avatar || 'assets/default-avatar.png'}" alt="${review.user_name}" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">${review.user_name}</div>
+                            <div class="review-meta">
+                                <span class="review-stars">${renderStars(review.rating)}</span>
+                                <span>•</span>
+                                <span>${formatDate(review.created_at)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    ${review.product_name ? `
+                        <a href="product-detail.html?id=${review.product_id}" class="review-product-link">
+                            📦 ${review.product_name}
+                        </a>
+                    ` : ''}
+                    <p class="review-text">${review.review_text || 'No written review'}</p>
+                    ${review.images && review.images.length > 0 ? `
+                        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                            ${review.images.map(img => `
+                                <img src="${img.image_url}" alt="Review image" style="width: 80px; height: 80px; object-fit: cover; border-radius: 0.5rem; cursor: pointer;" onclick="viewImage('${img.image_url}')">
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Append reviews
+        function appendReviews(reviews) {
+            const list = document.getElementById('reviews-list');
+            reviews.forEach(review => {
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                card.innerHTML = `
+                    <div class="review-header">
+                        <img src="${review.user_avatar || 'assets/default-avatar.png'}" alt="${review.user_name}" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">${review.user_name}</div>
+                            <div class="review-meta">
+                                <span class="review-stars">${renderStars(review.rating)}</span>
+                                <span>•</span>
+                                <span>${formatDate(review.created_at)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    ${review.product_name ? `
+                        <a href="product-detail.html?id=${review.product_id}" class="review-product-link">
+                            📦 ${review.product_name}
+                        </a>
+                    ` : ''}
+                    <p class="review-text">${review.review_text || 'No written review'}</p>
+                    ${review.images && review.images.length > 0 ? `
+                        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                            ${review.images.map(img => `
+                                <img src="${img.image_url}" alt="Review image" style="width: 80px; height: 80px; object-fit: cover; border-radius: 0.5rem; cursor: pointer;" onclick="viewImage('${img.image_url}')">
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        // Load similar clubs
+        async function loadSimilarClubs() {
+            try {
+                const response = await apiClient.get(`/clubs/similar?exclude=${currentClubId}&limit=3`);
+                console.log('Similar clubs API response:', response);
+                
+                // Handle response - API returns {success: true, data: [...]}
+                const clubs = response.success && response.data 
+                    ? (Array.isArray(response.data) ? response.data : response.data.clubs || [])
+                    : [];
+                renderSimilarClubs(clubs);
+            } catch (error) {
+                console.error('Error loading similar clubs:', error);
+                const grid = document.getElementById('similar-clubs-grid');
+                grid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #6B7280;">Unable to load similar clubs</p>';
+            }
+        }
+
+        // Render similar clubs
+        function renderSimilarClubs(clubs) {
+            const grid = document.getElementById('similar-clubs-grid');
+
+            if (clubs.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #6B7280;">No similar clubs found</p>';
+                return;
+            }
+
+            grid.innerHTML = clubs.map(club => {
+                const tier = club.reward_tier || 'bronze';
+                return `
+                <div class="club-card" onclick="window.location.href='club-profile.html?slug=${club.slug}'">
+                    <img src="${club.logo_url || 'assets/default-club-logo.png'}" alt="${club.club_name}" class="club-card-logo">
+                    <h3 class="club-card-name">${club.club_name}</h3>
+                    <p class="club-card-university">${club.university}</p>
+                    <div class="tier-badge tier-${tier}" style="display: inline-flex; margin: 0.5rem 0;">
+                        ${getTierIcon(tier)} ${tier.charAt(0).toUpperCase() + tier.slice(1)}
+                    </div>
+                    <div class="club-card-stats">
+                        <span>📦 ${club.product_count || 0}</span>
+                        <span>⭐ ${Number(club.average_rating || 0).toFixed(1)}</span>
+                    </div>
+                    <button class="btn-visit-profile">Visit Profile</button>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Initialize tab navigation
+        function initializeTabNavigation() {
+            const tabs = document.querySelectorAll('.club-nav-tab');
+            const sections = ['about', 'products', 'competitions', 'reviews'];
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Scroll to section
+                    const sectionId = tab.dataset.section;
+                    const section = document.getElementById(sectionId);
+                    const offset = 145; // navbar + club-nav height
+                    const elementPosition = section.offsetTop;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Update active tab on scroll
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+                    const sectionTop = section.offsetTop - 200;
+                    if (window.pageYOffset >= sectionTop) {
+                        current = sectionId;
+                    }
+                });
+
+                tabs.forEach(tab => {
+                    tab.classList.remove('active');
+                    if (tab.dataset.section === current) {
+                        tab.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Initialize filters
+        function initializeFilters() {
+            // Product search
+            const productSearch = document.getElementById('product-search');
+            let searchTimeout;
+            productSearch.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    productFilters.search = e.target.value;
+                    productFilters.page = 1;
+                    loadClubProducts();
+                }, 500);
+            });
+
+            // Product category filter
+            document.getElementById('category-filter').addEventListener('change', (e) => {
+                productFilters.category = e.target.value;
+                productFilters.page = 1;
+                loadClubProducts();
+            });
+
+            // Product sort
+            document.getElementById('sort-filter').addEventListener('change', (e) => {
+                const [sortBy, orderBy] = e.target.value.split('-');
+                productFilters.sortBy = sortBy;
+                productFilters.orderBy = orderBy;
+                productFilters.page = 1;
+                loadClubProducts();
+            });
+
+            // Competition status filter
+            document.getElementById('competition-status-filter').addEventListener('change', (e) => {
+                competitionFilters.status = e.target.value;
+                competitionFilters.page = 1;
+                loadClubCompetitions();
+            });
+
+            // Competition sort
+            document.getElementById('competition-sort').addEventListener('change', (e) => {
+                const [sortBy, orderBy] = e.target.value.split('-');
+                competitionFilters.sortBy = sortBy;
+                competitionFilters.orderBy = orderBy;
+                competitionFilters.page = 1;
+                loadClubCompetitions();
+            });
+
+            // Load more products
+            document.getElementById('load-more-products').addEventListener('click', () => {
+                productFilters.page++;
+                loadClubProducts(true);
+            });
+
+            // Load more competitions
+            document.getElementById('load-more-competitions').addEventListener('click', () => {
+                competitionFilters.page++;
+                loadClubCompetitions(true);
+            });
+
+            // Load more reviews
+            document.getElementById('load-more-reviews').addEventListener('click', () => {
+                reviewFilters.page++;
+                loadClubReviews(true);
+            });
+        }
+
+        // Initialize floating actions
+        function initializeFloatingActions() {
+            document.getElementById('share-profile').addEventListener('click', shareProfile);
+            document.getElementById('back-to-top').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Share profile
+        async function shareProfile() {
+            const url = window.location.href;
+            const title = `${currentClub.club_name} | Nemionix`;
+            const text = `Check out ${currentClub.club_name} on Nemionix - Bangladesh Robotics Marketplace`;
+
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title, text, url });
+                } catch (error) {
+                    if (error.name !== 'AbortError') {
+                        copyToClipboard(url);
+                    }
+                }
+            } else {
+                copyToClipboard(url);
+            }
+        }
+
+        // Copy to clipboard
+        async function copyToClipboard(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast('Link copied to clipboard!', 'success');
+            } catch (error) {
+                console.error('Failed to copy:', error);
+            }
+        }
+
+        
+        function formatPrice(amount) {
+            if (!amount || isNaN(amount)) return '৳0.00';
+            return `৳${parseFloat(amount).toLocaleString('en-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        }
+
+        // Helper: Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Helper: Calculate discount percentage
+        function calculateDiscount(originalPrice, currentPrice) {
+            return Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
+        }
+
+        // Helper: Get tier icon
+        function getTierIcon(tier) {
+            const icons = {
+                bronze: '🥉',
+                silver: '🥈',
+                gold: '🥇',
+                platinum: '💎'
+            };
+            return icons[tier] || '🏅';
+        }
+
+        // Helper: Render stars
+        function renderStars(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5;
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+            
+            return '★'.repeat(fullStars) + (halfStar ? '½' : '') + '☆'.repeat(emptyStars);
+        }
+
+        // Helper: Get stock class
+        function getStockClass(stock) {
+            if (stock === 0) return 'out-of-stock';
+            if (stock < 10) return 'low-stock';
+            return 'in-stock';
+        }
+
+        // Helper: Get stock text
+        function getStockText(stock) {
+            if (stock === 0) return 'Out of Stock';
+            if (stock < 10) return `Only ${stock} left`;
+            return 'In Stock';
+        }
+
+        // Show not found message
+        function showNotFoundMessage() {
+            document.querySelector('.main-content').innerHTML = `
+                <div class="empty-state" style="padding: 4rem 2rem;">
+                    <div class="empty-icon">🔍</div>
+                    <h2 class="empty-title">Club Not Found</h2>
+                    <p class="empty-text">The club you're looking for doesn't exist or has been removed.</p>
+                    <button onclick="window.location.href='clubs.html'" class="btn-primary" style="margin-top: 1rem;">
+                        Browse All Clubs
+                    </button>
+                </div>
+            `;
+        }
+
+        // View image in modal (simple implementation)
+        function viewImage(url) {
+            window.open(url, '_blank');
+        }
+
+        // Show loading
+        function showLoading() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        // Hide loading
+        function hideLoading() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        
+    // Initialize cart badge on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (typeof Cart !== 'undefined' && Cart.updateCartBadge) {
+                await Cart.updateCartBadge();
+                console.log('Cart badge initialized on club profile page');
+            }
+        });
+    </script>
+
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    </style>
+</body>
+</html>

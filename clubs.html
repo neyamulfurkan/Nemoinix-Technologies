@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Robotics Clubs - Nemionix Technologies</title>
+    <meta name="description" content="Browse and connect with verified university robotics clubs across Bangladesh. View profiles, leaderboards, and tier rankings.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <style>
+        :root {
+            --primary-500: #1991EB;
+            --primary-600: #1474BC;
+            --primary-700: #0F578D;
+            --secondary-500: #19B969;
+            --accent-500: #FF9119;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --tier-bronze: #CD7F32;
+            --tier-silver: #C0C0C0;
+            --tier-gold: #FFD700;
+            --tier-platinum: #E5E4E2;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-500);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-tagline {
+            font-weight: 400;
+            font-size: 0.7rem;
+            color: var(--gray-600);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-500);
+        }
+        
+        .btn-primary {
+            background: var(--primary-500);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-600);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary-500);
+            border: 2px solid var(--primary-500);
+            padding: 0.625rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-50);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1rem 0;
+        }
+
+        .breadcrumb .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .breadcrumb a {
+            color: var(--gray-600);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-600);
+        }
+
+        .breadcrumb-current {
+            color: var(--gray-900);
+            font-weight: 600;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-700) 100%);
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            font-weight: 400;
+            opacity: 0.95;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Main Container */
+        .main-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        /* Featured Podium */
+        .featured-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-base);
+        }
+        
+        .featured-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .featured-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+        
+        .featured-header p {
+            color: var(--gray-600);
+        }
+        
+        .podium-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            align-items: end;
+        }
+        
+        .podium-card {
+            background: linear-gradient(135deg, var(--gray-50), white);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .podium-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .podium-first {
+            grid-column: 2;
+            background: linear-gradient(135deg, #FFF9E5, #FFFBF0);
+            border-color: var(--tier-gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .podium-second {
+            grid-column: 1;
+            background: linear-gradient(135deg, #F5F5F5, #FAFAFA);
+            border-color: var(--tier-silver);
+        }
+        
+        .podium-third {
+            grid-column: 3;
+            background: linear-gradient(135deg, #FFF0E5, #FFF5ED);
+            border-color: var(--tier-bronze);
+        }
+        
+        .podium-rank {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-500);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .podium-first .podium-rank {
+            background: linear-gradient(135deg, var(--tier-gold), #FFA500);
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+        }
+        
+        .podium-label {
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            color: var(--primary-600);
+        }
+        
+        .podium-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 1rem;
+        }
+        
+        .podium-first .podium-logo {
+            width: 120px;
+            height: 120px;
+            border-width: 5px;
+        }
+        
+        .podium-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+        
+        .podium-card p {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tier-badge-large {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .tier-bronze { background: linear-gradient(135deg, #CD7F32, #B87333); color: white; }
+        .tier-silver { background: linear-gradient(135deg, #C0C0C0, #A8A8A8); color: white; }
+        .tier-gold { background: linear-gradient(135deg, #FFD700, #FFA500); color: #333; }
+        .tier-platinum { background: linear-gradient(135deg, #E5E4E2, #B4B4B4); color: #333; }
+        
+        .podium-points {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-500);
+            margin-bottom: 1rem;
+        }
+        
+        .podium-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        
+        /* Search & Filters */
+        .filters-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-base);
+        }
+        
+        .search-bar {
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-input-wrapper {
+            position: relative;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 1.25rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(25, 145, 235, 0.1);
+        }
+        
+        .filters-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+        }
+        
+        .filter-select {
+            padding: 0.75rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-500);
+        }
+        
+        .tier-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .tier-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+        
+        .tier-checkbox-label:hover {
+            border-color: var(--primary-500);
+            background: rgba(25, 145, 235, 0.05);
+        }
+        
+        .tier-checkbox-label input[type="checkbox"] {
+            cursor: pointer;
+        }
+        
+        .tier-checkbox-label.tier-bronze:has(input:checked) { 
+            border-color: var(--tier-bronze); 
+            background: rgba(205, 127, 50, 0.1); 
+        }
+        .tier-checkbox-label.tier-silver:has(input:checked) { 
+            border-color: var(--tier-silver); 
+            background: rgba(192, 192, 192, 0.1); 
+        }
+        .tier-checkbox-label.tier-gold:has(input:checked) { 
+            border-color: var(--tier-gold); 
+            background: rgba(255, 215, 0, 0.1); 
+        }
+        .tier-checkbox-label.tier-platinum:has(input:checked) { 
+            border-color: var(--tier-platinum); 
+            background: rgba(229, 228, 226, 0.2); 
+        }
+        
+        .filter-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .active-filters {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(25, 145, 235, 0.1);
+            color: var(--primary-700);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .btn-clear {
+            background: transparent;
+            color: var(--gray-600);
+            border: 2px solid var(--gray-300);
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-clear:hover {
+            border-color: var(--gray-400);
+            background: var(--gray-100);
+        }
+        
+        /* View Toggle */
+        .view-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .view-toggle-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--gray-300);
+            background: white;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .view-toggle-btn:hover {
+            border-color: var(--primary-500);
+            color: var(--primary-500);
+        }
+        
+        .view-toggle-btn.active {
+            background: var(--primary-500);
+            color: white;
+            border-color: var(--primary-500);
+        }
+        
+        .results-count {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+        
+        /* Clubs Grid */
+        .clubs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .club-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-base);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .club-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .club-cover {
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            position: relative;
+        }
+        
+        .club-rank-badge {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+        
+        .club-tier-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .club-logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: -50px;
+            padding: 0 1.5rem;
+        }
+        
+        .club-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .club-content {
+            padding: 1rem 1.5rem 1.5rem;
+            text-align: center;
+        }
+        
+        .club-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+        
+        .club-university {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .club-established {
+            color: var(--gray-500);
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .club-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-500);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .club-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .club-actions .btn-primary,
+        .club-actions .btn-secondary {
+            flex: 1;
+            text-align: center;
+            padding: 0.625rem;
+            font-size: 0.875rem;
+        }
+        
+        /* Leaderboard Table */
+        .clubs-leaderboard {
+            display: none;
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-base);
+        }
+        
+        .clubs-leaderboard.active {
+            display: block;
+        }
+        
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .leaderboard-table th {
+            background: var(--gray-100);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .leaderboard-table th:hover {
+            background: var(--gray-200);
+        }
+        
+        .leaderboard-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .leaderboard-row {
+            transition: background 0.2s;
+        }
+        
+        .leaderboard-row:hover {
+            background: var(--gray-50);
+        }
+        
+        .club-cell {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .club-logo-small {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .club-info .club-name {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+        
+        .rank-badge.rank-1 { background: linear-gradient(135deg, var(--tier-gold), #FFA500); color: #333; }
+        .rank-badge.rank-2 { background: linear-gradient(135deg, var(--tier-silver), #A8A8A8); color: white; }
+        .rank-badge.rank-3 { background: linear-gradient(135deg, var(--tier-bronze), #B87333); color: white; }
+        
+        .tier-badge {
+            display: inline-block;
+            padding: 0.375rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--accent-500);
+            font-weight: 600;
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .pagination-info {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-right: 1rem;
+        }
+        
+        .page-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--gray-300);
+            background: white;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+        
+        .page-btn:hover:not(:disabled) {
+            border-color: var(--primary-500);
+            color: var(--primary-500);
+        }
+        
+        .page-btn.active {
+            background: var(--primary-500);
+            color: white;
+            border-color: var(--primary-500);
+        }
+        
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            display: none;
+        }
+        
+        .empty-state.show {
+            display: block;
+        }
+        
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-state p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Loading State */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loading-overlay.show {
+            display: flex;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary-500);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .skeleton {
+            background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 0.5rem;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .skeleton-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-base);
+        }
+        
+        .skeleton-cover {
+            height: 120px;
+            background: var(--gray-200);
+        }
+        
+        .skeleton-content {
+            padding: 1.5rem;
+        }
+        
+        .skeleton-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: -50px auto 1rem;
+            background: var(--gray-200);
+        }
+        
+        .skeleton-text {
+            height: 1rem;
+            background: var(--gray-200);
+            margin-bottom: 0.5rem;
+            border-radius: 0.25rem;
+        }
+        
+        .skeleton-text.short {
+            width: 60%;
+            margin: 0 auto 0.5rem;
+        }
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+            }
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .podium-container {            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .podium-first,
+        .podium-second,
+        .podium-third {
+            grid-column: 1;
+        }
+        
+        .filters-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .clubs-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .view-controls {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: stretch;
+        }
+        
+        .leaderboard-table {
+            font-size: 0.875rem;
+        }
+        
+        .club-cell {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+    /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer-tagline {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-description {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-500);
+            transform: translateY(-2px);
+        }
+
+        .footer-heading {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copyright {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom-links .separator {
+            color: #475569;
+        }
+</style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+<!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+                        <path d="M20 10L28 16V24L20 30L12 24V16L20 10Z" fill="white" opacity="0.9"/>
+                        <circle cx="20" cy="20" r="3" fill="white"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#1991EB"/>
+                                <stop offset="100%" stop-color="#0F578D"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-name">Nemionix Technologies</span>
+                    <span class="logo-tagline">Engineering the Future, Today</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="competitions.html" class="nav-link">Competitions</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="clubs.html" class="nav-link active">Clubs</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+            </div>
+
+            <!-- Auth Buttons -->
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">Clubs</span>
+        </div>
+    </div>
+
+<!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>University Robotics Clubs</h1>
+            <p id="total-clubs-text">Connect with verified robotics clubs across Bangladesh</p>
+        </div>
+    </div>
+
+<!-- Main Content -->
+<main class="main-container">
+    <!-- Featured Podium Section -->
+    <section class="featured-section">
+        <div class="featured-header">
+            <h2>🏆 Top 3 Clubs</h2>
+            <p>Leading the innovation in Bangladesh robotics community</p>
+        </div>
+        <div class="podium-container" id="featured-podium">
+            <!-- Dynamic content loaded here -->
+        </div>
+    </section>
+
+    <!-- Search & Filters Section -->
+    <section class="filters-section">
+        <div class="search-bar">
+            <div class="search-input-wrapper">
+                <span class="search-icon">🔍</span>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="club-search" 
+                    placeholder="Search clubs by name or university..."
+                >
+            </div>
+        </div>
+
+        <div class="filters-row">
+            <div class="filter-group">
+                <label class="filter-label">University</label>
+                <select class="filter-select" id="university-filter">
+                    <option value="">All Universities</option>
+                    <option value="BUET">BUET</option>
+                    <option value="CUET">CUET</option>
+                    <option value="RUET">RUET</option>
+                    <option value="Green University">Green University</option>
+                    <option value="DIU">DIU</option>
+                    <option value="NSU">NSU</option>
+                    <option value="BRAC">BRAC University</option>
+                    <option value="IUT">IUT</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Sort By</label>
+                <select class="filter-select" id="sort-filter">
+                    <option value="rank">Leaderboard Rank</option>
+                    <option value="name">Alphabetical (A-Z)</option>
+                    <option value="products">Most Products</option>
+                    <option value="competitions">Most Competitions</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="newest">Newest First</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Reward Tiers</label>
+                <div class="tier-checkboxes">
+                    <label class="tier-checkbox-label tier-bronze">
+                        <input type="checkbox" value="bronze" class="tier-checkbox">
+                        <span>Bronze</span>
+                    </label>
+                    <label class="tier-checkbox-label tier-silver">
+                        <input type="checkbox" value="silver" class="tier-checkbox">
+                        <span>Silver</span>
+                    </label>
+                    <label class="tier-checkbox-label tier-gold">
+                        <input type="checkbox" value="gold" class="tier-checkbox">
+                        <span>Gold</span>
+                    </label>
+                    <label class="tier-checkbox-label tier-platinum">
+                        <input type="checkbox" value="platinum" class="tier-checkbox">
+                        <span>Platinum</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-actions">
+            <span class="active-filters" id="active-filters" style="display: none;">
+                <span id="filter-count">0</span> active filters
+            </span>
+            <button class="btn-clear" id="clear-filters">Clear All Filters</button>
+            <button class="btn-primary" id="apply-filters">Apply Filters</button>
+        </div>
+    </section>
+
+    <!-- View Controls -->
+    <div class="view-controls">
+        <div class="results-count" id="results-count">
+            Showing 0 clubs
+        </div>
+        <div class="view-toggle">
+            <button class="view-toggle-btn active" data-view="grid" id="grid-view-btn">
+                <span>⊞</span> Grid View
+            </button>
+            <button class="view-toggle-btn" data-view="leaderboard" id="leaderboard-view-btn">
+                <span>☰</span> Leaderboard
+            </button>
+        </div>
+    </div>
+
+    <!-- Clubs Grid View -->
+    <div class="clubs-grid" id="clubs-grid">
+        <!-- Dynamic club cards loaded here -->
+    </div>
+
+    <!-- Clubs Leaderboard View -->
+    <div class="clubs-leaderboard" id="clubs-leaderboard">
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Club</th>
+                    <th>Tier</th>
+                    <th>Points</th>
+                    <th>Products</th>
+                    <th>Competitions</th>
+                    <th>Rating</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-tbody">
+                <!-- Dynamic rows loaded here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="empty-state">
+        <div class="empty-icon">🔍</div>
+        <h3>No clubs found</h3>
+        <p>Try adjusting your filters or search query</p>
+        <button class="btn-primary" id="reset-filters">Clear All Filters</button>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+        <span class="pagination-info" id="pagination-info">Showing 1-12 of 0</span>
+        <button class="page-btn" id="prev-page">← Previous</button>
+        <div id="page-numbers"></div>
+        <button class="page-btn" id="next-page">Next →</button>
+    </div>
+</main>
+
+<script>
+    console.log('=== Clubs Page Loaded ===');
+    console.log('Window CONFIG:', window.CONFIG);
+    
+    // Configuration
+    const API_BASE_URL = window.CONFIG ? window.CONFIG.API_BASE_URL : 'http://localhost:3000/api';
+    console.log('API Base URL:', API_BASE_URL);
+    
+    // State Management
+    let filterState = {
+        search: '',
+        university: '',
+        tiers: [],
+        sortBy: 'rank',
+        page: 1,
+        limit: 12,
+        viewMode: 'grid'
+    };
+
+    let allClubs = [];
+    let totalClubs = 0;
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', async () => {
+        console.log('DOM Content Loaded - Initializing...');
+        
+        // CRITICAL: Update cart badge on page load
+        if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
+            try {
+                await Utils.updateCartBadge();
+            } catch (error) {
+                console.error('Failed to update cart badge on page load:', error);
+            }
+        }
+        
+        loadFiltersFromURL();
+        if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
+            await Utils.updateCartBadge();
+        }
+        
+        loadFiltersFromURL();
+        loadFeaturedClubs();
+        loadClubs();
+        setupEventListeners();
+    });
+
+    // Setup Event Listeners
+    function setupEventListeners() {
+        // Search with debounce
+        let searchTimeout;
+        document.getElementById('club-search').addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                filterState.search = e.target.value;
+                filterState.page = 1;
+                loadClubs();
+            }, 300);
+        });
+
+        // Filter changes
+        document.getElementById('university-filter').addEventListener('change', (e) => {
+            filterState.university = e.target.value;
+            filterState.page = 1;
+            loadClubs();
+        });
+
+        document.getElementById('sort-filter').addEventListener('change', (e) => {
+            filterState.sortBy = e.target.value;
+            filterState.page = 1;
+            loadClubs();
+        });
+
+        // Tier checkboxes
+        document.querySelectorAll('.tier-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', updateTierFilters);
+        });
+
+        // Apply and clear filters
+        document.getElementById('apply-filters').addEventListener('click', () => {
+            filterState.page = 1;
+            loadClubs();
+        });
+
+        document.getElementById('clear-filters').addEventListener('click', clearFilters);
+        document.getElementById('reset-filters').addEventListener('click', clearFilters);
+
+        // View toggle
+        document.getElementById('grid-view-btn').addEventListener('click', () => toggleViewMode('grid'));
+        document.getElementById('leaderboard-view-btn').addEventListener('click', () => toggleViewMode('leaderboard'));
+
+        // Pagination
+        document.getElementById('prev-page').addEventListener('click', () => changePage(filterState.page - 1));
+        document.getElementById('next-page').addEventListener('click', () => changePage(filterState.page + 1));
+    }
+
+    // Load Featured Clubs (Top 3)
+    async function loadFeaturedClubs() {
+        try {
+            console.log('Loading featured clubs...');
+            if (typeof Utils !== 'undefined' && Utils.showLoading) Utils.showLoading();
+            
+            // Make actual API call
+            const response = await fetch(`${API_BASE_URL}/clubs/leaderboard?limit=3`);
+            const data = await response.json();
+            
+            console.log('Featured clubs API response:', data);
+            
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to load featured clubs');
+            }
+            
+            if (data.success && data.data && data.data.length > 0) {
+                console.log('Rendering', data.data.length, 'featured clubs');
+                renderFeaturedClubs(data.data);
+                if (typeof Utils !== 'undefined' && Utils.hideLoading) Utils.hideLoading();
+                return;
+            }
+            
+            // Fallback to mock data if API returns empty
+            console.warn('API returned no featured clubs, using mock data');
+            const mockFeaturedClubs = [
+                {
+                    id: 1,
+                    club_name: "Green University Robotics Club",
+                    slug: "grrc",
+                    university: "Green University",
+                    logo_url: "assets/default-club-logo.png",
+                    reward_tier: "gold",
+                    reward_points: 3250,
+                    product_count: 45,
+                    competition_count: 12,
+                    average_rating: 4.8,
+                    leaderboard_rank: 1
+                },
+                {
+                    id: 2,
+                    club_name: "BUET Robotics Club",
+                    slug: "buet-robotics",
+                    university: "BUET",
+                    logo_url: "assets/default-club-logo.png",
+                    reward_tier: "silver",
+                    reward_points: 2100,
+                    product_count: 38,
+                    competition_count: 10,
+                    average_rating: 4.6,
+                    leaderboard_rank: 2
+                },
+                {
+                    id: 3,
+                    club_name: "CUET Robotics Society",
+                    slug: "cuet-robotics",
+                    university: "CUET",
+                    logo_url: "assets/default-club-logo.png",
+                    reward_tier: "bronze",
+                    reward_points: 1850,
+                    product_count: 32,
+                    competition_count: 8,
+                    average_rating: 4.5,
+                    leaderboard_rank: 3
+                }
+            ];
+
+            renderFeaturedClubs(mockFeaturedClubs);
+            if (typeof Utils !== 'undefined' && Utils.hideLoading) Utils.hideLoading();
+        } catch (error) {
+            console.error('Error loading featured clubs:', error);
+            if (typeof Utils !== 'undefined' && Utils.hideLoading) Utils.hideLoading();
+        }
+    }
+
+    // Render Featured Clubs Podium
+    function renderFeaturedClubs(clubs) {
+        console.log('Rendering featured clubs podium:', clubs);
+        const podium = document.getElementById('featured-podium');
+        const [first, second, third] = clubs;
+
+        podium.innerHTML = `
+            ${renderPodiumCard(second, 2, 'Runner-up', 'podium-second')}
+            ${renderPodiumCard(first, 1, 'Champion', 'podium-first')}
+            ${renderPodiumCard(third, 3, 'Third Place', 'podium-third')}
+        `;
+    }
+
+    function renderPodiumCard(club, rank, label, className) {
+        if (!club) return '';
+        return `
+            <div class="podium-card ${className}">
+                <div class="podium-rank">#${rank}</div>
+                <div class="podium-label">${label}</div>
+                <img src="${club.logo_url || 'assets/default-club-logo.png'}" class="podium-logo" alt="${club.club_name}">
+                <h3>${club.club_name}</h3>
+                <p>${club.university}</p>
+                <div class="tier-badge-large tier-${club.reward_tier}">${club.reward_tier}</div>
+                <div class="podium-points">${(club.reward_points || 0).toLocaleString()} points</div>
+                <div class="podium-stats">
+                    <span>${club.product_count || 0} products</span>
+                    <span>${club.competition_count || 0} competitions</span>
+                    <span>★ ${club.average_rating || 0}/5.0</span>
+                </div>
+                <a href="club-profile.html?slug=${club.slug}" class="btn-primary">View Profile</a>
+            </div>
+        `;
+    }
+
+    // Load Clubs with Filters
+    async function loadClubs() {
+        try {
+            console.log('Loading clubs with filters:', filterState);
+            if (typeof Utils !== 'undefined' && Utils.showLoading) Utils.showLoading();
+
+            // Build query parameters
+            const params = new URLSearchParams();
+            if (filterState.search) params.append('search', filterState.search);
+            if (filterState.university) params.append('university', filterState.university);
+            if (filterState.tiers.length > 0) params.append('tier', filterState.tiers.join(','));
+            
+            // Map client-side sort values to valid backend columns
+            const sortMapping = {
+                'rank': 'reward_points',
+                'name': 'club_name',
+                'products': 'total_sales',
+                'competitions': 'id',
+                'rating': 'average_rating',
+                'newest': 'created_at'
+            };
+            const mappedSort = sortMapping[filterState.sortBy] || filterState.sortBy;
+            
+            params.append('sort_by', mappedSort);
+            params.append('order_by', 'DESC');
+            params.append('page', filterState.page);
+            params.append('limit', filterState.limit);
+            
+            const apiUrl = `${API_BASE_URL}/clubs?${params.toString()}`;
+            console.log('Fetching clubs from:', apiUrl);
+            
+            // Make actual API call
+            const response = await fetch(apiUrl);
+            const apiData = await response.json();
+            
+            console.log('Clubs API response:', apiData);
+            
+            if (!response.ok) {
+                throw new Error(apiData.message || 'Failed to load clubs');
+            }
+            
+            let filteredClubs = [];
+            
+            if (apiData.success && apiData.data && apiData.data.length > 0) {
+                // Use real data from API
+                filteredClubs = apiData.data;
+                totalClubs = apiData.pagination ? apiData.pagination.total : apiData.data.length;
+                
+                console.log('Loaded', filteredClubs.length, 'clubs from API, total:', totalClubs);
+            } else {
+                // Fallback to mock data
+                console.warn('API returned no clubs, using mock data');
+                const mockClubs = generateMockClubs(45);
+                filteredClubs = mockClubs;
+            }
+            
+            // If using mock data, apply client-side filters
+            if (!apiData.success || !apiData.data) {
+                console.log('Applying client-side filters to mock data');
+                filteredClubs = filteredClubs.filter(club => {
+                    // Search filter
+                    if (filterState.search) {
+                        const searchLower = filterState.search.toLowerCase();
+                        const matchesSearch = 
+                            club.club_name.toLowerCase().includes(searchLower) ||
+                            club.university.toLowerCase().includes(searchLower);
+                        if (!matchesSearch) return false;
+                    }
+
+                    // University filter
+                    if (filterState.university && club.university !== filterState.university) {
+                        return false;
+                    }
+
+                    // Tier filter
+                    if (filterState.tiers.length > 0 && !filterState.tiers.includes(club.reward_tier)) {
+                        return false;
+                    }
+
+                    return true;
+                });
+                
+                // Sort (only if not already sorted by API)
+                filteredClubs = sortClubs(filteredClubs, filterState.sortBy);
+                
+                // Pagination (only if not already paginated by API)
+                totalClubs = filteredClubs.length;
+                const startIndex = (filterState.page - 1) * filterState.limit;
+                const endIndex = startIndex + filterState.limit;
+                allClubs = filteredClubs.slice(startIndex, endIndex);
+            } else {
+                // API already handled sorting and pagination
+                allClubs = filteredClubs;
+            }
+
+            console.log('Final clubs to render:', allClubs.length);
+
+            // Render
+            if (filterState.viewMode === 'grid') {
+                renderClubsGrid(allClubs);
+            } else {
+                renderClubsLeaderboard(allClubs);
+            }
+
+            updateResultsCount();
+            updatePagination();
+            updateURL();
+            updateActiveFilters();
+
+            if (typeof Utils !== 'undefined' && Utils.hideLoading) Utils.hideLoading();
+        } catch (error) {
+            console.error('Error loading clubs:', error);
+            if (typeof Utils !== 'undefined' && Utils.hideLoading) Utils.hideLoading();
+            showEmpty();
+        }
+    }
+
+    // Render Clubs Grid
+    function renderClubsGrid(clubs) {
+        console.log('Rendering clubs grid with', clubs.length, 'clubs');
+        const grid = document.getElementById('clubs-grid');
+        const empty = document.getElementById('empty-state');
+
+        if (clubs.length === 0) {
+            grid.style.display = 'none';
+            empty.classList.add('show');
+            return;
+        }
+
+        empty.classList.remove('show');
+        grid.style.display = 'grid';
+        
+        grid.innerHTML = clubs.map(club => `
+            <div class="club-card" onclick="window.location.href='club-profile.html?slug=${club.slug}'">
+                <div class="club-cover">
+                    <div class="club-rank-badge">#${club.leaderboard_rank || 0}</div>
+                    <div class="club-tier-badge tier-${club.reward_tier}">${club.reward_tier}</div>
+                </div>
+                <div class="club-logo-wrapper">
+                    <img src="${club.logo_url || 'assets/default-club-logo.png'}" alt="${club.club_name}" class="club-logo">
+                </div>
+                <div class="club-content">
+                    <h3 class="club-name">${club.club_name}</h3>
+                    <p class="club-university">${club.university}</p>
+                    <p class="club-established">Established ${club.established_year || 'N/A'}</p>
+                    <div class="club-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">${club.product_count || 0}</span>
+                            <span class="stat-label">Products</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${club.competition_count || 0}</span>
+                            <span class="stat-label">Competitions</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">★ ${club.average_rating || 0}</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                    <div class="club-actions">
+                        <a href="club-profile.html?slug=${club.slug}" class="btn-primary" onclick="event.stopPropagation()">View Profile</a>
+                        <a href="products.html?club=${club.slug}" class="btn-secondary" onclick="event.stopPropagation()">Products</a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        console.log('Grid rendered successfully');
+    }
+
+    // Render Clubs Leaderboard
+    function renderClubsLeaderboard(clubs) {
+        const tbody = document.getElementById('leaderboard-tbody');
+        const empty = document.getElementById('empty-state');
+
+        if (clubs.length === 0) {
+            document.getElementById('clubs-leaderboard').style.display = 'none';
+            empty.classList.add('show');
+            return;
+        }
+
+        empty.classList.remove('show');
+        
+        tbody.innerHTML = clubs.map(club => `
+            <tr class="leaderboard-row">
+                <td>
+                    <span class="rank-badge rank-${club.leaderboard_rank || 0}">#${club.leaderboard_rank || 0}</span>
+                </td>
+                <td>
+                    <div class="club-cell">
+                        <img src="${club.logo_url || 'assets/default-club-logo.png'}" alt="${club.club_name}" class="club-logo-small">
+                        <div class="club-info">
+                            <div class="club-name">${club.club_name}</div>
+                            <div class="club-university">${club.university}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <span class="tier-badge tier-${club.reward_tier}">${club.reward_tier}</span>
+                </td>
+                <td>${(club.reward_points || 0).toLocaleString()}</td>
+                <td>${club.product_count || 0}</td>
+                <td>${club.competition_count || 0}</td>
+                <td>
+                    <div class="rating">★ ${club.average_rating || 0}/5.0</div>
+                </td>
+                <td>
+                    <a href="club-profile.html?slug=${club.slug}" class="btn-sm btn-primary">View Profile</a>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    // Toggle View Mode
+    function toggleViewMode(mode) {
+        filterState.viewMode = mode;
+        filterState.limit = mode === 'grid' ? 12 : 20;
+        filterState.page = 1;
+
+        document.querySelectorAll('.view-toggle-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-view="${mode}"]`).classList.add('active');
+
+        if (mode === 'grid') {
+            document.getElementById('clubs-grid').style.display = 'grid';
+            document.getElementById('clubs-leaderboard').classList.remove('active');
+        } else {
+            document.getElementById('clubs-grid').style.display = 'none';
+            document.getElementById('clubs-leaderboard').classList.add('active');
+        }
+
+        loadClubs();
+    }
+
+    // Update Tier Filters
+    function updateTierFilters() {
+        filterState.tiers = Array.from(document.querySelectorAll('.tier-checkbox:checked'))
+            .map(checkbox => checkbox.value);
+    }
+
+    // Clear All Filters
+    function clearFilters() {
+        filterState = {
+            search: '',
+            university: '',
+            tiers: [],
+            sortBy: 'rank',
+            page: 1,
+            limit: filterState.limit,
+            viewMode: filterState.viewMode
+        };
+
+        document.getElementById('club-search').value = '';
+        document.getElementById('university-filter').value = '';
+        document.getElementById('sort-filter').value = 'rank';
+        document.querySelectorAll('.tier-checkbox').forEach(cb => cb.checked = false);
+
+        loadClubs();
+    }
+
+    // Sort Clubs
+    function sortClubs(clubs, sortBy) {
+        switch (sortBy) {
+            case 'name':
+                return clubs.sort((a, b) => a.club_name.localeCompare(b.club_name));
+            case 'products':
+                return clubs.sort((a, b) => (b.product_count || 0) - (a.product_count || 0));
+            case 'competitions':
+                return clubs.sort((a, b) => (b.competition_count || 0) - (a.competition_count || 0));
+            case 'rating':
+                return clubs.sort((a, b) => (b.average_rating || 0) - (a.average_rating || 0));
+            case 'newest':
+                return clubs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            case 'rank':
+            default:
+                return clubs.sort((a, b) => (a.leaderboard_rank || 0) - (b.leaderboard_rank || 0));
+        }
+    }
+
+    // Update Results Count
+    function updateResultsCount() {
+        const resultsCount = document.getElementById('results-count');
+        resultsCount.textContent = `Showing ${allClubs.length} of ${totalClubs} clubs`;
+
+        const totalClubsText = document.getElementById('total-clubs-text');
+        if (totalClubsText) {
+            totalClubsText.textContent = `Connect with ${totalClubs} verified clubs across Bangladesh`;
+        }
+    }
+
+    // Update Active Filters
+    function updateActiveFilters() {
+        const activeFiltersEl = document.getElementById('active-filters');
+        const filterCount = document.getElementById('filter-count');
+        
+        let count = 0;
+        if (filterState.search) count++;
+        if (filterState.university) count++;
+        count += filterState.tiers.length;
+
+        if (count > 0) {
+            filterCount.textContent = count;
+            activeFiltersEl.style.display = 'inline-flex';
+        } else {
+            activeFiltersEl.style.display = 'none';
+        }
+    }
+
+    // Pagination
+    function updatePagination() {
+        const totalPages = Math.ceil(totalClubs / filterState.limit);
+        const paginationInfo = document.getElementById('pagination-info');
+        const pageNumbers = document.getElementById('page-numbers');
+        const prevBtn = document.getElementById('prev-page');
+        const nextBtn = document.getElementById('next-page');
+
+        const startItem = (filterState.page - 1) * filterState.limit + 1;
+        const endItem = Math.min(filterState.page * filterState.limit, totalClubs);
+
+        paginationInfo.textContent = `Showing ${startItem}-${endItem} of ${totalClubs}`;
+
+        prevBtn.disabled = filterState.page === 1;
+        nextBtn.disabled = filterState.page === totalPages;
+
+        // Generate page numbers
+        let pages = '';
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= filterState.page - 1 && i <= filterState.page + 1)) {
+                pages += `<button class="page-btn ${i === filterState.page ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            } else if (i === filterState.page - 2 || i === filterState.page + 2) {
+                pages += `<span style="padding: 0 0.5rem;">...</span>`;
+            }
+        }
+        pageNumbers.innerHTML = pages;
+    }
+
+    function changePage(page) {
+        const totalPages = Math.ceil(totalClubs / filterState.limit);
+        if (page < 1 || page > totalPages) return;
+        
+        filterState.page = page;
+        loadClubs();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // URL Management
+    function updateURL() {
+        const params = new URLSearchParams();
+        if (filterState.search) params.set('search', filterState.search);
+        if (filterState.university) params.set('university', filterState.university);
+        if (filterState.tiers.length) params.set('tiers', filterState.tiers.join(','));
+        if (filterState.sortBy !== 'rank') params.set('sort', filterState.sortBy);
+        if (filterState.page > 1) params.set('page', filterState.page);
+        if (filterState.viewMode !== 'grid') params.set('view', filterState.viewMode);
+
+        const newURL = params.toString() ? `?${params.toString()}` : window.location.pathname;
+        window.history.pushState({}, '', newURL);
+    }
+
+    function loadFiltersFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        filterState.search = params.get('search') || '';
+        filterState.university = params.get('university') || '';
+        filterState.tiers = params.get('tiers') ? params.get('tiers').split(',') : [];
+        filterState.sortBy = params.get('sort') || 'rank';
+        filterState.page = parseInt(params.get('page')) || 1;
+        filterState.viewMode = params.get('view') || 'grid';
+
+        // Set form values
+        document.getElementById('club-search').value = filterState.search;
+        document.getElementById('university-filter').value = filterState.university;
+        document.getElementById('sort-filter').value = filterState.sortBy;
+        filterState.tiers.forEach(tier => {
+            const checkbox = document.querySelector(`.tier-checkbox[value="${tier}"]`);
+            if (checkbox) checkbox.checked = true;
+        });
+    }
+
+    // Loading States
+    function showLoading() {
+        document.getElementById('loading-overlay').classList.add('show');
+    }
+
+    function hideLoading() {
+        document.getElementById('loading-overlay').classList.remove('show');
+    }
+
+    function showEmpty() {
+        document.getElementById('clubs-grid').style.display = 'none';
+        document.getElementById('clubs-leaderboard').classList.remove('active');
+        document.getElementById('empty-state').classList.add('show');
+    }
+
+    // Mock Data Generator
+    function generateMockClubs(count) {
+        const universities = ['BUET', 'CUET', 'RUET', 'Green University', 'DIU', 'NSU', 'BRAC', 'IUT'];
+        const tiers = ['bronze', 'silver', 'gold', 'platinum'];
+        const clubs = [];
+
+        for (let i = 1; i <= count; i++) {
+            const tier = tiers[Math.floor(Math.random() * tiers.length)];
+            clubs.push({
+                id: i,
+                club_name: `Club ${i}`,
+                slug: `club-${i}`,
+                university: universities[i % universities.length],
+                logo_url: 'assets/default-club-logo.png',
+                reward_tier: tier,
+                reward_points: Math.floor(Math.random() * 5000),
+                product_count: Math.floor(Math.random() * 50),
+                competition_count: Math.floor(Math.random() * 15),
+                average_rating: (Math.random() * 2 + 3).toFixed(1),
+                established_year: 2015 + Math.floor(Math.random() * 9),
+                leaderboard_rank: i,
+                created_at: new Date(2024, 0, i).toISOString()
+            });
+        }
+
+        return clubs;
+    }
+</script>
+<!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- About Column -->
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="url(#footerGradient)"/>
+                            <path d="M20 10L28 16V24L20 30L12 24V16L20 10Z" fill="white" opacity="0.9"/>
+                            <circle cx="20" cy="20" r="3" fill="white"/>
+                            <defs>
+                                <linearGradient id="footerGradient" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" stop-color="#1991EB"/>
+                                    <stop offset="100%" stop-color="#0F578D"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span>Nemionix Technologies</span>
+                    </div>
+                    <p class="footer-tagline">Engineering the Future</p>
+                    <p class="footer-description">Bangladesh's premier robotics marketplace connecting students, clubs, and innovation through cutting-edge technology.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M20 10C20 4.477 15.523 0 10 0S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 0C7.284 0 6.944.012 5.877.06 4.813.109 4.086.278 3.45.525a4.88 4.88 0 00-1.771 1.154A4.908 4.908 0 00.525 3.45C.278 4.086.109 4.813.06 5.877.012 6.944 0 7.284 0 10s.012 3.056.06 4.123c.049 1.064.218 1.791.465 2.427a4.883 4.883 0 001.154 1.771 4.915 4.915 0 001.771 1.154c.636.247 1.363.416 2.427.465C6.944 19.988 7.284 20 10 20s3.056-.012 4.123-.06c1.064-.049 1.791-.218 2.427-.465a4.89 4.89 0 001.771-1.154 4.904 4.904 0 001.154-1.771c.247-.636.416-1.363.465-2.427C19.988 13.056 20 12.716 20 10s-.012-3.056-.06-4.123c-.049-1.064-.218-1.791-.465-2.427a4.893 4.893 0 00-1.154-1.771A4.886 4.886 0 0016.55.525C15.914.278 15.187.109 14.123.06 13.056.012 12.716 0 10 0zm0 1.802c2.67 0 2.987.01 4.041.059.976.045 1.505.207 1.858.344.466.182.8.399 1.15.748.35.35.566.684.748 1.15.137.353.3.882.344 1.857.048 1.055.058 1.37.058 4.04 0 2.671-.01 2.986-.058 4.041-.045.976-.207 1.505-.344 1.858a3.097 3.097 0 01-.748 1.15c-.35.35-.684.566-1.15.748-.353.137-.882.3-1.857.344-1.054.048-1.37.058-4.041.058-2.67 0-2.987-.01-4.04-.058-.976-.045-1.505-.207-1.858-.344a3.098 3.098 0 01-1.15-.748 3.098 3.098 0 01-.748-1.15c-.137-.353-.3-.882-.344-1.857-.048-1.055-.058-1.37-.058-4.041 0-2.67.01-2.986.058-4.04.045-.976.207-1.505.344-1.858.182-.466.399-.8.748-1.15.35-.35.684-.566 1.15-.748.353-.137.882-.3 1.857-.344 1.055-.048 1.37-.058 4.041-.058zM10 13.333A3.333 3.333 0 1110 6.667a3.333 3.333 0 010 6.666zm0-8.468a5.135 5.135 0 100 10.27 5.135 5.135 0 000-10.27zm6.538-.203a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/>
+                            </svg>
+                        </a>
+                        <a href="mailto:support@nemionix.com" aria-label="Email">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="competitions.html">Competitions</a></li>
+                        <li><a href="clubs.html">Clubs</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                    </ul>
+                </div>
+
+                <!-- For Students -->
+                <div class="footer-column">
+                    <h3 class="footer-heading">For Students</h3>
+                    <ul class="footer-links">
+                        <li><a href="signup.html?role=student">Sign Up</a></li>
+                        <li><a href="products.html">Browse Products</a></li>
+                        <li><a href="competitions.html">Find Competitions</a></li>
+                        <li><a href="my-orders.html">Track Orders</a></li>
+                        <li><a href="my-registrations.html">My Registrations</a></li>
+                    </ul>
+                </div>
+
+                <!-- For Clubs -->
+                <div class="footer-column">
+                    <h3 class="footer-heading">For Clubs</h3>
+                    <ul class="footer-links">
+                        <li><a href="signup.html?role=club_admin">Become a Seller</a></li>
+                        <li><a href="create-competition.html">Create Competition</a></li>
+                        <li><a href="reward-status.html">Reward System</a></li>
+                        <li><a href="my-earnings.html">Earnings Dashboard</a></li>
+                        <li><a href="clubs.html">View Leaderboard</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">&copy; 2025 Nemionix Technologies. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Terms of Service</a>
+                        <span class="separator">•</span>
+                        <a href="#">Privacy Policy</a>
+                        <span class="separator">•</span>
+                        <a href="mailto:support@nemionix.com">Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Competition Registrations - Nemionix Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-500: #1991EB;
+            --primary-600: #1474BC;
+            --primary-700: #0F578D;
+            --secondary-500: #19B969;
+            --accent-500: #FF9119;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #0F578D 0%, #1991EB 100%);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-500);
+            font-weight: 800;
+        }
+
+        .brand-text h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .brand-text p {
+            font-size: 0.625rem;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-profile {
+            padding: 1.5rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+
+        .profile-info h3 {
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.125rem;
+        }
+
+        .profile-info p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.75rem;
+        }
+
+        .profile-link {
+            margin-top: 0.75rem;
+            display: inline-block;
+            color: white;
+            font-size: 0.75rem;
+            text-decoration: none;
+            padding: 0.375rem 0.75rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .profile-link:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(2px);
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 600;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: white;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .menu-item i {
+            width: 20px;
+            font-size: 1.125rem;
+        }
+
+        .menu-badge {
+            margin-left: auto;
+            background: var(--accent-500);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0.5rem 1.25rem;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: var(--gray-600);
+            font-size: 1rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--gray-200);
+            overflow-x: auto;
+            padding-bottom: 0;
+        }
+
+        .filter-tab {
+            padding: 1rem 1.5rem;
+            border: none;
+            background: none;
+            color: var(--gray-600);
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .filter-tab:hover {
+            color: var(--primary-500);
+        }
+
+        .filter-tab.active {
+            color: var(--primary-500);
+        }
+
+        .filter-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-500);
+        }
+
+        .tab-count {
+            display: inline-block;
+            background: var(--gray-200);
+            color: var(--gray-700);
+            font-size: 0.75rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 12px;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .filter-tab.active .tab-count {
+            background: var(--primary-500);
+            color: white;
+        }
+
+        .controls-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(25, 145, 235, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+        }
+
+        .sort-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            background: white;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .registrations-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .registration-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-base);
+            transition: all 0.2s;
+            border: 1px solid var(--gray-200);
+        }
+
+        .registration-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .registration-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .registration-info {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .registration-id {
+            font-weight: 700;
+            color: var(--primary-500);
+            text-decoration: none;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .registration-id:hover {
+            text-decoration: underline;
+        }
+
+        .registration-date {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        .badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563EB;
+        }
+
+        .badge-primary {
+            background: rgba(25, 145, 235, 0.1);
+            color: var(--primary-500);
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .badge-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+        }
+
+        .badge-secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .registration-body {
+            padding: 1.5rem;
+        }
+
+        .competition-preview {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .competition-preview img {
+            width: 120px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+
+        .competition-details {
+            flex: 1;
+        }
+
+        .competition-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--gray-900);
+        }
+
+        .competition-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+        }
+
+        .meta-item i {
+            color: var(--primary-500);
+            width: 16px;
+        }
+
+        .team-info {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .team-header i {
+            color: var(--primary-500);
+        }
+
+        .team-members {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .registration-summary {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .summary-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-value {
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .registration-actions {
+            display: flex;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-200);
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-500);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-600);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-500);
+            color: var(--primary-500);
+        }
+
+        .btn-error {
+            background: transparent;
+            color: var(--error);
+            border: 2px solid var(--error);
+        }
+
+        .btn-error:hover {
+            background: var(--error);
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: var(--radius-xl);
+        }
+
+        .empty-state img {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .pagination-info {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-right: 1rem;
+        }
+
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--gray-300);
+            background: white;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            border-color: var(--primary-500);
+            color: var(--primary-500);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-btn.active {
+            background: var(--primary-500);
+            color: white;
+            border-color: var(--primary-500);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-xl);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-500);
+        }
+
+        .modal-body {
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-warning {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: #FEF3C7;
+            border: 2px solid #FCD34D;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-warning svg {
+            color: #F59E0B;
+            flex-shrink: 0;
+        }
+
+        .alert-warning strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: #92400E;
+        }
+
+        .alert-warning p {
+            margin: 0;
+            color: #92400E;
+            font-size: 0.875rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--error);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .filter-tabs {
+                gap: 0.5rem;
+            }
+
+            .filter-tab {
+                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .controls-bar {
+                flex-direction: column;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .registration-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .registration-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .competition-preview {
+                flex-direction: column;
+            }
+
+            .competition-preview img {
+                width: 100%;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <a href="/" class="brand-logo">
+                    <div class="brand-icon">NX</div>
+                    <div class="brand-text">
+                        <h2>Nemionix</h2>
+                        <p>Engineering Future</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="sidebar-profile">
+                <div class="profile-card">
+                    <img src="https://ui-avatars.com/api/?name=User&background=1991EB&color=fff" alt="Profile" class="profile-avatar" id="sidebar-avatar">
+                    <div class="profile-info">
+                        <h3 id="sidebar-name">Loading...</h3>
+                        <p id="sidebar-university">University</p>
+                    </div>
+                </div>
+                <a href="/my-profile.html" class="profile-link">
+                    <i class="fas fa-user-circle"></i> View Profile
+                </a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="/student-dashboard.html" class="menu-item">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/my-orders.html" class="menu-item">
+                    <i class="fas fa-box"></i>
+                    <span>My Orders</span>
+                </a>
+                <a href="/cart.html" class="menu-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>My Cart</span>
+                    <span class="menu-badge" id="sidebar-cart-badge">0</span>
+                </a>
+                <a href="/my-registrations.html" class="menu-item active">
+                    <i class="fas fa-list-check"></i>
+                    <span>My Registrations</span>
+                </a>
+                <a href="/my-profile.html" class="menu-item">
+                    <i class="fas fa-user-cog"></i>
+                    <span>My Profile</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="/products.html" class="menu-item">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Browse Products</span>
+                </a>
+                <a href="/competitions.html" class="menu-item">
+                    <i class="fas fa-trophy"></i>
+                    <span>Competitions</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a href="#" class="menu-item" onclick="logout(); return false;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">My Competition Registrations</h1>
+                <p class="page-subtitle">Track and manage your competition registrations</p>
+            </div>
+
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-status="all">
+                    All <span class="tab-count" id="count-all">0</span>
+                </button>
+                <button class="filter-tab" data-status="upcoming">
+                    Upcoming <span class="tab-count" id="count-upcoming">0</span>
+                </button>
+                <button class="filter-tab" data-status="past">
+                    Past <span class="tab-count" id="count-past">0</span>
+                </button>
+                <button class="filter-tab" data-status="pending">
+                    Pending Approval <span class="tab-count" id="count-pending">0</span>
+                </button>
+                <button class="filter-tab" data-status="cancelled">
+                    Cancelled <span class="tab-count" id="count-cancelled">0</span>
+                </button>
+            </div>
+
+            <div class="controls-bar">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" id="registration-search" placeholder="Search by competition name, venue, team name...">
+                </div>
+
+                <select class="sort-select" id="sort-select">
+                    <option value="created_at-desc">Latest First</option>
+                    <option value="created_at-asc">Oldest First</option>
+                    <option value="comp_date-asc">Competition Date (Soonest)</option>
+                    <option value="comp_date-desc">Competition Date (Latest)</option>
+                </select>
+            </div>
+
+            <div class="registrations-container" id="registrations-container">
+            </div>
+
+            <div class="pagination" id="pagination" style="display: none;">
+                <span class="pagination-info" id="pagination-info">Showing 1-108:47 AMof 45 registrations</span>
+<button class="pagination-btn" id="prev-btn">Previous</button>
+<button class="pagination-btn active">1</button>
+<button class="pagination-btn">2</button>
+<button class="pagination-btn">3</button>
+<button class="pagination-btn" id="next-btn">Next</button>
+</div>
+</main>
+</div>
+<div class="modal" id="cancel-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Cancel Registration</h2>
+            <button class="modal-close" onclick="closeModal('cancel-modal')">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="alert-warning">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div>
+                    <strong>Are you sure you want to cancel this registration?</strong>
+                    <p>This action cannot be undone. Your registration fee may not be refunded.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Reason for Cancellation (Optional)</label>
+                <textarea id="cancel-reason" class="form-textarea" rows="3" placeholder="Tell us why you're cancelling..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal('cancel-modal')">Keep Registration</button>
+            <button id="confirm-cancel-btn" class="btn btn-error">Yes, Cancel Registration</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_BASE_URL = 'http://localhost:3000/api';
+    
+    let currentFilters = {
+        status: 'all',
+        search: '',
+        sortBy: 'created_at',
+        orderBy: 'desc',
+        page: 1,
+        limit: 10
+    };
+
+    let allRegistrations = [];
+    let statusCounts = {
+        all: 0,
+        upcoming: 0,
+        past: 0,
+        pending: 0,
+        cancelled: 0
+    };
+    let selectedRegistrationId = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        checkAuth();
+        initializeApp();
+        setupEventListeners();
+    });
+
+    async function checkAuth() {
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+            window.location.href = 'login.html';
+            return false;
+        }
+        
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/me`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Auth failed');
+            }
+            
+            const data = await response.json();
+            
+            if (!data.success || !data.user || data.user.role !== 'student') {
+                window.location.href = 'login.html';
+                return false;
+            }
+            
+            return true;
+        } catch (error) {
+            console.error('Auth error:', error);
+            window.location.href = 'login.html';
+            return false;
+        }
+    }
+
+    async function initializeApp() {
+        const authOk = await checkAuth();
+        if (!authOk) return;
+        await loadUserProfile();
+        await loadRegistrations();
+        updateCartBadge();
+    }
+
+    async function loadUserProfile() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/auth/me`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Failed to load user profile');
+            }
+            
+            const data = await response.json();
+            
+            if (data.success && data.user) {
+                const user = data.user;
+                document.getElementById('sidebar-name').textContent = user.full_name;
+                document.getElementById('sidebar-university').textContent = user.university || 'University';
+                
+                const avatarUrl = user.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.full_name)}&background=1991EB&color=fff`;
+                document.getElementById('sidebar-avatar').src = avatarUrl;
+            }
+        } catch (error) {
+            console.error('Error loading user profile:', error);
+        }
+    }
+
+    function setupEventListeners() {
+        let searchTimeout;
+        document.getElementById('registration-search').addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                currentFilters.search = e.target.value.trim();
+                currentFilters.page = 1;
+                loadRegistrations();
+            }, 300);
+        });
+
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                currentFilters.status = tab.dataset.status;
+                currentFilters.page = 1;
+                loadRegistrations();
+            });
+        });
+
+        document.getElementById('sort-select').addEventListener('change', (e) => {
+            const [sortBy, orderBy] = e.target.value.split('-');
+            currentFilters.sortBy = sortBy;
+            currentFilters.orderBy = orderBy;
+            currentFilters.page = 1;
+            loadRegistrations();
+        });
+
+        document.getElementById('confirm-cancel-btn').addEventListener('click', confirmCancellation);
+    }
+
+    async function loadRegistrations() {
+        try {
+            showLoading();
+            
+            const params = new URLSearchParams();
+            if (currentFilters.status !== 'all') params.append('status', currentFilters.status);
+            if (currentFilters.search) params.append('search', currentFilters.search);
+            params.append('sort_by', currentFilters.sortBy);
+            params.append('order_by', currentFilters.orderBy);
+            params.append('page', currentFilters.page);
+            params.append('limit', currentFilters.limit);
+            
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/students/registrations?${params}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Failed to load registrations');
+            }
+            
+            const data = await response.json();
+            
+            // Handle both data.data and data.registrations
+            const registrationsList = data.data || data.registrations || [];
+            
+            if (registrationsList && Array.isArray(registrationsList)) {
+                allRegistrations = registrationsList;
+                
+                const allResponse = await fetch(`${API_BASE_URL}/students/registrations`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const allData = await allResponse.json();
+                const allRegsList = allData.data || allData.registrations || [];
+                
+                const now = new Date();
+                statusCounts = {
+                    all: allRegsList.length,
+                    upcoming: allRegsList.filter(r => new Date(r.competition.competition_date) >= now && r.registration_status !== 'cancelled').length,
+                    past: allRegsList.filter(r => new Date(r.competition.competition_date) < now).length,
+                    pending: allRegsList.filter(r => r.registration_status === 'pending').length,
+                    cancelled: allRegsList.filter(r => r.registration_status === 'cancelled').length
+                };
+            } else {
+                allRegistrations = [];
+            }
+            
+            renderRegistrations(allRegistrations);
+            updateTabCounts();
+            
+            if (data.total > currentFilters.limit) {
+                renderPagination(data.total, data.page, data.limit);
+            } else {
+                document.getElementById('pagination').style.display = 'none';
+            }
+            
+        } catch (error) {
+            console.error('Error loading registrations:', error);
+            showToast('Failed to load registrations. Please try again.', 'error');
+            showEmptyState('Error loading registrations', 'Please refresh the page to try again.');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    function renderRegistrations(registrations) {
+        const container = document.getElementById('registrations-container');
+        
+        if (registrations.length === 0) {
+            showEmptyState();
+            return;
+        }
+        
+        container.innerHTML = registrations.map(reg => {
+            const compDate = new Date(reg.competition.competition_date);
+            const now = new Date();
+            const isPast = compDate < now;
+            const canCancel = !isPast && 
+                            reg.registration_status !== 'cancelled' &&
+                            new Date(reg.competition.registration_deadline) > now;
+
+            return `
+                <div class="registration-card">
+                    <div class="registration-header">
+                        <div class="registration-info">
+                            <span class="registration-id">#REG${String(reg.id).padStart(6, '0')}</span>
+                            <span class="registration-date">${formatDate(reg.created_at)}</span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <span class="badge ${getRegistrationStatusClass(reg.registration_status)}">
+                                ${formatRegistrationStatus(reg.registration_status)}
+                            </span>
+                            <span class="badge ${getPaymentStatusClass(reg.payment_status)}">
+                                ${formatPaymentStatus(reg.payment_status)}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="registration-body">
+                        <div class="competition-preview">
+                            <img src="${reg.competition.banner_url || 'https://via.placeholder.com/300x200?text=Competition'}" 
+                                 alt="${reg.competition.title}"
+                                 onerror="this.src='https://via.placeholder.com/300x200?text=Competition'">
+                            <div class="competition-details">
+                                <h3 class="competition-title">${reg.competition.title}</h3>
+                                <div class="competition-meta">
+                                    <div class="meta-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>${formatDate(reg.competition.competition_date)} at ${formatTime(reg.competition.competition_time)}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fas fa-location-dot"></i>
+                                        <span>${reg.competition.venue}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fas fa-building"></i>
+                                        <span>${reg.competition.club_name}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="team-info">
+                            <div class="team-header">
+                                <i class="fas fa-users"></i>
+                                <strong>${reg.team_name}</strong>
+                            </div>
+                            <div class="team-members">${reg.team_members}</div>
+                        </div>
+
+                        <div class="registration-summary">
+                            <div class="summary-item">
+                                <span class="summary-label">Registration Fee</span>
+                                <span class="summary-value">${formatPrice(reg.registration_fee)}</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Payment Method</span>
+                                <span class="summary-value">${formatPaymentMethod(reg.payment_method)}</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Registered</span>
+                                <span class="summary-value">${formatDate(reg.created_at)}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="registration-actions">
+                        <a href="competition-detail.html?id=${reg.competition.id}" class="btn btn-secondary">
+                            <i class="fas fa-eye"></i>
+                            View Competition
+                        </a>
+                        ${reg.registration_status === 'approved' ? `
+                            <button onclick="viewCertificate(${reg.id})" class="btn btn-primary">
+                                <i class="fas fa-certificate"></i>
+                                View Certificate
+                            </button>
+                        ` : ''}
+                        ${canCancel ? `
+                            <button onclick="openCancelModal(${reg.id})" class="btn btn-error">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function updateTabCounts() {
+        document.getElementById('count-all').textContent = statusCounts.all || 0;
+        document.getElementById('count-upcoming').textContent = statusCounts.upcoming || 0;
+        document.getElementById('count-past').textContent = statusCounts.past || 0;
+        document.getElementById('count-pending').textContent = statusCounts.pending || 0;
+        document.getElementById('count-cancelled').textContent = statusCounts.cancelled || 0;
+    }
+
+    function showEmptyState(title = '', message = '') {
+        const container = document.getElementById('registrations-container');
+        
+        const defaultTitle = currentFilters.status === 'all' ? 'No registrations yet' : `No ${currentFilters.status} registrations`;
+        const defaultMessage = currentFilters.status === 'all' 
+            ? 'Start exploring competitions to see your registrations here' 
+            : `You don't have any ${currentFilters.status} registrations`;
+        
+        container.innerHTML = `
+            <div class="empty-state">
+                <img src="/assets/empty-registrations.svg" alt="No registrations" onerror="this.style.display='none'">
+                <h3>${title || defaultTitle}</h3>
+                <p>${message || defaultMessage}</p>
+                ${currentFilters.status === 'all' ? `
+                    <a href="competitions.html" class="btn btn-primary">Browse Competitions</a>
+                ` : ''}
+            </div>
+        `;
+    }
+
+    function renderPagination(total, currentPage, limit) {
+        const totalPages = Math.ceil(total / limit);
+        const pagination = document.getElementById('pagination');
+        
+        if (totalPages <= 1) {
+            pagination.style.display = 'none';
+            return;
+        }
+        
+        pagination.style.display = 'flex';
+        
+        const start = (currentPage - 1) * limit + 1;
+        const end = Math.min(currentPage * limit, total);
+        
+        document.getElementById('pagination-info').textContent = `Showing ${start}-${end} of ${total} registrations`;
+        
+        let paginationHTML = `
+            <button class="pagination-btn" id="prev-btn" ${currentPage === 1 ? 'disabled' : ''} 
+                    onclick="changePage(${currentPage - 1})">Previous</button>
+        `;
+        
+        const maxVisible = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+        
+        if (endPage - startPage < maxVisible - 1) {
+            startPage = Math.max(1, endPage - maxVisible + 1);
+        }
+        
+        for (let i = startPage; i <= endPage; i++) {
+            paginationHTML += `
+                <button class="pagination-btn ${i === currentPage ? 'active' : ''}" 
+                        onclick="changePage(${i})">${i}</button>
+            `;
+        }
+        
+        paginationHTML += `
+            <button class="pagination-btn" id="next-btn" ${currentPage === totalPages ? 'disabled' : ''} 
+                    onclick="changePage(${currentPage + 1})">Next</button>
+        `;
+        
+        pagination.innerHTML = `
+            <span class="pagination-info" id="pagination-info">Showing ${start}-${end} of ${total} registrations</span>
+            ${paginationHTML}
+        `;
+    }
+
+    function changePage(page) {
+        currentFilters.page = page;
+        loadRegistrations();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openCancelModal(registrationId) {
+        selectedRegistrationId = registrationId;
+        document.getElementById('cancel-modal').classList.add('show');
+        document.getElementById('cancel-reason').value = '';
+    }
+
+    async function confirmCancellation() {
+        const reason = document.getElementById('cancel-reason').value;
+        
+        try {
+            showLoading();
+            
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/students/registrations/${selectedRegistrationId}/cancel`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ reason })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Failed to cancel registration');
+            }
+            
+            showToast('Registration cancelled successfully', 'success');
+            closeModal('cancel-modal');
+            await loadRegistrations();
+            
+        } catch (error) {
+            console.error('Error cancelling registration:', error);
+            showToast('Failed to cancel registration. Please try again.', 'error');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    async function viewCertificate(registrationId) {
+        const registration = allRegistrations.find(r => r.id === registrationId);
+        if (!registration) return;
+        
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(generateCertificateHTML(registration));
+        printWindow.document.close();
+        setTimeout(() => printWindow.print(), 250);
+    }
+
+    function generateCertificateHTML(registration) {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const teamLeader = user.full_name || 'Team Leader';
+        const compDate = registration.competition?.competition_date ? formatDate(registration.competition.competition_date) : 'TBD';
+        const regDate = registration.created_at ? formatDate(registration.created_at) : 'N/A';
+        const venue = registration.competition?.venue || 'To be announced';
+        const clubName = registration.competition?.club_name || 'Organizing Club';
+        
+        return `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Registration Certificate - ${registration.team_name}</title>
+                <style>
+                    * { margin: 0; padding: 0; box-sizing: border-box; }
+                    body { 
+                        font-family: 'Inter', sans-serif;
+                        padding: 20px;
+                        background: white;
+                    }
+                    .certificate-border {
+                        max-width: 800px;
+                        margin: 0 auto;
+                        padding: 40px;
+                        border: 4px solid #1991EB;
+                        border-radius: 20px;
+                        background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
+                    }
+                    .certificate-header {
+                        text-align: center;
+                        margin-bottom: 40px;
+                    }
+                    .certificate-logo {
+                        font-size: 60px;
+                        margin-bottom: 10px;
+                    }
+                    .certificate-header h2 {
+                        color: #1991EB;
+                        font-size: 32px;
+                        margin-bottom: 5px;
+                        font-weight: 800;
+                    }
+                    .certificate-subtitle {
+                        color: #6B7280;
+                        font-size: 18px;
+                        margin-bottom: 5px;
+                    }
+                    .certificate-platform {
+                        color: #9CA3AF;
+                        font-size: 13px;
+                        font-style: italic;
+                    }
+                    .certificate-body {
+                        text-align: center;
+                        margin: 40px 0;
+                    }
+                    .certificate-text {
+                        color: #4B5563;
+                        font-size: 16px;
+                        margin: 10px 0;
+                    }
+                    .certificate-name {
+                        color: #1991EB;
+                        font-size: 36px;
+                        margin: 20px 0;
+                        font-weight: 700;
+                    }
+                    .certificate-competition {
+                        color: #111827;
+                        font-size: 28px;
+                        margin: 20px 0;
+                        font-weight: 600;
+                    }
+                    .certificate-details {
+                        margin: 40px auto;
+                        text-align: left;
+                        max-width: 500px;
+                    }
+                    .detail-row {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 12px 0;
+                        border-bottom: 1px solid #E5E7EB;
+                    }
+                    .detail-label {
+                        color: #6B7280;
+                        font-weight: 500;
+                    }
+                    .detail-value {
+                        color: #111827;
+                        font-weight: 600;
+                    }
+                    .certificate-footer {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 60px;
+                    }
+                    .certificate-date, .certificate-signature {
+                        text-align: center;
+                    }
+                    .signature-line {
+                        width: 200px;
+                        height: 2px;
+                        background: #111827;
+                        margin: 40px auto 10px;
+                    }
+                    .certificate-footer p {
+                        color: #6B7280;
+                        font-size: 14px;
+                        margin: 5px 0;
+                    }
+                    .certificate-footer strong {
+                        color: #111827;
+                    }
+                    .certificate-qr {
+                        text-align: center;
+                        margin-top: 40px;
+                        padding-top: 20px;
+                        border-top: 2px dashed #D1D5DB;
+                    }
+                    .qr-placeholder {
+                        width: 100px;
+                        height: 100px;
+                        background: #E5E7EB;
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 10px;
+                        font-size: 12px;
+                        color: #6B7280;
+                        border: 2px solid #D1D5DB;
+                    }
+                    .certificate-qr p {
+                        color: #6B7280;
+                        font-size: 12px;
+                    }
+                    .certificate-footer-branding {
+                        text-align: center;
+                        margin-top: 30px;
+                        padding-top: 20px;
+                        border-top: 1px solid #E5E7EB;
+                    }
+                    .certificate-footer-branding p {
+                        color: #9CA3AF;
+                        font-size: 11px;
+                        margin: 3px 0;
+                    }
+                    .certificate-footer-branding strong {
+                        color: #1991EB;
+                        font-weight: 700;
+                    }
+                    @media print {
+                        body { padding: 0; }
+                        @page { margin: 1cm; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="certificate-border">
+                    <div class="certificate-header">
+                        <div class="certificate-logo">NX</div>
+                        <h2>Nemionix Technologies</h2>
+                        <p class="certificate-subtitle">Robotics Competition Registration Certificate</p>
+                        <p class="certificate-platform">Bangladesh Robotics Marketplace</p>
+                    </div>
+                    
+                    <div class="certificate-body">
+                        <p class="certificate-text">This is to certify that</p>
+                        <h3 class="certificate-name">${registration.team_name}</h3>
+                        <p class="certificate-text">has successfully registered for</p>
+                        <h3 class="certificate-competition">${registration.competition?.title || 'Competition'}</h3>
+                        
+                        <div class="certificate-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Team Leader:</span>
+                                <span class="detail-value">${teamLeader}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Team Members:</span>
+                                <span class="detail-value">${registration.team_members}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Competition Date:</span>
+                                <span class="detail-value">${compDate}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Venue:</span>
+                                <span class="detail-value">${venue}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Registration ID:</span>
+                                <span class="detail-value">#REG${String(registration.id).padStart(6, '0')}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-footer">
+                        <div class="certificate-date">
+                            <p>Date of Registration</p>
+                            <p><strong>${regDate}</strong></p>
+                        </div>
+                        <div class="certificate-signature">
+                            <div class="signature-line"></div>
+                            <p>Authorized Signature</p>
+                            <p><strong>${clubName}</strong></p>
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-qr">
+                        <div class="qr-placeholder">QR CODE</div>
+                        <p>Scan to verify authenticity</p>
+                    </div>
+                    
+                    <div class="certificate-footer-branding">
+                        <p>Certificate issued by <strong>Nemionix Technologies</strong></p>
+                        <p>nemionix.com.bd | support@nemionix.com.bd</p>
+                        <p><em>Engineering the Future, Today</em></p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('show');
+    }
+
+    function formatDate(dateString) {
+        return new Date(dateString).toLocaleDateString('en-BD', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+    function formatTime(timeString) {
+        if (!timeString) return '';
+        const [hours, minutes] = timeString.split(':');
+        const hour = parseInt(hours);
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const displayHour = hour % 12 || 12;
+        return `${displayHour}:${minutes} ${ampm}`;
+    }
+
+    function formatPrice(amount) {
+        return `৳${parseFloat(amount).toLocaleString('en-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    }
+
+    function formatRegistrationStatus(status) {
+        const statusMap = {
+            'pending': 'Awaiting Approval',
+            'approved': 'Registered',
+            'rejected': 'Rejected',
+            'cancelled': 'Cancelled'
+        };
+        return statusMap[status] || status;
+    }
+
+    function formatPaymentStatus(status) {
+        const statusMap = {
+            'pending': 'Payment Pending',
+            'verified': 'Payment Verified',
+            'failed': 'Payment Failed'
+        };
+        return statusMap[status] || status;
+    }
+
+    function formatPaymentMethod(method) {
+        const methods = {
+            'cash_on_delivery': 'Cash on Delivery',
+            'bkash': 'bKash',
+            'nagad': 'Nagad'
+        };
+        return methods[method] || method;
+    }
+
+    function getRegistrationStatusClass(status) {
+        const classMap = {
+            'pending': 'badge-warning',
+            'approved': 'badge-success',
+            'rejected': 'badge-error',
+            'cancelled': 'badge-secondary'
+        };
+        return classMap[status] || 'badge-secondary';
+    }
+
+    function getPaymentStatusClass(status) {
+        const classMap = {
+            'pending': 'badge-warning',
+            'verified': 'badge-success',
+            'failed': 'badge-error'
+        };
+        return classMap[status] || 'badge-secondary';
+    }
+
+    function showLoading() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+    }
+
+    function hideLoading() {
+        document.getElementById('loading-overlay').style.display = 'none';
+    }
+
+    function showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.innerHTML = `
+            <span>${type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ'}</span>
+            <span>${message}</span>
+        `;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    function updateCartBadge() {
+        const cart = JSON.parse(localStorage.getItem('cart') || '{"items":[]}');
+        const badge = document.getElementById('sidebar-cart-badge');
+        if (badge) {
+            badge.textContent = cart.items.length;
+        }
+    }
+
+    function logout() {
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reward System Configuration - Super Admin | Nemionix Technologies</title>
+    <meta name="description" content="Configure and manage the platform reward system - Nemionix Technologies">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-50: #FFF8E1;
+            --primary-100: #FFECB3;
+            --primary-500: #FFC107;
+            --primary-600: #FFB300;
+            --primary-700: #FFA000;
+            --secondary-500: #1991EB;
+            --secondary-600: #1474BC;
+            --accent-500: #FF9119;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+            --tier-bronze: #CD7F32;
+            --tier-silver: #C0C0C0;
+            --tier-gold: #FFD700;
+            --tier-platinum: #E5E4E2;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .navbar-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--gray-900);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.25rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logo-text h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, var(--error), #DC2626);
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-500);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - 72px);
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            position: fixed;
+            height: calc(100vh - 72px);
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-500);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem;
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: var(--gray-50);
+            color: var(--primary-600);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 193, 7, 0.1);
+            color: var(--primary-600);
+            border-right: 3px solid var(--primary-500);
+            font-weight: 600;
+        }
+
+        .nav-link-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-badge {
+            background: var(--error);
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: var(--gray-600);
+            font-size: 0.9375rem;
+        }
+
+        .save-all-btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 700;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .save-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Info Alert */
+        .info-alert {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+            border-left: 4px solid var(--info);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .info-alert-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .info-alert-content {
+            flex: 1;
+        }
+
+        .info-alert-title {
+            font-weight: 700;
+            color: var(--info);
+            margin-bottom: 0.5rem;
+            font-size: 0.9375rem;
+        }
+
+        .info-alert-text {
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Config Section */
+        .config-section {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-base);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .config-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-500), var(--primary-700));
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-icon {
+            font-size: 1.75rem;
+        }
+
+        .section-description {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Point Rules Grid */
+        .point-rules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .rule-card {
+            background: var(--gray-50);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            border: 2px solid var(--gray-200);
+            transition: all 0.2s;
+        }
+
+        .rule-card:hover {
+            border-color: var(--primary-500);
+            box-shadow: var(--shadow-md);
+        }
+
+        .rule-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .rule-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .rule-icon.competition {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 160, 0, 0.1));
+        }
+
+        .rule-icon.sales {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.1));
+        }
+
+        .rule-icon.review {
+            background: linear-gradient(135deg, rgba(255, 145, 25, 0.2), rgba(217, 119, 6, 0.1));
+        }
+
+        .rule-icon.shipping {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
+        }
+
+        .rule-info {
+            flex: 1;
+        }
+
+        .rule-title {
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .rule-subtitle {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .rule-input-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rule-input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .rule-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s;
+            padding-right: 4rem;
+        }
+
+        .rule-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        }
+
+        .rule-input-suffix {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-500);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .rule-current {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+            font-size: 0.8125rem;
+            margin-top: 0.5rem;
+        }
+
+        .rule-current-value {
+            font-weight: 700;
+            color: var(--primary-600);
+        }
+
+        /* Tier Configuration */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tier-card {
+            background: var(--gray-50);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .tier-card.bronze {
+            border-color: rgba(205, 127, 50, 0.2);
+        }
+
+        .tier-card.bronze::before {
+            background: linear-gradient(90deg, var(--tier-bronze), #B87333);
+        }
+
+        .tier-card.silver {
+            border-color: rgba(192, 192, 192, 0.2);
+        }
+
+        .tier-card.silver::before {
+            background: linear-gradient(90deg, var(--tier-silver), #A8A8A8);
+        }
+
+        .tier-card.gold {
+            border-color: rgba(255, 215, 0, 0.2);
+        }
+
+        .tier-card.gold::before {
+            background: linear-gradient(90deg, var(--tier-gold), #FFA500);
+        }
+
+        .tier-card.platinum {
+            border-color: rgba(229, 228, 226, 0.3);
+        }
+
+        .tier-card.platinum::before {
+            background: linear-gradient(90deg, var(--tier-platinum), #B4B4B4);
+        }
+
+        .tier-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tier-badge-display {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+
+        .tier-card.bronze .tier-badge-display {
+            background: linear-gradient(135deg, var(--tier-bronze), #B87333);
+        }
+
+        .tier-card.silver .tier-badge-display {
+            background: linear-gradient(135deg, var(--tier-silver), #A8A8A8);
+        }
+
+        .tier-card.gold .tier-badge-display {
+            background: linear-gradient(135deg, var(--tier-gold), #FFA500);
+        }
+
+        .tier-card.platinum .tier-badge-display {
+            background: linear-gradient(135deg, var(--tier-platinum), #B4B4B4);
+        }
+
+        .tier-name {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tier-range-label {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .tier-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .tier-input-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tier-input-label {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            min-width: 40px;
+        }
+
+        .tier-input {
+            flex: 1;
+            padding: 0.625rem 0.875rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .tier-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        }
+
+        /* Benefits Matrix */
+        .benefits-table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius-xl);
+            border: 2px solid var(--gray-200);
+        }
+
+        .benefits-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .benefits-table thead {
+            background: linear-gradient(135deg, var(--gray-900), var(--gray-800));
+        }
+
+        .benefits-table th {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
+        }
+
+        .benefits-table th:first-child {
+            border-radius: var(--radius-lg) 0 0 0;
+        }
+
+        .benefits-table th:last-child {
+            border-radius: 0 var(--radius-lg) 0 0;
+        }
+
+        .benefits-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.875rem;
+        }
+
+        .benefits-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .benefit-label {
+            font-weight: 600;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .benefit-icon {
+            font-size: 1.125rem;
+        }
+
+        .benefit-input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .benefit-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        }
+
+        .benefit-toggle {
+            position: relative;
+            width: 48px;
+            height: 24px;
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .benefit-toggle.active {
+            background: var(--success);
+        }
+
+        .benefit-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .benefit-toggle.active::after {
+            left: 26px;
+        }
+
+        /* Manual Adjustment */
+        .adjustment-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-label-required {
+            color: var(--error);
+        }
+
+        .form-input,
+        .form-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-size: 0.9375rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .search-club-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-top: none;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+            display: none;
+        }
+
+        .search-club-results.show {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-result-item:hover {
+            background: var(--gray-50);
+        }
+
+        .search-result-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .search-result-info {
+            flex: 1;
+        }
+
+        .search-result-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 0.875rem;
+        }
+
+        .search-result-university {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .selected-club-display {
+            display: none;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 160, 0, 0.05));
+            border-radius: var(--radius-lg);
+            align-items: center;
+            gap: 1rem;
+            border: 2px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .selected-club-display.show {
+            display: flex;
+        }
+
+        .selected-club-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .selected-club-info {
+            flex: 1;
+        }
+
+        .selected-club-name {
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .selected-club-meta {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+        }
+
+        .clear-selection-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .clear-selection-btn:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        .points-display {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .points-stat {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            text-align: center;
+            border: 2px solid var(--gray-200);
+        }
+
+        .points-stat-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .points-stat-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+
+        /* Adjustment Actions */
+        .adjustment-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-xl);
+            border: 2px solid var(--gray-200);
+        }
+
+        .action-type-selector {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .action-type-btn {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--gray-300);
+            background: white;
+            border-radius: var(--radius-lg);
+            font-weight: 700;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .action-type-btn:hover {
+            border-color: var(--primary-500);
+            background: rgba(255, 193, 7, 0.05);
+        }
+
+        .action-type-btn.active {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            border-color: var(--success);
+        }
+
+        .action-type-btn.subtract {
+            background: white;
+        }
+
+        .action-type-btn.subtract.active {
+            background: linear-gradient(135deg, var(--error), #DC2626);
+            color: white;
+            border-color: var(--error);
+        }
+
+        .points-adjustment-section {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-base);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .points-adjustment-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--info), #2563EB);
+        }
+
+        /* Leaderboard Section */
+        .leaderboard-section {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-base);
+            margin-bottom: 2rem;
+        }
+
+        .leaderboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .refresh-btn {
+            padding: 0.625rem 1.25rem;
+            background: linear-gradient(135deg, var(--secondary-500), var(--secondary-600));
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 700;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            transition: all 0.2s;
+        }
+
+        .leaderboard-item:hover {
+            background: var(--gray-100);
+            transform: translateX(4px);
+        }
+
+        .leaderboard-rank {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            flex-shrink: 0;
+        }
+
+        .leaderboard-rank.rank-1 {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
+
+        .leaderboard-rank.rank-2 {
+            background: linear-gradient(135deg, #C0C0C0, #A8A8A8);
+            color: white;
+            box-shadow: 0 4px 12px rgba(192, 192, 192, 0.4);
+        }
+
+        .leaderboard-rank.rank-3 {
+            background: linear-gradient(135deg, #CD7F32, #B87333);
+            color: white;
+            box-shadow: 0 4px 12px rgba(205, 127, 50, 0.4);
+        }
+
+        .leaderboard-rank.rank-other {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .leaderboard-club-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid var(--gray-200);
+        }
+
+        .leaderboard-club-info {
+            flex: 1;
+        }
+
+        .leaderboard-club-name {
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+            font-size: 0.9375rem;
+        }
+
+        .leaderboard-club-university {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .leaderboard-points {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.25rem;
+        }
+
+        .leaderboard-points-value {
+            font-weight: 800;
+            font-size: 1.125rem;
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-600);
+        }
+
+        .leaderboard-tier-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+            border-left: 4px solid var(--success);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.5rem;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .success-message.show {
+            display: flex;
+        }
+
+        .success-message-icon {
+            font-size: 1.5rem;
+        }
+
+        .success-message-text {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 1280px) {
+            .point-rules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tier-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .adjustment-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .tier-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .points-display {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">NX</div>
+                <div class="logo-text">
+                    <h1>Nemionix Technologies</h1>
+                    <p>Engineering the Future, Today</p>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <div class="admin-badge">SUPER ADMIN</div>
+                <div class="user-info">
+                    <img src="assets/default-avatar.png" alt="Admin" class="user-avatar" id="userAvatar">
+                    <span id="userName">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Overview</div>
+                <a href="super-admin-dashboard.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </div>
+                </a>
+
+                <div class="nav-section-title">Management</div>
+                <a href="manage-clubs.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>🏢</span>
+                        <span>Manage Clubs</span>
+                    </div>
+                </a>
+                <a href="club-applications.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📝</span>
+                        <span>Club Applications</span>
+                    </div>
+                    <span class="nav-badge" id="pendingClubsBadge">0</span>
+                </a>
+                <a href="manage-users.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>👥</span>
+                        <span>Manage Users</span>
+                    </div>
+                </a>
+                <a href="manage-all-products.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📦</span>
+                        <span>Manage Products</span>
+                    </div>
+                </a>
+                <a href="manage-all-competitions.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>🏆</span>
+                        <span>Manage Competitions</span>
+                    </div>
+                </a>
+                <a href="manage-all-orders.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>🛒</span>
+                        <span>Orders Overview</span>
+                    </div>
+                </a>
+
+                <div class="nav-section-title">Financial</div>
+                <a href="financial-admin.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>💰</span>
+                        <span>Financial Management</span>
+                    </div>
+                </a>
+                <a href="reward-system-admin.html" class="nav-link active">
+                    <div class="nav-link-content">
+                        <span>🏅</span>
+                        <span>Reward System</span>
+                    </div>
+                </a>
+
+                <div class="nav-section-title">System</div>
+                <a href="platform-settings.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>⚙️</span>
+                        <span>Platform Settings</span>
+                    </div>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📈</span>
+                        <span>Analytics</span>
+                    </div>
+                </a>
+                <a href="activity-logs.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📋</span>
+                        <span>Activity Logs</span>
+                    </div>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-top">
+                    <div>
+                        <h1 class="page-title">Reward System Configuration</h1>
+                        <p class="page-subtitle">Configure point rules, tier thresholds, and benefits for club rewards</p>
+                    </div>
+                    <button class="save-all-btn" id="saveAllBtn">
+                        <span>💾</span>
+                        <span>Save All Changes</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                <span class="success-message-icon">✓</span>
+                <span class="success-message-text">Configuration saved successfully!</span>
+            </div>
+
+            <!-- Info Alert -->
+            <div class="info-alert">
+                <div class="info-alert-icon">ℹ️</div>
+                <div class="info-alert-content">
+                    <div class="info-alert-title">About Reward System</div>
+                    <div class="info-alert-text">
+                        The reward system motivates clubs through points and tier badges. Clubs earn points for activities and unlock benefits as they progress through Bronze, Silver, Gold, and Platinum tiers. Changes take effect immediately for all clubs.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Point Rules Configuration -->
+            <div class="config-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">⚡</span>
+                        Point Rules Configuration
+                    </h2>
+                </div>
+                <p class="section-description">
+                    Define how clubs earn reward points for various activities. All values are editable and apply platform-wide.
+                </p>
+
+                <div class="point-rules-grid">
+                    <!-- Competition Created -->
+                    <div class="rule-card">
+                        <div class="rule-header">
+                            <div class="rule-icon competition">🏆</div>
+                            <div class="rule-info">
+                                <div class="rule-title">Competition Created</div>
+                                <div class="rule-subtitle">Points awarded per competition</div>
+                            </div>
+                        </div>
+                        <div class="rule-input-group">
+                            <div class="rule-input-wrapper">
+                                <input type="number" class="rule-input" id="pointsCompetition" 
+                                       value="100" min="0" max="1000" step="10">
+                                <span class="rule-input-suffix">points</span>
+                            </div>
+                        </div>
+                        <div class="rule-current">
+                            <span>Current:</span>
+                            <span class="rule-current-value" id="currentCompetition">100 points</span>
+                        </div>
+                    </div>
+
+                    <!-- Sales Points -->
+                    <div class="rule-card">
+                        <div class="rule-header">
+                            <div class="rule-icon sales">💰</div>
+                            <div class="rule-info">
+                                <div class="rule-title">Sales Points</div>
+                                <div class="rule-subtitle">Points per ৳100 in sales</div>
+                            </div>
+                        </div>
+                        <div class="rule-input-group">
+                            <div class="rule-input-wrapper">
+                                <input type="number" class="rule-input" id="pointsSales" 
+                                       value="10" min="0" max="100" step="1">
+                                <span class="rule-input-suffix">points</span>
+                            </div>
+                        </div>
+                        <div class="rule-current">
+                            <span>Current:</span>
+                            <span class="rule-current-value" id="currentSales">10 points per ৳100</span>
+                        </div>
+                    </div>
+
+                    <!-- 5-Star Review -->
+                    <div class="rule-card">
+                        <div class="rule-header">
+                            <div class="rule-icon review">⭐</div>
+                            <div class="rule-info">
+                                <div class="rule-title">5-Star Review</div>
+                                <div class="rule-subtitle">Points for each 5-star rating</div>
+                            </div>
+                        </div>
+                        <div class="rule-input-group">
+                            <div class="rule-input-wrapper">
+                                <input type="number" class="rule-input" id="pointsReview" 
+                                       value="20" min="0" max="100" step="5">
+                                <span class="rule-input-suffix">points</span>
+                            </div>
+                        </div>
+                        <div class="rule-current">
+                            <span>Current:</span>
+                            <span class="rule-current-value" id="currentReview">20 points</span>
+                        </div>
+                    </div>
+
+                    <!-- Fast Shipping Bonus -->
+                    <div class="rule-card">
+                        <div class="rule-header">
+                            <div class="rule-icon shipping">🚀</div>
+                            <div class="rule-info">
+                                <div class="rule-title">Fast Shipping Bonus</div>
+                                <div class="rule-subtitle">Points for shipping within 24h</div>
+                            </div>
+                        </div>
+                        <div class="rule-input-group">
+                            <div class="rule-input-wrapper">
+                                <input type="number" class="rule-input" id="pointsShipping" 
+                                       value="5" min="0" max="50" step="1">
+                                <span class="rule-input-suffix">points</span>
+                            </div>
+                        </div>
+                        <div class="rule-current">
+                            <span>Current:</span>
+                            <span class="rule-current-value" id="currentShipping">5 points</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tier Thresholds Configuration -->
+            <div class="config-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🏅</span>
+                        Tier Thresholds
+                    </h2>
+                </div>
+                <p class="section-description">
+                    Set the point requirements for each tier level. Clubs automatically upgrade when they reach the threshold.
+                </p>
+
+                <div class="tier-grid">
+                    <!-- Bronze Tier -->
+                    <div class="tier-card bronze">
+                        <div class="tier-badge-display">🥉</div>
+                        <div class="tier-name">Bronze</div>
+                        <div class="tier-range-label">Point Range</div>
+                        <div class="tier-input-group">
+                            <div class="tier-input-row">
+                                <span class="tier-input-label">Min:</span>
+                                <input type="number" class="tier-input" id="bronzeMin" 
+                                       value="0" readonly>
+                            </div>
+                            <div class="tier-input-row">
+                                <span class="tier-input-label">Max:</span>
+                                <input type="number" class="tier-input" id="bronzeMax" 
+                                       value="499" min="0" max="10000" step="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Silver Tier -->
+                    <div class="tier-card silver">
+                        <div class="tier-badge-display">🥈</div>
+                        <div class="tier-name">Silver</div>
+                        <div class="tier-range-label">Point Range</div>
+                        <div class="tier-input-group">
+                            <div class="tier-input-row">
+                                <span class="tier-input-label">Min:</span>
+                                <input type="number" class="tier-input" id="silverMin" 
+                                       value="500" min="0" max="10000" step="1">
+                            </div>
+                            <div class="tier-input-row">
+                                <span class="tier-input-label">Max:</span>
+                                <input type="number" class="tier-input" id="silverMax" 
+                                       value="1499" min="0" max="10000" step="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gold Tier -->
+                    <div class="tier-card gold">
+                        <div class="tier-badge-display">🥇</div>
+                        <div class="tier-name">Gold</div>
+                        <div class="tier-range-label">Point Range</div>
+                        <div class="tier-input-group">
+                            <div class="tier-input-row">
+                                <span class="tier-input-label">Min:</span>
+                                <input type="number" class="tier-input" id="goldMin" 
+                                       value="1500" min="0" max="10000" step="1">
+                            </div>
+                            <div class="tier-input-row">
+                                <span class="tier-input-label">Max:</span>
+                                <input type="number" class="tier-input" id="goldMax" 
+                                       value="4999" min="0" max="10000" step="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Platinum Tier -->
+                    <div class="tier-card platinum">
+                        <div class="tier-badge-display">💎</div>
+                        <div class="tier-name">Platinum</div>
+                        <div class="tier-range-label">Point Range</div>
+                        <div class="tier-input-group">
+                            <div class="tier-input-row">
+                                <span class="tier-input-label">Min:</span>
+                                <input type="number" class="tier-input" id="platinumMin" 
+                                       value="5000" min="0" max="100000" step="1">
+                            </div>
+                            <div class="tier-input-row">
+                                <span class="tier-input-label">Max:</span>
+                                <input type="text" class="tier-input" value="∞" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tier Benefits Matrix -->
+            <div class="config-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🎁</span>
+                        Tier Benefits Matrix
+                    </h2>
+                </div>
+                <p class="section-description">
+                    Configure the benefits and commission rates that clubs receive at each tier level.
+                </p>
+
+                <div class="benefits-table-wrapper">
+                    <table class="benefits-table">
+                        <thead>
+                            <tr>
+                                <th>Benefit</th>
+                                <th>Bronze (🥉)</th>
+                                <th>Silver (🥈)</th>
+                                <th>Gold (🥇)</th>
+                                <th>Platinum (💎)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="benefit-label">
+                                        <span class="benefit-icon">💳</span>
+                                        <span>Commission Rate</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" class="benefit-input" id="commissionBronze" 
+                                           value="5" min="0" max="100" step="0.1">
+                                    <span style="font-size: 0.875rem; color: var(--gray-500);">%</span>
+                                </td>
+                                <td>
+                                    <input type="number" class="benefit-input" id="commissionSilver" 
+                                           value="3" min="0" max="100" step="0.1">
+                                    <span style="font-size: 0.875rem; color: var(--gray-500);">%</span>
+                                </td>
+                                <td>
+                                    <input type="number" class="benefit-input" id="commissionGold" 
+                                           value="2" min="0" max="100" step="0.1">
+                                    <span style="font-size: 0.875rem; color: var(--gray-500);">%</span>
+                                </td>
+                                <td>
+                                    <input type="number" class="benefit-input" id="commissionPlatinum" 
+                                           value="1" min="0" max="100" step="0.1">
+                                    <span style="font-size: 0.875rem; color: var(--gray-500);">%</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="benefit-label">
+                                        <span class="benefit-icon">✓</span>
+                                        <span>Verified Badge</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle" id="verifiedBronze" onclick="toggleBenefit('verifiedBronze')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle active" id="verifiedSilver" onclick="toggleBenefit('verifiedSilver')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle active" id="verifiedGold" onclick="toggleBenefit('verifiedGold')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle active" id="verifiedPlatinum" onclick="toggleBenefit('verifiedPlatinum')"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="benefit-label">
+                                        <span class="benefit-icon">🏠</span>
+                                        <span>Homepage Featuring</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle" id="featuredBronze" onclick="toggleBenefit('featuredBronze')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle active" id="featuredSilver" onclick="toggleBenefit('featuredSilver')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle active" id="featuredGold" onclick="toggleBenefit('featuredGold')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle active" id="featuredPlatinum" onclick="toggleBenefit('featuredPlatinum')"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="benefit-label">
+                                        <span class="benefit-icon">📈</span>
+                                        <span>Advanced Analytics</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle" id="analyticsBronze" onclick="toggleBenefit('analyticsBronze')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle" id="analyticsSilver" onclick="toggleBenefit('analyticsSilver')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle active" id="analyticsGold" onclick="toggleBenefit('analyticsGold')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle active" id="analyticsPlatinum" onclick="toggleBenefit('analyticsPlatinum')"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="benefit-label">
+                                        <span class="benefit-icon">📢</span>
+                                        <span>Free Featured Posts</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span style="font-size: 0.875rem; color: var(--gray-500);">0 per month</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 0.875rem; color: var(--gray-500);">0 per month</span>
+                                </td>
+                                <td>
+                                    <input type="number" class="benefit-input" id="postsGold" 
+                                           value="5" min="0" max="100" step="1" style="width: 80px;">
+                                </td>
+                                <td>
+                                    <input type="number" class="benefit-input" id="postsPlatinum" 
+                                           value="15" min="0" max="100" step="1" style="width: 80px;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="benefit-label">
+                                        <span class="benefit-icon">🎯</span>
+                                        <span>Free Ad Campaigns</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span style="font-size: 0.875rem; color: var(--gray-500);">0 per month</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 0.875rem; color: var(--gray-500);">0 per month</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 0.875rem; color: var(--gray-500);">0 per month</span>
+                                </td>
+                                <td>
+                                    <input type="number" class="benefit-input" id="adsPlatinum" 
+                                           value="3" min="0" max="50" step="1" style="width: 80px;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="benefit-label">
+                                        <span class="benefit-icon">💰</span>
+                                        <span>Revenue Sharing</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle" id="revenueBronze" onclick="toggleBenefit('revenueBronze')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle" id="revenueSilver" onclick="toggleBenefit('revenueSilver')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle" id="revenueGold" onclick="toggleBenefit('revenueGold')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle active" id="revenuePlatinum" onclick="toggleBenefit('revenuePlatinum')"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="benefit-label">
+                                        <span class="benefit-icon">🏆</span>
+                                        <span>Trophy Display</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle" id="trophyBronze" onclick="toggleBenefit('trophyBronze')"></div>
+                                </td>
+                                <t<td>
+                                    <div class="benefit-toggle" id="trophySilver" onclick="toggleBenefit('trophySilver')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle" id="trophyGold" onclick="toggleBenefit('trophyGold')"></div>
+                                </td>
+                                <td>
+                                    <div class="benefit-toggle active" id="trophyPlatinum" onclick="toggleBenefit('trophyPlatinum')"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <!-- Manual Points Adjustment -->
+        <div class="points-adjustment-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">⚙️</span>
+                    Manual Points Adjustment
+                </h2>
+            </div>
+            <p class="section-description">
+                Manually add or subtract reward points for a specific club. Use this for special bonuses, corrections, or penalties.
+            </p>
+
+            <form class="adjustment-form" id="adjustmentForm">
+                <div class="form-group">
+                    <label class="form-label">
+                        Select Club
+                        <span class="form-label-required">*</span>
+                    </label>
+                    <div style="position: relative;">
+                        <input type="text" class="form-input" id="clubSearch" 
+                               placeholder="Search by club name..." required>
+                        <div class="search-club-results" id="clubSearchResults"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Points Amount
+                        <span class="form-label-required">*</span>
+                    </label>
+                    <input type="number" class="form-input" id="pointsAmount" 
+                           placeholder="Enter points" min="1" max="10000" step="1" required>
+                </div>
+
+                <div class="form-group full-width" id="selectedClubContainer" style="display: none;">
+                    <div class="selected-club-display" id="selectedClubDisplay">
+                        <img src="" alt="" class="selected-club-logo" id="selectedClubLogo">
+                        <div class="selected-club-info">
+                            <div class="selected-club-name" id="selectedClubName"></div>
+                            <div class="selected-club-meta">
+                                <span id="selectedClubUniversity"></span> • 
+                                <span id="selectedClubTier"></span> • 
+                                <span id="selectedClubPoints"></span> points
+                            </div>
+                        </div>
+                        <button type="button" class="clear-selection-btn" onclick="clearClubSelection()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label class="form-label">
+                        Reason for Adjustment
+                        <span class="form-label-required">*</span>
+                    </label>
+                    <textarea class="form-input form-textarea" id="adjustmentReason" 
+                              placeholder="Explain why you're adjusting the points..." required></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <div class="points-display">
+                        <div class="points-stat">
+                            <div class="points-stat-label">Current Points</div>
+                            <div class="points-stat-value" id="currentPointsDisplay">—</div>
+                        </div>
+                        <div class="points-stat">
+                            <div class="points-stat-label">Adjustment</div>
+                            <div class="points-stat-value" id="adjustmentDisplay" style="color: var(--gray-500);">±0</div>
+                        </div>
+                        <div class="points-stat">
+                            <div class="points-stat-label">New Total</div>
+                            <div class="points-stat-value" id="newPointsDisplay">—</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <div class="adjustment-actions">
+                        <div class="action-type-selector">
+                            <button type="button" class="action-type-btn active" id="addPointsBtn" 
+                                    onclick="setAdjustmentType('add')">
+                                <span>➕</span>
+                                <span>Add Points</span>
+                            </button>
+                            <button type="button" class="action-type-btn subtract" id="subtractPointsBtn" 
+                                    onclick="setAdjustmentType('subtract')">
+                                <span>➖</span>
+                                <span>Subtract Points</span>
+                            </button>
+                        </div>
+                        <button type="submit" class="save-all-btn" style="width: auto;">
+                            <span>💾</span>
+                            <span>Apply Adjustment</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Leaderboard Section -->
+        <div class="leaderboard-section">
+            <div class="leaderboard-header">
+                <h2 class="section-title">
+                    <span class="section-icon">🏆</span>
+                    Club Leaderboard
+                </h2>
+                <button class="refresh-btn" onclick="loadLeaderboard()">
+                    <span>🔄</span>
+                    <span>Refresh Rankings</span>
+                </button>
+            </div>
+            <div class="leaderboard-list" id="leaderboardList">
+                <!-- Leaderboard loaded dynamically -->
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Configuration
+    const API_BASE_URL = 'http://localhost:3000/api';
+    
+    // State
+    let currentUser = null;
+    let rewardConfig = null;
+    let selectedClub = null;
+    let adjustmentType = 'add';
+    let allClubs = [];
+    let searchTimeout = null;
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        checkAuth();
+        loadRewardConfig();
+        loadLeaderboard();
+        initializeEventListeners();
+    });
+
+    // Check Authentication
+    function checkAuth() {
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user') || 'null');
+
+        if (!token || !user || user.role !== 'super_admin') {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        currentUser = user;
+        document.getElementById('userName').textContent = currentUser.full_name;
+        if (currentUser.avatar_url) {
+            document.getElementById('userAvatar').src = currentUser.avatar_url;
+        }
+    }
+
+    // Initialize Event Listeners
+    function initializeEventListeners() {
+        // Save all button
+        document.getElementById('saveAllBtn').addEventListener('click', saveAllConfiguration);
+
+        // Club search
+        const clubSearch = document.getElementById('clubSearch');
+        clubSearch.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                searchClubs(e.target.value);
+            }, 300);
+        });
+
+        clubSearch.addEventListener('focus', () => {
+            if (clubSearch.value) {
+                searchClubs(clubSearch.value);
+            }
+        });
+
+        // Points amount input
+        document.getElementById('pointsAmount').addEventListener('input', updateAdjustmentPreview);
+
+        // Adjustment form submit
+        document.getElementById('adjustmentForm').addEventListener('submit', submitAdjustment);
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#clubSearch') && !e.target.closest('#clubSearchResults')) {
+                document.getElementById('clubSearchResults').classList.remove('show');
+            }
+        });
+    }
+
+    // Load Reward Configuration
+    async function loadRewardConfig() {
+        try {
+            showLoading();
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/super-admin/rewards/config`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) throw new Error('Failed to load reward configuration');
+
+            const data = await response.json();
+            rewardConfig = data.config;
+            populateConfigurationForm();
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('Failed to load reward configuration', 'error');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // Populate Configuration Form
+    function populateConfigurationForm() {
+        if (!rewardConfig) return;
+
+        // Point Rules
+        document.getElementById('pointsCompetition').value = rewardConfig.points.competition_created || 100;
+        document.getElementById('pointsSales').value = rewardConfig.points.per_100_sales || 10;
+        document.getElementById('pointsReview').value = rewardConfig.points.five_star_review || 20;
+        document.getElementById('pointsShipping').value = rewardConfig.points.fast_shipping || 5;
+
+        // Update current values display
+        document.getElementById('currentCompetition').textContent = `${rewardConfig.points.competition_created} points`;
+        document.getElementById('currentSales').textContent = `${rewardConfig.points.per_100_sales} points per ৳100`;
+        document.getElementById('currentReview').textContent = `${rewardConfig.points.five_star_review} points`;
+        document.getElementById('currentShipping').textContent = `${rewardConfig.points.fast_shipping} points`;
+
+        // Tier Thresholds
+        document.getElementById('bronzeMax').value = rewardConfig.tiers.bronze.max || 499;
+        document.getElementById('silverMin').value = rewardConfig.tiers.silver.min || 500;
+        document.getElementById('silverMax').value = rewardConfig.tiers.silver.max || 1499;
+        document.getElementById('goldMin').value = rewardConfig.tiers.gold.min || 1500;
+        document.getElementById('goldMax').value = rewardConfig.tiers.gold.max || 4999;
+        document.getElementById('platinumMin').value = rewardConfig.tiers.platinum.min || 5000;
+
+        // Commission Rates
+        document.getElementById('commissionBronze').value = rewardConfig.benefits.bronze.commission || 5;
+        document.getElementById('commissionSilver').value = rewardConfig.benefits.silver.commission || 3;
+        document.getElementById('commissionGold').value = rewardConfig.benefits.gold.commission || 2;
+        document.getElementById('commissionPlatinum').value = rewardConfig.benefits.platinum.commission || 1;
+
+        // Benefits toggles
+        setBenefitToggle('verifiedBronze', rewardConfig.benefits.bronze.verified_badge);
+        setBenefitToggle('verifiedSilver', rewardConfig.benefits.silver.verified_badge);
+        setBenefitToggle('verifiedGold', rewardConfig.benefits.gold.verified_badge);
+        setBenefitToggle('verifiedPlatinum', rewardConfig.benefits.platinum.verified_badge);
+
+        setBenefitToggle('featuredBronze', rewardConfig.benefits.bronze.homepage_featuring);
+        setBenefitToggle('featuredSilver', rewardConfig.benefits.silver.homepage_featuring);
+        setBenefitToggle('featuredGold', rewardConfig.benefits.gold.homepage_featuring);
+        setBenefitToggle('featuredPlatinum', rewardConfig.benefits.platinum.homepage_featuring);
+
+        setBenefitToggle('analyticsBronze', rewardConfig.benefits.bronze.advanced_analytics);
+        setBenefitToggle('analyticsSilver', rewardConfig.benefits.silver.advanced_analytics);
+        setBenefitToggle('analyticsGold', rewardConfig.benefits.gold.advanced_analytics);
+        setBenefitToggle('analyticsPlatinum', rewardConfig.benefits.platinum.advanced_analytics);
+
+        setBenefitToggle('revenueBronze', rewardConfig.benefits.bronze.revenue_sharing);
+        setBenefitToggle('revenueSilver', rewardConfig.benefits.silver.revenue_sharing);
+        setBenefitToggle('revenueGold', rewardConfig.benefits.gold.revenue_sharing);
+        setBenefitToggle('revenuePlatinum', rewardConfig.benefits.platinum.revenue_sharing);
+
+        setBenefitToggle('trophyBronze', rewardConfig.benefits.bronze.trophy_display);
+        setBenefitToggle('trophySilver', rewardConfig.benefits.silver.trophy_display);
+        setBenefitToggle('trophyGold', rewardConfig.benefits.gold.trophy_display);
+        setBenefitToggle('trophyPlatinum', rewardConfig.benefits.platinum.trophy_display);
+
+        // Free posts and ads
+        document.getElementById('postsGold').value = rewardConfig.benefits.gold.free_posts || 5;
+        document.getElementById('postsPlatinum').value = rewardConfig.benefits.platinum.free_posts || 15;
+        document.getElementById('adsPlatinum').value = rewardConfig.benefits.platinum.free_ads || 3;
+    }
+
+    // Set Benefit Toggle
+    function setBenefitToggle(elementId, isActive) {
+        const toggle = document.getElementById(elementId);
+        if (toggle) {
+            if (isActive) {
+                toggle.classList.add('active');
+            } else {
+                toggle.classList.remove('active');
+            }
+        }
+    }
+
+    // Toggle Benefit
+    function toggleBenefit(elementId) {
+        const toggle = document.getElementById(elementId);
+        toggle.classList.toggle('active');
+    }
+
+    // Save All Configuration
+    async function saveAllConfiguration() {
+        try {
+            showLoading();
+
+            const config = {
+                points: {
+                    competition_created: parseInt(document.getElementById('pointsCompetition').value),
+                    per_100_sales: parseInt(document.getElementById('pointsSales').value),
+                    five_star_review: parseInt(document.getElementById('pointsReview').value),
+                    fast_shipping: parseInt(document.getElementById('pointsShipping').value)
+                },
+                tiers: {
+                    bronze: {
+                        min: 0,
+                        max: parseInt(document.getElementById('bronzeMax').value)
+                    },
+                    silver: {
+                        min: parseInt(document.getElementById('silverMin').value),
+                        max: parseInt(document.getElementById('silverMax').value)
+                    },
+                    gold: {
+                        min: parseInt(document.getElementById('goldMin').value),
+                        max: parseInt(document.getElementById('goldMax').value)
+                    },
+                    platinum: {
+                        min: parseInt(document.getElementById('platinumMin').value),
+                        max: Infinity
+                    }
+                },
+                benefits: {
+                    bronze: {
+                        commission: parseFloat(document.getElementById('commissionBronze').value),
+                        verified_badge: document.getElementById('verifiedBronze').classList.contains('active'),
+                        homepage_featuring: document.getElementById('featuredBronze').classList.contains('active'),
+                        advanced_analytics: document.getElementById('analyticsBronze').classList.contains('active'),
+                        revenue_sharing: document.getElementById('revenueBronze').classList.contains('active'),
+                        trophy_display: document.getElementById('trophyBronze').classList.contains('active'),
+                        free_posts: 0,
+                        free_ads: 0
+                    },
+                    silver: {
+                        commission: parseFloat(document.getElementById('commissionSilver').value),
+                        verified_badge: document.getElementById('verifiedSilver').classList.contains('active'),
+                        homepage_featuring: document.getElementById('featuredSilver').classList.contains('active'),
+                        advanced_analytics: document.getElementById('analyticsSilver').classList.contains('active'),
+                        revenue_sharing: document.getElementById('revenueSilver').classList.contains('active'),
+                        trophy_display: document.getElementById('trophySilver').classList.contains('active'),
+                        free_posts: 0,
+                        free_ads: 0
+                    },
+                    gold: {
+                        commission: parseFloat(document.getElementById('commissionGold').value),
+                        verified_badge: document.getElementById('verifiedGold').classList.contains('active'),
+                        homepage_featuring: document.getElementById('featuredGold').classList.contains('active'),
+                        advanced_analytics: document.getElementById('analyticsGold').classList.contains('active'),
+                        revenue_sharing: document.getElementById('revenueGold').classList.contains('active'),
+                        trophy_display: document.getElementById('trophyGold').classList.contains('active'),
+                        free_posts: parseInt(document.getElementById('postsGold').value),
+                        free_ads: 0
+                    },
+                    platinum: {
+                        commission: parseFloat(document.getElementById('commissionPlatinum').value),
+                        verified_badge: document.getElementById('verifiedPlatinum').classList.contains('active'),
+                        homepage_featuring: document.getElementById('featuredPlatinum').classList.contains('active'),
+                        advanced_analytics: document.getElementById('analyticsPlatinum').classList.contains('active'),
+                        revenue_sharing: document.getElementById('revenuePlatinum').classList.contains('active'),
+                        trophy_display: document.getElementById('trophyPlatinum').classList.contains('active'),
+                        free_posts: parseInt(document.getElementById('postsPlatinum').value),
+                        free_ads: parseInt(document.getElementById('adsPlatinum').value)
+                    }
+                }
+            };
+
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/super-admin/rewards/config`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(config)
+            });
+
+            if (!response.ok) throw new Error('Failed to save configuration');
+
+            showSuccessMessage();
+            showToast('Reward configuration saved successfully', 'success');
+            await loadRewardConfig();
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('Failed to save configuration', 'error');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // Show Success Message
+    function showSuccessMessage() {
+        const message = document.getElementById('successMessage');
+        message.classList.add('show');
+        setTimeout(() => {
+            message.classList.remove('show');
+        }, 3000);
+    }
+
+    // Search Clubs
+    async function searchClubs(query) {
+        if (!query || query.length < 2) {
+            document.getElementById('clubSearchResults').classList.remove('show');
+            return;
+        }
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/super-admin/clubs/search?q=${encodeURIComponent(query)}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) throw new Error('Failed to search clubs');
+
+            const data = await response.json();
+            renderClubSearchResults(data.clubs);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // Render Club Search Results
+    function renderClubSearchResults(clubs) {
+        const results = document.getElementById('clubSearchResults');
+
+        if (!clubs || clubs.length === 0) {
+            results.innerHTML = '<div style="padding: 1rem; text-align: center; color: var(--gray-500);">No clubs found</div>';
+            results.classList.add('show');
+            return;
+        }
+
+        results.innerHTML = clubs.map(club => `
+            <div class="search-result-item" onclick='selectClub(${JSON.stringify(club)})'>
+                <img src="${club.logo_url || 'assets/default-club-logo.png'}" 
+                     alt="${club.club_name}" 
+                     class="search-result-logo">
+                <div class="search-result-info">
+                    <div class="search-result-name">${club.club_name}</div>
+                    <div class="search-result-university">
+                        ${club.university} • ${club.reward_tier.charAt(0).toUpperCase() + club.reward_tier.slice(1)} • ${club.reward_points} points
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        results.classList.add('show');
+    }
+
+    // Select Club
+    function selectClub(club) {
+        selectedClub = club;
+
+        document.getElementById('clubSearch').value = club.club_name;
+        document.getElementById('clubSearchResults').classList.remove('show');
+
+        document.getElementById('selectedClubLogo').src = club.logo_url || 'assets/default-club-logo.png';
+        document.getElementById('selectedClubName').textContent = club.club_name;
+        document.getElementById('selectedClubUniversity').textContent = club.university;
+        document.getElementById('selectedClubTier').textContent = club.reward_tier.charAt(0).toUpperCase() + club.reward_tier.slice(1);
+        document.getElementById('selectedClubPoints').textContent = club.reward_points;
+
+        document.getElementById('selectedClubContainer').style.display = 'block';
+        document.getElementById('selectedClubDisplay').classList.add('show');
+
+        document.getElementById('currentPointsDisplay').textContent = club.reward_points.toLocaleString();
+
+        updateAdjustmentPreview();
+    }
+
+    // Clear Club Selection
+    function clearClubSelection() {
+        selectedClub = null;
+        document.getElementById('clubSearch').value = '';
+        document.getElementById('selectedClubContainer').style.display = 'none';
+        document.getElementById('selectedClubDisplay').classList.remove('show');
+        document.getElementById('pointsAmount').value = '';
+        document.getElementById('currentPointsDisplay').textContent = '—';
+        document.getElementById('adjustmentDisplay').textContent = '±0';
+        document.getElementById('adjustmentDisplay').style.color = 'var(--gray-500)';
+        document.getElementById('newPointsDisplay').textContent = '—';
+    }
+
+    // Set Adjustment Type
+    function setAdjustmentType(type) {
+        adjustmentType = type;
+
+        const addBtn = document.getElementById('addPointsBtn');
+        const subtractBtn = document.getElementById('subtractPointsBtn');
+
+        if (type === 'add') {
+            addBtn.classList.add('active');
+            subtractBtn.classList.remove('active');
+        } else {
+            subtractBtn.classList.add('active');
+            addBtn.classList.remove('active');
+        }
+
+        updateAdjustmentPreview();
+    }
+
+    // Update Adjustment Preview
+    function updateAdjustmentPreview() {
+        if (!selectedClub) return;
+
+        const pointsAmount = parseInt(document.getElementById('pointsAmount').value) || 0;
+        const currentPoints = selectedClub.reward_points;
+
+        const adjustment = adjustmentType === 'add' ? pointsAmount : -pointsAmount;
+        const newTotal = Math.max(0, currentPoints + adjustment);
+
+        document.getElementById('adjustmentDisplay').textContent = adjustment > 0 ? `+${adjustment}` : adjustment;
+        document.getElementById('adjustmentDisplay').style.color = adjustment > 0 ? 'var(--success)' : adjustment < 0 ? 'var(--error)' : 'var(--gray-500)';
+        document.getElementById('newPointsDisplay').textContent = newTotal.toLocaleString();
+    }
+
+    // Submit Adjustment
+    async function submitAdjustment(e) {
+        e.preventDefault();
+
+        if (!selectedClub) {
+            showToast('Please select a club', 'error');
+            return;
+        }
+
+        const pointsAmount = parseInt(document.getElementById('pointsAmount').value);
+        const reason = document.getElementById('adjustmentReason').value.trim();
+
+        if (!pointsAmount || pointsAmount <= 0) {
+            showToast('Please enter a valid points amount', 'error');
+            return;
+        }
+
+        if (!reason) {
+            showToast('Please provide a reason for the adjustment', 'error');
+            return;
+        }
+
+        try {
+            showLoading();
+
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/super-admin/rewards/adjust`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    club_id: selectedClub.id,
+                    action_type: adjustmentType,
+                    points: pointsAmount,
+                    reason: reason
+                })
+            });
+
+            if (!response.ok) throw new Error('Failed to adjust points');
+
+            const data = await response.json();
+
+            showToast(`Successfully ${adjustmentType === 'add' ? 'added' : 'subtracted'} ${pointsAmount} points`, 'success');
+
+            // Reset form
+            document.getElementById('adjustmentForm').reset();
+            clearClubSelection();
+
+            // Refresh leaderboard
+            await loadLeaderboard();
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('Failed to adjust points', 'error');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // Load Leaderboard
+    async function loadLeaderboard() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_BASE_URL}/clubs/leaderboard?limit=10`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) throw new Error('Failed to load leaderboard');
+
+            const data = await response.json();
+            renderLeaderboard(data.clubs);
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('Failed to load leaderboard', 'error');
+        }
+    }
+
+    // Render Leaderboard
+    function renderLeaderboard(clubs) {
+        const list = document.getElementById('leaderboardList');
+
+        if (!clubs || clubs.length === 0) {
+            list.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--gray-500);">No clubs in leaderboard</div>';
+            return;
+        }
+
+        list.innerHTML = clubs.map((club, index) => {
+            const rank = index + 1;
+            const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-other';
+
+            return `
+                <div class="leaderboard-item">
+                    <div class="leaderboard-rank ${rankClass}">${rank}</div>
+                    <img src="${club.logo_url || 'assets/default-club-logo.png'}" 
+                         alt="${club.club_name}" 
+                         class="leaderboard-club-logo">
+                    <div class="leaderboard-club-info">
+                        <div class="leaderboard-club-name">${club.club_name}</div>
+                        <div class="leaderboard-club-university">${club.university}</div>
+                    </div>
+                    <div class="leaderboard-points">
+                        <div class="leaderboard-points-value">${club.reward_points.toLocaleString()}</div>
+                        <span class="leaderboard-tier-badge tier-${club.reward_tier}">
+                            ${club.reward_tier.charAt(0).toUpperCase() + club.reward_tier.slice(1)}
+                        </span>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Helper Functions
+    function showLoading() {
+        document.getElementById('loadingOverlay').classList.add('show');
+    }
+
+    function hideLoading() {
+        document.getElementById('loadingOverlay').classList.remove('show');
+    }
+
+    function showToast(message, type = 'info') {
+        const existingToast = document.querySelector('.toast');
+        if (existingToast) existingToast.remove();
+
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.innerHTML = `
+            <span style="font-size: 1.25rem;">${type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ'}</span>
+            <span>${message}</span>
+        `;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // Add slide out animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideOut {
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+</script>
+</body>
+</html>

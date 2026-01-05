@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Nemionix Technologies</title>
+    <meta name="description" content="List your robotics components on Nemionix marketplace - Reach students across Bangladesh">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Primary Colors */
+            --primary-50: #FFF8E1;
+            --primary-100: #FFECB3;
+            --primary-200: #FFE082;
+            --primary-300: #FFD54F;
+            --primary-400: #FFCA28;
+            --primary-500: #FFC107;
+            --primary-600: #FFB300;
+            --primary-700: #FFA000;
+            --primary-800: #FF8F00;
+            --primary-900: #FF6F00;
+            
+            /* Secondary Colors */
+            --secondary-50: #E8F4FD;
+            --secondary-500: #1991EB;
+            --secondary-600: #1474BC;
+            
+            /* Neutral Colors */
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            
+            /* Semantic Colors */
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+            
+            /* Layout */
+            --sidebar-width: 280px;
+            --topbar-height: 72px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            
+            /* Transitions */
+            --transition-base: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Dashboard Wrapper */
+        .dashboard-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar - Exact match from dashboard */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 40;
+            overflow-y: auto;
+            transition: transform 0.3s var(--transition-base);
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 3px;
+        }
+        
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+        
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            transition: transform 0.2s var(--transition-base);
+        }
+        
+        .brand-logo:hover {
+            transform: translateX(2px);
+        }
+        
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .brand-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            line-height: 1.2;
+        }
+        
+        .brand-tagline {
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .sidebar-nav {
+            padding: 1.5rem 0;
+        }
+        
+        .nav-section {
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+        
+        .nav-section-title {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-500);
+            padding: 0 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 0.75rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: 0.9375rem;
+            transition: all 0.15s var(--transition-base);
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            background: var(--gray-50);
+            color: var(--primary-600);
+            transform: translateX(2px);
+        }
+        
+        .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-50), rgba(25, 145, 235, 0.05));
+            color: var(--primary-600);
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 24px;
+            background: var(--primary-500);
+            border-radius: 0 3px 3px 0;
+        }
+        
+        .nav-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .nav-badge {
+            margin-left: auto;
+            background: var(--error);
+            color: white;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            padding: 0.125rem 0.5rem;
+            border-radius: 999px;
+            min-width: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            margin-top: auto;
+            position: sticky;
+            bottom: 0;
+            background: white;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 0.75rem;
+            border-radius: var(--radius-lg);
+            transition: background 0.15s var(--transition-base);
+            cursor: pointer;
+        }
+        
+        .user-profile:hover {
+            background: var(--gray-50);
+        }
+        
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            border: 2px solid var(--primary-500);
+            flex-shrink: 0;
+        }
+        
+        .user-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-900);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .user-role {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Topbar - Exact match from dashboard */
+        .topbar {
+            height: var(--topbar-height);
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            gap: 1.5rem;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-700);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: background 0.15s var(--transition-base);
+        }
+        
+        .mobile-menu-toggle:hover {
+            background: var(--gray-100);
+        }
+        
+        .page-title-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            line-height: 1.2;
+        }
+        
+        .page-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-top: 0.25rem;
+        }
+        
+        .page-breadcrumb a {
+            color: var(--gray-500);
+            text-decoration: none;
+            transition: color 0.15s var(--transition-base);
+        }
+        
+        .page-breadcrumb a:hover {
+            color: var(--primary-500);
+        }
+        
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .icon-button {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-lg);
+            border: none;
+            background: var(--gray-50);
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: all 0.15s var(--transition-base);
+        }
+        
+        .icon-button:hover {
+            background: var(--gray-100);
+            transform: scale(1.05);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--error);
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s var(--transition-base);
+            white-space: nowrap;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 1.5px solid var(--gray-300);
+        }
+        
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+        
+        .btn-outline {
+            background: white;
+            color: var(--primary-600);
+            border: 1.5px solid var(--primary-500);
+        }
+        
+        .btn-outline:hover:not(:disabled) {
+            background: var(--primary-50);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+        
+        /* Section - Consistent with dashboard */
+        .section {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+        
+        .section-subtitle {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+            margin-top: 0.25rem;
+        }
+        
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .form-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .form-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 0;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+        }
+        
+        .form-label .required {
+            color: var(--error);
+            margin-left: 0.25rem;
+        }
+        
+        .form-label .optional {
+            color: var(--gray-500);
+            font-weight: 500;
+            margin-left: 0.25rem;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        }
+        
+        .form-input.error,
+        .form-select.error,
+        .form-textarea.error {
+            border-color: var(--error);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-hint {
+            display: block;
+            margin-top: 0.375rem;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+        
+        .form-error {
+            display: block;
+            margin-top: 0.375rem;
+            font-size: 0.75rem;
+            color: var(--error);
+            font-weight: 500;
+        }
+        
+        .char-count {
+            text-align: right;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 0.375rem;
+        }
+        
+        /* Radio Group */
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border: 1.5px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.15s var(--transition-base);
+            font-size: 0.875rem;
+        }
+        
+        .radio-label:hover {
+            border-color: var(--primary-300);
+            background: var(--primary-50);
+        }
+        
+        .radio-label input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-500);
+        }
+        
+        .radio-label input:checked + span {
+            font-weight: 600;
+            color: var(--primary-600);
+        }
+        
+        /* Image Upload */
+        .image-upload-zone {
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--gray-50);
+        }
+        
+        .image-upload-zone:hover {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+        }
+        
+        .image-upload-zone.dragover {
+            border-color: var(--primary-600);
+            background: var(--primary-100);
+            transform: scale(1.01);
+        }
+        
+        .upload-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--gray-400);
+        }
+        
+        .upload-text {
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .upload-hint {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+        
+        .image-previews {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .image-preview {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 2px solid var(--gray-200);
+            cursor: move;
+            transition: all 0.2s;
+        }
+        
+        .image-preview:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-300);
+        }
+        
+        .image-preview.primary {
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .image-preview:hover .image-overlay {
+            opacity: 1;
+        }
+        
+        .overlay-btn {
+            width: 36px;
+            height: 36px;
+            background: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.15s var(--transition-base);
+        }
+        
+        .overlay-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .primary-badge {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background: var(--primary-500);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* Specifications */
+        .spec-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .spec-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 0.75rem;
+            align-items: start;
+        }
+        
+        .spec-remove {
+            width: 42px;
+            height: 42px;
+            background: var(--error);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all 0.15s var(--transition-base);
+        }
+        
+        .spec-remove:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .add-spec-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--gray-100);
+            border: 1.5px dashed var(--gray-300);
+            border-radius: var(--radius-lg);
+            color: var(--gray-700);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .add-spec-btn:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-500);
+            color: var(--primary-600);
+        }
+        
+        /* Tags Input */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            min-height: 54px;
+            cursor: text;
+            transition: all 0.2s;
+        }
+        
+        .tags-container:focus-within {
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        }
+        
+        .tag-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem 0.75rem;
+            background: var(--primary-100);
+            color: var(--primary-700);
+            border-radius: 999px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+        }
+        
+        .tag-remove {
+            background: none;
+            border: none;
+            color: var(--primary-600);
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            padding: 0;
+            transition: color 0.15s var(--transition-base);
+        }
+        
+        .tag-remove:hover {
+            color: var(--error);
+        }
+        
+        .tag-input {
+            flex: 1;
+            min-width: 150px;
+            border: none;
+            outline: none;
+            font-size: 0.875rem;
+            padding: 0.375rem 0;
+        }
+        
+        .suggested-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+        
+        .suggested-tag {
+            padding: 0.375rem 0.75rem;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+            border-radius: 999px;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            transition: all 0.15s var(--transition-base);
+        }
+        
+        .suggested-tag:hover {
+            background: var(--primary-100);
+            border-color: var(--primary-500);
+            color: var(--primary-600);
+        }
+        
+        /* Competition Search */
+        .competition-search {
+            position: relative;
+        }
+        
+        .competition-results {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+        
+        .competition-results.active {
+            display: block;
+        }
+        
+        .competition-result-item {
+            padding: 1rem;
+            cursor: pointer;
+            transition: background 0.15s var(--transition-base);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .competition-result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .competition-result-item:hover {
+            background: var(--gray-50);
+        }
+        
+        .competition-result-item h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+        }
+        
+        .competition-result-item p {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+        }
+        
+        .selected-competitions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .selected-competition {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .competition-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+        }
+        
+        .competition-info {
+            flex: 1;
+        }
+        
+        .competition-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+        }
+        
+        .competition-info p {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+        }
+        
+        .competition-remove {
+            width: 36px;
+            height: 36px;
+            background: var(--error);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s var(--transition-base);
+        }
+        
+        .competition-remove:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Price Display */
+        .price-display {
+            background: linear-gradient(135deg, var(--primary-50), var(--secondary-50));
+            padding: 1.5rem;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--primary-200);
+            margin-top: 1rem;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.75rem;
+        }
+        
+        .price-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .price-label {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+            font-weight: 600;
+        }
+        
+        .price-value {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary-700);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .discount-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+        
+        /* Stock Status */
+        .stock-status {
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stock-status.in-stock {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: #047857;
+        }
+        
+        .stock-status.low-stock {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--warning);
+            color: #B45309;
+        }
+        
+        .stock-status.out-of-stock {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--error);
+            color: #991B1B;
+        }
+        
+        /* SKU Display */
+        .sku-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .sku-value {
+            flex: 1;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 1rem;
+        }
+        
+        .regenerate-sku {
+            padding: 0.5rem 1rem;
+            background: var(--primary-500);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s var(--transition-base);
+            font-size: 0.8125rem;
+        }
+        
+        .regenerate-sku:hover {
+            background: var(--primary-600);
+            transform: translateY(-2px);
+        }
+        
+        /* Multi-Select */
+        .multi-select {
+            position: relative;
+        }
+        
+        .multi-select-trigger {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            background: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+        
+        .multi-select-trigger:hover {
+            border-color: var(--primary-500);
+        }
+        
+        .multi-select-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+        
+        .multi-select-dropdown.active {
+            display: block;
+        }
+        
+        .multi-select-option {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background 0.15s var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+        }
+        
+        .multi-select-option:hover {
+            background: var(--gray-50);
+        }
+        
+        .multi-select-option input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-500);
+        }
+        
+        .selected-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+        
+        .selected-item {
+            padding: 0.375rem 0.75rem;
+            background: var(--primary-100);
+            color: var(--primary-700);
+            border-radius: 999px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Sticky Save Bar */
+        .sticky-save-bar {
+            position: fixed;
+            bottom: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--gray-200);
+            padding: 1rem 2rem;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 90;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .save-info {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+        
+        .save-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        
+        .loading-overlay.active {
+            display: flex;
+        }
+        
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary-500);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s var(--transition-base);
+            min-width: 320px;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .toast.success { border-left: 4px solid var(--success); }
+        .toast.error { border-left: 4px solid var(--error); }
+        .toast.info { border-left: 4px solid var(--info); }
+        .toast.warning { border-left: 4px solid var(--warning); }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--gray-500);
+        }
+        
+        .empty-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            opacity: 0.5;
+        }
+        
+        .empty-state h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-state p {
+            font-size: 0.8125rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .sticky-save-bar {
+                left: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 1rem;
+                padding-bottom: 100px;
+            }
+            
+            .topbar {
+                padding: 0 1rem;
+            }
+            
+            .page-title {
+                font-size: 1.25rem;
+            }
+            
+            .image-previews {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            
+            .spec-item {
+                grid-template-columns: 1fr;
+            }
+            
+            .sticky-save-bar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .save-actions {
+                width: 100%;
+            }
+            
+            .save-actions .btn {
+                flex: 1;
+            }
+            
+            .user-info {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="logo-icon">NX</div>
+                    <div class="brand-text">
+                        <div class="brand-name">Nemionix</div>
+                        <div class="brand-tagline">ENGINEERING THE FUTURE</div>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Main</div>
+                    <div class="nav-menu">
+                        <a href="club-dashboard.html" class="nav-link">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="club-profile-edit.html" class="nav-link">
+                            <span class="nav-icon">🏛️</span>
+                            <span>Club Profile</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Products</div>
+                    <div class="nav-menu">
+                        <a href="manage-products.html" class="nav-link">
+                            <span class="nav-icon">📦</span>
+                            <span>All Products</span>
+                        </a>
+                        <a href="create-product.html" class="nav-link active">
+                            <span class="nav-icon">➕</span>
+                            <span>Add Product</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Competitions</div>
+                    <div class="nav-menu">
+                        <a href="manage-competitions.html" class="nav-link">
+                            <span class="nav-icon">🏆</span>
+                            <span>All Competitions</span>
+                        </a>
+                        <a href="create-competition.html" class="nav-link">
+                            <span class="nav-icon">➕</span>
+                            <span>Create Competition</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Orders</div>
+                    <div class="nav-menu">
+                        <a href="manage-orders.html" class="nav-link">
+                            <span class="nav-icon">📋</span>
+                            <span>Orders</span>
+                            <span class="nav-badge" id="pendingOrdersBadge">0</span>
+                        </a>
+                        <a href="my-earnings.html" class="nav-link">
+                            <span class="nav-icon">💰</span>
+                            <span>Earnings</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Performance</div>
+                    <div class="nav-menu">
+                        <a href="reward-status.html" class="nav-link">
+                            <span class="nav-icon">⭐</span>
+                            <span>Reward Status</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="assets/default-club-logo.png" alt="Club Logo" class="user-avatar" id="sidebarClubLogo">
+                    <div class="user-info">
+                        <div class="user-name" id="sidebarClubName">Loading...</div>
+                        <div class="user-role">Club Admin</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="topbar">
+                <button class="mobile-menu-toggle" id="mobileMenuBtn">☰</button>
+
+                <div class="page-title-wrapper">
+                    <h1 class="page-title" id="formTitle">Add New Product</h1>
+                    <div class="page-breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span>›</span>
+                        <a href="club-dashboard.html">Dashboard</a>
+                        <span>›</span>
+                        <a href="manage-products.html">Products</a>
+                        <span>›</span>
+                        <span id="pageBreadcrumbTitle">Add Product</span>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="icon-button" id="notificationBtn" title="Notifications">
+                        🔔
+                        <span class="notification-badge"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <form id="productForm">
+                    <div class="form-grid">
+                        <!-- Main Form -->
+                        <div class="form-main">
+                            <!-- Images Section -->
+                            <div class="section">
+                                <div class="section-header">
+                                    <div>
+                                        <h2 class="section-title">Product Images</h2>
+                                        <p class="section-subtitle">Upload 1-5 high-quality images of your product</p>
+                                    </div>
+                                </div>
+
+                                <div class="image-upload-zone" id="imageUploadZone">
+                                    <input type="file" id="imageInput" accept="image/*" multiple hidden>
+                                    <div class="upload-icon">📷</div>
+                                    <div class="upload-text">Drag & drop images or click to browse</div>
+                                    <div class="upload-hint">Maximum 5 images, 2MB each (JPG, PNG, WebP)</div>
+                                </div>
+
+                                <div class="image-previews" id="imagePreviews"></div>
+                            </div>
+
+                            <!-- Basic Information -->
+                            <div class="section">
+                                <div class="section-header">
+                                    <div>
+                                        <h2 class="section-title">Basic Information</h2>
+                                        <p class="section-subtitle">Provide essential details about your product</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Product Name<span class="required">*</span>
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        class="form-input" 
+                                        id="productName"
+                                        placeholder="e.g., Arduino Uno R3 Original"
+                                        required
+                                        minlength="5"
+                                        maxlength="255"
+                                    >
+                                    <div class="char-count">
+                                        <span id="nameCharCount">0</span>/255 characters
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Category<span class="required">*</span>
+                                    </label>
+                                    <select class="form-select" id="category" required>
+                                        <option value="">Select category...</option>
+                                        <option value="Microcontrollers">Microcontrollers</option>
+                                        <option value="Sensors">Sensors</option>
+                                        <option value="Motors & Drivers">Motors & Drivers</option>
+                                        <option value="Power & Battery">Power & Battery</option>
+                                        <option value="Communication">Communication</option>
+                                        <option value="Displays">Displays</option>
+                                        <option value="Tools & Equipment">Tools & Equipment</option>
+                                        <option value="Mechanical Parts">Mechanical Parts</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Condition<span class="required">*</span>
+                                    </label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="condition" value="new" checked>
+                                            <span>Brand New</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="condition" value="used">
+                                            <span>Used</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Description<span class="required">*</span>
+                                    </label>
+                                    <textarea 
+                                        class="form-textarea" 
+                                        id="description"
+                                        placeholder="Provide a detailed description of your product. Include features, specifications, and what makes it unique..."
+                                        required
+                                        minlength="50"
+                                        rows="6"
+                                    ></textarea>
+                                    <div class="char-count">
+                                        <span id="descCharCount">0</span> characters (minimum 50)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pricing Section -->
+                            <div class="section">
+                                <div class="section-header">
+                                    <div>
+                                        <h2 class="section-title">Pricing</h2>
+                                        <p class="section-subtitle">Set your product pricing and discounts</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Price (৳)<span class="required">*</span>
+                                    </label>
+                                    <input 
+                                        type="number" 
+                                        class="form-input" 
+                                        id="price"
+                                        placeholder="650"
+                                        required
+                                        min="1"
+                                        step="0.01"
+                                    >
+                                    <span class="form-hint">Enter your selling price</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Original Price (৳)<span class="optional">(Optional)</span>
+                                    </label>
+                                    <input 
+                                        type="number" 
+                                        class="form-input" 
+                                        id="originalPrice"
+                                        placeholder="800"
+                                        min="1"
+                                        step="0.01"
+                                    >
+                                    <span class="form-hint">For showing discount (must be higher than selling price)</span>
+                                </div>
+
+                                <div class="price-display" id="priceDisplay" style="display: none;">
+                                    <div class="price-row">
+                                        <span class="price-label">Selling Price:</span>
+                                        <span class="price-value" id="displayPrice">৳0</span>
+                                    </div>
+                                    <div class="price-row">
+                                        <span class="price-label">Original Price:</span>
+                                        <span class="price-value" style="text-decoration: line-through; font-size: 1rem;" id="displayOriginalPrice">৳0</span>
+                                    </div>
+                                    <div class="price-row">
+                                        <span class="price-label">You Save:</span>
+                                        <span class="discount-value" id="displayDiscount">৳0 (0%)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Inventory Section -->
+                            <div class="section">
+                                <div class="section-header">
+                                    <div>
+                                        <h2 class="section-title">Inventory</h2>
+                                        <p class="section-subtitle">Manage stock and tracking</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Stock Quantity<span class="required">*</span>
+                                    </label>
+                                    <input 
+                                        type="number" 
+                                        class="form-input" 
+                                        id="stock"
+                                        placeholder="20"
+                                        required
+                                        min="0"
+                                        step="1"
+                                    >
+                                    <span class="form-hint">Number of units available for sale</span>
+                                </div>
+
+                                <div class="stock-status" id="stockStatus" style="display: none;"></div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Weight (grams)<span class="optional">(Optional)</span>
+                                    </label>
+                                    <input 
+                                        type="number" 
+                                        class="form-input" 
+                                        id="weight"
+                                        placeholder="50"
+                                        min="1"
+                                        step="1"
+                                    >
+                                    <span class="form-hint">For calculating shipping costs</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">SKU</label>
+                                    <div class="sku-display">
+                                        <span class="sku-value" id="skuValue">NX-XXXX-XXXX</span>
+                                        <button type="button" class="regenerate-sku" onclick="generateSKU()">
+                                            🔄 Regenerate
+                                        </button>
+                                    </div>
+                                    <span class="form-hint">Auto-generated unique identifier</span>
+                                </div>
+                            </div>
+
+                            <!-- Specifications Section -->
+                            <div class="section">
+                                <div class="section-header">
+                                    <div>
+                                        <h2 class="section-title">Technical Specifications</h2>
+                                        <p class="section-subtitle">Add detailed technical specifications</p>
+                                    </div>
+                                </div>
+
+                                <div class="spec-list" id="specList">
+                                    <div class="empty-state">
+                                        <div class="empty-icon">⚙️</div>
+                                        <h3>No specifications added yet</h3>
+                                        <p>Click "Add Specification" to start</p>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="add-spec-btn" onclick="addSpecification()">
+                                    ➕ Add Specification
+                                </button>
+                            </div>
+
+                            <!-- Shipping Information -->
+                            <div class="section">
+                                <div class="section-header">
+                                    <div>
+                                        <h2 class="section-title">Shipping Information</h2>
+                                        <p class="section-subtitle">Configure shipping options</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Available Regions</label>
+                                    <div class="multi-select" id="regionsSelect">
+                                        <div class="multi-select-trigger" onclick="toggleRegions()">
+                                            <span id="regionsText">Select shipping regions...</span>
+                                            <span>▼</span>
+                                        </div>
+                                        <div class="multi-select-dropdown" id="regionsDropdown">
+                                            <label class="multi-select-option">
+                                                <input type="checkbox" value="all" onchange="toggleAllRegions(this)">
+                                                <span>All Districts</span>
+                                            </label>
+                                            <label class="multi-select-option">
+                                                <input type="checkbox" value="Dhaka" onchange="updateSelectedRegions()">
+                                                <span>Dhaka</span>
+                                            </label>
+                                            <label class="multi-select-option">
+                                                <input type="checkbox" value="Chattogram" onchange="updateSelectedRegions()">
+                                                <span>Chattogram</span>
+                                            </label>
+                                            <label class="multi-select-option">
+                                                <input type="checkbox" value="Rajshahi" onchange="updateSelectedRegions()">
+                                                <span>Rajshahi</span>
+                                            </label>
+                                            <label class="multi-select-option">
+                                                <input type="checkbox" value="Khulna" onchange="updateSelectedRegions()">
+                                                <span>Khulna</span>
+                                            </label>
+                                            <label class="multi-select-option">
+                                                <input type="checkbox" value="Barishal" onchange="updateSelectedRegions()">
+                                                <span>Barishal</span>
+                                            </label>
+                                            <label class="multi-select-option">
+                                                <input type="checkbox" value="Sylhet" onchange="updateSelectedRegions()">
+                                                <span>Sylhet</span>
+                                            </label>
+                                            <label class="multi-select-option">
+                                                <input type="checkbox" value="Rangpur" onchange="updateSelectedRegions()">
+                                                <span>Rangpur</span>
+                                            </label>
+                                            <label class="multi-select-option">
+                                                <input type="checkbox" value="Mymensingh" onchange="updateSelectedRegions()">
+                                                <span>Mymensingh</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="selected-items" id="selectedRegions"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Estimated Delivery Time</label>
+                                    <input 
+                                        type="text" 
+                                        class="form-input" 
+                                        id="deliveryTime"
+                                        placeholder="3-5 business days"
+                                        value="3-5 business days"
+                                    >
+                                </div>
+                            </div>
+
+                            <!-- Tags Section -->
+                            <div class="section">
+                                <div class="section-header">
+                                    <div>
+                                        <h2 class="section-title">Product Tags</h2>
+                                        <p class="section-subtitle">Add keywords to help students find your product</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Search Tags</label>
+                                    <div class="tags-container" id="tagsContainer" onclick="focusTagInput()">
+                                        <input 
+                                            type="text" 
+                                            class="tag-input" 
+                                            id="tagInput"
+                                            placeholder="Type and press Enter to add tags..."
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="suggested-tags" id="suggestedTags"></div>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="form-sidebar">
+                            <!-- Competition Linking -->
+                            <div class="section">
+                                <div class="section-header">
+                                    <div>
+                                        <h2 class="section-title">Link to Competitions</h2>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Search Competitions</label>
+                                    <div class="competition-search">
+                                        <input 
+                                            type="text" 
+                                            class="form-input" 
+                                            id="competitionSearch"
+                                            placeholder="Search your competitions..."
+                                        >
+                                        <div class="competition-results" id="competitionResults"></div>
+                                    </div>
+                                    <span class="form-hint">Tag this product as required for competitions</span>
+                                </div>
+
+                                <div class="selected-competitions" id="selectedCompetitions">
+                                    <div class="empty-state">
+                                        <div class="empty-icon">🏆</div>
+                                        <h3>No competitions linked</h3>
+                                        <p>Search and select competitions</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Publishing Options -->
+                            <div class="section">
+                                <div class="section-header">
+                                    <div>
+                                        <h2 class="section-title">Publishing</h2>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-select" id="status">
+                                        <option value="active">Publish Immediately</option>
+                                        <option value="inactive">Save as Draft</option>
+                                    </select>
+                                    <span class="form-hint">Drafts won't be visible to customers</span>
+                                </div>
+
+                                <div style="padding: 1rem; background: var(--primary-50); border-radius: var(--radius-lg); border: 1px solid var(--primary-200); margin-top: 1rem;">
+                                    <p style="font-size: 0.8125rem; color: var(--gray-700); margin-bottom: 0.5rem;">
+                                        <strong>Platform Commission:</strong> 5%
+                                    </p>
+                                    <p style="font-size: 0.8125rem; color: var(--gray-600);">
+                                        Your tier may have lower commission rates. Check your reward status.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Sticky Save Bar -->
+            <div class="sticky-save-bar">
+                <div class="save-info">
+                    <span id="saveStatus">Ready to save</span>
+                </div>
+                <div class="save-actions">
+                    <button type="button" class="btn btn-secondary" onclick="cancelForm()">
+                        ✕ Cancel
+                    </button>
+                    <button type="button" class="btn btn-outline" onclick="saveDraft()">
+                        💾 Save as Draft
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" form="productForm">
+                        ✓ Publish Product
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000/api' 
+            : 'https://api.nemionix.com.bd/api';
+
+        // Global State
+        let currentUser = null;
+        let productImages = [];
+        let specifications = [];
+        let productTags = [];
+        let linkedCompetitions = [];
+        let selectedRegions = [];
+        let isEditMode = false;
+        let editProductId = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuth();
+            setupEventListeners();
+            generateSKU();
+            checkEditMode();
+        });
+
+        // Check Authentication
+        async function checkAuth() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return false;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) throw new Error('Authentication failed');
+
+                const data = await response.json();
+                currentUser = data.user;
+
+                if (!currentUser || currentUser.role !== 'club_admin') {
+                    window.location.href = 'login.html';
+                    return false;
+                }
+
+                if (currentUser.club_status !== 'approved') {
+                    showToast('Your club application is pending approval', 'warning');
+                    setTimeout(() => window.location.href = 'index.html', 2000);
+                    return false;
+                }
+
+                document.getElementById('sidebarClubName').textContent = currentUser.club_name || currentUser.full_name || 'Club Admin';
+                
+                const logo = currentUser.club_logo || currentUser.avatar_url;
+                if (logo && logo !== 'assets/default-club-logo.png') {
+                    document.getElementById('sidebarClubLogo').src = logo;
+                    document.getElementById('sidebarClubLogo').onerror = function() {
+                        this.src = 'assets/default-club-logo.png';
+                    };
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Auth error:', error);
+                window.location.href = 'login.html';
+                return false;
+            }
+        }
+
+        // Check if editing existing product
+        function checkEditMode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            if (productId) {
+                isEditMode = true;
+                editProductId = productId;
+                document.getElementById('formTitle').textContent = 'Edit Product';
+                document.getElementById('pageBreadcrumbTitle').textContent = 'Edit Product';
+                document.getElementById('submitBtn').innerHTML = '✓ Update Product';
+                
+                loadProductData(productId);
+            }
+        }
+
+        // Load product data for editing
+        async function loadProductData(productId) {
+            try {
+                showLoading();
+                
+                const token = localStorage.getItem('token');
+                
+                // First try to get from club-admin products endpoint
+                const response = await fetch(`${API_BASE_URL}/club-admin/products`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!response.ok) throw new Error('Failed to load products');
+                
+                const result = await response.json();
+                const products = result.data || result;
+                
+                // Find the specific product
+                const product = Array.isArray(products) 
+                    ? products.find(p => p.id == productId)
+                    : null;
+                
+                if (!product) {
+                    throw new Error('Product not found');
+                }
+
+                if (!response.ok) throw new Error('Failed to load product');
+
+                
+                
+                if (!product || !product.id) {
+                    throw new Error('Invalid product data received');
+                }
+                
+                // Populate form fields
+                document.getElementById('productName').value = product.name || '';
+                document.getElementById('description').value = product.description || '';
+                document.getElementById('category').value = product.category || '';
+                
+                // Set condition radio button
+                const conditionValue = product.condition || 'new';
+                const conditionRadio = document.querySelector(`input[name="condition"][value="${conditionValue}"]`);
+                if (conditionRadio) {
+                    conditionRadio.checked = true;
+                }
+                
+                document.getElementById('price').value = product.price || '';
+                document.getElementById('originalPrice').value = product.original_price || '';
+                document.getElementById('stock').value = product.stock !== undefined ? product.stock : 0;
+                document.getElementById('weight').value = product.weight || '';
+                document.getElementById('deliveryTime').value = product.delivery_time || '3-5 business days';
+                
+                // Set status
+                document.getElementById('status').value = product.status || 'active';
+                
+                // Load images
+                if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+                    productImages = product.images.map((img, index) => {
+                        const imageUrl = typeof img === 'string' ? img : (img.image_url || img.url);
+                        return {
+                            url: imageUrl,
+                            file: null,
+                            isPrimary: index === 0
+                        };
+                    });
+                    renderImagePreviews();
+                }
+                
+                // Load specifications
+                if (product.specifications) {
+                    const specs = typeof product.specifications === 'string' 
+                        ? JSON.parse(product.specifications) 
+                        : product.specifications;
+                    
+                    if (specs && typeof specs === 'object') {
+                        specifications = Object.entries(specs).map(([key, value]) => ({
+                            key,
+                            value: String(value)
+                        }));
+                        renderSpecifications();
+                    }
+                }
+                
+                // Load tags
+                if (product.tags) {
+                    const tags = Array.isArray(product.tags) ? product.tags : [];
+                    if (tags.length > 0) {
+                        productTags = [...tags];
+                        renderTags();
+                        updateSuggestedTags();
+                    }
+                }
+                
+                // Load linked competitions
+                if (product.related_competitions && Array.isArray(product.related_competitions) && product.related_competitions.length > 0) {
+                    linkedCompetitions = product.related_competitions.map(comp => ({
+                        id: comp.id,
+                        title: comp.title,
+                        banner_url: comp.banner_url || ''
+                    }));
+                    renderSelectedCompetitions();
+                }
+                
+                // Load shipping regions
+                if (product.shipping_regions) {
+                    const regions = Array.isArray(product.shipping_regions) ? product.shipping_regions : [];
+                    if (regions.length > 0) {
+                        selectedRegions = [...regions];
+                        
+                        // Check the checkboxes
+                        selectedRegions.forEach(region => {
+                            const checkbox = document.querySelector(`#regionsDropdown input[value="${region}"]`);
+                            if (checkbox) {
+                                checkbox.checked = true;
+                            }
+                        });
+                        
+                        updateSelectedRegions();
+                    }
+                }
+                
+                // Update displays
+                updatePriceDisplay();
+                updateStockStatus();
+                updateCharCounts();
+                
+            } catch (error) {
+                console.error('Error loading product:', error);
+                showToast('Failed to load product data', 'error');
+                setTimeout(() => window.location.href = 'manage-products.html', 2000);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 1024 &&
+                        !sidebar.contains(e.target) &&
+                        !mobileMenuBtn.contains(e.target)) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            }
+
+            // Notification button
+            const notificationBtn = document.getElementById('notificationBtn');
+            if (notificationBtn) {
+                notificationBtn.addEventListener('click', () => {
+                    showToast('Notifications feature coming soon!', 'info');
+                });
+            }
+
+            // Form submission
+            document.getElementById('productForm').addEventListener('submit', handleSubmit);
+            
+            // Image upload
+            const imageUploadZone = document.getElementById('imageUploadZone');
+            const imageInput = document.getElementById('imageInput');
+            
+            imageUploadZone.addEventListener('click', () => imageInput.click());
+            imageInput.addEventListener('change', handleImageSelect);
+            
+            // Drag and drop
+            imageUploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                imageUploadZone.classList.add('dragover');
+            });
+            
+            imageUploadZone.addEventListener('dragleave', () => {
+                imageUploadZone.classList.remove('dragover');
+            });
+            
+            imageUploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                imageUploadZone.classList.remove('dragover');
+                handleImageDrop(e.dataTransfer.files);
+            });
+            
+            // Character counters
+            document.getElementById('productName').addEventListener('input', updateCharCounts);
+            document.getElementById('description').addEventListener('input', updateCharCounts);
+            
+            // Price updates
+            document.getElementById('price').addEventListener('input', updatePriceDisplay);
+            document.getElementById('originalPrice').addEventListener('input', updatePriceDisplay);
+            document.getElementById('stock').addEventListener('input', updateStockStatus);
+            
+            // Tag input
+            document.getElementById('tagInput').addEventListener('keydown', handleTagInput);
+            
+            // Category change for suggested tags
+            document.getElementById('category').addEventListener('change', updateSuggestedTags);
+            
+            // Competition search
+            const competitionSearch = document.getElementById('competitionSearch');
+            if (competitionSearch) {
+                let searchTimeout;
+                competitionSearch.addEventListener('input', (e) => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => searchCompetitions(e.target.value), 300);
+                });
+            }
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.competition-search')) {
+                    document.getElementById('competitionResults').classList.remove('active');
+                }
+                if (!e.target.closest('.multi-select')) {
+                    document.getElementById('regionsDropdown').classList.remove('active');
+                }
+            });
+        }
+
+        // Update character counts
+        function updateCharCounts() {
+            const name = document.getElementById('productName').value;
+            document.getElementById('nameCharCount').textContent = name.length;
+            
+            const desc = document.getElementById('description').value;
+            document.getElementById('descCharCount').textContent = desc.length;
+        }
+
+        // Image Handling
+        function handleImageSelect(e) {
+            const files = Array.from(e.target.files);
+            handleImageDrop(files);
+        }
+
+        function handleImageDrop(files) {
+            const imageFiles = Array.from(files).filter(file => 
+                file.type.startsWith('image/') && file.size <= 2 * 1024 * 1024
+            );
+            
+            if (imageFiles.length === 0) {
+                showToast('Please select valid images (max 2MB each)', 'error');
+                return;
+            }
+            
+            const remainingSlots = 5 - productImages.length;
+            if (imageFiles.length > remainingSlots) {
+                showToast(`You can only upload ${remainingSlots} more image(s)`, 'warning');
+                imageFiles.splice(remainingSlots);
+            }
+            
+            imageFiles.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    productImages.push({
+                        url: e.target.result,
+                        file: file,
+                        isPrimary: productImages.length === 0
+                    });
+                    renderImagePreviews();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function renderImagePreviews() {
+            const container = document.getElementById('imagePreviews');
+            
+            if (productImages.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            container.innerHTML = productImages.map((img, index) => `
+                <div class="image-preview ${img.isPrimary ? 'primary' : ''}" draggable="true" data-index="${index}">
+                    ${img.isPrimary ? '<div class="primary-badge">Primary</div>' : ''}
+                    <img src="${img.url}" alt="Product image ${index + 1}">
+                    <div class="image-overlay">
+                        ${!img.isPrimary ? `<button type="button" class="overlay-btn" onclick="setPrimaryImage(${index})" title="Set as primary">⭐</button>` : ''}
+                        <button type="button" class="overlay-btn" onclick="removeImage(${index})" title="Remove">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add drag and drop reordering
+            const previews = container.querySelectorAll('.image-preview');
+            previews.forEach(preview => {
+                preview.addEventListener('dragstart', handleDragStart);
+                preview.addEventListener('dragover', handleDragOver);
+                preview.addEventListener('drop', handleDrop);
+                preview.addEventListener('dragend', handleDragEnd);
+            });
+        }
+
+        let draggedIndex = null;
+
+        function handleDragStart(e) {
+            draggedIndex = parseInt(e.target.dataset.index);
+            e.target.style.opacity = '0.5';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const dropIndex = parseInt(e.currentTarget.dataset.index);
+            
+            if (draggedIndex !== dropIndex) {
+                const draggedItem = productImages[draggedIndex];
+                productImages.splice(draggedIndex, 1);
+                productImages.splice(dropIndex, 0, draggedItem);
+                renderImagePreviews();
+            }
+        }
+
+        function handleDragEnd(e) {
+            e.target.style.opacity = '1';
+            draggedIndex = null;
+        }
+
+        function setPrimaryImage(index) {
+            productImages.forEach(img => img.isPrimary = false);
+            productImages[index].isPrimary = true;
+            renderImagePreviews();
+        }
+
+        function removeImage(index) {
+            const wasPrimary = productImages[index].isPrimary;
+            productImages.splice(index, 1);
+            
+            if (wasPrimary && productImages.length > 0) {
+                productImages[0].isPrimary = true;
+            }
+            
+            renderImagePreviews();
+        }
+
+        // Specifications
+        function addSpecification() {
+            specifications.push({ key: '', value: '' });
+            renderSpecifications();
+        }
+
+        function removeSpecification(index) {
+            specifications.splice(index, 1);
+            renderSpecifications();
+        }
+
+        function renderSpecifications() {
+            const container = document.getElementById('specList');
+            
+            if (specifications.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚙️</div>
+                        <h3>No specifications added yet</h3>
+                        <p>Click "Add Specification" to start</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = specifications.map((spec, index) => `
+                <div class="spec-item">
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        placeholder="e.g., Voltage"
+                        value="${spec.key}"
+                        onchange="updateSpecification(${index}, 'key', this.value)"
+                    >
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        placeholder="e.g., 5V"
+                        value="${spec.value}"
+                        onchange="updateSpecification(${index}, 'value', this.value)"
+                    >
+                    <button type="button" class="spec-remove" onclick="removeSpecification(${index})">
+                        ✕
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateSpecification(index, field, value) {
+            specifications[index][field] = value;
+        }
+
+        // Tags
+        function handleTagInput(e) {
+            if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault();
+                const input = e.target;
+                const tag = input.value.trim().toLowerCase();
+                
+                if (tag && !productTags.includes(tag)) {
+                    productTags.push(tag);
+                    renderTags();
+                    input.value = '';
+                }
+            }
+        }
+
+        function removeTag(index) {
+            productTags.splice(index, 1);
+            renderTags();
+        }
+
+        function renderTags() {
+            const container = document.getElementById('tagsContainer');
+            const input = document.getElementById('tagInput');
+            
+            const tagsHTML = productTags.map((tag, index) => `
+                <div class="tag-chip">
+                    <span>${tag}</span>
+                    <button type="button" class="tag-remove" onclick="removeTag(${index})">✕</button>
+                </div>
+            `).join('');
+            
+            container.innerHTML = tagsHTML + input.outerHTML;
+            
+            // Re-attach event listener to new input
+            const newInput = container.querySelector('.tag-input');
+            newInput.addEventListener('keydown', handleTagInput);
+        }
+
+        function focusTagInput() {
+            document.getElementById('tagInput').focus();
+        }
+
+        function updateSuggestedTags() {
+            const category = document.getElementById('category').value;
+            const container = document.getElementById('suggestedTags');
+            
+            const suggestions = {
+                'Microcontrollers': ['arduino', 'esp32', 'raspberry-pi', 'atmega', 'stm32'],
+                'Sensors': ['ultrasonic', 'infrared', 'temperature', 'humidity', 'proximity'],
+                'Motors & Drivers': ['servo', 'dc-motor', 'stepper', 'motor-driver', 'l298n'],
+                'Power & Battery': ['battery', 'power-supply', 'lipo', 'voltage-regulator'],
+                'Communication': ['bluetooth', 'wifi', 'rf-module', 'lora', 'gsm'],
+                'Displays': ['lcd', 'oled', 'tft', '7-segment', 'led-matrix'],
+                'Tools & Equipment': ['soldering', 'multimeter', 'oscilloscope', 'breadboard'],
+                'Mechanical Parts': ['wheels', 'chassis', 'gears', 'bearings', 'screws']
+            };
+            
+            const tags = suggestions[category] || [];
+            
+            container.innerHTML = tags.map(tag => `
+                <button type="button" class="suggested-tag" onclick="addSuggestedTag('${tag}')">
+                    + ${tag}
+                </button>
+            `).join('');
+        }
+
+        function addSuggestedTag(tag) {
+            if (!productTags.includes(tag)) {
+                productTags.push(tag);
+                renderTags();
+            }
+        }
+
+        // Competition Search
+        async function searchCompetitions(query) {
+            if (!query.trim()) {
+                document.getElementById('competitionResults').classList.remove('active');
+                return;
+            }
+            
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`${API_BASE_URL}/club-admin/competitions?search=${encodeURIComponent(query)}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!response.ok) throw new Error('Failed to search competitions');
+                
+                const data = await response.json();
+                const competitions = data.data || data;
+                renderCompetitionResults(competitions);
+                
+            } catch (error) {
+                console.error('Error searching competitions:', error);
+            }
+        }
+
+        function renderCompetitionResults(competitions) {
+            const container = document.getElementById('competitionResults');
+            
+            if (!competitions || competitions.length === 0) {
+                container.innerHTML = '<div style="padding: 1rem; text-align: center; color: var(--gray-500); font-size: 0.875rem;">No competitions found</div>';
+                container.classList.add('active');
+                return;
+            }
+            
+            container.innerHTML = competitions
+                .filter(comp => !linkedCompetitions.find(c => c.id === comp.id))
+                .map(comp => `
+                    <div class="competition-result-item" onclick="selectCompetition(${comp.id}, '${comp.title.replace(/'/g, "\\'")}', '${comp.banner_url || ''}')">
+                        <h4>${comp.title}</h4>
+                        <p>${new Date(comp.competition_date).toLocaleDateString('en-BD', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    </div>
+                `).join('');
+            
+            container.classList.add('active');
+        }
+
+        function selectCompetition(id, title, banner) {
+            linkedCompetitions.push({ id, title, banner_url: banner });
+            renderSelectedCompetitions();
+            document.getElementById('competitionSearch').value = '';
+            document.getElementById('competitionResults').classList.remove('active');
+        }
+
+        function removeCompetition(index) {
+            linkedCompetitions.splice(index, 1);
+            renderSelectedCompetitions();
+        }
+
+        function renderSelectedCompetitions() {
+            const container = document.getElementById('selectedCompetitions');
+            
+            if (linkedCompetitions.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🏆</div>
+                        <h3>No competitions linked</h3>
+                        <p>Search and select competitions</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = linkedCompetitions.map((comp, index) => `
+                <div class="selected-competition">
+                    ${comp.banner_url ? `<img src="${comp.banner_url}" alt="${comp.title}" class="competition-thumb">` : '<div class="competition-thumb" style="background: var(--gray-200); display: flex; align-items: center; justify-content: center;">🏆</div>'}
+                    <div class="competition-info">
+                        <h4>${comp.title}</h4>
+                        <p>Linked competition</p>
+                    </div>
+                    <button type="button" class="competition-remove" onclick="removeCompetition(${index})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        // Regions Multi-Select
+        function toggleRegions() {
+            const dropdown = document.getElementById('regionsDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function toggleAllRegions(checkbox) {
+            const checkboxes = document.querySelectorAll('#regionsDropdown input[type="checkbox"]:not([value="all"])');
+            checkboxes.forEach(cb => cb.checked = checkbox.checked);
+            updateSelectedRegions();
+        }
+
+        function updateSelectedRegions() {
+            const checkboxes = Array.from(document.querySelectorAll('#regionsDropdown input[type="checkbox"]:not([value="all"]):checked'));
+            selectedRegions = checkboxes.map(cb => cb.value);
+            
+            const allCheckbox = document.querySelector('#regionsDropdown input[value="all"]');
+            const totalCheckboxes = document.querySelectorAll('#regionsDropdown input[type="checkbox"]:not([value="all"])').length;
+            allCheckbox.checked = selectedRegions.length === totalCheckboxes;
+            
+            const container = document.getElementById('selectedRegions');
+            const text = document.getElementById('regionsText');
+            
+            if (selectedRegions.length === 0) {
+                text.textContent = 'Select shipping regions...';
+                container.innerHTML = '';
+            } else if (selectedRegions.length === totalCheckboxes) {
+                text.textContent = 'All Districts';
+                container.innerHTML = '<div class="selected-item"><span>All Districts</span></div>';
+            } else {
+                text.textContent = `${selectedRegions.length} district(s) selected`;
+                container.innerHTML = selectedRegions.map(region => `
+                    <div class="selected-item"><span>${region}</span></div>
+                `).join('');
+            }
+        }
+
+        // Price Display
+        function updatePriceDisplay() {
+            const price = parseFloat(document.getElementById('price').value) || 0;
+            const originalPrice = parseFloat(document.getElementById('originalPrice').value) || 0;
+            const display = document.getElementById('priceDisplay');
+            
+            if (price === 0) {
+                display.style.display = 'none';
+                return;
+            }
+            
+            document.getElementById('displayPrice').textContent = `৳${price.toLocaleString('en-BD', {minimumFractionDigits: 2})}`;
+            
+            if (originalPrice > price) {
+                display.style.display = 'block';
+                document.getElementById('displayOriginalPrice').textContent = `৳${originalPrice.toLocaleString('en-BD', {minimumFractionDigits: 2})}`;
+                
+                const discount = originalPrice - price;
+                const percentage = Math.round((discount / originalPrice) * 100);
+                document.getElementById('displayDiscount').textContent = `৳${discount.toLocaleString('en-BD', {minimumFractionDigits: 2})} (${percentage}%)`;
+            } else {
+                display.style.display = 'none';
+            }
+        }
+
+        // Stock Status
+        function updateStockStatus() {
+            const stock = parseInt(document.getElementById('stock').value) || 0;
+            const statusDiv = document.getElementById('stockStatus');
+            
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'stock-status';
+            
+            if (stock === 0) {
+                statusDiv.classList.add('out-of-stock');
+                statusDiv.innerHTML = '🔴 Out of Stock';
+            } else if (stock <= 5) {
+                statusDiv.classList.add('low-stock');
+                statusDiv.innerHTML = `⚠️ Low Stock (${stock} units remaining)`;
+            } else {
+                statusDiv.classList.add('in-stock');
+                statusDiv.innerHTML = `✅ In Stock (${stock} units available)`;
+            }
+        }
+
+        // SKU Generation
+        function generateSKU() {
+            const timestamp = Date.now().toString(36).toUpperCase();
+            const random = Math.random().toString(36).substr(2, 4).toUpperCase();
+            const sku = `NX-${timestamp}-${random}`;
+            document.getElementById('skuValue').textContent = sku;
+        }
+
+        // Form Submission
+        async function handleSubmit(e) {
+            e.preventDefault();
+            
+            // Validate form
+            if (productImages.length === 0) {
+                showToast('Please upload at least one product image', 'error');
+                return;
+            }
+            
+            const name = document.getElementById('productName').value.trim();
+            if (name.length < 5) {
+                showToast('Product name must be at least 5 characters', 'error');
+                return;
+            }
+            
+            const description = document.getElementById('description').value.trim();
+            if (description.length < 50) {
+                showToast('Description must be at least 50 characters', 'error');
+                return;
+            }
+            
+            const price = parseFloat(document.getElementById('price').value);
+            if (!price || price <= 0) {
+                showToast('Please enter a valid price', 'error');
+                return;
+            }
+            
+            const stock = parseInt(document.getElementById('stock').value);
+            if (isNaN(stock) || stock < 0) {
+                showToast('Please enter a valid stock quantity', 'error');
+                return;
+            }
+            
+            try {
+                showLoading();
+                
+                // Upload images first
+                const uploadedImages = await uploadImages();
+                
+                // Prepare product data
+                const specificationsObj = specifications.reduce((obj, spec) => {
+                    if (spec.key && spec.value) {
+                        obj[spec.key] = spec.value;
+                    }
+                    return obj;
+                }, {});
+                
+                const productData = {
+                    name,
+                    description,
+                    category: document.getElementById('category').value,
+                    condition: document.querySelector('input[name="condition"]:checked').value,
+                    price,
+                    original_price: parseFloat(document.getElementById('originalPrice').value) || null,
+                    stock,
+                    weight: parseInt(document.getElementById('weight').value) || null,
+                    sku: document.getElementById('skuValue').textContent,
+                    specifications: specificationsObj,
+                    tags: productTags,
+                    images: uploadedImages,
+                    shipping_regions: selectedRegions,
+                    delivery_time: document.getElementById('deliveryTime').value,
+                    linked_competitions: linkedCompetitions.map(c => c.id),
+                    status: document.getElementById('status').value
+                };
+                
+                const token = localStorage.getItem('token');
+                const url = isEditMode 
+                    ? `${API_BASE_URL}/club-admin/products/${editProductId}`
+                    : `${API_BASE_URL}/club-admin/products`;
+                
+                const response = await fetch(url, {
+                    method: isEditMode ? 'PUT' : 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Failed to save product');
+                }
+                
+                showToast(
+                    isEditMode ? 'Product updated successfully!' : 'Product created successfully!',
+                    'success'
+                );
+                
+                setTimeout(() => {
+                    window.location.href = 'manage-products.html';
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Error saving product:', error);
+                showToast(error.message || 'Failed to save product', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Upload Images
+        async function uploadImages() {
+            const uploadedImages = [];
+            
+            for (let i = 0; i < productImages.length; i++) {
+                const img = productImages[i];
+                
+                if (img.file) {
+                    // New image - upload to Cloudinary
+                    const formData = new FormData();
+                    formData.append('image', img.file);
+                    
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${API_BASE_URL}/upload/image`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: formData
+                    });
+                    
+                    if (!response.ok) {
+                        const error = await response.json().catch(() => ({}));
+                        throw new Error(error.message || 'Failed to upload image');
+                    }
+                    
+                    const result = await response.json();
+                    console.log('Upload result:', result);
+                    
+                    // Use the correct field name from API response
+                    const imageUrl = result.imageUrl || result.url || result.data?.imageUrl;
+                    
+                    if (!imageUrl) {
+                        console.error('No image URL in response:', result);
+                        throw new Error('Failed to get image URL from upload');
+                    }
+                    
+                    uploadedImages.push(imageUrl);
+                } else {
+                    // Existing image
+                    uploadedImages.push(img.url);
+                }
+            }
+            
+            console.log('All uploaded images:', uploadedImages);
+            return uploadedImages;
+        }
+
+        // Save as Draft
+        async function saveDraft() {
+            document.getElementById('status').value = 'inactive';
+            document.getElementById('productForm').dispatchEvent(new Event('submit'));
+        }
+
+        // Cancel Form
+        function cancelForm() {
+            if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                window.location.href = 'manage-products.html';
+            }
+        }
+
+        // Toast Notifications
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.className = `toast show ${type}`;
+            toast.textContent = message;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Loading Overlay
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.add('active');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('active');
+        }
+
+        // Empty State
+        function renderEmptyState(container, icon, title, subtitle) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">${icon}</div>
+                    <h3>${title}</h3>
+                    <p>${subtitle}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

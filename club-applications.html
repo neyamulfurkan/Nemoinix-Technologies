@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Applications - Super Admin | Nemionix Technologies</title>
+    <meta name="description" content="Review and manage university robotics club applications">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-50: #FFF8E1;
+            --primary-100: #FFECB3;
+            --primary-500: #FFC107;
+            --primary-600: #FFB300;
+            --primary-700: #FFA000;
+            --secondary-500: #1991EB;
+            --secondary-600: #1474BC;
+            --accent-500: #FF9119;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .navbar-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--gray-900);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.25rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logo-text h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, var(--error), #DC2626);
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-500);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - 72px);
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            position: fixed;
+            height: calc(100vh - 72px);
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-500);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem;
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: var(--gray-50);
+            color: var(--primary-600);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 193, 7, 0.1);
+            color: var(--primary-600);
+            border-right: 3px solid var(--primary-500);
+            font-weight: 600;
+        }
+
+        .nav-link-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-badge {
+            background: var(--error);
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: var(--gray-600);
+            font-size: 0.9375rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .stat-card.pending::before {
+            background: linear-gradient(90deg, var(--warning), #D97706);
+        }
+
+        .stat-card.approved::before {
+            background: linear-gradient(90deg, var(--success), #059669);
+        }
+
+        .stat-card.rejected::before {
+            background: linear-gradient(90deg, var(--error), #DC2626);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            color: var(--gray-900);
+        }
+
+        /* Tabs */
+        .tabs-container {
+            background: white;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-base);
+            margin-bottom: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--gray-200);
+            padding: 0 1.5rem;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            font-weight: 600;
+            color: var(--gray-600);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab:hover {
+            color: var(--primary-600);
+        }
+
+        .tab.active {
+            color: var(--primary-600);
+            border-bottom-color: var(--primary-500);
+        }
+
+        .tab-badge {
+            background: var(--gray-200);
+            color: var(--gray-700);
+            padding: 0.125rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .tab.active .tab-badge {
+            background: var(--primary-500);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 1.5rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Applications Grid */
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .application-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-base);
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .application-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-500);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .club-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .club-info {
+            flex: 1;
+        }
+
+        .club-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .club-university {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .application-date {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 0.875rem;
+            color: var(--gray-900);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .card-actions {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: inherit;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-text {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+
+        /* History Table */
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table thead {
+            background: var(--gray-50);
+        }
+
+        .history-table th {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-700);
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .history-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.875rem;
+        }
+
+        .history-table tr:hover {
+            background: var(--gray-50);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-approved {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-rejected {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-approved .status-dot {
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        .status-rejected .status-dot {
+            background: var(--error);
+            box-shadow: 0 0 8px var(--error);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--radius-2xl);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+
+        .modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-500);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .club-header-modal {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.5rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-xl);
+            margin-bottom: 2rem;
+        }
+
+        .club-logo-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 16px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .club-details-modal {
+            flex: 1;
+        }
+
+        .club-name-modal {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .club-university-modal {
+            font-size: 1rem;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .club-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .detail-item {
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+        }
+
+        .detail-label {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-size: 0.9375rem;
+            color: var(--gray-900);
+            font-weight: 600;
+        }
+
+        .description-box {
+            padding: 1.25rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary-500);
+        }
+
+        .description-text {
+            color: var(--gray-700);
+            line-height: 1.8;
+        }
+
+        .document-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .document-item {
+            padding: 1.25rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .document-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .document-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .document-label {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .document-size {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .btn-view-document {
+            padding: 0.5rem 1rem;
+            background: var(--info);
+            color: white;
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-view-document:hover {
+            background: #2563EB;
+            transform: translateY(-1px);
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            position: sticky;
+            bottom: 0;
+            background: white;
+        }
+
+        .btn-approve {
+            background: var(--success);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-approve:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-reject {
+            background: var(--error);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-reject:hover {
+            background: #DC2626;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-info {
+            background: var(--info);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-info:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Rejection Modal */
+        .reject-modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-size: 0.9375rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-size: 0.9375rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        }
+
+        .warning-box {
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--error);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.5rem;
+        }
+
+        .warning-text {
+            color: var(--error);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Loading */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary-500);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 10001;
+            animation: slideIn 0.3s ease;
+            min-width: 300px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--error);
+        }
+
+        .toast-info {
+            border-left: 4px solid var(--info);
+        }
+
+        /* Responsive */
+        @media (max-width: 1280px) {
+            .applications-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .applications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                overflow-x: auto;
+            }
+
+            .modal {
+                max-width: 100%;
+                margin: 1rem;
+            }
+
+            .club-header-modal {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">NX</div>
+                <div class="logo-text">
+                    <h1>Nemionix Technologies</h1>
+                    <p>Engineering the Future, Today</p>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <div class="admin-badge">SUPER ADMIN</div>
+                <div class="user-info">
+                    <img src="assets/default-avatar.png" alt="Admin" class="user-avatar" id="userAvatar">
+                    <span id="userName">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Overview</div>
+                <a href="super-admin-dashboard.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </div>
+                </a>
+
+                <div class="nav-section-title">Management</div>
+                <a href="manage-clubs.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>🏢</span>
+                        <span>Manage Clubs</span>
+                    </div>
+                </a>
+                <a href="club-applications.html" class="nav-link active">
+                    <div class="nav-link-content">
+                        <span>📝</span>
+                        <span>Club Applications</span>
+                    </div>
+                    <span class="nav-badge" id="pendingClubsBadge">0</span>
+                </a>
+                <a href="manage-users.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>👥</span>
+                        <span>Manage Users</span>
+                    </div>
+                </a>
+                <a href="manage-all-products.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📦</span>
+                        <span>Manage Products</span>
+                    </div>
+                </a>
+                <a href="manage-all-competitions.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>🏆</span>
+                        <span>Manage Competitions</span>
+                    </div>
+                </a>
+                <a href="manage-all-orders.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>🛒</span>
+                        <span>Orders Overview</span>
+                    </div>
+                </a>
+
+                <div class="nav-section-title">Financial</div>
+                <a href="financial-admin.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>💰</span>
+                        <span>Financial Management</span>
+                    </div>
+                </a>
+                <a href="reward-system-admin.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>🏅</span>
+                        <span>Reward System</span>
+                    </div>
+                </a>
+
+                <div class="nav-section-title">System</div>
+                <a href="platform-settings.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>⚙️</span>
+                        <span>Platform Settings</span>
+                    </div>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📈</span>
+                        <span>Analytics</span>
+                    </div>
+                </a>
+                <a href="activity-logs.html" class="nav-link">
+                    <div class="nav-link-content">
+                        <span>📋</span>
+                        <span>Activity Logs</span>
+                    </div>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-top">
+                    <div>
+                        <h1 class="page-title">Club Applications</h1>
+                        <p class="page-subtitle">Review and approve university robotics club applications</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-card pending">
+                    <div class="stat-label">Pending Review</div>
+                    <div class="stat-value" id="pendingCount">0</div>
+                </div>
+                <div class="stat-card approved">
+                    <div class="stat-label">Approved</div>
+                    <div class="stat-value" id="approvedCount">0</div>
+                </div>
+                <div class="stat-card rejected">
+                    <div class="stat-label">Rejected</div>
+                    <div class="stat-value" id="rejectedCount">0</div>
+                </div>
+            </div>
+
+            <!-- Tabs Container -->
+            <div class="tabs-container">
+                <div class="tabs">
+                    <div class="tab active" data-tab="pending">
+                        <span>⏳</span>
+                        <span>Pending</span>
+                        <span class="tab-badge" id="pendingTabBadge">0</span>
+                    </div>
+                    <div class="tab" data-tab="approved">
+                        <span>✓</span>
+                        <span>Approved</span>
+                        <span class="tab-badge" id="approvedTabBadge">0</span>
+                    </div>
+                    <div class="tab" data-tab="rejected">
+                        <span>✗</span>
+                        <span>Rejected</span>
+                        <span class="tab-badge" id="rejectedTabBadge">0</span>
+                    </div>
+                </div>
+
+                <!-- Pending Tab Content -->
+                <div class="tab-content active" id="pendingContent">
+                    <div class="applications-grid" id="pendingGrid">
+                        <!-- Pending applications loaded here -->
+                    </div>
+                </div>
+
+                <!-- Approved Tab Content -->
+                <div class="tab-content" id="approvedContent">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Club Name</th>
+                                <th>University</th>
+                                <th>Applied Date</th>
+                                <th>Approved Date</th>
+                                <th>Approved By</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="approvedTableBody">
+                            <!-- Approved applications loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Rejected Tab Content -->
+                <div class="tab-content" id="rejectedContent">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Club Name</th>
+                                <th>University</th>
+                                <th>Applied Date</th>
+                                <th>Rejected Date</th>
+                                <th>Rejected By</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rejectedTableBody">
+                            <!-- Rejected applications loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Review Application Modal -->
+    <div class="modal-overlay" id="reviewModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Review Club Application</h3>
+                <button class="modal-close" onclick="closeModal('reviewModal')">×</button>
+            </div>
+            <div class="modal-body" id="reviewModalBody">
+                <!-- Application details loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('reviewModal')">Close</button>
+                <button class="btn-info" onclick="openRequestInfoModal()">
+                    <span>📧</span>
+                    <span>Request More Info</span>
+                </button>
+                <button class="btn-reject" onclick="openRejectModal()">
+                    <span>✗</span>
+                    <span>Reject</span>
+                </button>
+                <button class="btn-approve" id="approveBtn">
+                    <span>✓</span>
+                    <span>Approve</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Modal -->
+    <div class="modal-overlay" id="rejectModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Reject Application</h3>
+                <button class="modal-close" onclick="closeModal('rejectModal')">×</button>
+            </div>
+            <div class="reject-modal-body">
+                <div class="warning-box">
+                    <p class="warning-text">
+                        <span>⚠️</span>
+                        <span>This action will permanently reject this club application</span>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Rejection Reason *</label>
+                    <textarea class="form-textarea" id="rejectionReason" 
+                              placeholder="Please provide a clear reason for rejection. This will be sent to the applicant."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('rejectModal')">Cancel</button>
+                <button class="btn-reject" onclick="confirmReject()">
+                    <span>✗</span>
+                    <span>Confirm Rejection</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request More Info Modal -->
+    <div class="modal-overlay" id="requestInfoModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Request Additional Information</h3>
+                <button class="modal-close" onclick="closeModal('requestInfoModal')">×</button>
+            </div>
+            <div class="reject-modal-body">
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <input type="text" class="form-input" id="infoSubject" 
+                           placeholder="Additional Information Required">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Message *</label>
+                    <textarea class="form-textarea" id="infoMessage" 
+                              placeholder="Describe what additional information or documents you need from the applicant..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('requestInfoModal')">Cancel</button>
+                <button class="btn-info" onclick="sendInfoRequest()">
+                    <span>📧</span>
+                    <span>Send Request</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = 'http://localhost:3000/api';
+        
+        // State
+        let currentUser = null;
+        let currentApplication = null;
+        let applications = {
+            pending: [],
+            approved: [],
+            rejected: []
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadApplications();
+            initializeEventListeners();
+        });
+
+        // Check Authentication
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || 'null');
+
+            if (!token || !user || user.role !== 'super_admin') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            currentUser = user;
+            document.getElementById('userName').textContent = currentUser.full_name;
+            if (currentUser.avatar_url) {
+                document.getElementById('userAvatar').src = currentUser.avatar_url;
+            }
+        }
+
+        // Initialize Event Listeners
+        function initializeEventListeners() {
+            // Tab switching
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.dataset.tab;
+                    switchTab(tabName);
+                });
+            });
+        }
+
+        // Switch Tab
+        function switchTab(tabName) {
+            // Update active tab
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
+
+            // Update active content
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(`${tabName}Content`).classList.add('active');
+        }
+
+        // Load Applications
+        async function loadApplications() {
+            try {
+                showLoading();
+                const token = localStorage.getItem('token');
+                
+                const response = await fetch(`${API_BASE_URL}/super-admin/clubs/pending`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to load applications');
+
+                const data = await response.json();
+                
+                // API returns all pending clubs in data.data
+                applications.pending = data.data || [];
+                
+                // DEBUG: Log the actual data to see what we're getting
+                console.log('Raw API response:', data);
+                console.log('Pending applications:', applications.pending);
+                if (applications.pending.length > 0) {
+                    console.log('First application logo_url:', applications.pending[0].logo_url);
+                    console.log('First application certificate_url:', applications.pending[0].certificate_url);
+                }
+                applications.approved = []; // Will be loaded separately if needed
+                applications.rejected = []; // Will be loaded separately if needed
+
+                updateStats();
+                renderPendingApplications();
+                renderApprovedApplications();
+                renderRejectedApplications();
+
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Failed to load applications', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Update Stats
+        function updateStats() {
+            const pendingCount = applications.pending.length;
+            const approvedCount = applications.approved.length;
+            const rejectedCount = applications.rejected.length;
+
+            document.getElementById('pendingCount').textContent = pendingCount;
+            document.getElementById('approvedCount').textContent = approvedCount;
+            document.getElementById('rejectedCount').textContent = rejectedCount;
+
+            document.getElementById('pendingTabBadge').textContent = pendingCount;
+            document.getElementById('approvedTabBadge').textContent = approvedCount;
+            document.getElementById('rejectedTabBadge').textContent = rejectedCount;
+
+            document.getElementById('pendingClubsBadge').textContent = pendingCount;
+        }
+
+        // Render Pending Applications
+        function renderPendingApplications() {
+            const grid = document.getElementById('pendingGrid');
+
+            if (applications.pending.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-icon">📝</div>
+                        <h3 class="empty-title">No Pending Applications</h3>
+                        <p class="empty-text">All club applications have been reviewed. New applications will appear here.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = applications.pending.map(app => `
+                <div class="application-card">
+                    <div class="card-header">
+                        <img src="${app.logo_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(app.club_name) + '&size=200&background=1991EB&color=fff&bold=true'}" 
+                             alt="${app.club_name}" 
+                             class="club-logo">
+                        <div class="club-info">
+                            <h3 class="club-name">${app.club_name}</h3>
+                            <p class="club-university">${app.university}</p>
+                            <p class="application-date">
+                                <span>📅</span>
+                                <span>Applied: ${formatDate(app.created_at)}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">Established</span>
+                            <span class="info-value">${app.established_year}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Contact Email</span>
+                            <span class="info-value">${app.user_email || app.email}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Contact Phone</span>
+                            <span class="info-value">${app.user_phone || app.phone}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Admin Name</span>
+                            <span class="info-value">${app.admin_name || 'N/A'}</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-primary" onclick="openReviewModal(${app.id})">
+                            <span>👁️</span>
+                            <span>Review</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Approved Applications
+        function renderApprovedApplications() {
+            const tbody = document.getElementById('approvedTableBody');
+
+            if (applications.approved.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <div class="empty-icon">✓</div>
+                                <h3 class="empty-title">No Approved Applications</h3>
+                                <p class="empty-text">Approved club applications will appear here.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = applications.approved.map(app => `
+                <tr>
+                    <td><strong>${app.club_name}</strong></td>
+                    <td>${app.university}</td>
+                    <td>${formatDate(app.created_at)}</td>
+                    <td>${formatDate(app.approved_at)}</td>
+                    <td>${app.approved_by_name || 'Admin'}</td>
+                    <td>
+                        <span class="status-badge status-approved">
+                            <span class="status-dot"></span>
+                            Approved
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-secondary" style="padding: 0.5rem 1rem;" 
+                                onclick="viewClubProfile('${app.slug}')">
+                            View Profile
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Rejected Applications
+        function renderRejectedApplications() {
+            const tbody = document.getElementById('rejectedTableBody');
+
+            if (applications.rejected.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <div class="empty-icon">✗</div>
+                                <h3 class="empty-title">No Rejected Applications</h3>
+                                <p class="empty-text">Rejected applications will appear here.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = applications.rejected.map(app => `
+                <tr>
+                    <td><strong>${app.club_name}</strong></td>
+                    <td>${app.university}</td>
+                    <td>${formatDate(app.created_at)}</td>
+                    <td>${formatDate(app.rejected_at)}</td>
+                    <td>${app.rejected_by_name || 'Admin'}</td>
+                    <td style="max-width: 200px;">
+                        <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" 
+                             title="${app.rejection_reason}">
+                            ${app.rejection_reason || 'N/A'}
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge status-rejected">
+                            <span class="status-dot"></span>
+                            Rejected
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-secondary" style="padding: 0.5rem 1rem; background: var(--error); color: white;" 
+                                onclick="deleteRejectedApplication(${app.id}, '${app.club_name}')">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Open Review Modal
+        function openReviewModal(applicationId) {
+            try {
+                showLoading();
+                
+                // Find application from loaded data
+                currentApplication = applications.pending.find(app => app.id === applicationId);
+                
+                console.log('Opening review modal for:', applicationId);
+                console.log('Found application:', currentApplication);
+                console.log('All pending applications:', applications.pending);
+                
+                if (!currentApplication) {
+                    throw new Error('Application not found');
+                }
+
+                renderReviewModal();
+                document.getElementById('reviewModal').classList.add('show');
+
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Failed to load application details', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Render Review Modal
+        function renderReviewModal() {
+            const app = currentApplication;
+            const modalBody = document.getElementById('reviewModalBody');
+
+            modalBody.innerHTML = `
+                <!-- Club Header -->
+                <div class="club-header-modal">
+                    <img src="${app.logo_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(app.club_name) + '&size=200&background=1991EB&color=fff&bold=true'}" 
+                         alt="${app.club_name}" 
+                         class="club-logo-large">
+                    <div class="club-details-modal">
+                        <h2 class="club-name-modal">${app.club_name}</h2>
+                        <p class="club-university-modal">${app.university}</p>
+                        <div class="club-meta">
+                            <span>📅 Applied: ${formatDate(app.created_at)}</span>
+                            <span>📍 Established: ${app.established_year}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="modal-section">
+                    <h3 class="section-title">Contact Information</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-label">Admin Name</div>
+                            <div class="detail-value">${app.admin_name || app.user_name || 'N/A'}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Email</div>
+                            <div class="detail-value">${app.user_email || app.email || 'N/A'}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Phone</div>
+                            <div class="detail-value">${app.user_phone || app.phone || 'N/A'}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">University</div>
+                            <div class="detail-value">${app.university}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Club Description -->
+                <div class="modal-section">
+                    <h3 class="section-title">About the Club</h3>
+                    <div class="description-box">
+                        <p class="description-text">${app.description || 'No description provided.'}</p>
+                    </div>
+                </div>
+
+                <!-- Documents -->
+                <div class="modal-section">
+                    <h3 class="section-title">Documents</h3>
+                    <div class="document-preview">
+                        ${app.logo_url ? `
+                        <div class="document-item">
+                            <div class="document-info">
+                                <div class="document-icon">🖼️</div>
+                                <div>
+                                    <div class="document-label">Club Logo</div>
+                                    <div class="document-size">Image file</div>
+                                </div>
+                            </div>
+                            <button class="btn-view-document" onclick="viewDocument('${app.logo_url}')">
+                                View Logo
+                            </button>
+                        </div>
+                        ` : `
+                        <div class="document-item" style="background: rgba(239, 68, 68, 0.05);">
+                            <div class="document-info">
+                                <div class="document-icon" style="background: var(--error);">⚠️</div>
+                                <div>
+                                    <div class="document-label">Club Logo</div>
+                                    <div class="document-size" style="color: var(--error);">No logo uploaded</div>
+                                </div>
+                            </div>
+                        </div>
+                        `}
+                        ${app.certificate_url ? `
+                            <div class="document-item">
+                                <div class="document-info">
+                                    <div class="document-icon">📄</div>
+                                    <div>
+                                        <div class="document-label">Registration Certificate</div>
+                                        <div class="document-size">PDF/Image file</div>
+                                    </div>
+                                </div>
+                                <button class="btn-view-document" onclick="viewDocument('${app.certificate_url}')">
+                                    View Certificate
+                                </button>
+                            </div>
+                        ` : `
+                        <div class="document-item" style="background: rgba(239, 68, 68, 0.05);">
+                            <div class="document-info">
+                                <div class="document-icon" style="background: var(--error);">⚠️</div>
+                                <div>
+                                    <div class="document-label">Registration Certificate</div>
+                                    <div class="document-size" style="color: var(--error);">No certificate uploaded</div>
+                                </div>
+                            </div>
+                        </div>
+                        `}
+                    </div>
+                </div>
+
+                <!-- Social Links (if provided) -->
+                ${app.facebook_url || app.instagram_url || app.website_url ? `
+                    <div class="modal-section">
+                        <h3 class="section-title">Social Media & Website</h3>
+                        <div class="detail-grid">
+                            ${app.facebook_url ? `
+                                <div class="detail-item">
+                                    <div class="detail-label">Facebook</div>
+                                    <div class="detail-value">
+                                        <a href="${app.facebook_url}" target="_blank" style="color: var(--info);">
+                                            View Page
+                                        </a>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${app.instagram_url ? `
+                                <div class="detail-item">
+                                    <div class="detail-label">Instagram</div>
+                                    <div class="detail-value">
+                                        <a href="${app.instagram_url}" target="_blank" style="color: var(--info);">
+                                            View Profile
+                                        </a>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${app.website_url ? `
+                                <div class="detail-item">
+                                    <div class="detail-label">Website</div>
+                                    <div class="detail-value">
+                                        <a href="${app.website_url}" target="_blank" style="color: var(--info);">
+                                            Visit Website
+                                        </a>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+            
+            // Add event listener for approve button after rendering
+            setTimeout(() => {
+                const approveBtn = document.getElementById('approveBtn');
+                if (approveBtn) {
+                    approveBtn.onclick = () => approveApplication();
+                }
+            }, 0);
+        }
+
+        // View Document
+        function viewDocument(url) {
+            if (!url) {
+                showToast('Document not available', 'error');
+                return;
+            }
+            window.open(url, '_blank');
+        }
+
+        // Approve Application
+        async function approveApplication() {
+            if (!currentApplication) {
+                showToast('No application selected', 'error');
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to approve ${currentApplication.club_name}?`)) {
+                return;
+            }
+
+            try {
+                showLoading();
+                const token = localStorage.getItem('token');
+                
+                const response = await fetch(`${API_BASE_URL}/super-admin/clubs/${currentApplication.id}/approve`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || 'Failed to approve application');
+                }
+
+                const result = await response.json();
+                showToast(`${currentApplication.club_name} has been approved!`, 'success');
+                closeModal('reviewModal');
+                currentApplication = null;
+                await loadApplications();
+
+            } catch (error) {
+                console.error('Error:', error);
+                showToast(error.message || 'Failed to approve application', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Open Reject Modal
+        function openRejectModal() {
+            if (!currentApplication) {
+                showToast('Please open an application first', 'error');
+                return;
+            }
+            document.getElementById('rejectionReason').value = '';
+            document.getElementById('rejectModal').classList.add('show');
+        }
+
+        // Confirm Reject
+        async function confirmReject() {
+            if (!currentApplication) {
+                showToast('No application selected', 'error');
+                return;
+            }
+
+            const reason = document.getElementById('rejectionReason').value.trim();
+            
+            if (!reason) {
+                showToast('Please provide a rejection reason', 'error');
+                return;
+            }
+
+            try {
+                showLoading();
+                const token = localStorage.getItem('token');
+                
+                const response = await fetch(`${API_BASE_URL}/super-admin/clubs/${currentApplication.id}/reject`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ reason })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || 'Failed to reject application');
+                }
+
+                const result = await response.json();
+                showToast(`${currentApplication.club_name} has been rejected`, 'info');
+                closeModal('rejectModal');
+                currentApplication = null;
+                await loadApplications();
+
+            } catch (error) {
+                console.error('Error:', error);
+                showToast(error.message || 'Failed to reject application', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Open Request Info Modal
+        function openRequestInfoModal() {
+            document.getElementById('infoSubject').value = 'Additional Information Required';
+            document.getElementById('infoMessage').value = '';
+            closeModal('reviewModal');
+            document.getElementById('requestInfoModal').classList.add('show');
+        }
+
+        // Send Info Request
+        async function sendInfoRequest() {
+            if (!currentApplication) return;
+
+            const subject = document.getElementById('infoSubject').value.trim();
+            const message = document.getElementById('infoMessage').value.trim();
+            
+            if (!message) {
+                showToast('Please enter a message', 'error');
+                return;
+            }
+
+            try {
+                showLoading();
+                const token = localStorage.getItem('token');
+                
+                const response = await fetch(`${API_BASE_URL}/super-admin/clubs/${currentApplication.id}/request-info`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ subject, message })
+                });
+
+                if (!response.ok) throw new Error('Failed to send request');
+
+                showToast('Information request sent successfully', 'success');
+                closeModal('requestInfoModal');
+
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Failed to send information request', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // View Club Profile
+        function viewClubProfile(slug) {
+            window.location.href = `club-profile.html?slug=${slug}`;
+        }
+
+        // Close Modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+            // Don't clear currentApplication when opening reject modal
+            if (modalId === 'reviewModal' && !document.getElementById('rejectModal').classList.contains('show')) {
+                currentApplication = null;
+            }
+        }
+
+        // Helper Functions
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-BD', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.add('show');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('show');
+        }
+
+        function showToast(message, type = 'info') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <span style="font-size: 1.25rem;">${type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ'}</span>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Close modals on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('show');
+                }
+            });
+        });
+
+        // Delete Rejected Application
+        async function deleteRejectedApplication(applicationId, clubName) {
+            if (!confirm(`Are you sure you want to permanently delete the rejected application from "${clubName}"?\n\nThis will delete the club application and associated user account.`)) {
+                return;
+            }
+
+            try {
+                showLoading();
+                const token = localStorage.getItem('token');
+                
+                const response = await fetch(`${API_BASE_URL}/super-admin/clubs/${applicationId}/delete-application`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || 'Failed to delete application');
+                }
+
+                showToast('Application deleted successfully', 'success');
+                await loadApplications();
+
+            } catch (error) {
+                console.error('Error:', error);
+                showToast(error.message || 'Failed to delete application', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Add slide out animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideOut {
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Bangladesh Robotics Marketplace | Nemionix Technologies</title>
+    <meta name="description" content="Join Bangladesh's largest robotics community. Create your student or club account today.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-50: #E8F4FD;
+            --primary-100: #D1E9FB;
+            --primary-500: #1991EB;
+            --primary-600: #1474BC;
+            --primary-700: #0F578D;
+            --secondary-500: #19B969;
+            --accent-500: #FF9119;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --error: #EF4444;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-display: 'Poppins', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .bg-decoration {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .bg-circle-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(25, 145, 235, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -250px;
+            right: -150px;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .bg-circle-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 145, 25, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -150px;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            padding: var(--spacing-4) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+            text-decoration: none;
+            color: var(--gray-900);
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo i {
+            color: var(--primary-500);
+            font-size: 2rem;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        
+        .logo-main {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo-sub {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+        
+        .nav-right a {
+            color: var(--primary-500);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-right a:hover {
+            color: var(--primary-700);
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-8) var(--spacing-6);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .signup-container {
+            width: 100%;
+            max-width: 600px;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .signup-card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-xl);
+            padding: var(--spacing-8);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .signup-header {
+            text-align: center;
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .signup-header h1 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-2);
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .signup-header p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+        }
+        
+        .role-selection {
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .role-selection-label {
+            display: block;
+            text-align: center;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: var(--spacing-4);
+            font-size: 0.95rem;
+        }
+        
+        .role-toggle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-4);
+        }
+        
+        .role-toggle-btn {
+            padding: var(--spacing-5);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            background: var(--gray-50);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .role-toggle-btn:hover {
+            border-color: var(--primary-500);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .role-toggle-btn.active {
+            border-color: var(--primary-500);
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .role-toggle-btn.active .role-icon,
+        .role-toggle-btn.active .role-label {
+            color: white;
+        }
+        
+        .role-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-3);
+            color: var(--primary-500);
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .role-label {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--gray-800);
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-5);
+        }
+        
+        .form-section {
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-4);
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-2);
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.9rem;
+        }
+        
+        .form-label .required {
+            color: var(--error);
+            margin-left: 0.25rem;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 0.95rem;
+            font-family: var(--font-primary);
+            transition: all 0.3s ease;
+            background: var(--gray-50);
+        }
+        
+        .form-input.with-icon {
+            padding-left: 3rem;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(25, 145, 235, 0.1);
+        }
+        
+        .form-input:focus + .input-icon {
+            color: var(--primary-500);
+        }
+        
+        .form-input.invalid,
+        .form-select.invalid,
+        .form-textarea.invalid {
+            border-color: var(--error);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .toggle-password:hover {
+            color: var(--gray-600);
+        }
+        
+        .field-error {
+            display: none;
+            color: var(--error);
+            font-size: 0.825rem;
+            animation: shake 0.3s ease;
+        }
+        
+        .field-error.show {
+            display: block;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .password-strength {
+            margin-top: var(--spacing-2);
+            display: none;
+        }
+        
+        .password-strength.show {
+            display: block;
+        }
+        
+        .strength-bar {
+            height: 4px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+            border-radius: var(--radius-full);
+        }
+        
+        .strength-text {
+            font-size: 0.825rem;
+            font-weight: 600;
+        }
+        
+        .file-upload {
+            position: relative;
+        }
+        
+        .file-upload-input {
+            display: none;
+        }
+        
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-3);
+            padding: var(--spacing-5);
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--radius-lg);
+            background: var(--gray-50);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .file-upload-label:hover {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+        }
+        
+        .file-upload-icon {
+            font-size: 2rem;
+            color: var(--gray-400);
+        }
+        
+        .file-upload-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .file-upload-title {
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+        
+        .file-upload-hint {
+            font-size: 0.825rem;
+            color: var(--gray-500);
+        }
+        
+        .file-preview {
+            display: none;
+            margin-top: var(--spacing-3);
+            padding: var(--spacing-3);
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            align-items: center;
+            gap: var(--spacing-3);
+        }
+        
+        .file-preview.show {
+            display: flex;
+        }
+        
+        .logo-preview-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--gray-200);
+        }
+        
+        .file-info {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-weight: 600;
+            color: var(--gray-800);
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+        
+        .file-remove {
+            background: var(--error);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .file-remove:hover {
+            background: #DC2626;
+        }
+        
+        .info-box {
+            background: var(--primary-50);
+            border-left: 4px solid var(--primary-500);
+            padding: var(--spacing-4);
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-5) 0;
+        }
+        
+        .info-box i {
+            color: var(--primary-500);
+            margin-right: var(--spacing-2);
+        }
+        
+        .info-box p {
+            color: var(--gray-700);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0.25rem 0;
+        }
+        
+        .info-box ul {
+            margin-top: var(--spacing-3);
+            padding-left: var(--spacing-5);
+        }
+        
+        .info-box li {
+            color: var(--gray-700);
+            margin: var(--spacing-2) 0;
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-3);
+            cursor: pointer;
+            padding: var(--spacing-4);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s ease;
+        }
+        
+        .terms-checkbox:hover {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+        }
+        
+        .terms-checkbox input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+            accent-color: var(--primary-500);
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+        
+        .terms-text {
+            font-size: 0.9rem;
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+        
+        .terms-text a {
+            color: var(--primary-500);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(25, 145, 235, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-submit:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(25, 145, 235, 0.4);
+        }
+        
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-submit span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .message {
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.9rem;
+            display: none;
+            align-items: center;
+            gap: var(--spacing-3);
+            animation: slideDown 0.4s ease;
+            margin-bottom: var(--spacing-5);
+        }
+        
+        .message.show {
+            display: flex;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message i {
+            font-size: 1.25rem;
+        }
+        
+        .message-error {
+            background: #FEE2E2;
+            color: #991B1B;
+            border-left: 4px solid var(--error);
+        }
+        
+        .message-success {
+            background: #D1FAE5;
+            color: #065F46;
+            border-left: 4px solid var(--success);
+        }
+        
+        .success-card {
+            text-align: center;
+            padding: var(--spacing-8);
+            display: none;
+        }
+        
+        .success-card.active {
+            display: block;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto var(--spacing-6);
+            background: linear-gradient(135deg, var(--success), #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            animation: scaleIn 0.5s ease-out 0.3s both;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+        
+        .success-card h2 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .success-card p {
+            color: var(--gray-600);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-3);
+        }
+        
+        .email-highlight {
+            font-weight: 700;
+            color: var(--primary-500);
+            font-size: 1.1rem;
+        }
+        
+        .success-card .info-box {
+            text-align: left;
+            margin: var(--spacing-6) 0;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: var(--spacing-6);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(25, 145, 235, 0.4);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: var(--spacing-6);
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+        
+        .login-link a {
+            color: var(--primary-500);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+        
+        .login-link a:hover {
+            color: var(--primary-700);
+        }
+        
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 var(--spacing-4);
+            }
+            
+            .logo {
+                font-size: 1.25rem;
+            }
+            
+            .logo i {
+                font-size: 1.5rem;
+            }
+            
+            .nav-right {
+                font-size: 0.825rem;
+            }
+            
+            main {
+                padding: var(--spacing-6) var(--spacing-4);
+            }
+            
+            .signup-card {
+                padding: var(--spacing-6);
+            }
+            
+            .signup-header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .role-toggle {
+                grid-template-columns: 1fr;
+            }
+            
+            .role-icon {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .signup-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .bg-circle-1,
+            .bg-circle-2 {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-decoration bg-circle-1"></div>
+    <div class="bg-decoration bg-circle-2"></div>
+
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-robot"></i>
+                <div class="logo-text">
+                    <span class="logo-main">Nemionix</span>
+                    <span class="logo-sub">ROBOTICS MARKETPLACE</span>
+                </div>
+            </a>
+            <div class="nav-right">
+                <span>Already have an account?</span>
+                <a href="login.html">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="signup-container">
+            <div class="signup-card">
+                <div class="signup-header">
+                    <h1>Create Your Account</h1>
+                    <p>Join Bangladesh's largest robotics community</p>
+                </div>
+
+                <div id="message-container"></div>
+
+                <div id="form-container">
+                    <div class="role-selection">
+                        <label class="role-selection-label">I am a:</label>
+                        <div class="role-toggle">
+                            <div class="role-toggle-btn active" data-role="student">
+                                <div class="role-icon"><i class="fas fa-user-graduate"></i></div>
+                                <div class="role-label">Student</div>
+                            </div>
+                            <div class="role-toggle-btn" data-role="club_admin">
+                                <div class="role-icon"><i class="fas fa-users"></i></div>
+                                <div class="role-label">University Club</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="signup-form" class="signup-form">
+                        <div id="student-form" class="form-section active">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label class="form-label">Full Name<span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="full-name" class="form-input with-icon" placeholder="Enter your full name" required>
+                                        <i class="fas fa-user input-icon"></i>
+                                    </div>
+                                    <span class="field-error" id="full-name-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label class="form-label">Email Address<span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <input type="email" id="email" class="form-input with-icon" placeholder="your.email@example.com" required>
+                                        <i class="fas fa-envelope input-icon"></i>
+                                    </div>
+                                    <span class="field-error" id="email-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Password<span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <input type="password" id="password" class="form-input with-icon" placeholder="Min 8 characters" required>
+                                        <i class="fas fa-lock input-icon"></i>
+                                        <button type="button" class="toggle-password" data-target="password">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="password-strength" id="password-strength">
+                                        <div class="strength-bar">
+                                            <div class="strength-fill" id="strength-fill"></div>
+                                        </div>
+                                        <div class="strength-text" id="strength-text"></div>
+                                    </div>
+                                    <span class="field-error" id="password-error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Confirm Password<span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <input type="password" id="confirm-password" class="form-input with-icon" placeholder="Re-enter password" required>
+                                        <i class="fas fa-lock input-icon"></i>
+                                        <button type="button" class="toggle-password" data-target="confirm-password">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <span class="field-error" id="confirm-password-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number<span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <input type="tel" id="phone" class="form-input with-icon" placeholder="01XXXXXXXXX" required>
+                                        <i class="fas fa-phone input-icon"></i>
+                                    </div>
+                                    <span class="field-error" id="phone-error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">University<span class="required">*</span></label>
+                                    <select id="university" class="form-select" required>
+                                        <option value="">Select University</option>
+                                        <option value="BUET">BUET</option>
+                                        <option value="CUET">CUET</option>
+                                        <option value="RUET">RUET</option>
+                                        <option value="Green University">Green University</option>
+                                        <option value="DIU">DIU</option>
+                                        <option value="NSU">NSU</option>
+                                        <option value="BRAC University">BRAC University</option>
+                                        <option value="IUT">IUT</option>
+                                        <option value="KUET">KUET</option>
+                                        <option value="DU">Dhaka University</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <span class="field-error" id="university-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Student ID<span class="required">*</span></label>
+                                    <input type="text" id="student-id" class="form-input" placeholder="e.g., 1805001" required>
+                                    <span class="field-error" id="student-id-error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Department<span class="required">*</span></label>
+                                    <input type="text" id="department" class="form-input" placeholder="e.g., CSE, EEE, ME" required>
+                                    <span class="field-error" id="department-error"></span>
+                                </div>
+                            </div>
+
+                            <label class="terms-checkbox">
+                                <input type="checkbox" id="terms" required>
+                                <span class="terms-text">
+                                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                                </span>
+                            </label>
+
+                            <button type="submit" class="btn-submit" id="submit-btn">
+                                <span>Create Student Account</span>
+                            </button>
+                        </div>
+
+                        <div id="club-form" class="form-section">
+                            <input type="hidden" id="club-role" name="role" value="club_admin">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label class="form-label">Club Name<span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="club-name" name="club_name" class="form-input with-icon" placeholder="e.g., Green University Robotics Club">
+                                        <i class="fas fa-building input-icon"></i>
+                                    </div>
+                                    <span class="field-error" id="club-name-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">University<span class="required">*</span></label>
+                                    <select id="club-university" name="university" class="form-select">
+                                        <option value="">Select University</option>
+                                        <option value="BUET">BUET</option>
+                                        <option value="CUET">CUET</option>
+                                        <option value="RUET">RUET</option>
+                                        <option value="Green University">Green University</option>
+                                        <option value="DIU">DIU</option>
+                                        <option value="NSU">NSU</option>
+                                        <option value="BRAC University">BRAC University</option>
+                                        <option value="IUT">IUT</option>
+                                        <option value="KUET">KUET</option>
+                                        <option value="DU">Dhaka University</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <span class="field-error" id="club-university-error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Established Year<span class="required">*</span></label>
+                                    <input type="number" id="established-year" name="established_year" class="form-input" placeholder="e.g., 2018" min="1990" max="2026">
+                                    <span class="field-error" id="established-year-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label class="form-label">Admin Email<span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <input type="email" id="club-email" name="email" class="form-input with-icon" placeholder="Must be .edu.bd or .ac.bd domain">
+                                        <i class="fas fa-envelope input-icon"></i>
+                                    </div>
+                                    <span class="field-error" id="club-email-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Password<span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <input type="password" id="club-password" name="password" class="form-input with-icon" placeholder="Min 8 characters">
+                                        <i class="fas fa-lock input-icon"></i>
+                                        <button type="button" class="toggle-password" data-target="club-password">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="password-strength" id="club-password-strength">
+                                        <div class="strength-bar">
+                                            <div class="strength-fill" id="club-strength-fill"></div>
+                                        </div>
+                                        <div class="strength-text" id="club-strength-text"></div>
+                                    </div>
+                                    <span class="field-error" id="club-password-error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Confirm Password<span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <input type="password" id="club-confirm-password" name="confirm_password" class="form-input with-icon" placeholder="Re-enter password">
+                                        <i class="fas fa-lock input-icon"></i>
+                                        <button type="button" class="toggle-password" data-target="club-confirm-password">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <span class="field-error" id="club-confirm-password-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label class="form-label">Phone Number<span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <input type="tel" id="club-phone" name="phone" class="form-input with-icon" placeholder="01XXXXXXXXX">
+                                        <i class="fas fa-phone input-icon"></i>
+                                    </div>
+                                    <span class="field-error" id="club-phone-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label class="form-label">Club Description<span class="required">*</span></label>
+                                <textarea id="description" name="description" class="form-textarea" placeholder="Tell us about your club... (minimum 50 characters)"></textarea>
+                                <span class="field-error" id="description-error"></span>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label class="form-label">Club Logo<span class="required">*</span></label>
+                                <div class="file-upload">
+                                    <input type="file" id="logo-upload" class="file-upload-input" accept="image/jpeg,image/png">
+                                    <label for="logo-upload" class="file-upload-label">
+                                        <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                                        <div class="file-upload-text">
+                                            <div class="file-upload-title">Click to upload logo</div>
+                                            <div class="file-upload-hint">JPG or PNG, max 2MB</div>
+                                        </div>
+                                    </label>
+                                    <div class="file-preview" id="logo-preview">
+                                        <img src="" alt="Logo preview" class="logo-preview-img" id="logo-preview-img">
+                                        <div class="file-info">
+                                            <div class="file-name" id="logo-file-name"></div>
+                                        </div>
+                                        <button type="button" class="file-remove" id="logo-remove">Remove</button>
+                                    </div>
+                                </div>
+                                <span class="field-error" id="logo-error"></span>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label class="form-label">Registration Certificate<span class="required">*</span></label>
+                                <div class="file-upload">
+                                    <input type="file" id="certificate-upload" class="file-upload-input" accept="application/pdf,image/jpeg,image/png">
+                                    <label for="certificate-upload" class="file-upload-label">
+                                        <i class="fas fa-file-upload file-upload-icon"></i>
+                                        <div class="file-upload-text">
+                                            <div class="file-upload-title">Click to upload certificate</div>
+                                            <div class="file-upload-hint">PDF, JPG, or PNG, max 5MB</div>
+                                        </div>
+                                    </label>
+                                    <div class="file-preview" id="certificate-preview">
+                                        <i class="fas fa-file-alt" style="font-size: 3rem; color: var(--gray-400);"></i>
+                                        <div class="file-info">
+                                            <div class="file-name" id="certificate-file-name"></div>
+                                        </div>
+                                        <button type="button" class="file-remove" id="certificate-remove">Remove</button>
+                                    </div>
+                                </div>
+                                <span class="field-error" id="certificate-error"></span>
+                            </div>
+
+                            <div class="info-box">
+                                <p><i class="fas fa-info-circle"></i><strong>Application Review Process:</strong></p>
+                                <ul>
+                                    <li>Your application will be reviewed by our team</li>
+                                    <li>You'll receive email notification within 24-48 hours</li>
+                                    <li>Once approved, you can start listing products and competitions</li>
+                                </ul>
+                            </div>
+
+                            <label class="terms-checkbox">
+                                <input type="checkbox" id="club-terms">
+                                <span class="terms-text">
+                                    I agree to the <a href="#">Terms of Service</a> and confirm that all information provided is accurate
+                                </span>
+                            </label>
+
+                            <button type="submit" class="btn-submit" id="club-submit-btn">
+                                <span>Submit Club Application</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="login-link">
+                        Already have an account? <a href="login.html">Login here</a>
+                    </div>
+                </div>
+
+                <div id="success-container" class="success-card">
+                    <div class="success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h2 id="success-title"></h2>
+                    <div id="success-content"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuration - ensure we're using the correct API URL
+        const API_BASE_URL = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
+            ? 'http://localhost:3000/api'
+            : 'http://localhost:3000/api';
+        let selectedRole = 'student';
+
+        document.querySelectorAll('.role-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                selectedRole = btn.dataset.role;
+                
+                document.querySelectorAll('.role-toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
+                
+                // Disable required on all form inputs first
+                document.querySelectorAll('#student-form input, #student-form select, #student-form textarea').forEach(input => {
+                    input.removeAttribute('required');
+                });
+                document.querySelectorAll('#club-form input, #club-form select, #club-form textarea').forEach(input => {
+                    input.removeAttribute('required');
+                });
+                
+                if (selectedRole === 'student') {
+                    document.getElementById('student-form').classList.add('active');
+                    document.getElementById('submit-btn').innerHTML = '<span>Create Student Account</span>';
+                    // Re-enable required on student form
+                    document.querySelectorAll('#student-form input[type="text"], #student-form input[type="email"], #student-form input[type="password"], #student-form input[type="tel"], #student-form select').forEach(input => {
+                        input.setAttribute('required', 'required');
+                    });
+                    document.getElementById('terms').setAttribute('required', 'required');
+                } else {
+                    document.getElementById('club-form').classList.add('active');
+                    document.getElementById('club-submit-btn').innerHTML = '<span>Submit Club Application</span>';
+                    // Re-enable required on club form
+                    document.querySelectorAll('#club-form input[type="text"], #club-form input[type="email"], #club-form input[type="password"], #club-form input[type="tel"], #club-form input[type="number"], #club-form select, #club-form textarea, #club-form input[type="file"]').forEach(input => {
+                        input.setAttribute('required', 'required');
+                    });
+                    document.getElementById('club-terms').setAttribute('required', 'required');
+                }
+            });
+        });
+
+        document.querySelectorAll('.toggle-password').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.dataset.target;
+                const input = document.getElementById(targetId);
+                const icon = btn.querySelector('i');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/)) strength++;
+            if (password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+            
+            const levels = ['Weak', 'Fair', 'Good', 'Strong', 'Very Strong'];
+            const colors = ['#EF4444', '#F59E0B', '#F59E0B', '#10B981', '#10B981'];
+            const widths = [20, 40, 60, 80, 100];
+            
+            return {
+                level: levels[strength - 1] || 'Weak',
+                color: colors[strength - 1] || '#EF4444',
+                width: widths[strength - 1] || 20
+            };
+        }
+
+        document.getElementById('password').addEventListener('input', (e) => {
+            const password = e.target.value;
+            const strengthContainer = document.getElementById('password-strength');
+            
+            if (password.length > 0) {
+                strengthContainer.classList.add('show');
+                const result = checkPasswordStrength(password);
+                document.getElementById('strength-fill').style.width = result.width + '%';
+                document.getElementById('strength-fill').style.background = result.color;
+                document.getElementById('strength-text').textContent = result.level;
+                document.getElementById('strength-text').style.color = result.color;
+            } else {
+                strengthContainer.classList.remove('show');
+            }
+        });
+
+        document.getElementById('club-password').addEventListener('input', (e) => {
+            const password = e.target.value;
+            const strengthContainer = document.getElementById('club-password-strength');
+            
+            if (password.length > 0) {
+                strengthContainer.classList.add('show');
+                const result = checkPasswordStrength(password);
+                document.getElementById('club-strength-fill').style.width = result.width + '%';
+                document.getElementById('club-strength-fill').style.background = result.color;
+                document.getElementById('club-strength-text').textContent = result.level;
+                document.getElementById('club-strength-text').style.color = result.color;
+            } else {
+                strengthContainer.classList.remove('show');
+            }
+        });
+
+        function showFieldError(fieldId, message) {
+            const input = document.getElementById(fieldId);
+            const error = document.getElementById(fieldId + '-error');
+            input.classList.add('invalid');
+            error.textContent = message;
+            error.classList.add('show');
+        }
+
+        function hideFieldError(fieldId) {
+            const input = document.getElementById(fieldId);
+            const error = document.getElementById(fieldId + '-error');
+            input.classList.remove('invalid');
+            error.classList.remove('show');
+        }
+
+        function showMessage(message, type = 'error') {
+            const container = document.getElementById('message-container');
+            container.innerHTML = `
+                <div class="message message-${type} show">
+                    <i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isValidBDPhone(phone) {
+            return /^01[3-9]\d{8}$/.test(phone);
+        }
+
+        function validateClubEmail(email) {
+            return email.endsWith('.edu.bd') || email.endsWith('.ac.bd');
+        }
+
+        document.getElementById('email').addEventListener('blur', (e) => {
+            const email = e.target.value.trim();
+            if (email && !isValidEmail(email)) {
+                showFieldError('email', 'Invalid email format');
+            } else {
+                hideFieldError('email');
+            }
+        });
+
+        document.getElementById('club-email').addEventListener('blur', (e) => {
+            const email = e.target.value.trim();
+            if (email && !isValidEmail(email)) {
+                showFieldError('club-email', 'Invalid email format');
+            } else if (email && !validateClubEmail(email)) {
+                showFieldError('club-email', 'Club email must be from .edu.bd or .ac.bd domain');
+            } else {
+                hideFieldError('club-email');
+            }
+        });
+
+        document.getElementById('phone').addEventListener('blur', (e) => {
+            const phone = e.target.value.trim();
+            if (phone && !isValidBDPhone(phone)) {
+                showFieldError('phone', 'Invalid BD phone. Format: 01XXXXXXXXX');
+            } else {
+                hideFieldError('phone');
+            }
+        });
+
+        document.getElementById('club-phone').addEventListener('blur', (e) => {
+            const phone = e.target.value.trim();
+            if (phone && !isValidBDPhone(phone)) {
+                showFieldError('club-phone', 'Invalid BD phone. Format: 01XXXXXXXXX');
+            } else {
+                hideFieldError('club-phone');
+            }
+        });
+
+        document.getElementById('confirm-password').addEventListener('input', (e) => {
+            const password = document.getElementById('password').value;
+            const confirm = e.target.value;
+            
+            if (confirm && password !== confirm) {
+                showFieldError('confirm-password', 'Passwords do not match');
+            } else {
+                hideFieldError('confirm-password');
+            }
+        });
+
+        document.getElementById('club-confirm-password').addEventListener('input', (e) => {
+            const password = document.getElementById('club-password').value;
+            const confirm = e.target.value;
+            
+            if (confirm && password !== confirm) {
+                showFieldError('club-confirm-password', 'Passwords do not match');
+            } else {
+                hideFieldError('club-confirm-password');
+            }
+        });
+
+        document.getElementById('logo-upload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            if (!['image/jpeg', 'image/png'].includes(file.type)) {
+                showMessage('Logo must be JPG or PNG', 'error');
+                e.target.value = '';
+                return;
+            }
+            
+            if (file.size > 2 * 1024 * 1024) {
+                showMessage('Logo must be less than 2MB', 'error');
+                e.target.value = '';
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('logo-preview-img').src = e.target.result;
+                document.getElementById('logo-file-name').textContent = file.name;
+                document.getElementById('logo-preview').classList.add('show');
+            };
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('logo-remove').addEventListener('click', () => {
+            document.getElementById('logo-upload').value = '';
+            document.getElementById('logo-preview').classList.remove('show');
+        });
+
+        document.getElementById('certificate-upload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+            if (!allowedTypes.includes(file.type)) {
+                showMessage('Certificate must be PDF, JPG, or PNG', 'error');
+                e.target.value = '';
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                showMessage('Certificate must be less than 5MB', 'error');
+                e.target.value = '';
+                return;
+            }
+            
+            document.getElementById('certificate-file-name').textContent = file.name;
+            document.getElementById('certificate-preview').classList.add('show');
+        });
+
+        document.getElementById('certificate-remove').addEventListener('click', () => {
+            document.getElementById('certificate-upload').value = '';
+            document.getElementById('certificate-preview').classList.remove('show');
+        });
+
+        function validateStudentForm() {
+            let isValid = true;
+            
+            const fullName = document.getElementById('full-name').value.trim();
+            if (fullName.length < 3) {
+                showFieldError('full-name', 'Full name must be at least 3 characters');
+                isValid = false;
+            }
+            
+            const email = document.getElementById('email').value.trim();
+            if (!isValidEmail(email)) {
+                showFieldError('email', 'Invalid email format');
+                isValid = false;
+            }
+            
+            const password = document.getElementById('password').value;
+            if (password.length < 8) {
+                showFieldError('password', 'Password must be at least 8 characters');
+                isValid = false;
+            }
+            
+            const confirmPassword = document.getElementById('confirm-password').value;
+            if (password !== confirmPassword) {
+                showFieldError('confirm-password', 'Passwords do not match');
+                isValid = false;
+            }
+            
+            const phone = document.getElementById('phone').value.trim();
+            if (!isValidBDPhone(phone)) {
+                showFieldError('phone', 'Invalid BD phone number');
+                isValid = false;
+            }
+            
+            if (!document.getElementById('university').value) {
+                showFieldError('university', 'Please select a university');
+                isValid = false;
+            }
+            
+            if (!document.getElementById('student-id').value.trim()) {
+                showFieldError('student-id', 'Student ID is required');
+                isValid = false;
+            }
+            
+            if (!document.getElementById('department').value.trim()) {
+                showFieldError('department', 'Department is required');
+                isValid = false;
+            }
+            
+            if (!document.getElementById('terms').checked) {
+                showMessage('Please agree to the terms and conditions', 'error');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        function validateClubForm() {
+            let isValid = true;
+            
+            const clubName = document.getElementById('club-name').value.trim();
+            if (clubName.length < 5) {
+                showFieldError('club-name', 'Club name must be at least 5 characters');
+                isValid = false;
+            }
+            
+            if (!document.getElementById('club-university').value) {
+                showFieldError('club-university', 'Please select a university');
+                isValid = false;
+            }
+            
+            const year = parseInt(document.getElementById('established-year').value);
+            if (!year || year < 1990 || year > 2026) {
+                showFieldError('established-year', 'Invalid year');
+                isValid = false;
+            }
+            
+            const email = document.getElementById('club-email').value.trim();
+            if (!isValidEmail(email) || !validateClubEmail(email)) {
+                showFieldError('club-email', 'Must be .edu.bd or .ac.bd domain');
+                isValid = false;
+            }
+            
+            const password = document.getElementById('club-password').value;
+            if (password.length < 8) {
+                showFieldError('club-password', 'Password must be at least 8 characters');
+                isValid = false;
+            }
+            
+            const confirmPassword = document.getElementById('club-confirm-password').value;
+            if (password !== confirmPassword) {
+                showFieldError('club-confirm-password', 'Passwords do not match');
+                isValid = false;
+            }
+            
+            const phone = document.getElementById('club-phone').value.trim();
+            if (!isValidBDPhone(phone)) {
+                showFieldError('club-phone', 'Invalid BD phone number');
+                isValid = false;
+            }
+            
+            const description = document.getElementById('description').value.trim();
+            if (description.length < 50) {
+                showFieldError('description', 'Description must be at least 50 characters');
+                isValid = false;
+            }
+            
+            if (!document.getElementById('logo-upload').files[0]) {
+                showFieldError('logo', 'Club logo is required');
+                isValid = false;
+            }
+            
+            if (!document.getElementById('certificate-upload').files[0]) {
+                showFieldError('certificate', 'Registration certificate is required');
+                isValid = false;
+            }
+            
+            if (!document.getElementById('club-terms').checked) {
+                showMessage('Please agree to the terms and conditions', 'error');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            let isValid = false;
+            let submitBtn;
+            
+            if (selectedRole === 'student') {
+                isValid = validateStudentForm();
+                submitBtn = document.getElementById('submit-btn');
+            } else {
+                isValid = validateClubForm();
+                submitBtn = document.getElementById('club-submit-btn');
+            }
+            
+            if (!isValid) {
+                showMessage('Please fix all errors before submitting', 'error');
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> Processing...';
+            document.getElementById('loading-overlay').style.display = 'flex';
+            
+            try {
+                let response;
+                
+                if (selectedRole === 'student') {
+                    const formData = {
+                        role: 'student',
+                        email: document.getElementById('email').value.trim(),
+                        password: document.getElementById('password').value,
+                        full_name: document.getElementById('full-name').value.trim(),
+                        phone: document.getElementById('phone').value.trim(),
+                        university: document.getElementById('university').value,
+                        student_id: document.getElementById('student-id').value.trim(),
+                        department: document.getElementById('department').value.trim()
+                    };
+                    
+                    response = await fetch(`${API_BASE_URL}/auth/register`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.message || 'Registration failed');
+                    }
+                    
+                    showStudentSuccess(formData.email);
+                    
+                } else {
+                    const formData = new FormData();
+                    const clubName = document.getElementById('club-name').value.trim();
+                    formData.append('role', 'club_admin');
+                    formData.append('club_name', clubName);
+                    formData.append('full_name', clubName);
+                    formData.append('university', document.getElementById('club-university').value);
+                    formData.append('established_year', document.getElementById('established-year').value);
+                    formData.append('email', document.getElementById('club-email').value.trim());
+                    formData.append('password', document.getElementById('club-password').value);
+                    formData.append('phone', document.getElementById('club-phone').value.trim());
+                    formData.append('description', document.getElementById('description').value.trim());
+                    formData.append('logo', document.getElementById('logo-upload').files[0]);
+                    formData.append('certificate', document.getElementById('certificate-upload').files[0]);
+                    
+                    response = await fetch(`${API_BASE_URL}/auth/register`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.message || 'Registration failed');
+                    }
+                    
+                    showClubSuccess();
+                }
+                
+            } catch (error) {
+                console.error('Registration error:', error);
+                showMessage(error.message || 'Registration failed. Please try again.', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = selectedRole === 'student' ? '<span>Create Student Account</span>' : '<span>Submit Club Application</span>';
+            } finally {
+                document.getElementById('loading-overlay').style.display = 'none';
+            }
+        });
+
+        function showStudentSuccess(email) {
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('success-container').classList.add('active');
+            
+            document.getElementById('success-title').textContent = 'Account Created Successfully!';
+            document.getElementById('success-content').innerHTML = `
+                <p>We've sent a verification email to:</p>
+                <p class="email-highlight">${email}</p>
+                <p>Please check your inbox and click the verification link to activate your account.</p>
+                
+                <div class="info-box">
+                    <p><i class="fas fa-info-circle"></i><strong>Next Steps:</strong></p>
+                    <ul>
+                        <li>Check your email inbox (and spam folder)</li>
+                        <li>Click the verification link</li>
+                        <li>Login to start shopping and registering for competitions</li>
+                    </ul>
+                </div>
+                
+                <a href="login.html" class="btn-primary">Go to Login</a>
+            `;
+        }
+
+        function showClubSuccess() {
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('success-container').classList.add('active');
+            
+            document.getElementById('success-title').textContent = 'Application Submitted!';
+            document.getElementById('success-content').innerHTML = `
+                <p>Your club application is under review.</p>
+                <p>Our team will review your application within <strong>24-48 hours</strong>.</p>
+                <p>You'll receive an email notification once your application is approved.</p>
+                
+                <div class="info-box">
+                    <p><i class="fas fa-clock"></i><strong>What happens next?</strong></p>
+                    <ul>
+                        <li>We'll verify your club information and documents</li>
+                        <li>Check your registration certificate</li>
+                        <li>Send approval or rejection email with feedback</li>
+                        <li>Once approved, you can login and start listing products</li>
+                    </ul>
+                </div>
+                
+                <a href="index.html" class="btn-primary">Back to Home</a>
+            `;
+        }
+
+        document.getElementById('description').addEventListener('input', (e) => {
+            const length = e.target.value.trim().length;
+            const minLength = 50;
+            
+            if (length > 0 && length < minLength) {
+                showFieldError('description', `${minLength - length} more characters needed`);
+            } else {
+                hideFieldError('description');
+            }
+        });
+    </script>
+</body>
+</html>
