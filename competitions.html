@@ -147,14 +147,27 @@
                 width: 320px;
                 max-width: 85vw;
                 background: white;
-                box-shadow: var(--shadow-xl);
-                z-index: 1050;
+                box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+                z-index: 10002;
                 transition: left 0.3s ease;
                 overflow-y: auto;
+                padding: 4rem 1.5rem 1.5rem;
             }
             
             .filters-sidebar.active {
                 left: 0;
+            }
+            
+            body.filter-open::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.6);
+                z-index: 10001;
+                backdrop-filter: blur(2px);
             }
         }
         
@@ -178,6 +191,20 @@
             position: sticky;
             top: 90px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (min-width: 1025px) {
+            .filters-sidebar {
+                display: block !important;
+            }
+            
+            .mobile-filter-btn {
+                display: none !important;
+            }
+            
+            .filter-close-btn {
+                display: none !important;
+            }
         }
 
         .filters-header {
@@ -938,6 +965,7 @@
     <div class="main-content">
         <!-- Filters Sidebar -->
         <aside class="filters-sidebar" id="filtersSidebar">
+            <button class="filter-close-btn" onclick="closeFilterSheet()">✕</button>
             <div class="filters-header">
                 <h3>Filters <span class="filter-count-badge" id="filterCountBadge" style="display: none;">0</span></h3>
                 <button class="clear-filters" id="clearFiltersBtn">Clear All</button>
@@ -1088,6 +1116,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Mobile Filter Button -->
+    <button class="mobile-filter-btn" onclick="openFilterSheet()">
+        🔧 Filters
+        <span class="filter-count-badge" id="mobileFilterCountBadge" style="display: none;">0</span>
+    </button>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1896,6 +1930,49 @@
         if (savedView === 'map') {
             switchView('map');
         }
+        
+        // Filter sheet functions
+        function openFilterSheet() {
+            const filtersSidebar = document.getElementById('filtersSidebar');
+            const body = document.body;
+            
+            if (filtersSidebar) {
+                filtersSidebar.classList.add('active');
+                body.classList.add('filter-open');
+            }
+        }
+
+        function closeFilterSheet() {
+            const filtersSidebar = document.getElementById('filtersSidebar');
+            const body = document.body;
+            
+            if (filtersSidebar) {
+                filtersSidebar.classList.remove('active');
+                body.classList.remove('filter-open');
+            }
+        }
+        
+        // Close filter on backdrop click
+        document.addEventListener('click', function(e) {
+            const filtersSidebar = document.getElementById('filtersSidebar');
+            const mobileFilterBtn = document.querySelector('.mobile-filter-btn');
+            
+            if (filtersSidebar && filtersSidebar.classList.contains('active')) {
+                const isClickInside = filtersSidebar.contains(e.target);
+                const isFilterBtn = mobileFilterBtn && mobileFilterBtn.contains(e.target);
+                
+                if (!isClickInside && !isFilterBtn) {
+                    closeFilterSheet();
+                }
+            }
+        });
+        
+        // Close filter on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeFilterSheet();
+            }
+        });
         
         // Initialize cart badge on page load
         document.addEventListener('DOMContentLoaded', async () => {
