@@ -125,7 +125,7 @@
         /* Main Content */
         .main-content {
             max-width: 1280px;
-            margin: 2rem auto;
+            margin: 1.5rem auto;
             padding: 0 1.5rem;
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -136,6 +136,7 @@
             .main-content {
                 grid-template-columns: 1fr;
                 padding: 1rem;
+                margin: 1rem auto;
             }
             
             .filters-sidebar {
@@ -294,14 +295,17 @@
             width: 100%;
             background: var(--primary-500);
             color: white;
-            padding: 0.75rem;
+            padding: 0.625rem;
             border: none;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 0.875rem;
+            font-size: 0.8125rem;
             cursor: pointer;
             transition: all 0.2s;
             margin-top: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .apply-filters-btn:hover {

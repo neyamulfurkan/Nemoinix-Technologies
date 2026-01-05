@@ -26,7 +26,7 @@
     .search-section {
         max-width: 1280px;
         margin: 0 auto;
-        padding: 1rem 1.5rem;
+        padding: 0.75rem 1rem;
         position: sticky;
         top: 80px;
         z-index: 100;
@@ -84,7 +84,7 @@
         background: white;
         border: 2px solid var(--gray-300);
         border-radius: var(--radius-xl);
-        padding: 0.75rem 1rem;
+        padding: 0.625rem 0.875rem;
         box-shadow: var(--shadow-md);
         transition: all 0.3s;
     }
@@ -2641,55 +2641,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-<script>
-// Mobile menu toggle functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const body = document.body;
 
-    if (mobileMenuToggle && navMenu) {
-        mobileMenuToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const isActive = navMenu.classList.toggle('active');
-            mobileMenuToggle.classList.toggle('active');
-            
-            if (isActive) {
-                body.style.overflow = 'hidden';
-            } else {
-                body.style.overflow = '';
-            }
-        });
-
-        // Close menu when clicking nav link
-        const navLinks = navMenu.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                body.style.overflow = '';
-            });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                body.style.overflow = '';
-            }
-        });
-
-        // Handle escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                body.style.overflow = '';
-            }
-        });
-    }
-});
-</script>
 </body>
 </html>
