@@ -520,7 +520,7 @@
     }
     
     .filter-close-btn {
-        display: none;
+        display: flex;
         position: absolute;
         top: 1rem;
         right: 1rem;
@@ -546,15 +546,7 @@
         transform: rotate(90deg);
     }
     
-    @media (max-width: 1199px) {
-        .mobile-filter-btn {
-            display: flex !important;
-        }
-        
-        .filter-close-btn {
-            display: flex !important;
-        }
-    }
+    
     
     .filter-close-btn {
         display: none;
@@ -684,7 +676,7 @@
         }
         
         .mobile-filter-btn {
-            display: none;
+            display: flex;
             position: fixed;
             bottom: 1.5rem;
             right: 1.5rem;
@@ -700,10 +692,20 @@
             z-index: 9998;
             align-items: center;
             gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(25, 145, 235, 0.5);
+        }
+        
+        .mobile-filter-btn:active {
+            transform: translateY(0);
         }
         
         .filter-close-btn {
-            display: none;
+            display: flex;
             position: absolute;
             top: 1rem;
             right: 1rem;
@@ -729,15 +731,7 @@
             transform: rotate(90deg);
         }
         
-        @media (max-width: 1024px) {
-            .mobile-filter-btn {
-                display: flex !important;
-            }
-            
-            .filter-close-btn {
-                display: flex !important;
-            }
-        }
+        
     }
     
     @media (max-width: 768px) {
@@ -852,6 +846,10 @@
     }
     /* Mobile Filter Sidebar */
     @media (max-width: 1199px) {
+        .main-container {
+            grid-template-columns: 1fr;
+        }
+        
         .filters-sidebar {
             position: fixed;
             top: 0;
@@ -872,22 +870,22 @@
         .filters-sidebar.active {
             left: 0;
         }
-        
-        body.filter-open {
-            overflow: hidden;
-        }
-        
-        body.filter-open::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 10001;
-            backdrop-filter: blur(2px);
-        }
+    }
+    
+    body.filter-open {
+        overflow: hidden;
+    }
+    
+    body.filter-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 10001;
+        backdrop-filter: blur(2px);
     }
         
         body.filter-open::before {
@@ -926,8 +924,7 @@
             background: var(--gray-200);
             transform: rotate(90deg);
         }
-    }
-
+    
     .filter-sheet-header {
         display: flex;
         justify-content: space-between;
