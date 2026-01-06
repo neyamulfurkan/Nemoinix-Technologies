@@ -224,12 +224,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(17, 24, 39, 0.6);
+            background: rgba(17, 24, 39, 0.5);
             z-index: 9998;
             opacity: 0;
-            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            transition: opacity 0.3s ease;
         }
         
         .filter-backdrop.active {
@@ -239,8 +237,6 @@
         
         body.filter-open {
             overflow: hidden;
-            position: fixed;
-            width: 100%;
         }
         
        @media (max-width: 768px) {
@@ -293,28 +289,27 @@
 @media (max-width: 1199px) {
         .filters-sidebar {
             position: fixed;
-            bottom: -100%;
+            bottom: 0;
             right: 0;
             left: 0;
-            height: 85vh;
+            height: 80vh;
             width: 100%;
             max-width: 100%;
             background: white;
-            box-shadow: none;
+            box-shadow: 0 -8px 48px rgba(0, 0, 0, 0.2);
             z-index: 9999;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
             overflow-y: auto;
             padding: 0;
             border-radius: 24px 24px 0 0;
-            max-height: 85vh;
+            max-height: 80vh;
             flex-shrink: 0;
-            transform-origin: bottom center;
             margin: 0;
         }
         
         .filters-sidebar.active {
-            bottom: 0;
-            box-shadow: 0 -8px 48px rgba(0, 0, 0, 0.2);
+            transform: translateY(0);
         }
         
         /* Hide sidebar completely on mobile - takes NO space */
@@ -326,14 +321,16 @@
     @media (max-width: 640px) {
         .filters-sidebar {
             border-radius: 20px 20px 0 0;
-            height: 90vh;
-            max-height: 90vh;
+            height: 85vh;
+            max-height: 85vh;
         }
     }
     
     @media (max-width: 480px) {
         .filters-sidebar {
             border-radius: 16px 16px 0 0;
+            height: 90vh;
+            max-height: 90vh;
         }
     }
         
@@ -708,42 +705,7 @@
             font-size: 0.875rem;
             cursor: pointer;
         }
-/* Sidebar appears from bottom center */
-        @media (max-width: 1199px) {
-            .filters-sidebar {
-                animation: slideUpBounce 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            
-            .filters-sidebar:not(.active) {
-                animation: slideDownOut 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-        }
-        
-        @keyframes slideUpBounce {
-            0% {
-                bottom: -100%;
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                bottom: 0;
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideDownOut {
-            0% {
-                bottom: 0;
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                bottom: -100%;
-                opacity: 0;
-                transform: translateY(20px);
-            }
-        }
+
         /* Competitions Grid */
         .competitions-grid {
             display: grid;
@@ -2352,15 +2314,12 @@
             }
             
             if (filtersSidebar) {
-                // Small delay to ensure backdrop is in DOM
-                requestAnimationFrame(() => {
-                    backdrop.classList.add('active');
-                    filtersSidebar.classList.add('active');
-                    body.classList.add('filter-open');
-                    if (filterBtn) {
-                        filterBtn.classList.add('hidden');
-                    }
-                });
+                backdrop.classList.add('active');
+                filtersSidebar.classList.add('active');
+                body.classList.add('filter-open');
+                if (filterBtn) {
+                    filterBtn.style.display = 'none';
+                }
             }
         }
 
@@ -2378,12 +2337,9 @@
             }
             body.classList.remove('filter-open');
             
-            // Show button again after animation
-            setTimeout(() => {
-                if (filterBtn) {
-                    filterBtn.classList.remove('hidden');
-                }
-            }, 150);
+            if (filterBtn) {
+                filterBtn.style.display = 'flex';
+            }
         }
         
         // Close filter on backdrop click
