@@ -224,7 +224,9 @@
     
     @media (max-width: 1199px) {
         .filters-header {
-            padding-top: 0.75rem;
+            padding-top: 1.5rem;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
         }
     }
     
@@ -270,6 +272,12 @@
         border-bottom: none;
         padding-bottom: 0;
         margin-bottom: 0;
+    }
+    
+    @media (max-width: 1199px) {
+        .filter-group:last-child {
+            margin-bottom: 6rem;
+        }
     }
     
     .filter-title {
@@ -388,20 +396,21 @@
             width: 320px !important;
             max-width: 85vw !important;
             background: white !important;
-            box-shadow: 2px 0 16px rgba(0, 0, 0, 0.15) !important;
+            box-shadow: none !important;
             z-index: 10050 !important;
             transition: left 0.3s ease !important;
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch;
-            padding: 1.5rem !important;
+            padding: 1.5rem 1.5rem 5rem 1.5rem !important;
             border-radius: 0 !important;
             margin: 0 !important;
             display: block !important;
-            border-right: 1px solid var(--gray-200) !important;
+            border-right: none !important;
         }
 
         .filters-sidebar.active {
             left: 0 !important;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1) !important;
         }
         
         body.filter-open {
@@ -798,12 +807,10 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        background: rgba(0, 0, 0, 0.4);
         z-index: 10040;
         opacity: 0;
-        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: opacity 0.3s ease;
     }
     
     .filter-backdrop-products.active {
