@@ -1688,6 +1688,12 @@
             z-index: 1001;
         }
 
+        @media (max-width: 1024px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+        }
+
         .mobile-menu-toggle span {
             display: block;
             width: 26px;
@@ -1755,8 +1761,12 @@
                 gap: 0;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
                 transition: left 0.3s ease;
-                z-index: 999;
+                z-index: 998;
                 overflow-y: auto;
+            }
+
+            .nav-menu.active {
+                left: 0;
             }
 
             .nav-menu.active {
@@ -1775,7 +1785,7 @@
             }
 
             .mobile-menu-toggle {
-                display: flex !important;
+                display: flex;
                 order: 3;
             }
 
@@ -3020,56 +3030,7 @@ if (p.related_competitions && p.related_competitions.length > 0) {
             </div>
         </div>
     </footer>
-    <script>
-// Mobile menu toggle functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const body = document.body;
-
-    if (mobileMenuToggle && navMenu) {
-        mobileMenuToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const isActive = navMenu.classList.toggle('active');
-            mobileMenuToggle.classList.toggle('active');
-            
-            if (isActive) {
-                body.style.overflow = 'hidden';
-            } else {
-                body.style.overflow = '';
-            }
-        });
-
-        // Close menu when clicking nav link
-        const navLinks = navMenu.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                body.style.overflow = '';
-            });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                body.style.overflow = '';
-            }
-        });
-
-        // Handle escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                body.style.overflow = '';
-            }
-        });
-    }
-});
-</script>
+    
 <script>
 // Mobile menu toggle functionality
 document.addEventListener('DOMContentLoaded', function() {
