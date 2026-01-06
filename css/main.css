@@ -2927,16 +2927,8 @@ a:hover {
   }
   
   .filters-sidebar.active::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 320px;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: -1;
-    backdrop-filter: blur(4px);
-  }
+            content: none;
+        }
 
   .filter-close-btn {
     position: absolute;

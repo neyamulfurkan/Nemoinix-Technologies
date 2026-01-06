@@ -332,8 +332,8 @@
             top: 0 !important;
             left: -100% !important;
             height: 100vh !important;
-            width: 320px !important;
-            max-width: 85vw !important;
+            width: 100% !important;
+            max-width: 100% !important;
             background: white !important;
             box-shadow: none !important;
             z-index: 10050 !important;
@@ -349,7 +349,7 @@
         
         .filters-sidebar.active {
             left: 0 !important;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1) !important;
+            box-shadow: none !important;
         }
         
         body.filter-open {
@@ -359,17 +359,17 @@
     
     @media (max-width: 640px) {
         .filters-sidebar {
-            border-radius: 20px 20px 0 0;
-            height: 92vh;
-            max-height: 92vh;
+            border-radius: 0 !important;
+            height: 100vh !important;
+            max-height: 100vh !important;
         }
     }
     
     @media (max-width: 480px) {
         .filters-sidebar {
-            border-radius: 16px 16px 0 0;
-            height: 95vh;
-            max-height: 95vh;
+            border-radius: 0 !important;
+            height: 100vh !important;
+            max-height: 100vh !important;
         }
     }
         
@@ -654,8 +654,8 @@
     
     @media (max-width: 1199px) {
         .apply-filters-btn {
-            padding: 1rem 1.5rem;
-            font-size: 0.9375rem;
+            padding: 1.25rem 1.5rem;
+            font-size: 1rem;
             border-radius: 0;
             position: sticky;
             bottom: 0;
@@ -681,8 +681,8 @@
         
         @media (max-width: 1199px) {
             .apply-filters-btn {
-                padding: 1rem 1.5rem;
-                font-size: 0.9375rem;
+                padding: 1.25rem 1.5rem;
+                font-size: 1rem;
                 border-radius: 0;
                 position: sticky;
                 bottom: 0;
