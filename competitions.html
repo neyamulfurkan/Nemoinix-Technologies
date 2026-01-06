@@ -340,7 +340,7 @@
             transition: left 0.3s ease !important;
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch;
-            padding: 1.5rem 1.5rem 5rem 1.5rem !important;
+            padding: 1.5rem 1.5rem 1.5rem 1.5rem !important;
             border-radius: 0 !important;
             margin: 0 !important;
             display: block !important;
@@ -350,10 +350,6 @@
         .filters-sidebar.active {
             left: 0 !important;
             box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1) !important;
-        }
-        
-        .main-content {
-            padding-left: 1rem !important;
         }
         
         body.filter-open {
@@ -478,30 +474,19 @@
             padding-bottom: 0;
         }
 
-        .filter-section h4 {
-            font-size: 0.8125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            color: var(--gray-700);
-            letter-spacing: 0.025em;
-        }
-        
         @media (max-width: 1199px) {
             .filter-section {
                 margin-bottom: 1rem;
                 padding-bottom: 1rem;
-                padding-left: 1.5rem;
-                padding-right: 1.5rem;
             }
             
             .filter-section h4 {
                 font-size: 0.75rem;
             }
             
-            .filter-section:last-child {
-                padding-bottom: 0;
-                margin-bottom: 6rem;
+            .filter-section:last-of-type {
+                margin-bottom: 0;
+                padding-bottom: 1rem;
             }
         }
 /* Filter Handle Bar */
@@ -654,30 +639,31 @@
     }
     
     @media (max-width: 1199px) {
-        .filters-sidebar {
-            padding-bottom: 100px !important;
+        .clear-filters {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8125rem;
         }
-        
+    }
+
+    /* Apply button should be at the END of scrollable content, not fixed */
+    @media (min-width: 1200px) {
+        .apply-filters-btn {
+            display: none;
+        }
+    }
+    
+    @media (max-width: 1199px) {
         .apply-filters-btn {
             padding: 1rem 1.5rem;
             font-size: 0.9375rem;
             border-radius: 0;
-            position: fixed;
+            position: sticky;
             bottom: 0;
-            left: 0;
-            right: 0;
             background: linear-gradient(135deg, var(--primary-500), var(--primary-600)) !important;
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
-            margin: 0;
-            z-index: 10051;
-            width: 100%;
-            max-width: none;
-        }
-        
-        .filters-sidebar.active .apply-filters-btn {
-            display: block;
-            width: 320px;
-            max-width: 85vw;
+            margin: 1.5rem -1.5rem 0 -1.5rem;
+            z-index: 10;
+            width: calc(100% + 3rem);
         }
     }
     
@@ -694,29 +680,19 @@
         }
         
         @media (max-width: 1199px) {
-            .filters-sidebar {
-                padding-bottom: 100px !important;
-            }
-            
             .apply-filters-btn {
                 padding: 1rem 1.5rem;
                 font-size: 0.9375rem;
-                border-radius: 12px;
-                position: fixed;
+                border-radius: 0;
+                position: sticky;
                 bottom: 0;
                 left: 0;
                 right: 0;
                 background: linear-gradient(135deg, var(--primary-500), var(--primary-600)) !important;
                 box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
-                margin: 0;
-                z-index: 10051;
-                border-radius: 0;
-            }
-            
-            .filters-sidebar.active .apply-filters-btn {
-                display: block;
-                width: 320px;
-                max-width: 85vw;
+                margin: 1.5rem -1.5rem 0 -1.5rem;
+                z-index: 10;
+                width: calc(100% + 3rem);
             }
             
             .apply-filters-btn:hover {
