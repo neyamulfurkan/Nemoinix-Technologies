@@ -451,6 +451,10 @@
                 display: none !important;
             }
             
+            .desktop-details-card {
+                display: none !important;
+            }
+            
             .content-grid {
                 grid-column: 1 / -1 !important;
                 width: 100% !important;
@@ -2197,6 +2201,24 @@
                 font-size: 1.5rem;
             }
         }
+        
+        /* Mobile: Show mobile section, hide desktop details */
+        @media (max-width: 1199px) {
+            .mobile-top-section {
+                display: grid !important;
+            }
+            
+            .desktop-details-card {
+                display: none !important;
+            }
+        }
+        
+        /* Desktop: Hide mobile section */
+        @media (min-width: 1200px) {
+            .mobile-top-section {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2307,7 +2329,43 @@
     <!-- Main Content -->
     <div class="content-wrapper">
         <!-- Mobile Top Section: Registration + Quick Details -->
-        <div class="mobile-top-section" style="display: none;">
+        <div class="mobile-top-section">
+            <div class="mobile-registration-wrapper">
+                <div class="registration-card compact">
+                    <h3 class="registration-title">Register Now</h3>
+                    <div class="registration-fee" id="mobileRegFee">৳0</div>
+                    <div class="registration-fee-label">Registration Fee</div>
+                    
+                    <div style="margin: 0.75rem 0; padding: 0.625rem; background: rgba(255,255,255,0.2); border-radius: 0.5rem; font-size: 0.6875rem;">
+                        <div id="mobileSpotsText">Loading...</div>
+                        <div class="progress-bar" style="margin-top: 0.375rem; height: 4px;">
+                            <div class="progress-fill" id="mobileProgressFill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <button class="register-btn" style="width: 100%; padding: 0.625rem; font-size: 0.8125rem;" onclick="openRegistrationModal()">
+                        Register Now
+                    </button>
+                </div>
+                
+                <div class="card" style="padding: 0.75rem; margin-top: 0.75rem;">
+                    <h4 style="font-size: 0.75rem; margin-bottom: 0.625rem; display: flex; align-items: center; gap: 0.375rem;">
+                        🛒 <span>Required</span>
+                    </h4>
+                    <div id="mobileProductsList" style="font-size: 0.6875rem; color: var(--gray-600);">
+                        Loading...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mobile-details-wrapper">
+                <div class="card" style="padding: 0.875rem;">
+                    <h4 style="font-size: 0.8125rem; margin-bottom: 0.75rem; font-weight: 700; color: var(--gray-900);">📋 Quick Details</h4>
+                    <div id="mobileDetailsGrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!-- Left Sidebar - Compact Registration -->
@@ -2350,7 +2408,7 @@
             <!-- Main Column -->
             <div class="main-column" style="padding: 0.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
                 <!-- Key Details Card -->
-                <div class="card" style="margin: 0;">
+                <div class="card desktop-details-card" style="margin: 0;">
                     <div class="card-header">
                         <h2 class="card-title">📋 Competition Details</h2>
                     </div>
