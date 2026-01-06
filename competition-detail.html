@@ -2307,43 +2307,7 @@
     <!-- Main Content -->
     <div class="content-wrapper">
         <!-- Mobile Top Section: Registration + Quick Details -->
-        <div class="mobile-top-section">
-            <div class="mobile-registration-wrapper">
-                <div class="registration-card compact">
-                    <h3 class="registration-title">Register Now</h3>
-                    <div class="registration-fee" id="mobileRegFee">৳0</div>
-                    <div class="registration-fee-label">Registration Fee</div>
-                    
-                    <div style="margin: 0.75rem 0; padding: 0.625rem; background: rgba(255,255,255,0.2); border-radius: 0.5rem; font-size: 0.6875rem;">
-                        <div id="mobileSpotsText">Loading...</div>
-                        <div class="progress-bar" style="margin-top: 0.375rem; height: 4px;">
-                            <div class="progress-fill" id="mobileProgressFill" style="width: 0%"></div>
-                        </div>
-                    </div>
-
-                    <button class="register-btn" style="width: 100%; padding: 0.625rem; font-size: 0.8125rem;" onclick="openRegistrationModal()">
-                        Register Now
-                    </button>
-                </div>
-                
-                <div class="card" style="padding: 0.75rem; margin-top: 0.75rem;">
-                    <h4 style="font-size: 0.75rem; margin-bottom: 0.625rem; display: flex; align-items: center; gap: 0.375rem;">
-                        🛒 <span>Required</span>
-                    </h4>
-                    <div id="mobileProductsList" style="font-size: 0.6875rem; color: var(--gray-600);">
-                        Loading...
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mobile-details-wrapper">
-                <div class="card" style="padding: 0.875rem;">
-                    <h4 style="font-size: 0.8125rem; margin-bottom: 0.75rem; font-weight: 700; color: var(--gray-900);">📋 Competition Details</h4>
-                    <div id="mobileDetailsGrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-                        <!-- Will be populated by JavaScript -->
-                    </div>
-                </div>
-            </div>
+        <div class="mobile-top-section" style="display: none;">
         </div>
         
         <!-- Left Sidebar - Compact Registration -->
@@ -2384,9 +2348,9 @@
         <!-- Main Content Grid -->
         <div class="content-grid">
             <!-- Main Column -->
-            <div class="main-column">
+            <div class="main-column" style="padding: 0.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
                 <!-- Key Details Card -->
-                <div class="card">
+                <div class="card" style="margin: 0;">
                     <div class="card-header">
                         <h2 class="card-title">📋 Competition Details</h2>
                     </div>
@@ -2396,7 +2360,7 @@
                 </div>
 
                 <!-- Prize Pool Card -->
-                <div class="prize-pool" id="prizeSection">
+                <div class="prize-pool" id="prizeSection" style="margin: 0;">
                     <h2 class="card-title" style="color: white; margin-bottom: 1.5rem;">🏆 Prize Pool</h2>
                     <div class="prize-items" id="prizeItems">
                         <!-- Will be populated by JavaScript -->
@@ -2408,7 +2372,7 @@
                 </div>
 
                 <!-- Description Card -->
-                <div class="card">
+                <div class="card" style="margin: 0;">
                     <div class="card-header">
                         <h2 class="card-title">📝 About This Competition</h2>
                     </div>
@@ -2419,7 +2383,7 @@
                 </div>
 
                 <!-- Rules & Eligibility -->
-                <div class="card">
+                <div class="card" style="margin: 0;">
                     <div class="card-header">
                         <h2 class="card-title">📜 Rules & Eligibility</h2>
                     </div>
@@ -2446,7 +2410,7 @@
                 </div>
 
                 <!-- Venue & Location -->
-                <div class="card">
+                <div class="card" style="margin: 0;">
                     <div class="card-header">
                         <h2 class="card-title">📍 Venue & Location</h2>
                     </div>
@@ -2466,7 +2430,7 @@
                 </div>
 
                 <!-- Contact Information -->
-                <div class="card">
+                <div class="card" style="margin: 0;">
                     <div class="card-header">
                         <h2 class="card-title">📞 Contact Information</h2>
                     </div>
