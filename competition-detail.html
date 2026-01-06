@@ -426,15 +426,16 @@
 
 /* Main Content */
         .content-wrapper {
-            max-width: 1400px;
+            max-width: 1320px;
             margin: 2rem auto 0 auto;
             padding: 0 1.5rem 1.5rem 1.5rem;
             display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 2rem;
+            grid-template-columns: 260px 1fr;
+            gap: 1.75rem;
             width: 100%;
             box-sizing: border-box;
             overflow-x: hidden;
+            align-items: start;
         }
     @media (max-width: 1199px) {
             .content-wrapper {
@@ -606,12 +607,16 @@
             flex-direction: column;
             gap: 2rem;
             width: 100%;
+            max-width: 100%;
         }
 
         .main-column {
             display: flex;
             flex-direction: column;
             gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .card {
@@ -955,13 +960,35 @@
         }
 
         /* Left Sidebar - Compact Registration */
-/* Left Sidebar - Compact Registration */
         .left-sidebar {
+            display: none; /* Hidden by default, only shown on specific breakpoints */
             grid-column: 1 / 2;
             position: sticky;
-            top: 90px;
+            top: 100px;
             height: fit-content;
-            width: 280px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            width: 260px;
+            margin-top: 0;
+            align-self: start;
+        }
+        
+        /* Smooth scrolling for sidebar */
+        .left-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .left-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .left-sidebar::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 3px;
+        }
+        
+        .left-sidebar::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-400);
         }
 
         /* Mobile Top Section Layout */
@@ -1011,11 +1038,29 @@
             }
         }
 
-        /* Sidebar */
+        /* Sidebar - Desktop shows LEFT sidebar, mobile shows mobile section */
         .sidebar {
             display: none;
         }
         
+        /* Desktop: Show left sidebar, hide main sidebar */
+        @media (min-width: 1200px) {
+            .left-sidebar {
+                display: block !important;
+                position: sticky !important;
+                top: 100px !important;
+            }
+            
+            .sidebar {
+                display: none !important;
+            }
+            
+            .mobile-top-section {
+                display: none !important;
+            }
+        }
+        
+        /* Mobile/Tablet: Hide main sidebar, show mobile section */
         @media (max-width: 1199px) {
             .left-sidebar {
                 display: none !important;
@@ -1027,12 +1072,41 @@
             
             .sidebar {
                 display: none !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .sidebar-card {
+                display: none !important;
             }
         }
 
         .sidebar-card {
-            position: relative;
+            position: sticky;
+            top: 100px;
             width: 100%;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+        
+        /* Smooth scrolling for sidebar card */
+        .sidebar-card::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar-card::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 3px;
+        }
+        
+        .sidebar-card::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-400);
         }
 
         /* Registration Card - Compact Version */
@@ -2161,7 +2235,29 @@
             color: white;
             font-weight: bold;
         }
-        /* Responsive - Hide left sidebar on smaller screens */
+        /* Desktop: Show left sidebar, hide mobile sections */
+        @media (min-width: 1200px) {
+            .left-sidebar {
+                display: block !important;
+                position: sticky !important;
+                top: 100px !important;
+            }
+            
+            .mobile-top-section {
+                display: none !important;
+            }
+            
+            .sidebar {
+                display: none !important;
+            }
+        }
+        
+/* Desktop Only Class */
+        .desktop-only {
+            display: block;
+        }
+        
+        /* Mobile/Tablet Responsive */
         @media (max-width: 1199px) {
             .content-wrapper {
                 grid-template-columns: 1fr !important;
@@ -2176,11 +2272,21 @@
                 grid-column: 1 / -1 !important;
             }
             
-            .sidebar {
-                display: block !important;
-                position: relative !important;
-                top: 0 !important;
-                margin-bottom: 2rem;
+            .mobile-top-section {
+                display: grid !important;
+            }
+            
+            .desktop-details-card {
+                display: none !important;
+            }
+            
+            .desktop-only {
+                display: none !important;
+                height: 0 !important;
+                width: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: hidden !important;
             }
         }
         
@@ -2199,24 +2305,6 @@
             
             .competition-title {
                 font-size: 1.5rem;
-            }
-        }
-        
-        /* Mobile: Show mobile section, hide desktop details */
-        @media (max-width: 1199px) {
-            .mobile-top-section {
-                display: grid !important;
-            }
-            
-            .desktop-details-card {
-                display: none !important;
-            }
-        }
-        
-        /* Desktop: Hide mobile section */
-        @media (min-width: 1200px) {
-            .mobile-top-section {
-                display: none !important;
             }
         }
     </style>
@@ -2517,8 +2605,8 @@
                 </div>
             </div>
 
-            <!-- Sidebar -->
-            <aside class="sidebar">
+            <!-- Sidebar (Desktop Only) -->
+            <aside class="sidebar desktop-only">
                 <div class="sidebar-card">
                     <!-- Registration Card -->
                     <div class="registration-card" id="registrationCard">
