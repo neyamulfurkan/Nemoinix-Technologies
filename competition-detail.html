@@ -334,7 +334,7 @@
             font-size: 1.125rem;
         }
 
-        /* Main Content */
+/* Main Content */
         .content-wrapper {
             max-width: 1400px;
             margin: 2rem auto 0 auto;
@@ -342,9 +342,11 @@
             display: grid;
             grid-template-columns: 280px 1fr;
             gap: 2rem;
+            width: 100%;
+            box-sizing: border-box;
         }
         
-        @media (max-width: 1199px) {
+@media (max-width: 1199px) {
             .content-wrapper {
                 grid-template-columns: 1fr !important;
                 padding: 0 1rem 1rem 1rem;
@@ -358,6 +360,8 @@
 
             .content-grid {
                 grid-column: 1 / -1 !important;
+                width: 100% !important;
+                max-width: 100% !important;
             }
             
             .sidebar {
@@ -365,6 +369,20 @@
                 position: relative !important;
                 top: 0 !important;
                 margin-bottom: 2rem;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .sidebar-card {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .registration-card,
+            .card {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
             }
             
             .similar-section {
@@ -372,14 +390,17 @@
                 padding-top: 2rem;
             }
         }
-        
         @media (max-width: 768px) {
             .content-wrapper {
-                padding: 0.5rem;
+                padding: 0 0.75rem 0.75rem 0.75rem;
             }
             
             .card {
                 padding: 1rem;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
             }
             
             .competition-hero {
@@ -388,6 +409,16 @@
             
             .competition-title {
                 font-size: 1.5rem;
+            }
+            
+            .sidebar,
+            .sidebar-card,
+            .registration-card {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                box-sizing: border-box !important;
             }
             
             .details-grid {
@@ -727,14 +758,32 @@
             height: fit-content;
             width: 280px;
         }
+        
+        @media (max-width: 1199px) {
+            .left-sidebar {
+                width: 100% !important;
+                max-width: 100% !important;
+                position: relative !important;
+                top: 0 !important;
+            }
+        }
 
         /* Sidebar */
         .sidebar {
             display: none !important;
         }
+        
+        @media (max-width: 1199px) {
+            .sidebar {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
 
         .sidebar-card {
             position: relative;
+            width: 100%;
+            max-width: 100%;
         }
 
         /* Registration Card - Compact Version */
@@ -744,6 +793,9 @@
             border-radius: 1rem;
             padding: 1.5rem;
             box-shadow: 0 10px 25px rgba(25, 145, 235, 0.3);
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .registration-card.compact {
@@ -773,6 +825,20 @@
             border-radius: 1rem;
             padding: 1.5rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        @media (max-width: 1199px) {
+            .registration-card,
+            .sidebar .card,
+            .sidebar-card .card {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
         }
         
         .left-sidebar .card h4 {
