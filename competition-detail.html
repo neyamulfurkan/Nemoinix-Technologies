@@ -466,7 +466,7 @@
                 gap: 0.75rem !important;
                 padding: 0.75rem !important;
                 background: var(--gray-50) !important;
-                margin: 0 !important;
+                margin: 0 0 0.75rem 0 !important;
                 width: 100% !important;
                 box-sizing: border-box !important;
             }
@@ -484,35 +484,11 @@
             }
             
             .sidebar {
-                position: relative !important;
-                top: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
+                display: none !important;
             }
             
             .sidebar-card {
-                width: 100% !important;
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            
-            .registration-card {
-                width: 100% !important;
-                max-width: 100% !important;
-                margin: 0 !important;
-                box-sizing: border-box !important;
-                padding: 0.875rem !important;
-            }
-            
-            .sidebar .card {
-                width: 100% !important;
-                max-width: 100% !important;
-                margin: 0.75rem 0 0 0 !important;
-                box-sizing: border-box !important;
-                padding: 0.875rem !important;
+                display: none !important;
             }
             
             .main-column {
@@ -524,8 +500,8 @@
             }
             
             .similar-section {
-                margin-top: 1.5rem !important;
-                padding: 1.5rem 0.75rem 0 0.75rem !important;
+                margin-top: 0.75rem !important;
+                padding: 0.75rem !important;
                 width: 100% !important;
                 max-width: 100% !important;
             }
@@ -541,6 +517,7 @@
                 grid-template-columns: 1fr 1fr !important;
                 gap: 0.5rem !important;
                 padding: 0.5rem !important;
+                margin: 0 0 0.5rem 0 !important;
             }
             
             .card {
@@ -548,6 +525,7 @@
                 width: 100% !important;
                 margin-left: 0 !important;
                 margin-right: 0 !important;
+                margin-bottom: 0.5rem !important;
                 border-radius: 0.75rem !important;
             }
             
@@ -604,23 +582,17 @@
                 font-size: 0.75rem !important;
             }
             
-            .sidebar .card {
-                padding: 0.75rem !important;
-                border-radius: 0.75rem !important;
-            }
-            
-            .sidebar .card h4 {
-                font-size: 0.8125rem !important;
-                margin-bottom: 0.625rem !important;
-            }
-            
             .main-column {
                 padding: 0.5rem !important;
-                gap: 1rem !important;
             }
             
             .main-column .card {
-                margin-bottom: 0.75rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+            
+            .similar-section {
+                margin-top: 0.5rem !important;
+                padding: 0.5rem !important;
             }
         }
 
@@ -1001,7 +973,7 @@
                 padding: 0.75rem;
                 background: var(--gray-50);
                 box-sizing: border-box;
-                margin-bottom: 0 !important;
+                margin: 0 0 0.75rem 0 !important;
             }
             
             .content-wrapper {
@@ -1009,8 +981,8 @@
             }
             
             .main-column {
-                padding-top: 0 !important;
-                margin-top: 0 !important;
+                padding: 0.75rem !important;
+                margin: 0 !important;
             }
             
             .main-column > .card:first-child {
@@ -1018,12 +990,7 @@
             }
             
             .left-sidebar {
-                display: block !important;
-            }
-            
-            .left-sidebar .registration-card.compact,
-            .left-sidebar .card {
-                display: block !important;
+                display: none !important;
             }
         }
         
@@ -1055,12 +1022,7 @@
             }
             
             .sidebar {
-                display: block !important;
-                position: relative;
-                width: 100%;
-                max-width: 100%;
-                margin: 0 0 2rem 0;
-                padding: 0;
+                display: none !important;
             }
         }
 
