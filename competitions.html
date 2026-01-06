@@ -72,6 +72,12 @@
             margin: 0 auto;
             padding: 0 1.5rem;
         }
+        
+        @media (max-width: 1199px) {
+            .breadcrumb .container {
+                padding: 0 1rem;
+            }
+        }
 
         .breadcrumb-list {
             display: flex;
@@ -127,15 +133,15 @@
             max-width: 1280px;
             margin: 0 auto;
             padding: 1.5rem;
-            display: grid;
-            grid-template-columns: 280px 1fr;
+            display: flex;
             gap: 2rem;
             align-items: start;
+            position: relative;
         }
         
         @media (max-width: 1199px) {
             .main-content {
-                grid-template-columns: 1fr;
+                display: block;
                 padding: 1rem;
             }
         }
@@ -145,7 +151,42 @@
                 padding: 1rem;
             }
         }
-        
+        /* Ensure no space reserved for sidebar on mobile */
+        @media (max-width: 1199px) {
+            body {
+                overflow-x: hidden;
+            }
+            
+            .main-content .filters-sidebar {
+                display: none;
+            }
+            
+            .main-content .filters-sidebar.active {
+                display: block;
+            }
+            
+            .content-area {
+                max-width: 100%;
+            }
+        }
+        /* Desktop: Sidebar + Content side by side */
+        @media (min-width: 1200px) {
+            .main-content {
+                display: flex;
+                flex-direction: row;
+                gap: 2rem;
+            }
+            
+            .filters-sidebar {
+                width: 280px;
+                flex-shrink: 0;
+            }
+            
+            .content-area {
+                flex: 1;
+                min-width: 0;
+            }
+        }
         .filter-close-btn {
             display: none;
             background: white;
@@ -183,11 +224,12 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(17, 24, 39, 0.4);
             z-index: 9998;
             opacity: 0;
-            transition: opacity 0.35s ease;
-            backdrop-filter: blur(2px);
+            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
         
         .filter-backdrop.active {
@@ -221,31 +263,104 @@
         height: fit-content;
         max-height: calc(100vh - 110px);
         overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-300) var(--gray-100);
+        width: 280px;
+        flex-shrink: 0;
     }
     
+    .filters-sidebar::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .filters-sidebar::-webkit-scrollbar-track {
+        background: var(--gray-100);
+        border-radius: 10px;
+    }
+    
+    .filters-sidebar::-webkit-scrollbar-thumb {
+        background: var(--primary-300);
+        border-radius: 10px;
+    }
+    
+    .filters-sidebar::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-400);
+    }
+    
+    
+@media (max-width: 1199px) {
+        .filters-sidebar {
+            position: fixed;
+            bottom: -100%;
+            right: 24px;
+            height: 85vh;
+            width: 90%;
+            max-width: 420px;
+            background: white;
+            box-shadow: none;
+            z-index: 9999;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow-y: auto;
+            padding: 0;
+            border-radius: 24px 24px 0 0;
+            max-height: 85vh;
+            flex-shrink: 0;
+            transform-origin: bottom right;
+        }
+        
+        .filters-sidebar.active {
+            bottom: 0;
+            box-shadow: 0 -8px 48px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Hide sidebar completely on mobile - takes NO space */
+        .main-content {
+            padding-left: 1rem !important;
+        }
+    }
     
     @media (max-width: 640px) {
         .filters-sidebar {
-            width: 85%;
-            max-width: 340px;
+            width: 95%;
+            max-width: 100%;
+            right: 0;
+            border-radius: 20px 20px 0 0;
+            height: 90vh;
+            max-height: 90vh;
         }
     }
-        
+    
+    @media (max-width: 480px) {
+        .filters-sidebar {
+            width: 100%;
+            border-radius: 16px 16px 0 0;
+        }
+    }
         
 
         .filter-sidebar-header {
             display: none;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 1.5rem 1rem;
+            padding: 1.25rem 1.5rem;
             border-bottom: 2px solid var(--gray-100);
             margin-bottom: 0;
-            background: var(--gray-50);
-            border-radius: 0 24px 0 0;
+            background: linear-gradient(135deg, var(--primary-50), white);
+            border-radius: 24px 24px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+        
+        @media (max-width: 640px) {
+            .filter-sidebar-header {
+                border-radius: 20px 20px 0 0;
+            }
         }
         
         .filter-sidebar-header h3 {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
             font-weight: 700;
             color: var(--gray-900);
             margin: 0;
@@ -256,17 +371,27 @@
                 display: flex;
             }
             
+            .filters-sidebar {
+                padding-top: 0 !important;
+            }
+            
             .filters-header {
-                padding: 0 1.5rem;
-                margin-top: 1.5rem;
+                padding: 1.25rem 1.5rem 0;
+                margin-top: 0;
+                margin-bottom: 1rem;
             }
             
             .filters-sidebar .filter-section {
                 padding: 0 1.5rem;
+                margin-bottom: 1.25rem;
             }
             
             .filters-sidebar .apply-filters-btn {
-                margin: 1.5rem 1.5rem 2rem;
+                margin: 1.5rem 1.5rem 1.5rem;
+                position: sticky;
+                bottom: 0;
+                background: white;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
             }
         }
 
@@ -297,23 +422,53 @@
         }
 
         .filter-section {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
             border-bottom: 1px solid var(--gray-200);
         }
 
         .filter-section:last-child {
             border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
         .filter-section h4 {
-            font-size: 0.875rem;
+            font-size: 0.8125rem;
             font-weight: 600;
             margin-bottom: 0.75rem;
             text-transform: uppercase;
             color: var(--gray-700);
+            letter-spacing: 0.025em;
         }
-
+        
+        @media (max-width: 1199px) {
+            .filter-section {
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+            }
+            
+            .filter-section h4 {
+                font-size: 0.75rem;
+            }
+        }
+/* Filter Handle Bar */
+        .filter-handle {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 4px;
+            background: var(--gray-300);
+            border-radius: 2px;
+        }
+        
+        @media (min-width: 1200px) {
+            .filter-handle {
+                display: none;
+            }
+        }
         .form-input, .form-select {
             width: 100%;
             padding: 0.625rem 0.875rem;
@@ -321,6 +476,14 @@
             border-radius: 8px;
             font-size: 0.875rem;
             transition: all 0.2s;
+        }
+        
+        @media (max-width: 1199px) {
+            .filters-sidebar .form-input,
+            .filters-sidebar .form-select {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8125rem;
+            }
         }
 
         .form-input:focus, .form-select:focus {
@@ -332,22 +495,45 @@
         .checkbox-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.625rem;
         }
 
         .checkbox-label {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.625rem;
             font-size: 0.875rem;
             cursor: pointer;
             color: var(--gray-700);
+            padding: 0.25rem 0;
+            transition: color 0.2s;
+        }
+        
+        .checkbox-label:hover {
+            color: var(--primary-600);
         }
 
         .checkbox-label input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             cursor: pointer;
+            accent-color: var(--primary-500);
+        }
+        
+        @media (max-width: 1199px) {
+            .checkbox-group {
+                gap: 0.5rem;
+            }
+            
+            .checkbox-label {
+                font-size: 0.8125rem;
+                gap: 0.5rem;
+            }
+            
+            .checkbox-label input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+            }
         }
 
         .date-range {
@@ -369,7 +555,7 @@
         }
 
         #prizeRangeSlider {
-            margin: 1rem 0;
+            margin: 1.25rem 0.5rem 1rem;
         }
 
         .prize-range-values {
@@ -379,27 +565,51 @@
             color: var(--gray-700);
             font-weight: 600;
         }
+        
+        @media (max-width: 1199px) {
+            #prizeRangeSlider {
+                margin: 1rem 0.25rem 0.75rem;
+            }
+            
+            .prize-range-values {
+                font-size: 0.8125rem;
+            }
+        }
 
         .apply-filters-btn {
             width: 100%;
-            background: var(--primary-500);
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
             color: white;
-            padding: 0.625rem;
+            padding: 0.875rem 1rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
-            font-size: 0.8125rem;
+            font-size: 0.9375rem;
             cursor: pointer;
             transition: all 0.2s;
             margin-top: 1rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            box-shadow: 0 4px 12px rgba(25, 145, 235, 0.3);
         }
 
         .apply-filters-btn:hover {
-            background: var(--primary-600);
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
             transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(25, 145, 235, 0.4);
+        }
+        
+        .apply-filters-btn:active {
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 1199px) {
+            .apply-filters-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.875rem;
+                border-radius: 8px;
+            }
         }
 
         .filter-count-badge {
@@ -419,6 +629,16 @@
         /* Content Area */
         .content-area {
             min-height: 600px;
+            flex: 1;
+            width: 100%;
+        }
+        
+        @media (max-width: 1199px) {
+            .content-area {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
         }
 
         .content-header {
@@ -428,11 +648,24 @@
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
             gap: 1rem;
+            width: 100%;
+        }
+        
+        @media (max-width: 1199px) {
+            .content-header {
+                padding: 0;
+            }
         }
 
         .results-info {
             font-size: 0.875rem;
             color: var(--gray-600);
+        }
+        
+        @media (max-width: 1199px) {
+            .results-info {
+                flex: 1;
+            }
         }
 
         .view-controls {
@@ -475,7 +708,46 @@
             font-size: 0.875rem;
             cursor: pointer;
         }
-
+/* Sidebar appears from where button is clicked */
+        @media (max-width: 1199px) {
+            .filters-sidebar {
+                animation: slideUpBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            
+            .filters-sidebar:not(.active) {
+                animation: slideDownOut 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+        }
+        
+        @keyframes slideUpBounce {
+            0% {
+                bottom: -100%;
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            70% {
+                bottom: 2%;
+                transform: scale(1.02);
+            }
+            100% {
+                bottom: 0;
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes slideDownOut {
+            0% {
+                bottom: 0;
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                bottom: -100%;
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        }
         /* Competitions Grid */
         .competitions-grid {
             display: grid;
@@ -961,23 +1233,34 @@
     font-size: 0.9375rem;
     box-shadow: 0 8px 24px rgba(25, 145, 235, 0.4);
     cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 100;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 10000;
     align-items: center;
     gap: 8px;
 }
 
 .mobile-filter-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.05);
     box-shadow: 0 12px 32px rgba(25, 145, 235, 0.5);
 }
 
 .mobile-filter-btn:active {
-    transform: translateY(0);
+    transform: scale(0.95);
+}
+
+.mobile-filter-btn.hidden {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
 }
 
 .mobile-filter-btn svg {
     flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.mobile-filter-btn.active svg {
+    transform: rotate(180deg);
 }
 
 @media (max-width: 1199px) {
@@ -1078,6 +1361,7 @@
         <!-- Filters Sidebar -->
         <aside class="filters-sidebar" id="filtersSidebar">
             <div class="filter-sidebar-header">
+                <div class="filter-handle"></div>
                 <h3>Filter Competitions</h3>
                 <button class="filter-close-btn" onclick="closeFilterSheet()">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1478,7 +1762,10 @@
             });
 
             // Apply Filters Button
-            document.getElementById('applyFiltersBtn').addEventListener('click', applyFilters);
+            document.getElementById('applyFiltersBtn').addEventListener('click', function() {
+                applyFilters();
+                closeFilterSheet(); // Close sidebar after applying filters
+            });
 
             // Clear Filters
             document.getElementById('clearFiltersBtn').addEventListener('click', clearFilters);
@@ -2056,6 +2343,7 @@
         // Filter sheet functions
         function openFilterSheet() {
             const filtersSidebar = document.getElementById('filtersSidebar');
+            const filterBtn = document.querySelector('.mobile-filter-btn');
             const body = document.body;
             
             // Create backdrop if it doesn't exist
@@ -2073,6 +2361,9 @@
                     backdrop.classList.add('active');
                     filtersSidebar.classList.add('active');
                     body.classList.add('filter-open');
+                    if (filterBtn) {
+                        filterBtn.classList.add('hidden');
+                    }
                 });
             }
         }
@@ -2080,6 +2371,7 @@
         function closeFilterSheet() {
             const filtersSidebar = document.getElementById('filtersSidebar');
             const backdrop = document.querySelector('.filter-backdrop');
+            const filterBtn = document.querySelector('.mobile-filter-btn');
             const body = document.body;
             
             if (filtersSidebar) {
@@ -2089,6 +2381,13 @@
                 backdrop.classList.remove('active');
             }
             body.classList.remove('filter-open');
+            
+            // Show button again after animation
+            setTimeout(() => {
+                if (filterBtn) {
+                    filterBtn.classList.remove('hidden');
+                }
+            }, 150);
         }
         
         // Close filter on backdrop click
@@ -2170,6 +2469,42 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+// Add swipe down to close gesture
+        (function() {
+            let startY = 0;
+            let currentY = 0;
+            const sidebar = document.getElementById('filtersSidebar');
+            
+            if (!sidebar) return;
+            
+            sidebar.addEventListener('touchstart', function(e) {
+                startY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            sidebar.addEventListener('touchmove', function(e) {
+                currentY = e.touches[0].clientY;
+                const diff = currentY - startY;
+                
+                // Only allow dragging down
+                if (diff > 0 && sidebar.scrollTop === 0) {
+                    e.preventDefault();
+                    sidebar.style.transform = `translateY(${Math.min(diff, 200)}px)`;
+                    sidebar.style.transition = 'none';
+                }
+            }, { passive: false });
+            
+            sidebar.addEventListener('touchend', function(e) {
+                const diff = currentY - startY;
+                
+                sidebar.style.transition = '';
+                sidebar.style.transform = '';
+                
+                // If dragged more than 100px, close
+                if (diff > 100) {
+                    closeFilterSheet();
+                }
+            }, { passive: true });
+        })();
 </script>
 </body>
 </html>
