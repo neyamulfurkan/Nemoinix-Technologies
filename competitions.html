@@ -187,34 +187,58 @@
                 min-width: 0;
             }
         }
+       .filter-close-btn {
+        display: none;
+        position: absolute;
+        top: 1.25rem;
+        right: 1.5rem;
+        background: white;
+        border: 2px solid var(--gray-200);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        z-index: 11;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .filter-close-btn:hover {
+        background: var(--error);
+        border-color: var(--error);
+        transform: rotate(90deg);
+    }
+    
+    .filter-close-btn:hover svg {
+        stroke: white;
+    }
+    
+    .filter-close-btn svg {
+        stroke: var(--gray-700);
+        stroke-width: 2.5;
+        transition: stroke 0.3s;
+    }
+    
+    @media (max-width: 1199px) {
         .filter-close-btn {
-            display: none;
-            background: white;
-            border: none;
+            display: flex;
+        }
+    }
+    
+    @media (max-width: 640px) {
+        .filter-close-btn {
+            top: 1rem;
+            right: 1rem;
             width: 36px;
             height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            min-width: 36px;
+            min-height: 36px;
         }
-        
-        .filter-close-btn:hover {
-            background: var(--gray-100);
-            transform: rotate(90deg);
-        }
-        
-        .filter-close-btn svg {
-            stroke: var(--gray-700);
-        }
-        
-        @media (max-width: 1199px) {
-            .filter-close-btn {
-                display: flex;
-            }
-        }
+    }
         
         /* Filter Backdrop */
         .filter-backdrop {
@@ -224,10 +248,12 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(17, 24, 39, 0.5);
-            z-index: 9998;
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 10049;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .filter-backdrop.active {
@@ -292,27 +318,28 @@
             bottom: 0;
             right: 0;
             left: 0;
-            height: 80vh;
+            height: 90vh;
             width: 100%;
             max-width: 100%;
             background: white;
             box-shadow: 0 -8px 48px rgba(0, 0, 0, 0.2);
-            z-index: 9999;
+            z-index: 10050;
             transform: translateY(100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             padding: 0;
             border-radius: 24px 24px 0 0;
-            max-height: 80vh;
+            max-height: 90vh;
             flex-shrink: 0;
             margin: 0;
+            top: auto;
         }
         
         .filters-sidebar.active {
             transform: translateY(0);
         }
         
-        /* Hide sidebar completely on mobile - takes NO space */
         .main-content {
             padding-left: 1rem !important;
         }
@@ -321,16 +348,16 @@
     @media (max-width: 640px) {
         .filters-sidebar {
             border-radius: 20px 20px 0 0;
-            height: 85vh;
-            max-height: 85vh;
+            height: 92vh;
+            max-height: 92vh;
         }
     }
     
     @media (max-width: 480px) {
         .filters-sidebar {
             border-radius: 16px 16px 0 0;
-            height: 90vh;
-            max-height: 90vh;
+            height: 95vh;
+            max-height: 95vh;
         }
     }
         
@@ -339,7 +366,7 @@
             display: none;
             justify-content: space-between;
             align-items: center;
-            padding: 1.25rem 1.5rem;
+            padding: 1.5rem 1.5rem 1rem;
             border-bottom: 2px solid var(--gray-100);
             margin-bottom: 0;
             background: linear-gradient(135deg, var(--primary-50), white);
@@ -353,6 +380,7 @@
         @media (max-width: 640px) {
             .filter-sidebar-header {
                 border-radius: 20px 20px 0 0;
+                padding: 1.25rem 1.5rem 0.875rem;
             }
         }
         
@@ -384,11 +412,12 @@
             }
             
             .filters-sidebar .apply-filters-btn {
-                margin: 1.5rem 1.5rem 1.5rem;
+                margin: 1.5rem 1.5rem calc(1.5rem + env(safe-area-inset-bottom));
                 position: sticky;
                 bottom: 0;
                 background: white;
                 box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+                z-index: 10;
             }
         }
 
@@ -412,10 +441,13 @@
             font-weight: 600;
             cursor: pointer;
             transition: opacity 0.2s;
+            padding: 0.375rem 0.5rem;
+            border-radius: var(--radius-base);
         }
 
         .clear-filters:hover {
             opacity: 0.8;
+            background: var(--primary-50);
         }
 
         .filter-section {
@@ -452,18 +484,19 @@
 /* Filter Handle Bar */
         .filter-handle {
             position: absolute;
-            top: 12px;
+            top: 8px;
             left: 50%;
             transform: translateX(-50%);
             width: 40px;
             height: 4px;
             background: var(--gray-300);
             border-radius: 2px;
+            display: none;
         }
         
-        @media (min-width: 1200px) {
+        @media (max-width: 1199px) {
             .filter-handle {
-                display: none;
+                display: block;
             }
         }
         .form-input, .form-select {
@@ -1180,26 +1213,28 @@
 .mobile-filter-btn {
     display: none;
     position: fixed;
-    bottom: 24px;
+    bottom: 28px;
     right: 24px;
     background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
     color: white;
-    padding: 14px 24px;
-    border-radius: 28px;
+    padding: 16px 28px;
+    border-radius: 32px;
     border: none;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    box-shadow: 0 8px 24px rgba(25, 145, 235, 0.4);
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 8px 28px rgba(25, 145, 235, 0.45);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 10001;
+    z-index: 10048;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    min-height: 56px;
+    min-width: 56px;
 }
 
 .mobile-filter-btn:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 12px 32px rgba(25, 145, 235, 0.5);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 36px rgba(25, 145, 235, 0.55);
 }
 
 .mobile-filter-btn:active {
@@ -1207,7 +1242,7 @@
 }
 
 .mobile-filter-btn.hidden {
-    transform: translateY(100px) scale(0);
+    transform: translateY(120px) scale(0);
     opacity: 0;
     pointer-events: none;
 }
@@ -1215,10 +1250,23 @@
 .mobile-filter-btn svg {
     flex-shrink: 0;
     transition: transform 0.3s ease;
+    width: 20px;
+    height: 20px;
 }
 
 .mobile-filter-btn.active svg {
     transform: rotate(180deg);
+}
+
+.filter-count-badge {
+    background: white;
+    color: var(--primary-600);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
 }
 
 @media (max-width: 1199px) {
@@ -1229,10 +1277,28 @@
 
 @media (max-width: 640px) {
     .mobile-filter-btn {
-        bottom: 20px;
+        bottom: 24px;
         right: 20px;
+        padding: 14px 24px;
+        font-size: 0.9375rem;
+        min-height: 52px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-filter-btn {
+        bottom: 20px;
+        right: 16px;
         padding: 12px 20px;
         font-size: 0.875rem;
+        min-height: 48px;
+    }
+}
+
+@supports (padding: max(0px)) {
+    .mobile-filter-btn {
+        bottom: max(28px, calc(28px + env(safe-area-inset-bottom)));
+        right: max(24px, calc(24px + env(safe-area-inset-right)));
     }
 }
     </style>
@@ -2309,17 +2375,22 @@
             if (!backdrop) {
                 backdrop = document.createElement('div');
                 backdrop.className = 'filter-backdrop';
-                backdrop.onclick = closeFilterSheet;
+                backdrop.addEventListener('click', closeFilterSheet);
                 document.body.appendChild(backdrop);
             }
             
             if (filtersSidebar) {
-                backdrop.classList.add('active');
-                filtersSidebar.classList.add('active');
-                body.classList.add('filter-open');
-                if (filterBtn) {
-                    filterBtn.style.display = 'none';
-                }
+                // Trigger reflow for smooth animation
+                requestAnimationFrame(() => {
+                    backdrop.classList.add('active');
+                    filtersSidebar.classList.add('active');
+                    body.classList.add('filter-open');
+                    body.style.overflow = 'hidden';
+                    
+                    if (filterBtn) {
+                        filterBtn.classList.add('active');
+                    }
+                });
             }
         }
 
@@ -2336,33 +2407,95 @@
                 backdrop.classList.remove('active');
             }
             body.classList.remove('filter-open');
+            body.style.overflow = '';
             
             if (filterBtn) {
-                filterBtn.style.display = 'flex';
+                filterBtn.classList.remove('active');
             }
         }
         
-        // Close filter on backdrop click
-        document.addEventListener('click', function(e) {
-            const filtersSidebar = document.getElementById('filtersSidebar');
-            const mobileFilterBtn = document.querySelector('.mobile-filter-btn');
-            
-            if (filtersSidebar && filtersSidebar.classList.contains('active')) {
-                const isClickInside = filtersSidebar.contains(e.target);
-                const isFilterBtn = mobileFilterBtn && mobileFilterBtn.contains(e.target);
-                
-                if (!isClickInside && !isFilterBtn) {
-                    closeFilterSheet();
-                }
-            }
-        });
-        
         // Close filter on escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
+            const filtersSidebar = document.getElementById('filtersSidebar');
+            if (e.key === 'Escape' && filtersSidebar && filtersSidebar.classList.contains('active')) {
                 closeFilterSheet();
             }
         });
+        
+        // Swipe down to close gesture
+        (function() {
+            let startY = 0;
+            let currentY = 0;
+            let isDragging = false;
+            const sidebar = document.getElementById('filtersSidebar');
+            
+            if (!sidebar) return;
+            
+            sidebar.addEventListener('touchstart', function(e) {
+                if (sidebar.scrollTop === 0) {
+                    startY = e.touches[0].clientY;
+                    isDragging = true;
+                }
+            }, { passive: true });
+            
+            sidebar.addEventListener('touchmove', function(e) {
+                if (!isDragging) return;
+                
+                currentY = e.touches[0].clientY;
+                const diff = currentY - startY;
+                
+                if (diff > 0 && sidebar.scrollTop === 0) {
+                    e.preventDefault();
+                    sidebar.style.transform = `translateY(${Math.min(diff, 200)}px)`;
+                    sidebar.style.transition = 'none';
+                    
+                    const backdrop = document.querySelector('.filter-backdrop');
+                    if (backdrop) {
+                        backdrop.style.opacity = Math.max(0, 1 - (diff / 300));
+                    }
+                }
+            }, { passive: false });
+            
+            sidebar.addEventListener('touchend', function() {
+                if (!isDragging) return;
+                
+                const diff = currentY - startY;
+                sidebar.style.transition = '';
+                sidebar.style.transform = '';
+                
+                const backdrop = document.querySelector('.filter-backdrop');
+                if (backdrop) {
+                    backdrop.style.opacity = '';
+                }
+                
+                if (diff > 100) {
+                    closeFilterSheet();
+                }
+                
+                isDragging = false;
+            }, { passive: true });
+        })();
+        
+        // Update filter count badges
+        function updateFilterCountBadges() {
+            let count = 0;
+            
+            // Count active filters
+            document.querySelectorAll('.category-checkbox:checked').forEach(() => count++);
+            if (document.getElementById('locationFilter').value) count++;
+            if (document.getElementById('dateFromInput').value || document.getElementById('dateToInput').value) count++;
+            if (document.getElementById('statusFilter').value) count++;
+            
+            const badges = document.querySelectorAll('.filter-count-badge, #filterCountBadge, #mobileFilterCountBadge');
+            badges.forEach(badge => {
+                if (count > 0) {
+                    badge.textContent = count;
+                    badge.style.display = 'inline-flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+            });
+        }
         
         // Initialize cart badge on page load
         document.addEventListener('DOMContentLoaded', async () => {
@@ -2370,6 +2503,14 @@
                 await Cart.updateCartBadge();
                 console.log('Cart badge initialized on competitions page');
             }
+            
+            // Update filter badges initially
+            updateFilterCountBadges();
+            
+            // Update badges when filters change
+            document.querySelectorAll('.category-checkbox, #locationFilter, #dateFromInput, #dateToInput, #statusFilter').forEach(el => {
+                el.addEventListener('change', updateFilterCountBadges);
+            });
         });
     </script>
     <script>
