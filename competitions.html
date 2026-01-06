@@ -248,10 +248,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(17, 24, 39, 0.6);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-            z-index: 10049;
+            z-index: 10040;
             opacity: 0;
             transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -262,7 +262,7 @@
         }
         
         body.filter-open {
-            overflow: hidden;
+            overflow: hidden !important;
         }
         
        @media (max-width: 768px) {
@@ -314,34 +314,34 @@
     
 @media (max-width: 1199px) {
         .filters-sidebar {
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            height: 90vh;
-            width: 100%;
-            max-width: 100%;
-            background: white;
-            box-shadow: 0 -8px 48px rgba(0, 0, 0, 0.2);
-            z-index: 10050;
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
+            position: fixed !important;
+            top: 0 !important;
+            left: -100% !important;
+            height: 100vh !important;
+            width: 320px !important;
+            max-width: 85vw !important;
+            background: white !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+            z-index: 10050 !important;
+            transition: left 0.3s ease !important;
+            overflow-y: auto !important;
             -webkit-overflow-scrolling: touch;
-            padding: 0;
-            border-radius: 24px 24px 0 0;
-            max-height: 90vh;
-            flex-shrink: 0;
-            margin: 0;
-            top: auto;
+            padding: 1.5rem !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            display: block !important;
         }
         
         .filters-sidebar.active {
-            transform: translateY(0);
+            left: 0 !important;
         }
         
         .main-content {
             padding-left: 1rem !important;
+        }
+        
+        body.filter-open {
+            overflow: hidden !important;
         }
     }
     
