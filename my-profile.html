@@ -1019,7 +1019,38 @@
         }
 
         /* Responsive */
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-700);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
         @media (max-width: 1024px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
             .sidebar {
                 transform: translateX(-100%);
             }
@@ -1086,6 +1117,9 @@
 
     <!-- Toast Container -->
     <div id="toast-container" class="toast-container"></div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
     <div class="dashboard-layout">
         <!-- Sidebar -->
@@ -1156,7 +1190,12 @@
         <main class="main-content">
             <!-- Top Bar -->
             <div class="top-bar">
-                <h1 class="page-title">My Profile</h1>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">My Profile</h1>
+                </div>
                 <div class="user-menu">
                     <button class="btn-icon" onclick="window.location.href='index.html'">
                         <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -2143,6 +2182,14 @@
             } finally {
                 hideLoading();
             }
+        }
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('active');
         }
 
         // Logout
