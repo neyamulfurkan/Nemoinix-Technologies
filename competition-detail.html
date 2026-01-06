@@ -692,9 +692,16 @@
         }
         
         @media (max-width: 768px) {
+            .details-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 0.75rem !important;
+            }
+            
             .details-grid .detail-item {
-                padding: 0.5rem 0;
-                border-bottom: 1px solid var(--gray-100);
+                padding: 0.625rem;
+                border-bottom: none;
+                background: var(--gray-50);
+                border-radius: 0.5rem;
             }
             
             .details-grid .detail-item:last-child {
@@ -994,6 +1001,20 @@
                 padding: 0.75rem;
                 background: var(--gray-50);
                 box-sizing: border-box;
+                margin-bottom: 0 !important;
+            }
+            
+            .content-wrapper {
+                gap: 0 !important;
+            }
+            
+            .main-column {
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+            }
+            
+            .main-column > .card:first-child {
+                margin-top: 0 !important;
             }
             
             .left-sidebar {
@@ -1661,6 +1682,63 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             padding: 2rem;
         }
+        
+        @media (max-width: 768px) {
+            .modal {
+                padding: 1.25rem;
+                max-height: 95vh;
+                border-radius: 1rem 1rem 0 0;
+                margin: auto 0 0 0;
+            }
+            
+            .modal-header {
+                padding-bottom: 1rem;
+                margin-bottom: 1.25rem;
+            }
+            
+            .modal-title {
+                font-size: 1.125rem;
+            }
+            
+            .form-group {
+                margin-bottom: 1rem;
+            }
+            
+            .form-label {
+                font-size: 0.8125rem;
+                margin-bottom: 0.375rem;
+            }
+            
+            .form-input,
+            .form-textarea {
+                padding: 0.625rem 0.875rem;
+                font-size: 0.875rem;
+            }
+            
+            .payment-option {
+                padding: 0.75rem;
+            }
+            
+            .payment-name {
+                font-size: 0.875rem;
+            }
+            
+            .payment-description {
+                font-size: 0.75rem;
+            }
+            
+            .modal-footer {
+                flex-direction: column-reverse;
+                gap: 0.75rem;
+                padding-top: 1rem;
+                margin-top: 1rem;
+            }
+            
+            .modal-footer .btn {
+                width: 100%;
+                padding: 0.875rem;
+            }
+        }
 
         .modal-header {
             display: flex;
@@ -2298,8 +2376,8 @@
             
             <div class="mobile-details-wrapper">
                 <div class="card" style="padding: 0.875rem;">
-                    <h4 style="font-size: 0.8125rem; margin-bottom: 0.75rem; font-weight: 700; color: var(--gray-900);">📋 Quick Details</h4>
-                    <div id="mobileDetailsGrid" style="display: flex; flex-direction: column; gap: 0.625rem;">
+                    <h4 style="font-size: 0.8125rem; margin-bottom: 0.75rem; font-weight: 700; color: var(--gray-900);">📋 Competition Details</h4>
+                    <div id="mobileDetailsGrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
                         <!-- Will be populated by JavaScript -->
                     </div>
                 </div>
@@ -3121,36 +3199,61 @@
         const mobileProductsList = document.getElementById('mobileProductsList');
         if (mobileProductsList) {
             if (hasProducts) {
-                mobileProductsList.innerHTML = comp.required_products.slice(0, 2).map(p => `
-                    <div style="font-size: 0.6875rem; padding: 0.5rem; background: var(--gray-50); border-radius: 0.375rem; margin-bottom: 0.375rem;">
-                        <div style="font-weight: 600; color: var(--gray-900); margin-bottom: 0.125rem;">${p.name.substring(0, 20)}...</div>
-                        <div style="color: var(--primary-500); font-weight: 700;">৳${p.price}</div>
+                mobileProductsList.innerHTML = comp.required_products.slice(0, 3).map(p => `
+                    <div style="display: flex; flex-direction: column; gap: 0.375rem; padding: 0.625rem; background: var(--gray-50); border-radius: 0.375rem; margin-bottom: 0.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.6875rem; font-weight: 600; color: var(--gray-900); line-height: 1.2; margin-bottom: 0.125rem;">${p.name}</div>
+                                <div style="font-size: 0.625rem; color: var(--gray-500);">${p.club_name}</div>
+                            </div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary-500);">৳${p.price}</div>
+                        </div>
+                        <button 
+                            onclick="addToCart(${p.id}); event.stopPropagation();" 
+                            style="width: 100%; padding: 0.375rem; background: var(--primary-500); color: white; border: none; border-radius: 0.375rem; font-size: 0.625rem; font-weight: 600; cursor: pointer; transition: all 0.2s;"
+                            onmouseover="this.style.background='var(--primary-600)'" 
+                            onmouseout="this.style.background='var(--primary-500)'"
+                            ${p.stock === 0 ? 'disabled style="background: var(--gray-300); cursor: not-allowed;"' : ''}>
+                            ${p.stock > 0 ? '🛒 Add to Cart' : 'Out of Stock'}
+                        </button>
                     </div>
-                `).join('') + (comp.required_products.length > 2 ? `<div style="text-align: center; font-size: 0.625rem; color: var(--gray-500);">+${comp.required_products.length - 2} more</div>` : '');
+                `).join('') + (comp.required_products.length > 3 ? `<div style="text-align: center; font-size: 0.625rem; color: var(--gray-500); margin-top: 0.25rem;">+${comp.required_products.length - 3} more</div>` : '');
             } else {
                 mobileProductsList.innerHTML = '<div style="text-align: center; padding: 0.5rem;">None required</div>';
             }
         }
         
-        // Mobile details grid
+        // Mobile details grid (2 columns)
         const mobileDetailsGrid = document.getElementById('mobileDetailsGrid');
         if (mobileDetailsGrid) {
             mobileDetailsGrid.innerHTML = `
-                <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--gray-100);">
-                    <span style="font-size: 0.6875rem; color: var(--gray-600);">Date</span>
-                    <span style="font-size: 0.6875rem; font-weight: 600;">${Utils.formatDate(comp.competition_date).substring(0, 15)}</span>
+                <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <span style="font-size: 0.625rem; color: var(--gray-500); font-weight: 500;">Competition Date</span>
+                    <span style="font-size: 0.75rem; font-weight: 600; color: var(--gray-900);">${Utils.formatDate(comp.competition_date)}</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--gray-100);">
-                    <span style="font-size: 0.6875rem; color: var(--gray-600);">Venue</span>
-                    <span style="font-size: 0.6875rem; font-weight: 600;">${comp.venue.substring(0, 20)}...</span>
+                <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <span style="font-size: 0.625rem; color: var(--gray-500); font-weight: 500;">Registration Fee</span>
+                    <span style="font-size: 0.875rem; font-weight: 700; color: var(--accent-500);">${Utils.formatPrice(comp.registration_fee)}</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--gray-100);">
-                    <span style="font-size: 0.6875rem; color: var(--gray-600);">Registered</span>
-                    <span style="font-size: 0.6875rem; font-weight: 600; color: var(--secondary-500);">${approvedCount}${comp.max_participants ? `/${comp.max_participants}` : ''}</span>
+                <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <span style="font-size: 0.625rem; color: var(--gray-500); font-weight: 500;">Deadline</span>
+                    <span style="font-size: 0.75rem; font-weight: 600; color: var(--gray-900);">${Utils.formatDate(comp.registration_deadline)}</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; padding: 0.375rem 0;">
-                    <span style="font-size: 0.6875rem; color: var(--gray-600);">Status</span>
-                    <span style="font-size: 0.6875rem; font-weight: 600; color: ${status === 'Open for Registration' ? 'var(--success)' : 'var(--error)'};">${status}</span>
+                <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <span style="font-size: 0.625rem; color: var(--gray-500); font-weight: 500;">Applications</span>
+                    <span style="font-size: 0.75rem; font-weight: 600; color: var(--primary-500);">${comp.total_applications || 0} Applied</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <span style="font-size: 0.625rem; color: var(--gray-500); font-weight: 500;">Approved</span>
+                    <span style="font-size: 0.75rem; font-weight: 600; color: var(--secondary-500);">${approvedCount} Registered</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <span style="font-size: 0.625rem; color: var(--gray-500); font-weight: 500;">Max Participants</span>
+                    <span style="font-size: 0.75rem; font-weight: 600; color: var(--gray-900);">${comp.max_participants || 'Unlimited'}</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.25rem; grid-column: 1 / -1;">
+                    <span style="font-size: 0.625rem; color: var(--gray-500); font-weight: 500;">Status</span>
+                    <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.625rem; border-radius: 0.375rem; font-size: 0.6875rem; font-weight: 600; width: fit-content; ${status === 'Open for Registration' ? 'background: rgba(16, 185, 129, 0.1); color: var(--success);' : 'background: rgba(239, 68, 68, 0.1); color: var(--error);'}">${status}</span>
                 </div>
             `;
         }
