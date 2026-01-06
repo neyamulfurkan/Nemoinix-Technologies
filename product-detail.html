@@ -1312,18 +1312,34 @@
 
         .footer-bottom-links {
             display: flex;
+            gap: var(--spacing-4);
             align-items: center;
-            gap: 1.5rem;
         }
 
         .footer-bottom-links a {
-            color: #94a3b8;
+            color: var(--gray-400);
             text-decoration: none;
-            font-size: 0.9rem;
+            transition: color var(--transition-base);
         }
 
         .footer-bottom-links a:hover {
-            color: white;
+            color: var(--bg-primary);
+        }
+        
+        .footer-bottom-links .separator {
+            color: var(--gray-600);
+        }
+        
+        @media (max-width: 768px) {
+            .footer-bottom-content {
+                flex-direction: column;
+                gap: var(--spacing-3);
+            }
+            
+            .footer-bottom-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
         }
 
         .separator {
@@ -2760,6 +2776,56 @@ if (p.related_competitions && p.related_competitions.length > 0) {
         </div>
     </footer>
     <script>
+// Mobile menu toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const body = document.body;
+
+    if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isActive = navMenu.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+            
+            if (isActive) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
+            }
+        });
+
+        // Close menu when clicking nav link
+        const navLinks = navMenu.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+    }
+});
+</script>
+<script>
 // Mobile menu toggle functionality
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');

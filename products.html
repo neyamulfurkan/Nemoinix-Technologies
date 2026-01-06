@@ -1034,6 +1034,18 @@
         grid-template-columns: 1fr 1fr;
         gap: var(--spacing-6);
     }
+    
+    @media (max-width: 768px) {
+        .modal-body {
+            grid-template-columns: 1fr;
+            padding: var(--spacing-4);
+            gap: var(--spacing-4);
+        }
+        
+        .modal-main-image {
+            max-height: 300px;
+        }
+    }
 
     .modal-images {
         display: flex;
