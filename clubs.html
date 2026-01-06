@@ -985,6 +985,7 @@
             width: 60%;
             margin: 0 auto 0.5rem;
         }
+        /* Responsive */
         @media (max-width: 1024px) {
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
@@ -1028,50 +1029,49 @@
             .footer-bottom-links a {
                 font-size: 0.8125rem;
             }
-        }
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
             
             .page-title {
                 font-size: 2rem;
             }
             
-            .podium-container {            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-        
-        .podium-first,
-        .podium-second,
-        .podium-third {
-            grid-column: 1;
-        }
-        
-        .filters-row {
-            grid-template-columns: 1fr;
-        }
+            .nav-menu {
+                display: none;
+            }
+            
+            .podium-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .podium-first,
+            .podium-second,
+            .podium-third {
+                grid-column: 1;
+            }
+            
+            .filters-row {
+                grid-template-columns: 1fr;
+            }
         
         .clubs-grid {
-            grid-template-columns: 1fr;
+                grid-template-columns: 1fr;
+            }
+            
+            .view-controls {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .leaderboard-table {
+                font-size: 0.875rem;
+            }
+            
+            .club-cell {
+                flex-direction: column;
+                text-align: center;
+            }
         }
-        
-        .view-controls {
-            flex-direction: column;
-            gap: 1rem;
-            align-items: stretch;
-        }
-        
-        .leaderboard-table {
-            font-size: 0.875rem;
-        }
-        
-        .club-cell {
-            flex-direction: column;
-            text-align: center;
-        }
-    }
     /* Footer */
         .footer {
             background: var(--gray-900);
