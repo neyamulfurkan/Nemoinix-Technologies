@@ -2376,21 +2376,30 @@
             if (!backdrop) {
                 backdrop = document.createElement('div');
                 backdrop.className = 'filter-backdrop';
-                backdrop.addEventListener('click', closeFilterSheet);
+                backdrop.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeFilterSheet();
+                });
                 document.body.appendChild(backdrop);
             }
             
             if (filtersSidebar) {
-                // Trigger reflow for smooth animation
-                requestAnimationFrame(() => {
+                // Prevent backdrop clicks from closing immediately
+                setTimeout(() => {
                     backdrop.classList.add('active');
-                    filtersSidebar.classList.add('active');
-                    body.classList.add('filter-open');
-                    body.style.overflow = 'hidden';
-                    
-                    if (filterBtn) {
-                        filterBtn.classList.add('active');
-                    }
+                }, 50);
+                
+                filtersSidebar.classList.add('active');
+                body.classList.add('filter-open');
+                body.style.overflow = 'hidden';
+                
+                if (filterBtn) {
+                    filterBtn.classList.add('active');
+                }
+                
+                // Prevent sidebar clicks from bubbling to backdrop
+                filtersSidebar.addEventListener('click', function(e) {
+                    e.stopPropagation();
                 });
             }
         }
@@ -2563,41 +2572,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-// Add swipe down to close gesture
+// Prevent sidebar from closing when scrolling and improve touch handling
         (function() {
-            let startY = 0;
-            let currentY = 0;
             const sidebar = document.getElementById('filtersSidebar');
             
             if (!sidebar) return;
             
+            // Stop propagation on all touch events to prevent backdrop from intercepting
             sidebar.addEventListener('touchstart', function(e) {
-                startY = e.touches[0].clientY;
+                e.stopPropagation();
             }, { passive: true });
             
             sidebar.addEventListener('touchmove', function(e) {
-                currentY = e.touches[0].clientY;
-                const diff = currentY - startY;
-                
-                // Only allow dragging down
-                if (diff > 0 && sidebar.scrollTop === 0) {
-                    e.preventDefault();
-                    sidebar.style.transform = `translateY(${Math.min(diff, 200)}px)`;
-                    sidebar.style.transition = 'none';
-                }
-            }, { passive: false });
+                e.stopPropagation();
+            }, { passive: true });
             
             sidebar.addEventListener('touchend', function(e) {
-                const diff = currentY - startY;
-                
-                sidebar.style.transition = '';
-                sidebar.style.transform = '';
-                
-                // If dragged more than 100px, close
-                if (diff > 100) {
-                    closeFilterSheet();
-                }
+                e.stopPropagation();
             }, { passive: true });
+            
+            // Prevent click events from closing
+            sidebar.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
         })();
 </script>
 </body>

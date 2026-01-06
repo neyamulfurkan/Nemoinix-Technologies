@@ -2700,12 +2700,19 @@ function updateFilterState() {
         if (!backdrop) {
             backdrop = document.createElement('div');
             backdrop.className = 'filter-backdrop-products';
-            backdrop.addEventListener('click', closeFilterSheet);
+            backdrop.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeFilterSheet();
+            });
             document.body.appendChild(backdrop);
         }
         
         if (filtersSidebar) {
-            backdrop.classList.add('active');
+            // Prevent backdrop clicks from closing immediately
+            setTimeout(() => {
+                backdrop.classList.add('active');
+            }, 50);
+            
             filtersSidebar.classList.add('active');
             body.classList.add('filter-open');
             body.style.overflow = 'hidden';
@@ -2713,6 +2720,11 @@ function updateFilterState() {
             if (filterBtn) {
                 filterBtn.classList.add('active');
             }
+            
+            // Prevent sidebar clicks from bubbling to backdrop
+            filtersSidebar.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
             
             console.log('Filter sidebar classes:', filtersSidebar.className);
         } else {
@@ -2844,13 +2856,23 @@ function updateFilterState() {
         closeFilterSheet();
     }
 
-    // Close modal on overlay click
-    document.getElementById('quickViewModal')?.addEventListener('click', (e) => {
-        if (e.target.id === 'quickViewModal') {
-            closeQuickView();
-        }
-    });
-
+    // Prevent sidebar from closing when scrolling
+        document.addEventListener('DOMContentLoaded', function() {
+            const filtersSidebar = document.getElementById('filtersSidebar');
+            if (filtersSidebar) {
+                filtersSidebar.addEventListener('touchstart', function(e) {
+                    e.stopPropagation();
+                }, { passive: true });
+                
+                filtersSidebar.addEventListener('touchmove', function(e) {
+                    e.stopPropagation();
+                }, { passive: true });
+                
+                filtersSidebar.addEventListener('touchend', function(e) {
+                    e.stopPropagation();
+                }, { passive: true });
+            }
+        });
     // Add CSS animations
     const style = document.createElement('style');
     style.textContent = `
