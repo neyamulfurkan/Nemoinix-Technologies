@@ -52,6 +52,7 @@
             background: var(--gray-50);
             color: var(--gray-800);
             line-height: 1.6;
+            padding-top: 0;
         }
 
         .dashboard-layout {
@@ -71,6 +72,12 @@
             z-index: 1000;
             box-shadow: var(--shadow-xl);
             transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                z-index: 10001;
+            }
         }
 
         .sidebar::-webkit-scrollbar {
@@ -254,8 +261,8 @@
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 90;
-            box-shadow: var(--shadow-sm);
+            z-index: 999;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
 
         .page-title {
@@ -816,7 +823,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 10002;
             padding: 1rem;
         }
 
@@ -1040,7 +1047,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+            z-index: 10000;
         }
 
         .overlay.active {
@@ -1053,10 +1060,12 @@
             }
             .sidebar {
                 transform: translateX(-100%);
+                z-index: 10001;
             }
 
             .sidebar.show {
                 transform: translateX(0);
+                z-index: 10001;
             }
 
             .main-content {

@@ -53,6 +53,13 @@
             background: var(--gray-50);
             color: var(--gray-900);
             line-height: 1.6;
+            padding-top: 76px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 68px;
+            }
         }
 
         /* Navigation and Breadcrumb - styles from main.css */
@@ -61,8 +68,15 @@
         /* Main Container */
         .container {
             max-width: 1400px;
-            margin: 0 auto 4rem;
+            margin: 1rem auto 4rem;
             padding: 0 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 0.5rem auto 2rem;
+                padding: 0 1rem;
+            }
         }
 
         .product-main {
@@ -167,8 +181,15 @@
         /* Product Info */
         .product-info {
             position: sticky;
-            top: 100px;
+            top: 180px;
             height: fit-content;
+        }
+
+        @media (max-width: 1024px) {
+            .product-info {
+                position: relative;
+                top: 0;
+            }
         }
 
         .product-header {
@@ -1498,9 +1519,12 @@
         .navbar {
             background: white;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 9999;
         }
 
         .navbar .container {
@@ -1710,11 +1734,15 @@
             background: white;
             border-bottom: 1px solid var(--gray-200);
             padding: 1rem 0;
+            position: sticky;
+            top: 76px;
+            z-index: 999;
         }
 
         @media (max-width: 768px) {
             .breadcrumb {
                 padding: 0.75rem 0;
+                top: 68px;
             }
         }
 
