@@ -201,7 +201,6 @@ router.get('/cart', authenticate, asyncHandler(async (req, res) => {
             p.original_price,
             p.stock,
             p.status,
-            p.club_id,
             c.club_name,
             c.slug as club_slug,
             c.logo_url as club_logo,
@@ -794,31 +793,6 @@ router.post('/apply-coupon', authenticate, asyncHandler(async (req, res) => {
             discount_amount: Math.round(discount_amount),
             free_shipping: coupon.free_shipping || false,
             message: `Coupon applied successfully! You saved ৳${Math.round(discount_amount)}`
-        }
-    });
-}));
-
-// @route   GET /api/students/clubs/:id/payment-numbers
-// @desc    Get club payment numbers for checkout
-// @access  Private (Student)
-router.get('/clubs/:id/payment-numbers', authenticate, asyncHandler(async (req, res) => {
-    const club = await db.getOne(
-        'SELECT bkash_number, nagad_number FROM clubs WHERE id = $1 AND status = $2',
-        [req.params.id, 'approved']
-    );
-    
-    if (!club) {
-        return res.status(404).json({
-            success: false,
-            message: 'Club not found'
-        });
-    }
-    
-    res.json({
-        success: true,
-        data: {
-            bkash_number: club.bkash_number || '01812-345678',
-            nagad_number: club.nagad_number || '01912-345678'
         }
     });
 }));
