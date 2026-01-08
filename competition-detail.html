@@ -57,15 +57,26 @@
             background: var(--gray-50);
             color: var(--gray-900);
             line-height: 1.6;
+            padding-top: 76px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 68px;
+            }
         }
 
         /* Navigation Mobile Fix */
         .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 9999;
             background: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-base);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            width: 100%;
         }
         
         .nav-content {
