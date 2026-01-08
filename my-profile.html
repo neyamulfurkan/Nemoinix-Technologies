@@ -2197,8 +2197,19 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
+            const body = document.body;
+            
+            const isOpening = !sidebar.classList.contains('show');
+            
             sidebar.classList.toggle('show');
             overlay.classList.toggle('active');
+            
+            // Prevent body scroll when sidebar is open
+            if (isOpening) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
+            }
         }
 
         // Logout
