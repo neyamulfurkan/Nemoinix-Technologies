@@ -1146,9 +1146,7 @@
             z-index: 1;
         }
 
-        }
-
-    @media (max-width: 768px) {
+        @media (max-width: 768px) {
         .main-content {
             margin-left: 0;
         }
@@ -2311,22 +2309,14 @@
                 }
             }
         }
-                    // Restore scroll position
-                    const scrollY = body.style.top;
-                    body.classList.remove('sidebar-open');
-                    body.style.top = '';
-                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
-                }
-            }
-        }
 
         // Logout
-        function logout(e) {
-            e.preventDefault();
+        function logout() {
             if (confirm('Are you sure you want to logout?')) {
                 localStorage.removeItem('token');
                 window.location.href = 'login.html';
             }
+            return false;
         }
 
         // Utility functions
