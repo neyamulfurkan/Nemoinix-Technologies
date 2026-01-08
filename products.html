@@ -980,6 +980,14 @@
         padding: var(--spacing-4);
         backdrop-filter: blur(4px);
     }
+    
+    @media (max-width: 768px) {
+        .modal-overlay {
+            padding: 0.5rem;
+            align-items: flex-start;
+            padding-top: 80px;
+        }
+    }
 
     .modal-overlay.active {
         display: flex;
@@ -994,6 +1002,13 @@
         overflow-y: auto;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
+    
+    @media (max-width: 768px) {
+        .quick-view-modal {
+            max-height: calc(100vh - 100px);
+            border-radius: 1rem;
+        }
+    }
 
     .modal-header {
         display: flex;
@@ -1003,6 +1018,13 @@
         border-bottom: 1px solid var(--gray-200);
         position: relative;
         min-height: 70px;
+    }
+    
+    @media (max-width: 768px) {
+        .modal-header {
+            padding: 1rem 1rem 1rem 1.5rem;
+            min-height: 56px;
+        }
     }
 
     .modal-header h3 {
@@ -1043,11 +1065,15 @@
     
     @media (max-width: 768px) {
         .modal-close {
-            width: 40px;
-            height: 40px;
-            min-width: 40px;
-            min-height: 40px;
-            font-size: 1.5rem;
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            min-height: 36px;
+            font-size: 1.25rem;
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
 
@@ -1061,12 +1087,36 @@
     @media (max-width: 768px) {
         .modal-body {
             grid-template-columns: 1fr;
-            padding: var(--spacing-4);
-            gap: var(--spacing-4);
+            padding: 1rem;
+            gap: 1rem;
         }
         
         .modal-main-image {
-            max-height: 300px;
+            max-height: 250px;
+            border-radius: var(--radius-lg);
+        }
+        
+        .modal-details h2 {
+            font-size: 1.125rem;
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .modal-details .price-section {
+            margin: var(--spacing-2) 0;
+        }
+        
+        .modal-details p {
+            margin: var(--spacing-2) 0 !important;
+            font-size: 0.875rem;
+        }
+        
+        .specs-table {
+            margin: var(--spacing-2) 0;
+            font-size: 0.875rem;
+        }
+        
+        .specs-table td {
+            padding: 0.5rem;
         }
     }
 
@@ -1120,14 +1170,10 @@
         overflow: hidden;
     }
     @media (max-width: 768px) {
-        .modal-header {
-            padding: 1rem 1.5rem;
-            min-height: 60px;
-        }
-        
         .modal-header h3 {
-            font-size: 1.125rem;
-            padding-right: 1rem;
+            font-size: 1rem;
+            padding-right: 0.75rem;
+            line-height: 1.3;
         }
     }
 
