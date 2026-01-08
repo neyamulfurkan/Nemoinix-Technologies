@@ -73,6 +73,7 @@
             z-index: 100;
             box-shadow: var(--shadow-xl);
             transition: transform 0.3s ease;
+            pointer-events: auto;
         }
 
         .sidebar::-webkit-scrollbar {
@@ -1126,11 +1127,13 @@
         .sidebar {
             transform: translateX(-100%);
             z-index: 10000;
+            pointer-events: none;
         }
 
         .sidebar.show {
             transform: translateX(0);
             z-index: 10000;
+            pointer-events: auto;
         }
 
         .main-content {
