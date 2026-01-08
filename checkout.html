@@ -1070,7 +1070,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Upload Payment Screenshot <span class="required">*</span></label>
                                     <div class="file-upload">
-                                        <input type="file" id="bkash-screenshot" accept="image/*">
+                                        <input type="file" id="bkash-screenshot" accept="image/*" capture="environment" multiple="false">
                                         <label for="bkash-screenshot" class="file-upload-label">
                                             <div class="file-upload-text">
                                                 <strong>Click to upload</strong> or drag and drop<br>
@@ -1123,7 +1123,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Upload Payment Screenshot <span class="required">*</span></label>
                                     <div class="file-upload">
-                                        <input type="file" id="nagad-screenshot" accept="image/*">
+                                        <input type="file" id="nagad-screenshot" accept="image/*" capture="environment" multiple="false">
                                         <label for="nagad-screenshot" class="file-upload-label">
                                             <div class="file-upload-text">
                                                 <strong>Click to upload</strong> or drag and drop<br>
@@ -1535,9 +1535,31 @@
                 });
             });
 
-            // Screenshot uploads
-            document.getElementById('bkash-screenshot').addEventListener('change', (e) => handleScreenshotUpload(e, 'bkash'));
-            document.getElementById('nagad-screenshot').addEventListener('change', (e) => handleScreenshotUpload(e, 'nagad'));
+            // Screenshot uploads - Multiple event listeners for mobile compatibility
+            const bkashInput = document.getElementById('bkash-screenshot');
+            const nagadInput = document.getElementById('nagad-screenshot');
+            
+            // Use both 'change' and 'input' events for better mobile support
+            ['change', 'input'].forEach(eventType => {
+                bkashInput.addEventListener(eventType, (e) => {
+                    if (e.target.files && e.target.files.length > 0) {
+                        handleScreenshotUpload(e, 'bkash');
+                    }
+                }, { passive: true });
+                
+                nagadInput.addEventListener(eventType, (e) => {
+                    if (e.target.files && e.target.files.length > 0) {
+                        handleScreenshotUpload(e, 'nagad');
+                    }
+                }, { passive: true });
+            });
+            
+            // Additional click handler on label for iOS
+            document.querySelectorAll('.file-upload-label').forEach(label => {
+                label.addEventListener('click', function(e) {
+                    console.log('File upload label clicked');
+                });
+            });
 
             // Order notes character count
             document.getElementById('order-notes').addEventListener('input', (e) => {
@@ -1585,32 +1607,81 @@
 
         function handleScreenshotUpload(e, method) {
             const file = e.target.files[0];
-            if (!file) return;
+            console.log(`${method} file selected:`, file);
+            
+            if (!file) {
+                console.warn(`No file selected for ${method}`);
+                return;
+            }
 
-            // Validate file type
-            if (!['image/jpeg', 'image/png'].includes(file.type)) {
-                showToast('Only JPG/PNG images allowed', 'error');
+            // Validate file type - be more lenient for mobile camera photos
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic'];
+            const fileType = file.type.toLowerCase();
+            
+            if (!validTypes.includes(fileType) && !file.name.match(/\.(jpg|jpeg|png|webp|heic)$/i)) {
+                showToast('Please upload a valid image (JPG, PNG, WEBP)', 'error');
                 e.target.value = '';
                 return;
             }
 
-            // Validate file size (2MB)
-            if (file.size > 2 * 1024 * 1024) {
-                showToast('Image must be less than 2MB', 'error');
+            // Validate file size (5MB - increased for high-res mobile photos)
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('Image must be less than 5MB', 'error');
                 e.target.value = '';
                 return;
             }
 
-            // Preview
+            console.log(`Processing ${method} image:`, file.name, file.size, file.type);
+            showToast('Processing image...', 'info');
+
+            // Preview with better error handling
             const reader = new FileReader();
-            reader.onload = (e) => {
-                const preview = document.getElementById(`${method}-preview`);
-                preview.querySelector('img').src = e.target.result;
-                preview.classList.add('show');
+            
+            reader.onloadstart = () => {
+                console.log(`Started reading ${method} file`);
             };
+            
+            reader.onprogress = (event) => {
+                if (event.lengthComputable) {
+                    const percentLoaded = Math.round((event.loaded / event.total) * 100);
+                    console.log(`${method} upload progress: ${percentLoaded}%`);
+                }
+            };
+            
+            reader.onload = (event) => {
+                try {
+                    console.log(`${method} file loaded successfully`);
+                    const preview = document.getElementById(`${method}-preview`);
+                    const img = preview.querySelector('img');
+                    
+                    img.onload = () => {
+                        console.log(`${method} preview rendered`);
+                        preview.classList.add('show');
+                        showToast('Image uploaded successfully!', 'success');
+                        checkFormValidity();
+                    };
+                    
+                    img.onerror = () => {
+                        console.error(`${method} preview failed to render`);
+                        showToast('Failed to preview image', 'error');
+                        e.target.value = '';
+                    };
+                    
+                    img.src = event.target.result;
+                } catch (error) {
+                    console.error(`${method} preview error:`, error);
+                    showToast('Failed to process image', 'error');
+                    e.target.value = '';
+                }
+            };
+            
+            reader.onerror = (error) => {
+                console.error(`${method} FileReader error:`, error);
+                showToast('Failed to read image file', 'error');
+                e.target.value = '';
+            };
+            
             reader.readAsDataURL(file);
-
-            checkFormValidity();
         }
 
         function removeScreenshot(method) {
