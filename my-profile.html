@@ -261,7 +261,7 @@
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 999;
+            z-index: 99;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
 
@@ -271,7 +271,7 @@
                 top: 0;
                 left: 0;
                 right: 0;
-                z-index: 998;
+                z-index: 99;
             }
         }
 
@@ -845,8 +845,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10002;
+            z-index: 10003;
             padding: 1rem;
+        }
+
+        .modal-overlay * {
+            pointer-events: auto;
         }
 
         .modal {
@@ -985,7 +989,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
+            z-index: 10004;
+            pointer-events: auto;
+        }
+
+        .loading-overlay * {
+            pointer-events: none;
         }
 
         .spinner {
@@ -1059,6 +1068,23 @@
             align-items: center;
             justify-content: center;
             color: var(--gray-700);
+            font-size: 1.25rem;
+            transition: all 0.2s;
+            position: relative;
+            z-index: 999;
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--gray-200);
+        }
+
+        .mobile-menu-btn:active {
+            transform: scale(0.95);
+        }
+        .mobile-menu-btn i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .overlay {
@@ -1070,19 +1096,21 @@
             bottom: 0;
             background: rgba(0, 0, 0, 0.5);
             z-index: 10000;
-            touch-action: none;
-            -webkit-overflow-scrolling: none;
         }
 
         .overlay.active {
             display: block;
         }
 
-        body.sidebar-open {
-            overflow: hidden !important;
-            position: fixed !important;
-            width: 100% !important;
-            height: 100% !important;
+        @media (max-width: 1024px) {
+            body.sidebar-open {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+                height: 100vh;
+                top: 0;
+                left: 0;
+            }
         }
 
         @media (max-width: 1024px) {
@@ -1101,6 +1129,21 @@
 
             .main-content {
                 margin-left: 0;
+                position: relative;
+                z-index: 1;
+            }
+
+            .main-content * {
+                pointer-events: auto;
+            }
+
+            body.sidebar-open .main-content {
+                pointer-events: none;
+            }
+
+            body.sidebar-open .sidebar,
+            body.sidebar-open .overlay {
+                pointer-events: auto;
             }
         }
 
@@ -2241,17 +2284,20 @@
             sidebar.classList.toggle('show');
             overlay.classList.toggle('active');
             
-            // Prevent body scroll when sidebar is open
-            if (isOpening) {
-                body.classList.add('sidebar-open');
-                body.style.overflow = 'hidden';
-                body.style.position = 'fixed';
-                body.style.width = '100%';
-            } else {
-                body.classList.remove('sidebar-open');
-                body.style.overflow = '';
-                body.style.position = '';
-                body.style.width = '';
+            // Prevent body scroll when sidebar is open (mobile only)
+            if (window.innerWidth <= 1024) {
+                if (isOpening) {
+                    // Save scroll position
+                    const scrollY = window.scrollY;
+                    body.style.top = `-${scrollY}px`;
+                    body.classList.add('sidebar-open');
+                } else {
+                    // Restore scroll position
+                    const scrollY = body.style.top;
+                    body.classList.remove('sidebar-open');
+                    body.style.top = '';
+                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                }
             }
         }
 
