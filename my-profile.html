@@ -830,9 +830,6 @@
             justify-content: center;
             z-index: 200;
             padding: 1rem;
-        }
-
-        .modal-overlay * {
             pointer-events: auto;
         }
 
@@ -975,10 +972,6 @@
             align-items: center;
             justify-content: center;
             z-index: 300;
-            pointer-events: auto;
-        }
-
-        .loading-overlay * {
             pointer-events: none;
         }
 
@@ -1103,7 +1096,7 @@
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(2px);
         z-index: 9999;
-        pointer-events: auto;
+        pointer-events: none;
     }
 
     .overlay.active {
@@ -1145,6 +1138,7 @@
             position: relative;
             z-index: 1;
         }
+    }
 
         @media (max-width: 768px) {
         .main-content {
