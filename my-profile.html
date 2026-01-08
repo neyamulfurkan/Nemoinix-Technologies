@@ -76,7 +76,7 @@
 
         @media (max-width: 1024px) {
             .sidebar {
-                z-index: 10001;
+                z-index: 10000;
             }
         }
 
@@ -261,7 +261,7 @@
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 99;
+            z-index: 10001;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
 
@@ -1061,21 +1061,23 @@
             display: none;
             width: 40px;
             height: 40px;
-            background: var(--gray-100);
-            border: none;
+            background: var(--primary-500);
+            border: 2px solid var(--primary-600);
             border-radius: 10px;
             cursor: pointer;
             align-items: center;
             justify-content: center;
-            color: var(--gray-700);
+            color: white;
             font-size: 1.25rem;
             transition: all 0.2s;
             position: relative;
-            z-index: 999;
+            z-index: 10002;
+            box-shadow: 0 2px 8px rgba(25, 145, 235, 0.3);
         }
 
         .mobile-menu-btn:hover {
-            background: var(--gray-200);
+            background: var(--primary-600);
+            box-shadow: 0 4px 12px rgba(25, 145, 235, 0.4);
         }
 
         .mobile-menu-btn:active {
@@ -1095,7 +1097,8 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 10000;
+            z-index: 9999;
+            pointer-events: auto;
         }
 
         .overlay.active {
@@ -1119,12 +1122,12 @@
             }
             .sidebar {
                 transform: translateX(-100%);
-                z-index: 10001;
+                z-index: 10000;
             }
 
             .sidebar.show {
                 transform: translateX(0);
-                z-index: 10001;
+                z-index: 10000;
             }
 
             .main-content {
@@ -1138,6 +1141,10 @@
             }
 
             body.sidebar-open .main-content {
+                pointer-events: none;
+            }
+            
+            body.sidebar-open .main-content * {
                 pointer-events: none;
             }
 
@@ -1163,7 +1170,7 @@
                 top: 0;
                 left: 0;
                 right: 0;
-                z-index: 998;
+                z-index: 10001;
             }
 
             .profile-header-card {
