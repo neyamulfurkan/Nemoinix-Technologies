@@ -1001,31 +1001,54 @@
         align-items: center;
         padding: var(--spacing-6);
         border-bottom: 1px solid var(--gray-200);
+        position: relative;
+        min-height: 70px;
     }
 
     .modal-header h3 {
         font-family: var(--font-display);
         font-size: 1.5rem;
         font-weight: 700;
+        flex: 1;
+        padding-right: var(--spacing-6);
     }
 
     .modal-close {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
+        background: white;
+        border: 2px solid var(--gray-300);
+        font-size: 1.75rem;
         cursor: pointer;
-        color: var(--gray-600);
-        width: 32px;
-        height: 32px;
+        color: var(--gray-700);
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: var(--radius-base);
-        transition: background 0.2s;
+        border-radius: 50%;
+        transition: all 0.3s;
+        flex-shrink: 0;
+        font-weight: 300;
+        line-height: 1;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .modal-close:hover {
-        background: var(--gray-100);
+        background: var(--error);
+        border-color: var(--error);
+        color: white;
+        transform: rotate(90deg);
+    }
+    
+    @media (max-width: 768px) {
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            min-height: 40px;
+            font-size: 1.5rem;
+        }
     }
 
     .modal-body {
@@ -1095,6 +1118,17 @@
         border: 1px solid var(--gray-200);
         border-radius: var(--radius-lg);
         overflow: hidden;
+    }
+    @media (max-width: 768px) {
+        .modal-header {
+            padding: 1rem 1.5rem;
+            min-height: 60px;
+        }
+        
+        .modal-header h3 {
+            font-size: 1.125rem;
+            padding-right: 1rem;
+        }
     }
 
     .specs-table tr {
