@@ -968,11 +968,10 @@
             right: 0;
             bottom: 0;
             background: rgba(255, 255, 255, 0.9);
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             z-index: 300;
-            pointer-events: none;
         }
 
         .spinner {
@@ -1101,6 +1100,7 @@
 
     .overlay.active {
         display: block;
+        pointer-events: auto;
     }
 
     @media (max-width: 1024px) {
