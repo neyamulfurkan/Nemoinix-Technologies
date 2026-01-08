@@ -70,10 +70,9 @@
             left: 0;
             top: 0;
             overflow-y: auto;
-            z-index: 100;
+            z-index: 10000;
             box-shadow: var(--shadow-xl);
             transition: transform 0.3s ease;
-            pointer-events: auto;
         }
 
         .sidebar::-webkit-scrollbar {
@@ -261,7 +260,7 @@
             top: 0;
             left: 260px;
             right: 0;
-            z-index: 50;
+            z-index: 10001;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
 
@@ -1087,61 +1086,42 @@
         
 
     .overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(2px);
-        z-index: 9999;
-        pointer-events: none;
-    }
-
-    .overlay.active {
-        display: block;
-        pointer-events: auto;
-    }
-
-    @media (max-width: 1024px) {
-        .top-bar {
-            left: 0;
-        }
-
-        body.sidebar-open {
-            overflow: hidden;
+            display: none;
             position: fixed;
-            width: 100%;
-            height: 100vh;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+            z-index: 9999;
         }
-    }
+
+        .overlay.active {
+            display: block;
+        }
 
     @media (max-width: 1024px) {
-        .mobile-menu-btn {
-            display: flex;
-        }
+            .mobile-menu-btn {
+                display: flex;
+            }
 
-        .sidebar {
-            transform: translateX(-100%);
-            z-index: 10000;
-            pointer-events: none;
-        }
+            .sidebar {
+                transform: translateX(-100%);
+            }
 
-        .sidebar.show {
-            transform: translateX(0);
-            z-index: 10000;
-            pointer-events: auto;
-        }
+            .sidebar.show {
+                transform: translateX(0);
+            }
 
-        .main-content {
-            margin-left: 0;
-            position: relative;
-            z-index: 1;
+            .main-content {
+                margin-left: 0;
+            }
+
+            .top-bar {
+                left: 0;
+            }
         }
-    }
 
         @media (max-width: 768px) {
         .main-content {
@@ -2276,9 +2256,6 @@
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
             const menuBtn = document.getElementById('mobile-menu-btn');
-            const body = document.body;
-            
-            const isOpening = !sidebar.classList.contains('show');
             
             sidebar.classList.toggle('show');
             overlay.classList.toggle('active');
@@ -2286,24 +2263,11 @@
                 menuBtn.classList.toggle('active');
             }
             
-            // Prevent body scroll when sidebar is open (mobile only)
-            if (window.innerWidth <= 1024) {
-                if (isOpening) {
-                    // Save scroll position
-                    const scrollY = window.scrollY;
-                    body.style.top = `-${scrollY}px`;
-                    body.style.position = 'fixed';
-                    body.style.width = '100%';
-                    body.classList.add('sidebar-open');
-                } else {
-                    // Restore scroll position
-                    const scrollY = body.style.top;
-                    body.style.position = '';
-                    body.style.top = '';
-                    body.style.width = '';
-                    body.classList.remove('sidebar-open');
-                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
-                }
+            // Prevent body scroll when sidebar is open
+            if (sidebar.classList.contains('show')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
             }
         }
 
@@ -2351,6 +2315,23 @@
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
+
+        // Close sidebar when clicking overlay
+        document.getElementById('overlay').addEventListener('click', function() {
+            toggleSidebar();
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const isClickInsideSidebar = sidebar.contains(e.target);
+            const isClickOnMenuBtn = menuBtn && menuBtn.contains(e.target);
+            
+            if (!isClickInsideSidebar && !isClickOnMenuBtn && sidebar.classList.contains('show')) {
+                toggleSidebar();
+            }
+        });
 
         // Update cart badge
         async function updateCartBadge() {
