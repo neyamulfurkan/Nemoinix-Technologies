@@ -31,11 +31,18 @@
         /* Navigation */
         .navbar {
             background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            position: sticky;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            position: fixed;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            right: 0;
+            z-index: 9999;
             padding: 1rem 0;
+            width: 100%;
+        }
+
+        body {
+            padding-top: 76px;
         }
 
         .nav-container {
@@ -43,59 +50,142 @@
             margin: 0 auto;
             padding: 0 1.5rem;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-icon svg {
+            display: block;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: #1991EB;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            line-height: 1.2;
         }
 
-        .logo-accent {
-            color: #FF9119;
+        .logo-tagline {
+            font-size: 0.7rem;
+            color: #6B7280;
+            font-weight: 400;
         }
 
-        .nav-links {
+        .nav-menu {
             display: flex;
-            gap: 2rem;
             list-style: none;
+            gap: 2rem;
             align-items: center;
         }
 
-        .nav-links a {
-            color: #374151;
+        .nav-link {
             text-decoration: none;
+            color: #374151;
             font-weight: 500;
             transition: color 0.2s;
         }
 
-        .nav-links a:hover {
+        .nav-link:hover,
+        .nav-link.active {
             color: #1991EB;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: #374151;
+            transition: color 0.2s;
+        }
+
+        .cart-btn:hover {
+            color: #1991EB;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #EF4444;
+            color: white;
+            border-radius: 9999px;
+            padding: 0.125rem 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            min-width: 1.25rem;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
         }
 
         .btn-primary {
             background: #1991EB;
             color: white;
-            padding: 0.625rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-            border: none;
-            cursor: pointer;
         }
 
         .btn-primary:hover {
             background: #1474BC;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(25, 145, 235, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1991EB;
+            border: 2px solid #1991EB;
+            padding: 0.625rem 1.5rem;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(25, 145, 235, 0.05);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 1.5rem;
+            height: 2px;
+            background: #374151;
+            transition: all 0.3s;
         }
 
         /* Club Header Banner */
@@ -1144,17 +1234,36 @@
             }
         }
 
-        @media (max-width: 640px) {
-            .nav-links {
+        @media (max-width: 768px) {
+            body {
+                padding-top: 68px;
+            }
+
+            .nav-menu {
                 display: none;
             }
 
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .btn-secondary {
+                display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
             .products-grid {
                 grid-template-columns: 1fr;
             }
 
             .stats-container {
                 grid-template-columns: 1fr;
+            }
+
+            .nav-actions .btn-primary {
+                padding: 0.625rem 1rem;
+                font-size: 0.875rem;
             }
         }
     </style>
@@ -1165,21 +1274,62 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Navigation Bar -->
     <nav class="navbar">
-        <div class="nav-container">
+        <div class="container">
+            <div class="nav-content">
+            <!-- Logo -->
             <a href="index.html" class="logo">
-                <span>Nemio</span><span class="logo-accent">nix</span>
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+                        <path d="M20 10L28 16V24L20 30L12 24V16L20 10Z" fill="white" opacity="0.9"/>
+                        <circle cx="20" cy="20" r="3" fill="white"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#1991EB"/>
+                                <stop offset="100%" stop-color="#0F578D"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-name">Nemionix Technologies</span>
+                    <span class="logo-tagline">Engineering the Future, Today</span>
+                </div>
             </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="competitions.html">Competitions</a></li>
-                <li><a href="products.html">Marketplace</a></li>
-                <li><a href="clubs.html">Clubs</a></li>
-                <li><a href="login.html" class="btn-primary">Login</a></li>
-            </ul>
+
+            <!-- Desktop Menu -->
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="competitions.html" class="nav-link">Competitions</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="clubs.html" class="nav-link active">Clubs</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+            </div>
+
+            <!-- Auth Buttons -->
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Club Header Banner -->
     <div class="club-header">
@@ -2391,5 +2541,55 @@
             }
         }
     </style>
+    
+<script>
+// Mobile menu toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const body = document.body;
+
+    if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isActive = navMenu.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+            
+            if (isActive) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
+            }
+        });
+
+        // Close menu when clicking nav link
+        const navLinks = navMenu.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+    }
+});
+</script>
 </body>
-</html>
