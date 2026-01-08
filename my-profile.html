@@ -265,6 +265,16 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
 
+        @media (max-width: 1024px) {
+            .top-bar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 998;
+            }
+        }
+
         .page-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -310,6 +320,18 @@
         .content-area {
             padding: 2rem;
             width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .content-area {
+                padding-top: calc(2rem + 72px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                padding-top: calc(1rem + 68px);
+            }
         }
 
         /* Profile Header Card */
@@ -1048,10 +1070,19 @@
             bottom: 0;
             background: rgba(0, 0, 0, 0.5);
             z-index: 10000;
+            touch-action: none;
+            -webkit-overflow-scrolling: none;
         }
 
         .overlay.active {
             display: block;
+        }
+
+        body.sidebar-open {
+            overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
+            height: 100% !important;
         }
 
         @media (max-width: 1024px) {
@@ -1080,10 +1111,16 @@
 
             .content-area {
                 padding: 1rem;
+                padding-top: calc(1rem + 68px);
             }
 
             .top-bar {
                 padding: 1rem;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 998;
             }
 
             .profile-header-card {
@@ -2206,9 +2243,15 @@
             
             // Prevent body scroll when sidebar is open
             if (isOpening) {
+                body.classList.add('sidebar-open');
                 body.style.overflow = 'hidden';
+                body.style.position = 'fixed';
+                body.style.width = '100%';
             } else {
+                body.classList.remove('sidebar-open');
                 body.style.overflow = '';
+                body.style.position = '';
+                body.style.width = '';
             }
         }
 
