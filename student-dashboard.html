@@ -1455,10 +1455,11 @@
 
         // Render Stats
         function renderStats(stats) {
-            document.getElementById('active-orders-count').textContent = stats.active_orders || 0;
-            document.getElementById('completed-orders-count').textContent = stats.completed_orders || 0;
-            document.getElementById('upcoming-competitions-count').textContent = stats.upcoming_competitions || 0;
-            document.getElementById('cart-items-count').textContent = stats.cart_items || 0;
+            const data = stats.data || stats;
+            document.getElementById('active-orders-count').textContent = data.active_orders || 0;
+            document.getElementById('completed-orders-count').textContent = data.completed_orders || 0;
+            document.getElementById('upcoming-competitions-count').textContent = data.upcoming_competitions || 0;
+            document.getElementById('cart-items-count').textContent = data.cart_items || 0;
         }
 
         // Render Recent Orders
@@ -1594,6 +1595,12 @@
                 document.getElementById('cart-badge').textContent = count;
                 document.getElementById('sidebar-cart-badge').textContent = count;
                 
+                // Update cart items stat
+                const cartStatElement = document.getElementById('cart-items-count');
+                if (cartStatElement) {
+                    cartStatElement.textContent = count;
+                }
+                
             } catch (error) {
                 console.error('Error updating cart badge:', error);
                 document.getElementById('cart-badge').textContent = '0';
@@ -1648,7 +1655,18 @@
                     apiClient.get('/products?limit=4&featured=true').catch(() => ({ success: false, data: [] }))
                 ]);
                 
-                renderStats(stats.data || stats);
+                // Calculate stats manually from actual data
+                const actualStats = {
+                    active_orders: (recentOrders.data || []).filter(o => !['delivered', 'cancelled'].includes(o.order_status)).length,
+                    completed_orders: (recentOrders.data || []).filter(o => o.order_status === 'delivered').length,
+                    upcoming_competitions: (upcomingCompetitions.data || []).length,
+                    cart_items: 0 // Will be updated by updateCartBadge
+                };
+                
+                // Merge with API stats
+                const finalStats = { ...(stats.data || stats), ...actualStats };
+                
+                renderStats(finalStats);
                 renderRecentOrders(recentOrders.data || []);
                 renderUpcomingCompetitions(upcomingCompetitions.data || []);
                 renderRecommendedProducts(recommendedProducts.data || []);
