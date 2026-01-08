@@ -256,8 +256,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 260px;
+            right: 0;
             z-index: 50;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
@@ -309,6 +311,7 @@
         /* Content Area */
         .content-area {
             padding: 2rem;
+            padding-top: calc(2rem + 72px);
             width: 100%;
             position: relative;
             z-index: 1;
@@ -1041,20 +1044,42 @@
         /* Responsive */
         .mobile-menu-btn {
             display: none;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background: var(--primary-500);
-            border: 2px solid var(--primary-600);
+            border: none;
             border-radius: 10px;
             cursor: pointer;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.25rem;
+            gap: 5px;
+            padding: 10px;
             transition: all 0.2s;
             position: relative;
-            z-index: 150;
+            z-index: 10002;
             box-shadow: 0 2px 8px rgba(25, 145, 235, 0.3);
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2.5px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
         }
 
         .mobile-menu-btn:hover {
@@ -1066,11 +1091,7 @@
             transform: scale(0.95);
         }
 
-        .mobile-menu-btn i {
-            display: flex;
-            align-items: center;
-        justify-content: center;
-    }
+        
 
     .overlay {
         display: none;
@@ -1080,6 +1101,7 @@
         right: 0;
         bottom: 0;
         background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
         z-index: 9999;
         pointer-events: auto;
     }
@@ -1089,6 +1111,10 @@
     }
 
     @media (max-width: 1024px) {
+        .top-bar {
+            left: 0;
+        }
+
         body.sidebar-open {
             overflow: hidden;
             position: fixed;
@@ -1120,23 +1146,7 @@
             z-index: 1;
         }
 
-        .main-content * {
-            pointer-events: auto;
         }
-
-        body.sidebar-open .main-content {
-            pointer-events: none;
-        }
-
-        body.sidebar-open .main-content * {
-            pointer-events: none;
-        }
-
-        body.sidebar-open .sidebar,
-        body.sidebar-open .overlay {
-            pointer-events: auto;
-        }
-    }
 
     @media (max-width: 768px) {
         .main-content {
@@ -1271,8 +1281,10 @@
             <!-- Top Bar -->
             <div class="top-bar">
                 <div style="display: flex; align-items: center; gap: 1rem;">
-                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
-                        <i class="fas fa-bars"></i>
+                    <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleSidebar()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
                     <h1 class="page-title">My Profile</h1>
                 </div>
@@ -2268,12 +2280,16 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
+            const menuBtn = document.getElementById('mobile-menu-btn');
             const body = document.body;
             
             const isOpening = !sidebar.classList.contains('show');
             
             sidebar.classList.toggle('show');
             overlay.classList.toggle('active');
+            if (menuBtn) {
+                menuBtn.classList.toggle('active');
+            }
             
             // Prevent body scroll when sidebar is open (mobile only)
             if (window.innerWidth <= 1024) {
@@ -2281,8 +2297,20 @@
                     // Save scroll position
                     const scrollY = window.scrollY;
                     body.style.top = `-${scrollY}px`;
+                    body.style.position = 'fixed';
+                    body.style.width = '100%';
                     body.classList.add('sidebar-open');
                 } else {
+                    // Restore scroll position
+                    const scrollY = body.style.top;
+                    body.style.position = '';
+                    body.style.top = '';
+                    body.style.width = '';
+                    body.classList.remove('sidebar-open');
+                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                }
+            }
+        }
                     // Restore scroll position
                     const scrollY = body.style.top;
                     body.classList.remove('sidebar-open');
