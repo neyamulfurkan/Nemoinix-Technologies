@@ -11,8 +11,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/main.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    
     
     <style>
         :root {
@@ -70,7 +74,7 @@
             left: 0;
             top: 0;
             overflow-y: auto;
-            z-index: 10000;
+            z-index: 1000;
             box-shadow: var(--shadow-xl);
             transition: transform 0.3s ease;
         }
@@ -240,12 +244,9 @@
 
         /* Main Content */
         .main-content {
-            flex: 1;
             margin-left: 260px;
             min-height: 100vh;
             background: var(--gray-50);
-            position: relative;
-            z-index: 1;
         }
 
         /* Top Bar */
@@ -256,11 +257,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 260px;
-            right: 0;
-            z-index: 10001;
+            z-index: 100;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
 
