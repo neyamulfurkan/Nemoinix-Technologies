@@ -53,12 +53,12 @@
             background: var(--gray-50);
             color: var(--gray-900);
             line-height: 1.6;
-            padding-top: 72px;
+            padding-top: 0;
         }
 
         @media (max-width: 768px) {
             body {
-                padding-top: 60px;
+                padding-top: 0;
             }
         }
 
@@ -70,12 +70,14 @@
             max-width: 1400px;
             margin: 0 auto 4rem;
             padding: 0 2rem;
+            margin-top: 125px;
         }
 
         @media (max-width: 768px) {
             .container {
                 margin: 0 auto 2rem;
                 padding: 0 1rem;
+                margin-top: 105px;
             }
         }
 
@@ -88,7 +90,7 @@
             padding: 2.5rem;
             box-shadow: var(--shadow-base);
             margin-bottom: 3rem;
-            margin-top: 1rem;
+            margin-top: 0;
         }
         
         @media (max-width: 768px) {
@@ -1534,6 +1536,7 @@
             right: 0;
             width: 100%;
             z-index: 9999;
+            height: 72px;
         }
 
         .navbar .container {
@@ -1743,9 +1746,11 @@
             background: white;
             border-bottom: 1px solid var(--gray-200);
             padding: 1rem 0;
-            position: sticky;
+            position: fixed;
             top: 72px;
-            z-index: 999;
+            left: 0;
+            right: 0;
+            z-index: 998;
         }
 
         @media (max-width: 768px) {
