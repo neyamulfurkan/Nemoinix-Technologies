@@ -70,14 +70,14 @@
             max-width: 1400px;
             margin: 0 auto 4rem;
             padding: 0 2rem;
-            padding-top: 88px;
+            padding-top: 0;
         }
 
         @media (max-width: 768px) {
             .container {
                 margin: 0 auto 2rem;
                 padding: 0 1rem;
-                padding-top: 72px;
+                padding-top: 0;
             }
         }
 
@@ -90,12 +90,15 @@
             padding: 2.5rem;
             box-shadow: var(--shadow-base);
             margin-bottom: 3rem;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
         }
         
         @media (max-width: 768px) {
             .product-main {
-                margin-top: 0.5rem;
+                margin-top: 1rem;
+                padding: 1rem;
+                gap: 1.5rem;
+                border-radius: 12px;
             }
         }
 
@@ -1740,7 +1743,6 @@
             transition: all 0.3s ease;
         }
 
-        /* BREADCRUMB STYLES */
         .breadcrumb {
             background: white;
             border-bottom: 1px solid var(--gray-200);
@@ -1749,7 +1751,7 @@
             top: 72px;
             z-index: 998;
         }
-
+        
         @media (max-width: 768px) {
             .breadcrumb {
                 padding: 0.75rem 0;
@@ -1765,6 +1767,15 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .breadcrumb .container {
+                padding: 0 1rem;
+                font-size: 0.8125rem;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
         }
 
         .breadcrumb a {
