@@ -205,6 +205,7 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
         z-index: 10051;
+        pointer-events: auto !important;
         min-width: 40px;
         min-height: 40px;
     }
@@ -362,6 +363,7 @@
             background: white !important;
             box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
             z-index: 10050 !important;
+            pointer-events: auto !important;
             transition: left 0.3s ease !important;
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch;
@@ -404,6 +406,7 @@
             display: none;
             opacity: 0;
             transition: opacity 0.3s ease;
+            pointer-events: auto;
         }
         
         .filter-backdrop.active {
