@@ -162,6 +162,8 @@ body {
   line-height: 1.5;
   color: var(--gray-900);
   background-color: var(--bg-secondary);
+  animation: pageLoad 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  overflow-x: hidden;
 }
 
 img {
@@ -3549,4 +3551,401 @@ body.menu-open {
   .card-actions {
     grid-template-columns: 1fr !important;
   }
+}
+/* ========================================
+   PAGE TRANSITION ANIMATIONS
+   ======================================== */
+
+/* Page Load Animation */
+@keyframes pageLoad {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page Exit Animation (triggered by navigation) */
+@keyframes pageExit {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.98);
+  }
+}
+
+/* Page Enter from Right */
+@keyframes pageEnterRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Page Enter from Left */
+@keyframes pageEnterLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Content Fade In Stagger */
+.main-content > *,
+.container > *:not(.navbar, .footer),
+.section > * {
+  animation: contentFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.main-content > *:nth-child(1),
+.container > *:nth-child(1) { animation-delay: 0.05s; }
+.main-content > *:nth-child(2),
+.container > *:nth-child(2) { animation-delay: 0.1s; }
+.main-content > *:nth-child(3),
+.container > *:nth-child(3) { animation-delay: 0.15s; }
+.main-content > *:nth-child(4),
+.container > *:nth-child(4) { animation-delay: 0.2s; }
+.main-content > *:nth-child(5),
+.container > *:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes contentFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card Grid Animations */
+.competitions-grid > *,
+.products-grid > *,
+.clubs-grid > *,
+.features-grid > * {
+  animation: cardSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+.competitions-grid > *:nth-child(1),
+.products-grid > *:nth-child(1),
+.clubs-grid > *:nth-child(1),
+.features-grid > *:nth-child(1) { animation-delay: 0.05s; }
+
+.competitions-grid > *:nth-child(2),
+.products-grid > *:nth-child(2),
+.clubs-grid > *:nth-child(2),
+.features-grid > *:nth-child(2) { animation-delay: 0.1s; }
+
+.competitions-grid > *:nth-child(3),
+.products-grid > *:nth-child(3),
+.clubs-grid > *:nth-child(3),
+.features-grid > *:nth-child(3) { animation-delay: 0.15s; }
+
+.competitions-grid > *:nth-child(4),
+.products-grid > *:nth-child(4),
+.clubs-grid > *:nth-child(4),
+.features-grid > *:nth-child(4) { animation-delay: 0.2s; }
+
+.competitions-grid > *:nth-child(5),
+.products-grid > *:nth-child(5),
+.clubs-grid > *:nth-child(5),
+.features-grid > *:nth-child(5) { animation-delay: 0.25s; }
+
+.competitions-grid > *:nth-child(6),
+.products-grid > *:nth-child(6),
+.clubs-grid > *:nth-child(6),
+.features-grid > *:nth-child(6) { animation-delay: 0.3s; }
+
+@keyframes cardSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Hero Section Animation */
+.hero {
+  animation: heroFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+@keyframes heroFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-text > * {
+  animation: heroTextSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.hero-badge { animation-delay: 0.1s; }
+.hero-title { animation-delay: 0.2s; }
+.hero-subtitle { animation-delay: 0.3s; }
+.hero-cta { animation-delay: 0.4s; }
+.hero-search { animation-delay: 0.5s; }
+.hero-stats { animation-delay: 0.6s; }
+
+@keyframes heroTextSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Navbar Animation */
+.navbar {
+  animation: navbarSlideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@keyframes navbarSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%) translateZ(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+/* Footer Animation */
+.footer {
+  animation: footerFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes footerFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal Animations - Enhanced */
+.modal-overlay.active {
+  animation: overlayFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes overlayFadeIn {
+  0% {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    backdrop-filter: blur(4px);
+  }
+}
+
+.modal-overlay.active .modal,
+.modal-overlay.active .quick-view-modal {
+  animation: modalSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes modalSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Table Row Animation */
+tbody tr {
+  animation: tableRowFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+tbody tr:nth-child(1) { animation-delay: 0.05s; }
+tbody tr:nth-child(2) { animation-delay: 0.1s; }
+tbody tr:nth-child(3) { animation-delay: 0.15s; }
+tbody tr:nth-child(4) { animation-delay: 0.2s; }
+tbody tr:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes tableRowFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Form Elements Animation */
+.form-group {
+  animation: formGroupSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.05s; }
+.form-group:nth-child(2) { animation-delay: 0.1s; }
+.form-group:nth-child(3) { animation-delay: 0.15s; }
+.form-group:nth-child(4) { animation-delay: 0.2s; }
+.form-group:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes formGroupSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Hover Enhancements */
+.btn,
+.action-btn,
+.page-btn,
+button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover,
+.action-btn:hover,
+.page-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn:active,
+.action-btn:active,
+.page-btn:active {
+  transform: translateY(0);
+}
+
+/* Card Hover Enhancements */
+.card,
+.card-product,
+.card-competition,
+.club-card,
+.stat-card,
+.feature-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Stat Cards Animation */
+.stat-card {
+  animation: statCardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes statCardPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  70% {
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Sidebar Animation */
+.sidebar {
+  animation: sidebarSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+@keyframes sidebarSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.nav-link {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  body {
+    animation: none !important;
+  }
+}
+
+/* Performance Optimizations */
+.hero,
+.navbar,
+.sidebar,
+.main-content,
+body {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Page transition state classes (for JavaScript-triggered animations) */
+body.page-transitioning {
+  pointer-events: none;
+}
+
+body.page-entering {
+  animation: pageEnterRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+body.page-exiting {
+  animation: pageExit 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
