@@ -170,12 +170,12 @@
         border-radius: 12px;
         padding: 1.5rem;
         height: fit-content;
-        position: sticky;
-        top: 90px;
+        position: sticky !important;
+        top: 90px !important;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        max-height: calc(100vh - 110px);
+        max-height: calc(100vh - 110px) !important;
         overflow-y: auto;
-        align-self: flex-start;
+        align-self: flex-start !important;
     }
     
     @media (min-width: 1200px) {
@@ -185,6 +185,18 @@
             top: 90px !important;
             height: fit-content !important;
             max-height: calc(100vh - 110px) !important;
+            align-self: flex-start !important;
+        }
+        
+        .main-container {
+            display: grid !important;
+            align-items: flex-start !important;
+            align-self: flex-start !important;
+        }
+        
+        .main-container {
+            display: grid !important;
+            align-items: flex-start !important;
         }
     }
     
