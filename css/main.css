@@ -127,8 +127,8 @@
   --z-dropdown: 900;
   --z-sticky: 920;
   --z-fixed: 930;
-  --z-modal-backdrop: 999995;
-  --z-modal: 999996;
+  --z-modal-backdrop: 10040;
+  --z-modal: 10050;
   --z-popover: 1060;
   --z-tooltip: 1070;
 
@@ -240,7 +240,7 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 9999;
   padding: var(--spacing-4) 0;
   border-bottom: 1px solid var(--gray-200);
   width: 100%;
@@ -2318,7 +2318,7 @@ body {
   bottom: 0;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
-  z-index: 999995;
+  z-index: 10040;
   align-items: center;
   justify-content: center;
   padding: var(--spacing-4);
@@ -2336,7 +2336,7 @@ body {
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: var(--shadow-xl);
-  z-index: var(--z-modal);
+  z-index: 10050;
   animation: modalSlideIn 0.3s ease-out;
 }
 
