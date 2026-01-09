@@ -124,11 +124,11 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
   /* Z-Index Layers */
-  --z-dropdown: 1000;
-  --z-sticky: 1020;
-  --z-fixed: 1030;
-  --z-modal-backdrop: 1040;
-  --z-modal: 1050;
+  --z-dropdown: 900;
+  --z-sticky: 920;
+  --z-fixed: 930;
+  --z-modal-backdrop: 999995;
+  --z-modal: 999996;
   --z-popover: 1060;
   --z-tooltip: 1070;
 
@@ -240,7 +240,7 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9999;
+  z-index: 1000;
   padding: var(--spacing-4) 0;
   border-bottom: 1px solid var(--gray-200);
   width: 100%;
@@ -2318,7 +2318,7 @@ body {
   bottom: 0;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
-  z-index: var(--z-modal-backdrop);
+  z-index: 999995;
   align-items: center;
   justify-content: center;
   padding: var(--spacing-4);
@@ -3016,7 +3016,6 @@ body {
    MOBILE RESPONSIVENESS ENHANCEMENTS
    ======================================== */
 
-/* Mobile Menu Styles */
 @media (max-width: 1023px) {
   .nav-menu {
     position: fixed;
@@ -3032,7 +3031,7 @@ body {
     flex-direction: column;
     gap: var(--spacing-4);
     transition: right 0.3s ease;
-    z-index: 1000;
+    z-index: 1001;
     overflow-y: auto;
   }
 
