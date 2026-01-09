@@ -1714,5 +1714,54 @@
             loadDashboard();
         });
     </script>
+<!-- Page Transition Script -->
+<script>
+(function() {
+  'use strict';
+  
+  // Fade in current page
+  document.body.style.opacity = '0';
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      document.body.style.transition = 'opacity 0.3s ease-in-out';
+      document.body.style.opacity = '1';
+    }, 50);
+  });
+  
+  // Intercept all link clicks for smooth transitions
+  document.addEventListener('click', function(e) {
+    const target = e.target.closest('a');
+    
+    // Only handle internal links
+    if (target && 
+        target.href && 
+        target.href.startsWith(window.location.origin) &&
+        !target.hasAttribute('download') &&
+        !target.target &&
+        target.href !== 'javascript:void(0)' &&
+        !target.href.includes('#') &&
+        !target.onclick) {
+      
+      e.preventDefault();
+      const href = target.href;
+      
+      // Fade out and navigate
+      document.body.style.transition = 'opacity 0.25s ease-in-out';
+      document.body.style.opacity = '0';
+      
+      setTimeout(function() {
+        window.location.href = href;
+      }, 250);
+    }
+  });
+  
+  // Handle browser back/forward buttons
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+      document.body.style.opacity = '1';
+    }
+  });
+})();
+</script>
 </body>
 </html>
