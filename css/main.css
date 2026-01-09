@@ -164,7 +164,11 @@ body {
   background-color: var(--bg-secondary);
   overflow-x: hidden;
   opacity: 1;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.15s ease-in-out;
+}
+
+body.loaded {
+  opacity: 1;
 }
 
 img {
@@ -3608,7 +3612,7 @@ nav.navbar,
 @keyframes pageLoad {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(5px);
   }
   100% {
     opacity: 1;
@@ -3622,7 +3626,7 @@ main,
 .dashboard-layout,
 .hero-content,
 .section:not(.navbar) {
-  animation: pageLoad 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: pageLoad 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Page Exit Animation (triggered by navigation) */

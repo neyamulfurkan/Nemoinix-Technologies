@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Prevent white flash on page load -->
+    <style>
+        body {
+            opacity: 0;
+            background: #F9FAFB;
+            transition: opacity 0.2s ease-in-out;
+        }
+        body.loaded {
+            opacity: 1;
+        }
+        /* Hide loading overlay by default */
+        .loading-overlay {
+            display: none !important;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Nemionix - Bangladesh Robotics Marketplace</title>
@@ -1759,6 +1774,68 @@
   window.addEventListener('pageshow', function(event) {
     if (event.persisted) {
       document.body.style.opacity = '1';
+    }
+  });
+})();
+</script>
+<!-- Fast Page Transition Script -->
+<script>
+(function() {
+  'use strict';
+  
+  // Immediately show page content (prevent white flash)
+  document.body.classList.add('loaded');
+  
+  // Hide loading overlay immediately
+  window.addEventListener('DOMContentLoaded', function() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+      loadingOverlay.style.display = 'none';
+    }
+  });
+  
+  // Intercept all link clicks for instant transitions
+  document.addEventListener('click', function(e) {
+    const target = e.target.closest('a');
+    
+    // Only handle internal navigation links
+    if (target && 
+        target.href && 
+        target.href.startsWith(window.location.origin) &&
+        !target.hasAttribute('download') &&
+        !target.target &&
+        target.href !== 'javascript:void(0)' &&
+        !target.href.includes('#') &&
+        !target.onclick &&
+        !target.closest('.modal')) {
+      
+      e.preventDefault();
+      const href = target.href;
+      
+      // Quick fade out
+      document.body.style.opacity = '0';
+      
+      // Navigate after short delay
+      setTimeout(function() {
+        window.location.href = href;
+      }, 150);
+    }
+  });
+  
+  // Handle browser back/forward
+  window.addEventListener('pageshow', function(event) {
+    document.body.classList.add('loaded');
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+      loadingOverlay.style.display = 'none';
+    }
+  });
+  
+  // Force hide loading on any load event
+  window.addEventListener('load', function() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+      loadingOverlay.style.display = 'none';
     }
   });
 })();
