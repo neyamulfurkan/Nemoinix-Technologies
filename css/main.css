@@ -3102,58 +3102,6 @@ body {
   }
 }
 
-/* Filter Sidebar Mobile */
-@media (max-width: 1199px) {
-  .filters-sidebar {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    height: 100vh;
-    width: 320px;
-    max-width: 85vw;
-    background: white;
-    box-shadow: var(--shadow-xl);
-    z-index: 10002;
-    transition: left 0.3s ease;
-    overflow-y: auto;
-    padding: var(--spacing-6);
-  }
-
-  .filters-sidebar.active {
-    left: 0;
-  }
-  
-  .filters-sidebar.active::before {
-            content: none;
-        }
-
-  .filter-close-btn {
-    position: absolute;
-    top: var(--spacing-4);
-    right: var(--spacing-4);
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-full);
-    background: var(--gray-100);
-    border: none;
-    font-size: 1.25rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    z-index: 10003;
-  }
-
-  .filter-close-btn:hover {
-    background: var(--gray-200);
-    transform: rotate(90deg);
-  }
-
-  .mobile-filter-btn {
-    display: flex !important;
-  }
-}
 
 /* Hero Section Mobile */
 @media (max-width: 768px) {
