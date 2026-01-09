@@ -162,7 +162,6 @@ body {
   line-height: 1.5;
   color: var(--gray-900);
   background-color: var(--bg-secondary);
-  animation: pageLoad 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   overflow-x: hidden;
 }
 
@@ -3556,7 +3555,54 @@ body.menu-open {
    PAGE TRANSITION ANIMATIONS
    ======================================== */
 
-/* Page Load Animation */
+   /* ========================================
+   NAVBAR PROTECTION - PREVENT MOVEMENT
+   ======================================== */
+
+/* Force navbar to stay fixed and never animate */
+.navbar,
+nav.navbar,
+.navbar *,
+.navbar-container,
+.nav-content,
+.logo,
+.logo-icon,
+.logo-text,
+.nav-menu,
+.nav-link,
+.nav-actions,
+.cart-btn,
+.mobile-menu-toggle,
+.user-info,
+.admin-badge {
+  animation: none !important;
+  transform: none !important;
+  will-change: auto !important;
+  backface-visibility: visible !important;
+}
+
+/* Ensure navbar stays in position */
+.navbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+}
+
+/* Maintain navbar transitions for interactions only */
+.nav-link,
+.cart-btn,
+.mobile-menu-toggle {
+  transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease !important;
+}
+
+.nav-link:hover,
+.cart-btn:hover {
+  transform: none !important;
+}
+
+/* Page Load Animation - Applied to main content only */
 @keyframes pageLoad {
   0% {
     opacity: 0;
@@ -3566,6 +3612,15 @@ body.menu-open {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Apply page load animation to main content areas only */
+main,
+.main-content,
+.dashboard-layout,
+.hero-content,
+.section:not(.navbar) {
+  animation: pageLoad 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Page Exit Animation (triggered by navigation) */
@@ -3606,9 +3661,23 @@ body.menu-open {
 
 /* Content Fade In Stagger */
 .main-content > *,
-.container > *:not(.navbar, .footer),
-.section > * {
+.container > *:not(.navbar, .footer, .nav-content),
+.section > *,
+.dashboard-layout,
+.hero,
+.page-header {
   animation: contentFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+/* Exclude navbar and its children from animations */
+.navbar,
+.navbar *,
+.nav-content,
+.nav-content *,
+.logo,
+.nav-menu,
+.nav-actions {
+  animation: none !important;
 }
 
 .main-content > *:nth-child(1),
@@ -3720,23 +3789,12 @@ body.menu-open {
   }
 }
 
-/* Navbar Animation */
+/* Navbar Animation - DISABLED to prevent movement */
 .navbar {
-  animation: navbarSlideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) backwards;
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-@keyframes navbarSlideDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-100%) translateZ(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) translateZ(0);
-  }
+  will-change: auto;
+  transform: none;
+  backface-visibility: visible;
+  animation: none;
 }
 
 /* Footer Animation */
@@ -3923,13 +3981,18 @@ button {
 
 /* Performance Optimizations */
 .hero,
-.navbar,
 .sidebar,
-.main-content,
-body {
+.main-content {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
+}
+
+/* Navbar: No transformations to prevent movement */
+.navbar {
+  will-change: auto;
+  transform: none;
+  backface-visibility: visible;
 }
 
 /* Smooth scroll behavior */
