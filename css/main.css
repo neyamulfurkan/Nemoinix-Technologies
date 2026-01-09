@@ -3087,22 +3087,6 @@ body {
   }
 }
 
-/* Mobile Overlay for Menu */
-@media (max-width: 1023px) {
-  .nav-menu.active::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 280px;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    z-index: -1;
-  }
-}
-
-
 /* Hero Section Mobile */
 @media (max-width: 768px) {
   .hero {
