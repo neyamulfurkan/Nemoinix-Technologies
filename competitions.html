@@ -204,7 +204,7 @@
         justify-content: center;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-        z-index: 10004;
+        z-index: 10052;
         pointer-events: auto !important;
         min-width: 40px;
         min-height: 40px;
@@ -2538,10 +2538,17 @@
             if (!backdrop) {
                 backdrop = document.createElement('div');
                 backdrop.className = 'filter-backdrop';
-                backdrop.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 10040; display: none; opacity: 0; transition: opacity 0.3s ease;';
+                backdrop.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 10040; display: none; opacity: 0; transition: opacity 0.3s ease; pointer-events: auto;';
                 backdrop.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    closeFilterSheet();
+                    if (e.target === backdrop) {
+                        closeFilterSheet();
+                    }
+                });
+                backdrop.addEventListener('mousedown', function(e) {
+                    if (e.target === backdrop) {
+                        e.preventDefault();
+                        closeFilterSheet();
+                    }
                 });
                 document.body.appendChild(backdrop);
             }
@@ -2550,9 +2557,11 @@
                 // Prevent backdrop clicks from closing immediately
                 setTimeout(() => {
                     backdrop.classList.add('active');
+                    backdrop.style.display = 'block';
                 }, 50);
                 
                 filtersSidebar.classList.add('active');
+                filtersSidebar.style.pointerEvents = 'auto';
                 body.classList.add('filter-open');
                 body.style.overflow = 'hidden';
                 
@@ -2563,7 +2572,11 @@
                 // Prevent sidebar clicks from bubbling to backdrop
                 filtersSidebar.addEventListener('click', function(e) {
                     e.stopPropagation();
-                });
+                }, { once: false });
+                
+                filtersSidebar.addEventListener('mousedown', function(e) {
+                    e.stopPropagation();
+                }, { once: false });
             }
         }
 
@@ -2757,6 +2770,29 @@ document.addEventListener('DOMContentLoaded', function() {
             // Prevent click events from closing
             sidebar.addEventListener('click', function(e) {
                 e.stopPropagation();
+            });
+            
+            // CRITICAL: Stop all pointer events from bubbling to backdrop
+            sidebar.addEventListener('mousedown', function(e) {
+                e.stopPropagation();
+            }, true);
+            
+            sidebar.addEventListener('mouseup', function(e) {
+                e.stopPropagation();
+            }, true);
+            
+            // Prevent backdrop from intercepting clicks inside sidebar
+            const allInputs = sidebar.querySelectorAll('input, select, button, a, label');
+            allInputs.forEach(function(input) {
+                input.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                input.addEventListener('mousedown', function(e) {
+                    e.stopPropagation();
+                });
+                input.addEventListener('touchstart', function(e) {
+                    e.stopPropagation();
+                }, { passive: true });
             });
         })();
 </script>
