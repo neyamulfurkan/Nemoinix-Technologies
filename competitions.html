@@ -133,10 +133,9 @@
             max-width: 1280px;
             margin: 0 auto;
             padding: 1.5rem;
-            display: grid;
-            grid-template-columns: 280px 1fr;
+            display: flex;
             gap: 2rem;
-            align-items: flex-start;
+            align-items: start;
             position: relative;
         }
         
@@ -144,7 +143,6 @@
             .main-content {
                 display: block;
                 padding: 1rem;
-                grid-template-columns: 1fr;
             }
         }
         
@@ -204,8 +202,7 @@
         justify-content: center;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-        z-index: 10052;
-        pointer-events: auto !important;
+        z-index: 11;
         min-width: 40px;
         min-height: 40px;
     }
@@ -278,38 +275,20 @@
             }
         }
        /* Sidebar Filters */
-    /* Filters Sidebar */
     .filters-sidebar {
         background: white;
         border-radius: var(--radius-xl);
         padding: 1.5rem;
         box-shadow: var(--shadow-base);
-        position: sticky !important;
-        top: 90px !important;
-        height: fit-content !important;
-        max-height: calc(100vh - 110px) !important;
+        position: sticky;
+        top: 90px;
+        height: fit-content;
+        max-height: calc(100vh - 110px);
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--primary-300) var(--gray-100);
         width: 280px;
         flex-shrink: 0;
-        align-self: flex-start;
-    }
-    
-    @media (min-width: 1200px) {
-        .filters-sidebar {
-            position: sticky !important;
-            top: 90px !important;
-            height: fit-content !important;
-            max-height: calc(100vh - 110px) !important;
-            align-self: flex-start !important;
-        }
-        
-        .main-content {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: flex-start !important;
-        }
     }
     
 @media (max-width: 1199px) {
@@ -361,9 +340,8 @@
             width: 100% !important;
             max-width: 100% !important;
             background: white !important;
-            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
+            box-shadow: none !important;
             z-index: 10050 !important;
-            pointer-events: auto !important;
             transition: left 0.3s ease !important;
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch;
@@ -376,30 +354,11 @@
         
         .filters-sidebar.active {
             left: 0 !important;
-            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
+            box-shadow: none !important;
         }
         
         body.filter-open {
             overflow: hidden !important;
-        }
-        
-        .filter-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 10040;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: auto;
-        }
-        
-        .filter-backdrop.active {
-            display: block !important;
-            opacity: 1 !important;
         }
     }
     
@@ -745,11 +704,10 @@
             background: linear-gradient(135deg, var(--primary-500), var(--primary-600)) !important;
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
             margin: 1.5rem 0 0 0;
-            z-index: 1000000;
+            z-index: 10;
             width: 100%;
             max-width: 100%;
             box-sizing: border-box;
-            pointer-events: auto !important;
         }
     }
     
@@ -1362,23 +1320,25 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* MOBILE FILTER BUTTON */
 .mobile-filter-btn {
     display: none;
     position: fixed;
-    bottom: 1.75rem;
-    right: 1.5rem;
+    bottom: 28px;
+    right: 24px;
     background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
     color: white;
-    padding: 1rem 1.75rem;
-    border-radius: 3rem;
+    padding: 16px 28px;
+    border-radius: 32px;
+    border: none;
     font-weight: 700;
     font-size: 1rem;
     box-shadow: 0 8px 28px rgba(25, 145, 235, 0.45);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 10003;
+    z-index: 10039;
     align-items: center;
-    gap: 0.625rem;
+    gap: 10px;
     min-height: 56px;
     min-width: 56px;
 }
@@ -1423,9 +1383,6 @@
 @media (max-width: 1199px) {
     .mobile-filter-btn {
         display: flex !important;
-        z-index: 10003 !important;
-        visibility: visible !important;
-        opacity: 1 !important;
     }
 }
 
@@ -1449,19 +1406,10 @@
     }
 }
 
-@media (max-width: 768px) {
-    .mobile-filter-btn {
-        bottom: 1rem;
-        right: 1rem;
-        padding: 0.875rem 1.25rem;
-        font-size: 0.9375rem;
-    }
-}
-
 @supports (padding: max(0px)) {
     .mobile-filter-btn {
-        bottom: max(1.75rem, calc(1.75rem + env(safe-area-inset-bottom)));
-        right: max(1.5rem, calc(1.5rem + env(safe-area-inset-right)));
+        bottom: max(28px, calc(28px + env(safe-area-inset-bottom)));
+        right: max(24px, calc(24px + env(safe-area-inset-right)));
     }
 }
     </style>
@@ -2538,17 +2486,9 @@
             if (!backdrop) {
                 backdrop = document.createElement('div');
                 backdrop.className = 'filter-backdrop';
-                backdrop.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 10040; display: none; opacity: 0; transition: opacity 0.3s ease; pointer-events: auto;';
                 backdrop.addEventListener('click', function(e) {
-                    if (e.target === backdrop) {
-                        closeFilterSheet();
-                    }
-                });
-                backdrop.addEventListener('mousedown', function(e) {
-                    if (e.target === backdrop) {
-                        e.preventDefault();
-                        closeFilterSheet();
-                    }
+                    e.stopPropagation();
+                    closeFilterSheet();
                 });
                 document.body.appendChild(backdrop);
             }
@@ -2557,11 +2497,9 @@
                 // Prevent backdrop clicks from closing immediately
                 setTimeout(() => {
                     backdrop.classList.add('active');
-                    backdrop.style.display = 'block';
                 }, 50);
                 
                 filtersSidebar.classList.add('active');
-                filtersSidebar.style.pointerEvents = 'auto';
                 body.classList.add('filter-open');
                 body.style.overflow = 'hidden';
                 
@@ -2572,11 +2510,7 @@
                 // Prevent sidebar clicks from bubbling to backdrop
                 filtersSidebar.addEventListener('click', function(e) {
                     e.stopPropagation();
-                }, { once: false });
-                
-                filtersSidebar.addEventListener('mousedown', function(e) {
-                    e.stopPropagation();
-                }, { once: false });
+                });
             }
         }
 
@@ -2770,29 +2704,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Prevent click events from closing
             sidebar.addEventListener('click', function(e) {
                 e.stopPropagation();
-            });
-            
-            // CRITICAL: Stop all pointer events from bubbling to backdrop
-            sidebar.addEventListener('mousedown', function(e) {
-                e.stopPropagation();
-            }, true);
-            
-            sidebar.addEventListener('mouseup', function(e) {
-                e.stopPropagation();
-            }, true);
-            
-            // Prevent backdrop from intercepting clicks inside sidebar
-            const allInputs = sidebar.querySelectorAll('input, select, button, a, label');
-            allInputs.forEach(function(input) {
-                input.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-                input.addEventListener('mousedown', function(e) {
-                    e.stopPropagation();
-                });
-                input.addEventListener('touchstart', function(e) {
-                    e.stopPropagation();
-                }, { passive: true });
             });
         })();
 </script>
