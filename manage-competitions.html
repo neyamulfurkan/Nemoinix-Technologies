@@ -1274,68 +1274,91 @@
         }
 
         @media (max-width: 768px) {
-            .content-area {
-                padding: 1rem;
-            }
+    .content-area {
+        padding: 1rem;
+    }
 
-            .topbar {
-                padding: 0 1rem;
-            }
+    .topbar {
+        padding: 0 1rem;
+        height: auto;
+        min-height: 60px;
+    }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 
-            .page-title {
-                font-size: 1.25rem;
-            }
+    .page-title {
+        font-size: 1.125rem;
+    }
 
-            .stat-value {
-                font-size: 1.75rem;
-            }
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
 
-            .competitions-grid {
-                grid-template-columns: 1fr;
-            }
+    .competitions-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .competition-card {
+        margin-bottom: 0;
+    }
+    
+    .competition-title {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+    
+    .card-content {
+        padding: 1rem;
+    }
 
-            .view-controls {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 1rem;
-            }
+    .view-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
 
-            .filters-section {
-                flex-direction: column;
-            }
+    .filters-section {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
 
-            .filter-group {
-                width: 100%;
-            }
+    .filter-group {
+        width: 100%;
+    }
 
-            .card-actions {
-                grid-template-columns: 1fr;
-            }
+    .card-actions {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
 
-            .data-table {
-                display: block;
-                overflow-x: auto;
-            }
+    .data-table {
+        display: block;
+        overflow-x: auto;
+        font-size: 0.8125rem;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: 0.75rem 0.5rem;
+    }
 
-            .topbar-actions .btn {
-                padding: 0.625rem 1rem;
-                font-size: 0.8125rem;
-            }
+    .topbar-actions .btn {
+        padding: 0.5rem 0.875rem;
+        font-size: 0.8125rem;
+    }
 
-            .user-info {
-                display: none;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .modal {
-                margin: 0 1rem;
-            }
-        }
+    .user-info {
+        display: none;
+    }
+}
     </style>
 </head>
 <body>

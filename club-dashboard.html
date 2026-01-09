@@ -1236,72 +1236,102 @@
         }
 
         @media (max-width: 1024px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
+    .sidebar {
+        transform: translateX(-100%);
+        z-index: 10000;
+    }
 
-            .sidebar.active {
-                transform: translateX(0);
-            }
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .sidebar.active::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+    }
 
-            .main-content {
-                margin-left: 0;
-            }
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
 
-            .mobile-menu-toggle {
-                display: block;
-            }
+    .mobile-menu-toggle {
+        display: block;
+    }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
 
-            .grid-2col {
-                grid-template-columns: 1fr;
-            }
-        }
+    .grid-2col {
+        grid-template-columns: 1fr;
+    }
+}
 
         @media (max-width: 768px) {
-            .content-area {
-                padding: 1rem;
-            }
+    .content-area {
+        padding: 1rem;
+    }
 
-            .topbar {
-                padding: 0 1rem;
-            }
+    .topbar {
+        padding: 0 1rem;
+        height: auto;
+        min-height: 60px;
+    }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
 
-            .welcome-banner {
-                padding: 1.5rem;
-            }
+    .welcome-banner {
+        padding: 1.5rem;
+    }
 
-            .welcome-text h2 {
-                font-size: 1.5rem;
-            }
+    .welcome-text h2 {
+        font-size: 1.25rem;
+    }
 
-            .tier-badge-large {
-                padding: 0.75rem 1.5rem;
-                font-size: 1rem;
-            }
+    .tier-badge-large {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+    }
 
-            .product-grid,
-            .competition-grid {
-                grid-template-columns: 1fr;
-            }
+    .product-grid,
+    .competition-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 
-            .quick-actions {
-                bottom: 1rem;
-                right: 1rem;
-            }
+    .quick-actions {
+        bottom: 1rem;
+        right: 1rem;
+    }
 
-            .data-table {
-                display: block;
-                overflow-x: auto;
-            }
-        }
+    .data-table {
+        display: block;
+        overflow-x: auto;
+        font-size: 0.8125rem;
+    }
+    
+    .page-title {
+        font-size: 1.125rem;
+    }
+}
 
         @media (max-width: 640px) {
             .topbar-actions .btn {
