@@ -133,7 +133,8 @@
             max-width: 1280px;
             margin: 0 auto;
             padding: 1.5rem;
-            display: flex;
+            display: grid;
+            grid-template-columns: 280px 1fr;
             gap: 2rem;
             align-items: start;
             position: relative;
@@ -141,7 +142,7 @@
         
         @media (max-width: 1199px) {
             .main-content {
-                display: block;
+                grid-template-columns: 1fr;
                 padding: 1rem;
             }
         }
@@ -157,14 +158,6 @@
                 overflow-x: hidden;
             }
             
-            .main-content .filters-sidebar {
-                display: none;
-            }
-            
-            .main-content .filters-sidebar.active {
-                display: block;
-            }
-            
             .content-area {
                 max-width: 100%;
             }
@@ -172,14 +165,17 @@
         /* Desktop: Sidebar + Content side by side */
         @media (min-width: 1200px) {
             .main-content {
-                display: flex;
-                flex-direction: row;
+                display: grid;
+                grid-template-columns: 280px 1fr;
                 gap: 2rem;
             }
             
             .filters-sidebar {
                 width: 280px;
                 flex-shrink: 0;
+                position: sticky !important;
+                top: 90px !important;
+                align-self: flex-start !important;
             }
             
             .content-area {
@@ -242,21 +238,21 @@
         
         /* Filter Backdrop */
         .filter-backdrop {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 10040;
+            display: none;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
         
         .filter-backdrop.active {
-            display: block;
-            opacity: 1;
+            display: block !important;
+            opacity: 1 !important;
         }
         
         body.filter-open {
@@ -280,15 +276,27 @@
         border-radius: var(--radius-xl);
         padding: 1.5rem;
         box-shadow: var(--shadow-base);
-        position: sticky;
-        top: 90px;
-        height: fit-content;
-        max-height: calc(100vh - 110px);
+        position: sticky !important;
+        top: 90px !important;
+        height: fit-content !important;
+        max-height: calc(100vh - 110px) !important;
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--primary-300) var(--gray-100);
         width: 280px;
         flex-shrink: 0;
+        align-self: flex-start !important;
+    }
+    
+    @media (min-width: 1200px) {
+        .filters-sidebar {
+            display: block !important;
+            position: sticky !important;
+            top: 90px !important;
+            height: fit-content !important;
+            max-height: calc(100vh - 110px) !important;
+            align-self: flex-start !important;
+        }
     }
     
 @media (max-width: 1199px) {
@@ -340,12 +348,12 @@
             width: 100% !important;
             max-width: 100% !important;
             background: white !important;
-            box-shadow: none !important;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
             z-index: 10050 !important;
             transition: left 0.3s ease !important;
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch;
-            padding: 1rem 0 0 0 !important;
+            padding: 1rem 1.5rem 1rem 1.5rem !important;
             border-radius: 0 !important;
             margin: 0 !important;
             display: block !important;
@@ -354,7 +362,7 @@
         
         .filters-sidebar.active {
             left: 0 !important;
-            box-shadow: none !important;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
         }
         
         body.filter-open {
@@ -772,6 +780,9 @@
             min-height: 600px;
             flex: 1;
             width: 100%;
+            overflow: visible;
+            padding: 0;
+            margin: 0;
         }
         
         @media (max-width: 1199px) {
