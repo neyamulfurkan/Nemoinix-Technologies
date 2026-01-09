@@ -765,6 +765,7 @@
         });
 
         // Load Featured Competitions
+        // Load Competitions
         async function loadFeaturedCompetitions() {
             const grid = document.getElementById('competitions-grid');
             
@@ -772,7 +773,8 @@
                 // Utils check removed - loading handled locally
                 showLoading();
                 const API_BASE = window.CONFIG ? window.CONFIG.API_BASE_URL : 'http://localhost:3000/api';
-                const response = await fetch(`${API_BASE}/competitions?limit=6`);
+                const now = new Date().toISOString();
+                const response = await fetch(`${API_BASE}/competitions?limit=6&status=upcoming&sort=date_asc`);
                 const data = await response.json();
                 
                 hideLoading();
@@ -843,13 +845,13 @@
             try {
                 showLoading();
                 const API_BASE = window.CONFIG ? window.CONFIG.API_BASE_URL : 'http://localhost:3000/api';
-                const response = await fetch(`${API_BASE}/products/featured`);
+                const response = await fetch(`${API_BASE}/products?limit=6&sort=best_selling`);
                 const data = await response.json();
                 
                 hideLoading();
                 
                 if (data.success && data.data && data.data.length > 0) {
-                    const products = data.data;
+                    const products = data.data.slice(0, 6);
                     grid.innerHTML = products.map(product => {
                         // Format images properly
                         let imageUrl = 'assets/default-product.png';

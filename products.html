@@ -173,11 +173,18 @@
         position: sticky;
         top: 90px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        max-height: calc(100vh - 110px);
+        overflow-y: auto;
+        align-self: flex-start;
     }
     
     @media (min-width: 1200px) {
         .filters-sidebar {
             display: block !important;
+            position: sticky !important;
+            top: 90px !important;
+            height: fit-content !important;
+            max-height: calc(100vh - 110px) !important;
         }
     }
     
@@ -417,7 +424,7 @@
             width: 100% !important;
             max-width: 100% !important;
             background: white !important;
-            box-shadow: none !important;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
             z-index: 10050 !important;
             transition: left 0.3s ease !important;
             overflow-y: auto !important;
@@ -431,11 +438,29 @@
 
         .filters-sidebar.active {
             left: 0 !important;
-            box-shadow: none !important;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
         }
         
         body.filter-open {
             overflow: hidden !important;
+        }
+        
+        .filter-backdrop-products {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10040;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .filter-backdrop-products.active {
+            display: block !important;
+            opacity: 1 !important;
         }
     }
     
@@ -2820,6 +2845,7 @@ function updateFilterState() {
         if (!backdrop) {
             backdrop = document.createElement('div');
             backdrop.className = 'filter-backdrop-products';
+            backdrop.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 10040; display: none; opacity: 0; transition: opacity 0.3s ease;';
             backdrop.addEventListener('click', function(e) {
                 e.stopPropagation();
                 closeFilterSheet();

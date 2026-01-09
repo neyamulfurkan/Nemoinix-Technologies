@@ -275,6 +275,7 @@
             }
         }
        /* Sidebar Filters */
+    /* Filters Sidebar */
     .filters-sidebar {
         background: white;
         border-radius: var(--radius-xl);
@@ -289,6 +290,16 @@
         scrollbar-color: var(--primary-300) var(--gray-100);
         width: 280px;
         flex-shrink: 0;
+        align-self: flex-start;
+    }
+    
+    @media (min-width: 1200px) {
+        .filters-sidebar {
+            position: sticky !important;
+            top: 90px !important;
+            height: fit-content !important;
+            max-height: calc(100vh - 110px) !important;
+        }
     }
     
 @media (max-width: 1199px) {
@@ -340,7 +351,7 @@
             width: 100% !important;
             max-width: 100% !important;
             background: white !important;
-            box-shadow: none !important;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
             z-index: 10050 !important;
             transition: left 0.3s ease !important;
             overflow-y: auto !important;
@@ -354,11 +365,29 @@
         
         .filters-sidebar.active {
             left: 0 !important;
-            box-shadow: none !important;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
         }
         
         body.filter-open {
             overflow: hidden !important;
+        }
+        
+        .filter-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10040;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .filter-backdrop.active {
+            display: block !important;
+            opacity: 1 !important;
         }
     }
     
@@ -2486,6 +2515,7 @@
             if (!backdrop) {
                 backdrop = document.createElement('div');
                 backdrop.className = 'filter-backdrop';
+                backdrop.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 10040; display: none; opacity: 0; transition: opacity 0.3s ease;';
                 backdrop.addEventListener('click', function(e) {
                     e.stopPropagation();
                     closeFilterSheet();
