@@ -198,7 +198,7 @@
         justify-content: center;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-        z-index: 11;
+        z-index: 100001;
         min-width: 40px;
         min-height: 40px;
     }
@@ -236,16 +236,16 @@
         }
     }
         
-        /* Filter Backdrop */
+       /* Filter Backdrop */
         .filter-backdrop {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 10040;
-            display: none;
+            z-index: 99998;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -349,7 +349,7 @@
             max-width: 100% !important;
             background: white !important;
             box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
-            z-index: 10050 !important;
+            z-index: 99999 !important;
             transition: left 0.3s ease !important;
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch;
@@ -363,10 +363,13 @@
         .filters-sidebar.active {
             left: 0 !important;
             box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
+            display: block !important;
         }
         
         body.filter-open {
             overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
         }
     }
     
@@ -1347,7 +1350,7 @@
     box-shadow: 0 8px 28px rgba(25, 145, 235, 0.45);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 10039;
+    z-index: 10000;
     align-items: center;
     gap: 10px;
     min-height: 56px;
