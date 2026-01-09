@@ -26,6 +26,68 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="/css/main.css">    
     <style>
+        /* Critical Z-Index Fixes - Same as Products Page */
+        .filter-backdrop {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: rgba(0, 0, 0, 0.5) !important;
+            z-index: 10040 !important;
+            display: none !important;
+            opacity: 0 !important;
+            transition: opacity 0.3s ease !important;
+        }
+        
+        .filter-backdrop.active {
+            display: block !important;
+            opacity: 1 !important;
+        }
+        
+        .filters-sidebar {
+            z-index: 10050 !important;
+        }
+        
+        .mobile-filter-btn {
+            z-index: 10039 !important;
+        }
+        
+        .filter-close-btn {
+            z-index: 10051 !important;
+        }
+        
+        body.filter-open {
+            overflow: hidden !important;
+        }
+        
+        @media (max-width: 1199px) {
+            .filters-sidebar {
+                position: fixed !important;
+                top: 0 !important;
+                left: -100% !important;
+                height: 100vh !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                background: white !important;
+                box-shadow: none !important;
+                z-index: 10050 !important;
+                transition: left 0.3s ease !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch;
+                padding: 1rem 0 0 0 !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                display: block !important;
+                border-right: none !important;
+            }
+            
+            .filters-sidebar.active {
+                left: 0 !important;
+                box-shadow: none !important;
+            }
+        }
+        
         :root {
             --primary-500: #1991EB;
             --primary-600: #1474BC;
@@ -2475,6 +2537,7 @@
         }
         
         // Filter sheet functions
+        // Filter sheet functions
         function openFilterSheet() {
             const filtersSidebar = document.getElementById('filtersSidebar');
             const filterBtn = document.querySelector('.mobile-filter-btn');
@@ -2532,14 +2595,6 @@
                 filterBtn.classList.remove('active');
             }
         }
-        
-        // Close filter on escape key
-        document.addEventListener('keydown', function(e) {
-            const filtersSidebar = document.getElementById('filtersSidebar');
-            if (e.key === 'Escape' && filtersSidebar && filtersSidebar.classList.contains('active')) {
-                closeFilterSheet();
-            }
-        });
         
         // Swipe down to close gesture
         (function() {
