@@ -1262,23 +1262,23 @@
             </div>
 
             <!-- Auth Buttons -->
-            <div class="nav-actions" id="navActions">
-                    <button class="cart-btn" onclick="window.location.href='cart.html'">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="9" cy="21" r="1"></circle>
-                            <circle cx="20" cy="21" r="1"></circle>
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                        </svg>
-                        <span class="cart-badge" id="cartBadge">0</span>
-                    </button>
-                    <a href="login.html" class="btn btn-secondary" id="loginBtn">Login</a>
-                    <a href="signup.html" class="btn btn-primary" id="signupBtn">Sign Up</a>
-                    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </div>
 </nav>
@@ -1471,91 +1471,29 @@
     let allClubs = [];
     let totalClubs = 0;
 
-    // Update navigation based on auth state
-    function updateNavigation() {
-        const currentUser = Auth.getCurrentUser();
-        const navActions = document.getElementById('navActions');
-        
-        if (!navActions) return;
-        
-        if (currentUser) {
-            let dashboardLink = '';
-            if (currentUser.role === 'student') {
-                dashboardLink = 'student-dashboard.html';
-            } else if (currentUser.role === 'club_admin') {
-                dashboardLink = 'club-dashboard.html';
-            } else if (currentUser.role === 'super_admin') {
-                dashboardLink = 'super-admin-dashboard.html';
-            }
-
-            navActions.innerHTML = `
-                <button class="cart-btn" onclick="window.location.href='cart.html'">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
-                    <span class="cart-badge" id="cartBadge">0</span>
-                </button>
-                <a href="${dashboardLink}" class="btn btn-primary" title="Go to Dashboard">${currentUser.full_name.split(' ')[0]}</a>
-                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            `;
-            
-            // Re-initialize mobile menu after DOM update
-            setTimeout(() => {
-                initializeMobileMenu();
-            }, 100);
-        }
-    }
-
-    // Initialize mobile menu
-    function initializeMobileMenu() {
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        const body = document.body;
-
-        if (mobileMenuToggle && navMenu) {
-            // Remove old listeners by cloning
-            const newToggle = mobileMenuToggle.cloneNode(true);
-            mobileMenuToggle.parentNode.replaceChild(newToggle, mobileMenuToggle);
-            
-            newToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const isActive = navMenu.classList.toggle('active');
-                newToggle.classList.toggle('active');
-                
-                if (isActive) {
-                    body.style.overflow = 'hidden';
-                } else {
-                    body.style.overflow = '';
-                }
-            });
-        }
-    }
-
-    // Initialize page
+    // Initialize on page load
     document.addEventListener('DOMContentLoaded', async () => {
         console.log('DOM Content Loaded - Initializing...');
         
-        // Update navigation based on auth state
-        updateNavigation();
+        // CRITICAL: Update cart badge on page load
+        if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
+            try {
+                await Utils.updateCartBadge();
+            } catch (error) {
+                console.error('Failed to update cart badge on page load:', error);
+            }
+        }
         
-        // Update cart badge
+        loadFiltersFromURL();
         if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
             await Utils.updateCartBadge();
         }
-    
+        
         loadFiltersFromURL();
         loadFeaturedClubs();
         loadClubs();
         setupEventListeners();
     });
-
-    
 
     // Setup Event Listeners
     function setupEventListeners() {
