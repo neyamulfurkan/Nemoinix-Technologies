@@ -975,6 +975,7 @@
     // Initialize page
     document.addEventListener('DOMContentLoaded', () => {
         updateNavigation();
+        initMobileMenu();
         loadPlatformStats();
         initAnimations();
     });
@@ -1015,10 +1016,8 @@
             
             // Re-initialize mobile menu after DOM update
             setTimeout(() => {
-                if (typeof MobileMenu !== 'undefined' && MobileMenu.init) {
-                    MobileMenu.init();
-                }
-            }, 100);
+                initMobileMenu();
+            }, 50);
         }
         
         if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
@@ -1136,7 +1135,54 @@
     function hideLoading() {
         document.getElementById('loading-overlay').style.display = 'none';
     }
+    // Mobile Menu Handler - Standalone
+    function initMobileMenu() {
+        const toggle = document.getElementById('mobile-menu-toggle');
+        const menu = document.querySelector('.nav-menu');
+        const body = document.body;
+        
+        if (!toggle || !menu) return;
+        
+        // Remove existing listeners by cloning
+        const newToggle = toggle.cloneNode(true);
+        toggle.parentNode.replaceChild(newToggle, toggle);
+        
+        newToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isActive = menu.classList.toggle('active');
+            newToggle.classList.toggle('active');
+            body.style.overflow = isActive ? 'hidden' : '';
+        });
+        
+        // Close on nav link click
+        menu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.remove('active');
+                newToggle.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+        
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+            if (!menu.contains(e.target) && !newToggle.contains(e.target)) {
+                menu.classList.remove('active');
+                newToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+        
+        // Close on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                newToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+    }
 </script>
+
 
 </body>
 </html>
