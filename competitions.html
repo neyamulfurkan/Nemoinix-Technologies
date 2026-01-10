@@ -1495,9 +1495,10 @@
         let totalPages = 1;
         let allCompetitions = [];
         let filteredCompetitions = [];
+        let isLoading = false;
 
         // Filter State
-        const filters = {
+        const filterState = {
             search: '',
             location: '',
             categories: [],
@@ -1526,7 +1527,8 @@
                 dateFormat: 'Y-m-d',
                 minDate: 'today',
                 onChange: (selectedDates, dateStr) => {
-                    filters.dateFrom = dateStr;
+                    filterState.dateFrom = dateStr;
+                    applyFilters();
                 }
             });
 
@@ -1534,7 +1536,8 @@
                 dateFormat: 'Y-m-d',
                 minDate: 'today',
                 onChange: (selectedDates, dateStr) => {
-                    filters.dateTo = dateStr;
+                    filterState.dateTo = dateStr;
+                    applyFilters();
                 }
             });
         }
@@ -1557,10 +1560,14 @@
             });
 
             slider.noUiSlider.on('update', (values) => {
-                filters.prizeMin = parseInt(values[0]);
-                filters.prizeMax = parseInt(values[1]);
+                filterState.prizeMin = parseInt(values[0]);
+                filterState.prizeMax = parseInt(values[1]);
                 document.getElementById('prizeMinValue').textContent = `৳${parseInt(values[0]).toLocaleString('en-BD')}`;
                 document.getElementById('prizeMaxValue').textContent = `৳${parseInt(values[1]).toLocaleString('en-BD')}`;
+            });
+
+            slider.noUiSlider.on('change', () => {
+                applyFilters();
             });
         }
 
@@ -1573,7 +1580,7 @@
                 searchInput.addEventListener('input', (e) => {
                     clearTimeout(searchTimeout);
                     searchTimeout = setTimeout(() => {
-                        filters.search = e.target.value;
+                        filterState.search = e.target.value;
                         applyFilters();
                     }, 300);
                 });
@@ -1632,6 +1639,20 @@
             document.getElementById('searchInput').value = text;
             filterState.search = text;
             applyFilters();
+        }
+
+        function getCompetitionImage(competition) {
+            if (competition.banner_url) {
+                return competition.banner_url;
+            }
+            return 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27400%27 height=%27300%27%3E%3Crect fill=%27%23f3f4f6%27 width=%27400%27 height=%27300%27/%3E%3Ctext fill=%27%239ca3af%27 font-family=%27sans-serif%27 font-size=%2724%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27%3E🏆%3C/text%3E%3C/svg%3E';
+        }
+
+        function getClubLogo(competition) {
+            if (competition.club_logo) {
+                return competition.club_logo;
+            }
+            return 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2764%27 height=%2764%27%3E%3Crect fill=%27%23e5e7eb%27 width=%2764%27 height=%2764%27 rx=%2732%27/%3E%3Ctext fill=%27%236b7280%27 font-family=%27sans-serif%27 font-size=%2724%27 font-weight=%27bold%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.35em%27%3EC%3C/text%3E%3C/svg%3E';
         }
 
         async function loadCompetitions() {
