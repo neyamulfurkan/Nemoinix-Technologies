@@ -292,6 +292,11 @@ body {
     padding-top: 68px;
   }
   
+  .navbar .container {
+    overflow: visible;
+  }
+}
+  
   .navbar {
     padding: calc(var(--spacing-4) + 4px) 0 var(--spacing-4) 0;
     padding-top: calc(var(--spacing-4) + 8px);
@@ -619,7 +624,7 @@ body {
 
 .cart-badge {
   position: absolute;
-  top: -8px;
+  top: -4px;
   right: -8px;
   background: var(--error);
   color: white;
