@@ -269,6 +269,29 @@
             background: var(--gray-50);
         }
 
+        .logout-btn {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            background: var(--error);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.15s var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            background: #DC2626;
+            transform: translateY(-2px);
+        }
+
         .user-avatar {
             width: 42px;
             height: 42px;
@@ -1568,6 +1591,9 @@
                         <div class="user-role">Club Admin</div>
                     </div>
                 </div>
+                <button class="logout-btn" onclick="handleLogout()">
+                    🚪 Logout
+                </button>
             </div>
         </aside>
 
