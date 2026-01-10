@@ -156,27 +156,28 @@
             border-radius: 12px;
             padding: 1.5rem;
             height: fit-content;
-            position: sticky !important;
-            top: 90px !important;
+            position: sticky;
+            top: 90px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            max-height: calc(100vh - 110px) !important;
+            max-height: calc(100vh - 110px);
             overflow-y: auto;
-            align-self: flex-start !important;
+            align-self: flex-start;
+            z-index: 100;
         }
         
         @media (min-width: 1200px) {
             .filters-sidebar {
-                display: block !important;
-                position: sticky !important;
-                top: 90px !important;
-                height: fit-content !important;
-                max-height: calc(100vh - 110px) !important;
-                align-self: flex-start !important;
+                display: block;
+                position: sticky;
+                top: 90px;
+                height: fit-content;
+                max-height: calc(100vh - 110px);
+                align-self: flex-start;
             }
             
             .main-container {
-                display: grid !important;
-                align-items: flex-start !important;
+                display: grid;
+                align-items: flex-start;
             }
         }
         
