@@ -1012,6 +1012,13 @@
                     <span></span>
                 </button>
             `;
+            
+            // Re-initialize mobile menu after DOM update
+            setTimeout(() => {
+                if (typeof MobileMenu !== 'undefined' && MobileMenu.init) {
+                    MobileMenu.init();
+                }
+            }, 100);
         }
         
         if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {

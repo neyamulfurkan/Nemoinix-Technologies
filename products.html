@@ -2133,23 +2133,23 @@
     }
 
     // Update navigation based on auth state
-        function updateNavigation() {
-            const token = localStorage.getItem('token');
-            const userStr = localStorage.getItem('user');
-            const user = userStr ? JSON.parse(userStr) : null;
-            const navActions = document.getElementById('navActions');
-            
-            if (user && navActions) {
-                let dashboardLink = '';
-                if (user.role === 'student') {
-                    dashboardLink = 'student-dashboard.html';
-                } else if (user.role === 'club_admin') {
-                    dashboardLink = 'club-dashboard.html';
-                } else if (user.role === 'super_admin') {
-                    dashboardLink = 'super-admin-dashboard.html';
-                }
+    function updateNavigation() {
+        const token = localStorage.getItem('token');
+        const userStr = localStorage.getItem('user');
+        const user = userStr ? JSON.parse(userStr) : null;
+        const navActions = document.getElementById('navActions');
+        
+        if (user && navActions) {
+            let dashboardLink = '';
+            if (user.role === 'student') {
+                dashboardLink = 'student-dashboard.html';
+            } else if (user.role === 'club_admin') {
+                dashboardLink = 'club-dashboard.html';
+            } else if (user.role === 'super_admin') {
+                dashboardLink = 'super-admin-dashboard.html';
+            }
 
-                navActions.innerHTML = `
+            navActions.innerHTML = `
                     <button class="cart-btn" onclick="window.location.href='cart.html'">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="9" cy="21" r="1"></circle>

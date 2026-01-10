@@ -690,7 +690,17 @@
                     console.error('Failed to update cart badge on page load:', error);
                 }
             }
-            // Update navigation based on auth state
+            
+            // Load data
+            await Promise.all([
+                loadFeaturedCompetitions(),
+                loadFeaturedProducts(),
+                loadTopClubs(),
+                loadPlatformStats()
+            ]);
+        });
+
+        // Update navigation based on auth state
         function updateNavigation() {
             const token = localStorage.getItem('token');
             const userStr = localStorage.getItem('user');
@@ -725,9 +735,11 @@
                 `;
                 
                 // Re-initialize mobile menu after DOM update
-                if (typeof MobileMenu !== 'undefined' && MobileMenu.init) {
-                    MobileMenu.init();
-                }
+                setTimeout(() => {
+                    if (typeof MobileMenu !== 'undefined' && MobileMenu.init) {
+                        MobileMenu.init();
+                    }
+                }, 100);
             }
             
             if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
@@ -762,14 +774,7 @@
                 }
             });
 
-            // Load data
-            await Promise.all([
-                loadFeaturedCompetitions(),
-                loadFeaturedProducts(),
-                loadTopClubs(),
-                loadPlatformStats()
-            ]);
-        });
+            
 
         // Load Featured Competitions
         // Load Competitions

@@ -1528,9 +1528,11 @@
             `;
             
             // Re-initialize mobile menu after DOM update
-            if (typeof MobileMenu !== 'undefined' && MobileMenu.init) {
-                MobileMenu.init();
-            }
+            setTimeout(() => {
+                if (typeof MobileMenu !== 'undefined' && MobileMenu.init) {
+                    MobileMenu.init();
+                }
+            }, 100);
         }
         
         if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
