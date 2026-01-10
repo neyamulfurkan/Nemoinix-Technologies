@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title>My Earnings - Nemionix Technologies</title>
     <meta name="description" content="View your earnings, transaction history, and payout details - Nemionix Technologies">
     
@@ -1093,46 +1093,143 @@
         }
 
         @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                position: relative;
+            }
+            
+            .dashboard-wrapper {
+                width: 100% !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+            }
+            
             .content-area {
                 padding: 1rem;
+                width: 100% !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+                box-sizing: border-box;
             }
 
             .topbar {
                 padding: 0 1rem;
+                height: auto;
+                min-height: 60px;
+                width: 100% !important;
+                max-width: 100vw !important;
+                box-sizing: border-box;
             }
 
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+                width: 100% !important;
             }
 
             .page-title {
-                font-size: 1.25rem;
+                font-size: 1rem;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .page-breadcrumb {
+                font-size: 0.75rem;
+                flex-wrap: wrap;
             }
 
             .stat-value {
-                font-size: 1.75rem;
+                font-size: 1.5rem;
+            }
+            
+            .stat-card {
+                padding: 1rem;
+                width: 100% !important;
+                box-sizing: border-box;
             }
 
             .filters-section {
                 flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
             }
 
             .filter-group {
                 width: 100%;
+                min-width: auto;
+            }
+            
+            .filter-input,
+            .filter-select {
+                font-size: 16px !important;
+                width: 100%;
+                box-sizing: border-box;
             }
 
+            .section {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 1rem;
+                box-sizing: border-box;
+            }
+            
             .data-table {
                 display: block;
                 overflow-x: auto;
+                font-size: 0.75rem;
+                min-width: 700px;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.75rem;
             }
 
+            .topbar-actions {
+                gap: 0.5rem;
+            }
+            
             .topbar-actions .btn {
-                padding: 0.625rem 1rem;
-                font-size: 0.8125rem;
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+                white-space: nowrap;
             }
 
             .chart-wrapper {
                 height: 300px;
+            }
+            
+            .chart-controls {
+                flex-wrap: wrap;
+            }
+            
+            .commission-card {
+                padding: 1rem;
+            }
+            
+            .commission-rate {
+                font-size: 2rem;
+            }
+            
+            .tier-benefits {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .user-info {
+                display: none;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
             }
         }
     </style>

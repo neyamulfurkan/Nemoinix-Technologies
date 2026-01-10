@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"> 
     <meta name="description" content="Manage Orders - Nemionix Technologies Club Admin Dashboard">
     <title>Manage Orders | Nemionix Technologies</title>
     
@@ -1438,6 +1438,174 @@
                 font-size: 0.8125rem;
             }
         }
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        position: relative;
+    }
+    
+    .dashboard-wrapper {
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    .content-area {
+        padding: 1rem;
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box;
+    }
+
+    .topbar {
+        padding: 0 1rem;
+        height: auto;
+        min-height: 60px;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box;
+    }
+
+    .page-title {
+        font-size: 1rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    .page-breadcrumb {
+        font-size: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+        width: 100% !important;
+    }
+
+    .stat-card {
+        padding: 1rem;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .filters-section {
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .filter-group {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .filter-input,
+    .filter-select {
+        font-size: 16px !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .filter-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .filter-tab {
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+        white-space: nowrap;
+    }
+
+    .section {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem;
+        box-sizing: border-box;
+        overflow-x: auto;
+    }
+    
+    .data-table {
+        display: block;
+        overflow-x: auto;
+        font-size: 0.75rem;
+        min-width: 800px;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .topbar-actions {
+        gap: 0.5rem;
+    }
+    
+    .topbar-actions .btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+
+    .user-info {
+        display: none;
+    }
+    
+    .bulk-actions {
+        flex-direction: column;
+        padding: 0.75rem 1rem;
+    }
+    
+    .bulk-actions-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .bulk-actions-buttons .btn {
+        width: 100%;
+    }
+    
+    .modal {
+        max-width: calc(100vw - 2rem);
+        margin: 1rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .order-detail-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .pagination {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .pagination-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+}
+
     </style>
 </head>
 <body>

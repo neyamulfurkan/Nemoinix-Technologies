@@ -1311,6 +1311,7 @@
     .dashboard-wrapper {
         overflow-x: hidden !important;
         width: 100% !important;
+        max-width: 100vw !important;
     }
     
     .content-area {
@@ -1318,6 +1319,7 @@
         width: 100% !important;
         max-width: 100vw !important;
         overflow-x: hidden !important;
+        box-sizing: border-box;
     }
 
     .topbar {
@@ -1325,6 +1327,8 @@
         height: auto;
         min-height: 60px;
         width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box;
     }
 
     .stats-grid {
@@ -1336,6 +1340,12 @@
     .page-title {
         font-size: 1rem;
         word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    .page-breadcrumb {
+        font-size: 0.75rem;
+        flex-wrap: wrap;
     }
 
     .stat-value {
@@ -1345,6 +1355,7 @@
     .stat-card {
         padding: 1rem;
         width: 100% !important;
+        box-sizing: border-box;
     }
 
     .competitions-grid {
@@ -1370,6 +1381,7 @@
         font-size: 0.9375rem;
         line-height: 1.4;
         word-wrap: break-word;
+        overflow-wrap: break-word;
     }
     
     .card-content {
@@ -1404,6 +1416,7 @@
     .filter-select {
         font-size: 16px !important;
         width: 100%;
+        box-sizing: border-box;
     }
     
     .filter-buttons {
@@ -1426,8 +1439,10 @@
 
     .section {
         width: 100% !important;
+        max-width: 100% !important;
         overflow-x: auto;
         padding: 1rem;
+        box-sizing: border-box;
     }
     
     .data-table {
@@ -1450,6 +1465,7 @@
     .topbar-actions .btn {
         padding: 0.5rem 0.75rem;
         font-size: 0.75rem;
+        white-space: nowrap;
     }
 
     .user-info {
@@ -1459,6 +1475,12 @@
     .modal {
         max-width: calc(100vw - 2rem);
         margin: 1rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
     }
 }
     </style>
