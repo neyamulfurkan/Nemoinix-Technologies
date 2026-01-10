@@ -385,19 +385,19 @@ body {
 @media (max-width: 768px) {
   .logo {
     gap: var(--spacing-2);
-    max-width: 55%;
+    max-width: 50%;
     flex-shrink: 1;
   }
   
   .logo-icon svg {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
   }
   
   .logo-name {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     white-space: normal;
-    line-height: 1.2;
+    line-height: 1.15;
     word-break: break-word;
   }
   
