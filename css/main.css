@@ -277,7 +277,7 @@ a:hover {
   left: 0;
   right: 0;
   z-index: 9999;
-  padding: var(--spacing-4) 0;
+  padding: calc(var(--spacing-4) + 4px) 0 var(--spacing-4) 0;
   border-bottom: 1px solid var(--gray-200);
   width: 100%;
   overflow: visible;
@@ -290,6 +290,11 @@ body {
 @media (max-width: 768px) {
   body {
     padding-top: 68px;
+  }
+  
+  .navbar {
+    padding: calc(var(--spacing-4) + 4px) 0 var(--spacing-4) 0;
+    padding-top: calc(var(--spacing-4) + 8px);
   }
 }
 
