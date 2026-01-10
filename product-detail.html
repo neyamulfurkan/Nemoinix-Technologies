@@ -1958,7 +1958,7 @@
                         </svg>
                         <span class="cart-badge" id="cartBadge">0</span>
                     </button>
-                    <a href="login.html" class="btn btn-secondary" id="loginBtn" style="display: none;">Login</a>
+                    <a href="login.html" class="btn btn-secondary" id="loginBtn">Login</a>
                     <a href="signup.html" class="btn btn-primary" id="signupBtn">Sign Up</a>
                     <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
                         <span></span>
@@ -2203,6 +2203,32 @@
     <script src="js/api.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/auth.js"></script>
+    <script>
+        // Update navigation based on auth state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = Auth.getCurrentUser();
+            const loginBtn = document.getElementById('loginBtn');
+            const signupBtn = document.getElementById('signupBtn');
+            
+            if (currentUser) {
+                let dashboardLink = '';
+                if (currentUser.role === 'student') {
+                    dashboardLink = 'student-dashboard.html';
+                } else if (currentUser.role === 'club_admin') {
+                    dashboardLink = 'club-dashboard.html';
+                } else if (currentUser.role === 'super_admin') {
+                    dashboardLink = 'super-admin-dashboard.html';
+                }
+
+                if (loginBtn) loginBtn.style.display = 'none';
+                if (signupBtn) {
+                    signupBtn.href = dashboardLink;
+                    signupBtn.textContent = currentUser.full_name.split(' ')[0];
+                    signupBtn.title = 'Go to Dashboard';
+                }
+            }
+        });
+    </script>
     
     <script>
         // Global image error handler - MUST BE FIRST
