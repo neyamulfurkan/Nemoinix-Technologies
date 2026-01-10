@@ -638,7 +638,7 @@
                 </div>
 
                 <!-- Auth Buttons -->
-                <div class="nav-actions">
+                <div class="nav-actions" id="navActions">
                     <button class="cart-btn" onclick="window.location.href='cart.html'">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="9" cy="21" r="1"></circle>
@@ -973,10 +973,50 @@
 <script>
     // Initialize page
     document.addEventListener('DOMContentLoaded', () => {
-        initNavigation();
+        updateNavigation();
         loadPlatformStats();
         initAnimations();
     });
+    
+    // Update navigation based on auth state
+    function updateNavigation() {
+        const token = localStorage.getItem('token');
+        const userStr = localStorage.getItem('user');
+        const user = userStr ? JSON.parse(userStr) : null;
+        const navActions = document.getElementById('navActions');
+        
+        if (user && navActions) {
+            let dashboardLink = '';
+            if (user.role === 'student') {
+                dashboardLink = 'student-dashboard.html';
+            } else if (user.role === 'club_admin') {
+                dashboardLink = 'club-dashboard.html';
+            } else if (user.role === 'super_admin') {
+                dashboardLink = 'super-admin-dashboard.html';
+            }
+
+            navActions.innerHTML = `
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <a href="${dashboardLink}" class="btn btn-primary">${user.full_name.split(' ')[0]}</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            `;
+        }
+        
+        if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
+            Utils.updateCartBadge();
+        }
+    }
 
         // Initialize navigation
     function initNavigation() {
