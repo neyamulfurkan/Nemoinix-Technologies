@@ -1285,7 +1285,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+@media (max-width: 768px) {
     html, body {
         overflow-x: hidden !important;
         width: 100% !important;
@@ -1306,18 +1306,18 @@
     }
 
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 1rem;
         width: 100% !important;
         max-width: 100% !important;
     }
 
     .page-title {
-        font-size: 1.125rem;
+        font-size: 1rem;
     }
 
     .stat-value {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
     
     .stat-card {
@@ -1326,8 +1326,9 @@
 
     .competitions-grid,
     .products-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 1rem;
+        width: 100%;
     }
 
     .view-controls {
@@ -1344,39 +1345,48 @@
     .filter-group {
         width: 100%;
     }
+    
+    .filter-input,
+    .filter-select {
+        font-size: 16px !important;
+    }
 
     .card-actions {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+    }
+
+    .section {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .data-table {
-        display: block;
-        overflow-x: auto;
-        font-size: 0.8125rem;
+        min-width: 700px;
+        font-size: 0.75rem;
     }
     
     .data-table th,
     .data-table td {
-        padding: 0.75rem 0.5rem;
-        font-size: 0.8125rem;
+        padding: 0.625rem 0.375rem;
+        font-size: 0.75rem;
     }
 
     .topbar-actions .btn {
-        padding: 0.5rem 0.875rem;
-        font-size: 0.8125rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
     }
 
     .user-info {
         display: none;
     }
     
-    .product-card {
-        margin-bottom: 1rem;
+    .competition-card {
+        width: 100%;
     }
     
-    .product-name {
-        font-size: 0.9375rem;
-        line-height: 1.4;
+    .competition-title {
+        font-size: 1rem;
     }
 }
         @media (max-width: 640px) {
