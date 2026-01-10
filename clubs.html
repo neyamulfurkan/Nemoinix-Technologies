@@ -1472,7 +1472,44 @@
     let totalClubs = 0;
 
     // Initialize on page load
-    document.addEventListener('DOMContentLoaded', async () => {
+   // Update navigation based on auth state
+        function updateNavigationState() {
+            const currentUser = Auth.getCurrentUser();
+            const loginBtn = document.getElementById('loginBtn');
+            const signupBtn = document.getElementById('signupBtn');
+            
+            if (currentUser) {
+                let dashboardLink = '';
+                if (currentUser.role === 'student') {
+                    dashboardLink = 'student-dashboard.html';
+                } else if (currentUser.role === 'club_admin') {
+                    dashboardLink = 'club-dashboard.html';
+                } else if (currentUser.role === 'super_admin') {
+                    dashboardLink = 'super-admin-dashboard.html';
+                }
+
+                if (loginBtn) loginBtn.style.display = 'none';
+                if (signupBtn) {
+                    signupBtn.href = dashboardLink;
+                    signupBtn.textContent = currentUser.full_name.split(' ')[0];
+                    signupBtn.title = 'Go to Dashboard';
+                }
+            } else {
+                if (loginBtn) loginBtn.style.display = 'inline-flex';
+                if (signupBtn) {
+                    signupBtn.href = 'signup.html';
+                    signupBtn.textContent = 'Sign Up';
+                    signupBtn.title = '';
+                }
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async () => {
+            updateNavigationState();
+            if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
+                await Utils.updateCartBadge();
+            }
         console.log('DOM Content Loaded - Initializing...');
         
         // Update navigation based on auth state
