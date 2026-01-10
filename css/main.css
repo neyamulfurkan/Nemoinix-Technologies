@@ -387,10 +387,10 @@ body {
     max-width: 85vw;
     background: var(--bg-primary);
     box-shadow: -2px 0 20px rgba(0, 0, 0, 0.3);
-    padding: 80px var(--spacing-6) var(--spacing-6) var(--spacing-6);
+    padding: 80px 1.5rem 1.5rem 1.5rem;
     display: flex !important;
     flex-direction: column;
-    gap: var(--spacing-4);
+    gap: 1rem;
     transition: right 0.3s ease;
     z-index: 10000;
     overflow-y: auto;
@@ -405,6 +405,7 @@ body {
     overflow: hidden;
     position: fixed;
     width: 100%;
+    height: 100vh;
   }
   
   .nav-menu.active::before {
@@ -418,6 +419,7 @@ body {
     backdrop-filter: blur(4px);
     z-index: -1;
     width: 100vw;
+    height: 100vh;
   }
 }
 
@@ -996,28 +998,33 @@ body {
 @media (max-width: 768px) {
   .hero-stats {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
     padding: 0 !important;
     align-items: stretch;
     width: 100%;
+    margin-top: 2rem;
   }
   
   .stat-item {
-    padding: 1rem;
+    padding: 1.25rem;
     background: rgba(255, 255, 255, 0.15);
     border-radius: var(--radius-lg);
     backdrop-filter: blur(10px);
     min-width: auto;
     width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .stat-value {
     font-size: 1.75rem !important;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
   }
   
   .stat-label {
     font-size: 0.8125rem !important;
+    text-align: right;
   }
   
   .stat-divider {
@@ -1026,12 +1033,21 @@ body {
 }
 
 @media (max-width: 480px) {
+  .stat-item {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
   .stat-value {
     font-size: 1.5rem !important;
+    margin-bottom: 0.5rem;
   }
   
   .stat-label {
     font-size: 0.75rem !important;
+    text-align: center;
   }
 }
 
@@ -1149,7 +1165,13 @@ body {
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: var(--spacing-4) !important;
+    gap: 1rem !important;
+    width: 100%;
+  }
+  
+  .card-product {
+    width: 100%;
+    margin: 0;
   }
 }
 
@@ -1157,6 +1179,12 @@ body {
   .products-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
+    width: 100%;
+  }
+  
+  .card-product {
+    width: 100%;
+    max-width: none;
   }
 }
 
@@ -1598,16 +1626,24 @@ body {
   .hero {
     min-height: auto;
     padding: 2rem 0 3rem;
+    overflow-x: hidden;
+  }
+  
+  .hero-content {
+    padding: 0 1rem;
   }
   
   .hero-title {
     font-size: 1.75rem;
-    line-height: 1.2;
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .hero-subtitle {
     font-size: 0.9375rem;
     line-height: 1.5;
+    word-wrap: break-word;
   }
   
   .hero-cta {
@@ -4107,5 +4143,58 @@ body.page-exiting {
   .products-grid,
   .clubs-grid {
     grid-template-columns: 1fr !important;
+  }
+}
+/* ========================================
+   CRITICAL MOBILE VIEWPORT FIX
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Prevent all horizontal overflow */
+  html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+  }
+  
+  /* Ensure all containers respect viewport */
+  .container,
+  .content-area,
+  .section,
+  .main-content,
+  .hero,
+  .footer {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* Fix grids */
+  .grid,
+  .stats-grid,
+  .products-grid,
+  .competitions-grid,
+  .clubs-grid,
+  .features-grid {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Tables */
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
   }
 }
