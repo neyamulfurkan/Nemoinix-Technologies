@@ -385,7 +385,7 @@ body {
 @media (max-width: 768px) {
   .logo {
     gap: var(--spacing-2);
-    max-width: 50%;
+    max-width: 55%;
     flex-shrink: 1;
   }
   
@@ -395,10 +395,10 @@ body {
   }
   
   .logo-name {
-    font-size: 0.875rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 0.8125rem;
+    white-space: normal;
+    line-height: 1.2;
+    word-break: break-word;
   }
   
   .logo-tagline {
