@@ -259,6 +259,7 @@ a:hover {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 var(--spacing-4);
+  overflow: visible;
 }
 
 @media (min-width: 640px) {
@@ -279,6 +280,7 @@ a:hover {
   padding: var(--spacing-4) 0;
   border-bottom: 1px solid var(--gray-200);
   width: 100%;
+  overflow: visible;
 }
 /* Add padding to body to account for fixed navbar */
 body {
@@ -296,6 +298,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-6);
+  overflow: visible;
 }
 
 .logo {
@@ -525,16 +528,24 @@ body {
   display: flex;
   align-items: center;
   gap: var(--spacing-4);
+  overflow: visible;
+  position: relative;
 }
 
 @media (max-width: 768px) {
   .nav-actions {
     gap: var(--spacing-2);
+    overflow: visible;
+    position: relative;
   }
   
   .nav-actions .btn {
     padding: 0.5rem 0.875rem;
     font-size: 0.8125rem;
+  }
+  
+  .cart-btn {
+    margin-right: 10px;
   }
 }
 
@@ -582,6 +593,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
+  margin: 0 8px 0 0;
 }
 
 .cart-btn:hover {
@@ -601,8 +614,8 @@ body {
 
 .cart-badge {
   position: absolute;
-  top: -6px;
-  right: -6px;
+  top: -8px;
+  right: -8px;
   background: var(--error);
   color: white;
   font-size: var(--text-xs);
@@ -612,6 +625,8 @@ body {
   min-width: 20px;
   text-align: center;
   line-height: 1;
+  z-index: 10;
+  pointer-events: none;
 }
 .mobile-menu-toggle {
   display: flex;
