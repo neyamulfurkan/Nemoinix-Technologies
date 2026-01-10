@@ -1290,6 +1290,16 @@
         overflow-x: hidden !important;
         width: 100% !important;
         max-width: 100vw !important;
+        position: relative;
+    }
+    
+    * {
+        max-width: 100vw;
+    }
+    
+    .dashboard-wrapper {
+        overflow-x: hidden !important;
+        width: 100% !important;
     }
     
     .content-area {
@@ -1298,13 +1308,15 @@
         max-width: 100vw !important;
         overflow-x: hidden !important;
     }
-
+    
     .topbar {
         padding: 0 1rem;
         width: 100% !important;
         max-width: 100vw !important;
+        height: auto;
+        min-height: 60px;
     }
-
+    
     .stats-grid {
         grid-template-columns: 1fr !important;
         gap: 1rem;
@@ -1314,6 +1326,7 @@
 
     .page-title {
         font-size: 1rem;
+        word-wrap: break-word;
     }
 
     .stat-value {
@@ -1322,43 +1335,75 @@
     
     .stat-card {
         padding: 1rem;
+        width: 100% !important;
     }
-
-    .competitions-grid,
+    
     .products-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1rem;
-        width: 100%;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0;
+    }
+    
+    .card-product {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    .product-image-wrapper {
+        height: 140px;
+    }
+    
+    .product-content {
+        padding: 0.75rem;
+    }
+    
+    .product-name {
+        font-size: 0.875rem;
+        -webkit-line-clamp: 2;
     }
 
     .view-controls {
         flex-direction: column;
         align-items: stretch;
         gap: 1rem;
+        width: 100%;
     }
 
     .filters-section {
         flex-direction: column;
         gap: 0.75rem;
+        width: 100%;
     }
 
     .filter-group {
         width: 100%;
+        min-width: auto;
     }
     
     .filter-input,
     .filter-select {
         font-size: 16px !important;
+        width: 100%;
     }
-
-    .card-actions {
-        grid-template-columns: 1fr !important;
+    
+    .filter-buttons {
+        width: 100%;
+        display: flex;
+    }
+    
+    .btn-filter {
+        flex: 1;
     }
 
     .section {
-        width: 100%;
+        width: 100% !important;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        padding: 1rem;
     }
 
     .data-table {
@@ -1372,6 +1417,10 @@
         font-size: 0.75rem;
     }
 
+    .topbar-actions {
+        gap: 0.5rem;
+    }
+    
     .topbar-actions .btn {
         padding: 0.5rem 0.75rem;
         font-size: 0.75rem;
@@ -1381,15 +1430,26 @@
         display: none;
     }
     
-    .competition-card {
-        width: 100%;
+    .bulk-actions {
+        flex-direction: column;
+        padding: 0.75rem;
     }
     
-    .competition-title {
-        font-size: 1rem;
+    .bulk-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .btn-bulk {
+        width: 100%;
     }
 }
-        @media (max-width: 640px) {
+
+@media (max-width: 640px) {
+    .products-grid {
+        grid-template-columns: 1fr !important;
+    }
+}    @media (max-width: 640px) {
             .bulk-actions {
                 flex-direction: column;
                 align-items: stretch;
