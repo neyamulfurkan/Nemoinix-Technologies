@@ -592,7 +592,7 @@ body {
 }
 
 /* Sidebar (for dashboards) */
-.sidebar {
+.sidebar:not(.filters-sidebar) {
   width: 260px;
   background: var(--bg-primary);
   border-right: 1px solid var(--gray-200);
@@ -3606,11 +3606,11 @@ nav.navbar,
 }
 
 /* Apply page load animation to main content areas only */
-main,
-.main-content,
+main:not(.filters-sidebar),
+.main-content:not(.filters-sidebar),
 .dashboard-layout,
 .hero-content,
-.section:not(.navbar) {
+.section:not(.navbar):not(.filters-sidebar) {
   animation: pageLoad 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
@@ -3936,8 +3936,12 @@ button {
 }
 
 /* Sidebar Animation */
-.sidebar {
+.sidebar:not(.filters-sidebar) {
   animation: sidebarSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.filters-sidebar {
+  animation: none;
 }
 
 @keyframes sidebarSlideIn {
@@ -3972,11 +3976,17 @@ button {
 
 /* Performance Optimizations */
 .hero,
-.sidebar,
-.main-content {
+.sidebar:not(.filters-sidebar),
+.main-content:not(.filters-sidebar) {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
+}
+
+.filters-sidebar {
+  will-change: auto;
+  transform: none;
+  backface-visibility: visible;
 }
 
 /* Navbar: No transformations to prevent movement */
