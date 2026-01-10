@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"> 
     <title>Add Product - Nemionix Technologies</title>
     <meta name="description" content="List your robotics components on Nemionix marketplace - Reach students across Bangladesh">
     
@@ -1359,9 +1359,16 @@
         }
         
         @media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+    
     .content-area {
         padding: 1rem;
         padding-bottom: 120px;
+        width: 100%;
+        max-width: 100%;
     }
     
     .topbar {
@@ -1375,8 +1382,18 @@
     }
 
     .form-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 1rem;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .form-input,
+    .form-select,
+    .form-textarea {
+        font-size: 16px !important;
     }
     
     .sticky-save-bar {
@@ -1403,6 +1420,16 @@
     
     .user-info {
         display: none;
+    }
+    
+    .image-previews {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .section {
+        padding: 1rem;
+        width: 100%;
+        overflow-x: hidden;
     }
 }
     </style>

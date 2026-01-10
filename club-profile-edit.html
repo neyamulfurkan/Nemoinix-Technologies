@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"> 
     <meta name="description" content="Edit Club Profile - Update your club information, photos, and social links on Nemionix Technologies">
     <title>Edit Club Profile | Nemionix Technologies</title>
     
@@ -944,6 +944,35 @@
 
             .logo-section-wrapper {
                 padding: 1rem;
+            }
+        }
+
+        /* CRITICAL MOBILE FIXES */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            
+            .form-input,
+            .form-select,
+            .form-textarea {
+                font-size: 16px !important;
+            }
+            
+            .cover-photo-wrapper {
+                height: 200px;
+                width: 100%;
+            }
+            
+            .logo-wrapper {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
             }
         }
     </style>

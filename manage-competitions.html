@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <meta name="description" content="Manage Competitions - Nemionix Technologies Club Admin Dashboard">
     <title>Manage Competitions | Nemionix Technologies</title>
     
@@ -1297,8 +1297,15 @@
         }
 
         @media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+    
     .content-area {
         padding: 1rem;
+        width: 100%;
+        max-width: 100%;
     }
 
     .topbar {
@@ -1308,7 +1315,7 @@
     }
 
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 1rem;
     }
 
@@ -1322,15 +1329,18 @@
     
     .stat-card {
         padding: 1rem;
+        width: 100%;
     }
 
     .competitions-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 1rem;
+        width: 100%;
     }
     
     .competition-card {
         margin-bottom: 0;
+        width: 100%;
     }
     
     .competition-title {
@@ -1356,9 +1366,14 @@
     .filter-group {
         width: 100%;
     }
+    
+    .filter-input,
+    .filter-select {
+        font-size: 16px !important;
+    }
 
     .card-actions {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 0.5rem;
     }
 
@@ -1366,6 +1381,7 @@
         display: block;
         overflow-x: auto;
         font-size: 0.8125rem;
+        min-width: 700px;
     }
     
     .data-table th,
@@ -1380,6 +1396,11 @@
 
     .user-info {
         display: none;
+    }
+    
+    .section {
+        width: 100%;
+        overflow-x: auto;
     }
 }
     </style>

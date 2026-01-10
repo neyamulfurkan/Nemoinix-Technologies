@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"> 
     <meta name="description" content="Manage Products - Nemionix Technologies Club Admin Dashboard">
     <title>Manage Products | Nemionix Technologies</title>
     
@@ -1380,6 +1380,38 @@
             .btn-bulk {
                 flex: 1;
                 justify-content: center;
+            }
+        }
+
+        /* CRITICAL MOBILE TABLE FIX */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            
+            .section {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .data-table {
+                min-width: 800px;
+                display: block;
+            }
+            
+            .filter-input,
+            .filter-select {
+                font-size: 16px !important;
+            }
+            
+            .content-area {
+                padding: 0.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr !important;
+                gap: 0.75rem;
             }
         }
     </style>

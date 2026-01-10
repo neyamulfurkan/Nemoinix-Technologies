@@ -5,6 +5,28 @@
  */
 
 /* ========================================
+   0. CRITICAL MOBILE FIXES
+   ======================================== */
+
+@media (max-width: 768px) {
+  html {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+  
+  body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+  
+  * {
+    max-width: 100vw;
+  }
+}
+
+/* ========================================
    1. CSS VARIABLES (DESIGN TOKENS)
    ======================================== */
 
@@ -2946,7 +2968,7 @@ body {
   .grid-2,
   .grid-3,
   .grid-4 {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
   
   .modal {
@@ -2963,6 +2985,28 @@ body {
   .toast {
     min-width: auto;
     width: 100%;
+  }
+  
+  /* Force all containers to respect viewport */
+  .container,
+  .section,
+  .content-area {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Prevent iOS zoom on inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="date"],
+  input[type="time"],
+  select,
+  textarea {
+    font-size: 16px !important;
   }
 }
 
