@@ -21,7 +21,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" />
     
     <!-- Main CSS -->
-    <link rel="stylesheet" href="/css/main.css">    
+    <link rel="stylesheet" href="/css/main.css">
+    
+    <!-- Config -->
+    <script src="/js/config.js"></script>    
     
     <style>
         /* Page-specific styles matching products page */
@@ -1485,9 +1488,7 @@
 
     <script>
         // Configuration
-        const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost:3000/api'
-            : `${window.location.origin}/api`;
+        const API_BASE_URL = window.CONFIG?.API_BASE_URL || 'https://nemoinix-technologies.onrender.com/api';
         const ITEMS_PER_PAGE = 12;
 
         // State
