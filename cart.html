@@ -17,7 +17,7 @@
         }
     </style>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">maximum-scale=5.0, user-scalable=yes">maximum-scale=5.0, user-scalable=yes">maximum-scale=5.0, user-scalable=yes">
     <title>Shopping Cart - Nemionix Technologies</title>
     <meta name="description" content="Review your selected robotics components and proceed to checkout">
     
@@ -86,9 +86,11 @@
             left: 0;
             top: 0;
             overflow-y: auto;
+            overflow-x: hidden;
             z-index: 1000;
             box-shadow: var(--shadow-xl);
             transition: transform 0.3s ease;
+            -webkit-overflow-scrolling: touch;
         }
 
         .sidebar::-webkit-scrollbar {
