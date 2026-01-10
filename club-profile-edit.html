@@ -1029,7 +1029,7 @@
                         <div class="user-role">Club Admin</div>
                     </div>
                 </div>
-                <button class="logout-btn" onclick="handleLogout()">
+                <button class="logout-btn" id="logoutBtn">
                     🚪 Logout
                 </button>
             </div>
@@ -1777,6 +1777,20 @@
         } finally {
             hideLoading();
             document.getElementById('saveBtn').disabled = false;
+        }
+    }
+
+    // Logout Handler
+    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+    async function handleLogout() {
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            showToast('Logged out successfully', 'success');
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1000);
         }
     }
 

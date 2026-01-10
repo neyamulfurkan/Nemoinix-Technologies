@@ -2446,7 +2446,21 @@
         }
     }
 
-    // Utility Functions
+    // Logout Handler
+        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+        async function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                showToast('Logged out successfully', 'success');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
+            }
+        }
+
+        // Utility Functions
     function showLoading() {
         document.getElementById('loadingOverlay').classList.add('show');
     }
