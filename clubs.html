@@ -1475,6 +1475,9 @@
     document.addEventListener('DOMContentLoaded', async () => {
         console.log('DOM Content Loaded - Initializing...');
         
+        // Update navigation based on auth state
+        updateNavigation();
+        
         // CRITICAL: Update cart badge on page load
         if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
             try {
@@ -1485,15 +1488,37 @@
         }
         
         loadFiltersFromURL();
-        if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
-            await Utils.updateCartBadge();
-        }
-        
-        loadFiltersFromURL();
         loadFeaturedClubs();
         loadClubs();
         setupEventListeners();
     });
+
+    // Update navigation based on auth state
+    function updateNavigation() {
+        const currentUser = Auth.getCurrentUser();
+        
+        if (currentUser) {
+            let dashboardLink = '';
+            if (currentUser.role === 'student') {
+                dashboardLink = 'student-dashboard.html';
+            } else if (currentUser.role === 'club_admin') {
+                dashboardLink = 'club-dashboard.html';
+            } else if (currentUser.role === 'super_admin') {
+                dashboardLink = 'super-admin-dashboard.html';
+            }
+
+            // Hide login/signup buttons and show profile button
+            const loginBtn = document.getElementById('loginBtn');
+            const signupBtn = document.getElementById('signupBtn');
+            
+            if (loginBtn) loginBtn.style.display = 'none';
+            if (signupBtn) {
+                signupBtn.href = dashboardLink;
+                signupBtn.textContent = currentUser.full_name.split(' ')[0];
+                signupBtn.title = 'Go to Dashboard';
+            }
+        }
+    }
 
     // Setup Event Listeners
     function setupEventListeners() {
