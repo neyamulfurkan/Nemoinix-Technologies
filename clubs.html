@@ -1471,25 +1471,6 @@
     let allClubs = [];
     let totalClubs = 0;
 
-    // Initialize on page load
-   // Initialize page
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log('DOM Content Loaded - Initializing...');
-            
-            // Update navigation based on auth state
-            updateNavigation();
-            
-            // Update cart badge
-            if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
-                await Utils.updateCartBadge();
-            }
-        
-        loadFiltersFromURL();
-        loadFeaturedClubs();
-        loadClubs();
-        setupEventListeners();
-    });
-
     // Update navigation based on auth state
     function updateNavigation() {
         const currentUser = Auth.getCurrentUser();
@@ -1523,8 +1504,56 @@
                     <span></span>
                 </button>
             `;
+            
+            // Re-initialize mobile menu after DOM update
+            setTimeout(() => {
+                initializeMobileMenu();
+            }, 100);
         }
     }
+
+    // Initialize mobile menu
+    function initializeMobileMenu() {
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const body = document.body;
+
+        if (mobileMenuToggle && navMenu) {
+            // Remove old listeners by cloning
+            const newToggle = mobileMenuToggle.cloneNode(true);
+            mobileMenuToggle.parentNode.replaceChild(newToggle, mobileMenuToggle);
+            
+            newToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isActive = navMenu.classList.toggle('active');
+                newToggle.classList.toggle('active');
+                
+                if (isActive) {
+                    body.style.overflow = 'hidden';
+                } else {
+                    body.style.overflow = '';
+                }
+            });
+        }
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', async () => {
+        console.log('DOM Content Loaded - Initializing...');
+        
+        // Update navigation based on auth state
+        updateNavigation();
+        
+        // Update cart badge
+        if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
+            await Utils.updateCartBadge();
+        }
+    
+        loadFiltersFromURL();
+        loadFeaturedClubs();
+        loadClubs();
+        setupEventListeners();
+    });
 
     
 
