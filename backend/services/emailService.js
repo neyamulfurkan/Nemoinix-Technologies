@@ -58,7 +58,7 @@ class EmailService {
             <html>
             <head>
                 <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">maximum-scale=5.0, user-scalable=yes">maximum-scale=5.0, user-scalable=yes">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
                 <title>{{SUBJECT}}</title>
                 <style>
                     body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
