@@ -1271,8 +1271,8 @@
                     </svg>
                     <span class="cart-badge" id="cartBadge">0</span>
                 </button>
-                <a href="login.html" class="btn btn-secondary">Login</a>
-                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                <a href="login.html" class="btn btn-secondary" id="loginBtn">Login</a>
+                <a href="signup.html" class="btn btn-primary" id="signupBtn">Sign Up</a>
                 <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
@@ -1474,6 +1474,8 @@
     // Initialize on page load
    // Initialize page
         document.addEventListener('DOMContentLoaded', async () => {
+            console.log('DOM Content Loaded - Initializing...');
+            
             // Update navigation based on auth state
             const currentUser = Auth.getCurrentUser();
             const loginBtn = document.getElementById('loginBtn');
@@ -1501,7 +1503,6 @@
             if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
                 await Utils.updateCartBadge();
             }
-        console.log('DOM Content Loaded - Initializing...');
         
         loadFiltersFromURL();
         loadFeaturedClubs();
