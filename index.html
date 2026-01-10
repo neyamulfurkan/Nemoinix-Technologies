@@ -677,6 +677,11 @@
             // Update navigation
             updateNavigation();
             
+            // CRITICAL: Re-initialize mobile menu after navigation update
+            if (typeof MobileMenu !== 'undefined' && MobileMenu.init) {
+                MobileMenu.init();
+            }
+            
             // CRITICAL: Update cart badge on page load
             if (typeof Cart !== 'undefined' && Cart.updateCartBadge) {
                 try {
@@ -718,6 +723,11 @@
                         <span></span>
                     </button>
                 `;
+                
+                // Re-initialize mobile menu after DOM update
+                if (typeof MobileMenu !== 'undefined' && MobileMenu.init) {
+                    MobileMenu.init();
+                }
             }
             
             if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {

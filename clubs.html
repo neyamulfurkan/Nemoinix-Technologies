@@ -1526,6 +1526,11 @@
                     <span></span>
                 </button>
             `;
+            
+            // Re-initialize mobile menu after DOM update
+            if (typeof MobileMenu !== 'undefined' && MobileMenu.init) {
+                MobileMenu.init();
+            }
         }
         
         if (typeof Utils !== 'undefined' && Utils.updateCartBadge) {
