@@ -4035,3 +4035,77 @@ body.page-entering {
 body.page-exiting {
   animation: pageExit 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+
+/* ========================================
+   CRITICAL MOBILE VIEWPORT FIXES
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Prevent zoom on form inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="date"],
+  input[type="time"],
+  input[type="url"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Ensure content fits viewport */
+  body {
+    overflow-x: hidden;
+    width: 100vw;
+  }
+  
+  /* Responsive containers */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Dashboard specific fixes */
+  .main-content {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  .content-area {
+    padding: 1rem;
+    width: 100%;
+  }
+  
+  /* Form optimizations */
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Table fixes */
+  .data-table {
+    font-size: 0.8125rem;
+  }
+  
+  /* Prevent horizontal scroll on tables */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Stack all grids on smallest screens */
+  .stats-grid,
+  .competitions-grid,
+  .products-grid,
+  .clubs-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
