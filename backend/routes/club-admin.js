@@ -268,13 +268,12 @@ router.get('/competitions', authenticate, authorizeClubAdmin, asyncHandler(async
 router.post('/competitions',
     authenticate,
     authorizeClubAdmin,
-    upload.single('banner'),
     asyncHandler(async (req, res) => {
         const {
             title, slug, description, category, competition_date, competition_time,
             venue, location_lat, location_lng, registration_deadline, max_participants,
             registration_fee, prize_first, prize_second, prize_third, rules, eligibility,
-            contact_email, contact_phone, product_ids
+            contact_email, contact_phone, product_ids, banner_url
         } = req.body;
         
         // Validate required fields
@@ -293,12 +292,10 @@ router.post('/competitions',
             });
         }
         
-        // Upload banner
-        let bannerUrl = null;
-        if (req.file) {
-            const upload = await uploadCompetitionBanner(req.file.buffer, req.club.id);
-            bannerUrl = upload.url;
-        }
+        // Banner URL comes from frontend (already uploaded to Cloudinary)
+        const bannerUrl = banner_url || null;
+        
+        console.log('📸 Creating competition with banner_url:', bannerUrl);
         
         // Parse product_ids safely
         let parsedProductIds = [];

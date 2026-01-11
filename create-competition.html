@@ -2629,6 +2629,9 @@ competitionId = urlParams.get('id');
                 throw new Error(data.message || 'Failed to save competition');
             }
 
+            console.log('✅ SUCCESS! Competition saved:', data);
+            console.log('🖼️ Banner URL in response:', data.competition?.banner_url || data.data?.banner_url || 'NOT FOUND');
+            
             showToast(
                 isEditMode ? 'Competition updated successfully!' : 'Competition created successfully!',
                 'success'
