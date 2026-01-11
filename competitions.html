@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Browse and join exciting robotics competitions organized by university clubs across Bangladesh. Line Following, Maze Solving, Soccer Robots and more.">
     <title>Robotics Competitions | Nemionix Technologies - Engineering the Future, Today</title>
     
@@ -1512,10 +1512,20 @@
             sortBy: 'date_asc'
         };
 
+        // Check Auth Status
+        function checkAuthStatus() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (token && user) {
+                updateNavigation();
+            }
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             initializeDatePickers();
-            initializePrizeSlider();
+            initializePriceSlider();
             initializeEventListeners();
             loadCompetitions();
             setupFilterToggles();
