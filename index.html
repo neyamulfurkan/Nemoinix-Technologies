@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <meta name="description" content="Nemionix Technologies - Bangladesh's First Robotics Marketplace. Buy components, join competitions, connect with university robotics clubs.">
     <meta name="keywords" content="robotics, Bangladesh, marketplace, Arduino, competitions, university clubs">
     <title>Nemionix Technologies - Engineering the Future</title>
@@ -747,7 +747,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Load Featured Competitions
         // Load Competitions
-        async function loadFeaturedCompetitions() {
+                async function loadFeaturedCompetitions() {
     const grid = document.getElementById('competitions-grid');
     
     try {
@@ -755,9 +755,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch(`${API_BASE}/competitions?limit=6&status=upcoming&sort=date_asc`);
         const data = await response.json();
         
-        // PROGRESSIVE: Render immediately, no blocking
-                
-                console.log('Competitions response:', data);
+        console.log('Competitions response:', data);
                 
                 // Handle different response structures
                 const competitions = data.data || data.competitions || [];
