@@ -122,7 +122,16 @@ router.get('/categories', asyncHandler(async (req, res) => {
 // @desc    Get single competition by ID
 // @access  Public
 router.get('/:id', asyncHandler(async (req, res) => {
-    const competition = await Competition.findById(req.params.id);
+    const competitionId = parseInt(req.params.id);
+    
+    if (isNaN(competitionId)) {
+        return res.status(400).json({
+            success: false,
+            message: 'Invalid competition ID'
+        });
+    }
+    
+    const competition = await Competition.findById(competitionId);
     
     if (!competition) {
         return res.status(404).json({
@@ -131,29 +140,28 @@ router.get('/:id', asyncHandler(async (req, res) => {
         });
     }
     
-    // Get registration statistics
-    const regStats = await Registration.getStatistics(competition.id);
-    competition.registration_stats = regStats;
-    
-    // Get total applications count (all statuses)
-    const totalApplications = await db.getOne(
+    // Get total applications count (ALL statuses: pending, approved, rejected)
+    const totalApplicationsResult = await db.getOne(
         'SELECT COUNT(*)::integer as count FROM competition_registrations WHERE competition_id = $1',
-        [competition.id]
+        [competitionId]
     );
-    competition.total_applications = parseInt(totalApplications.count) || 0;
+    competition.total_applications = parseInt(totalApplicationsResult?.count) || 0;
     
-    // Get approved registrations count only
-    const approvedCount = await db.getOne(
+    // Get ONLY approved registrations count
+    const approvedCountResult = await db.getOne(
         'SELECT COUNT(*)::integer as count FROM competition_registrations WHERE competition_id = $1 AND registration_status = $2',
-        [competition.id, 'approved']
+        [competitionId, 'approved']
     );
-    competition.approved_count = parseInt(approvedCount.count) || 0;
+    competition.approved_count = parseInt(approvedCountResult?.count) || 0;
+    
+    // Update registration_count to match approved_count for consistency
+    competition.registration_count = competition.approved_count;
     
     // Check if registration is still open
-    const isOpen = await Competition.isRegistrationOpen(competition.id);
+    const isOpen = await Competition.isRegistrationOpen(competitionId);
     competition.is_registration_open = isOpen;
     
-    // Get required products - ONLY if they actually exist in junction table
+    // Get required products - ONLY if they actually exist
     const requiredProducts = await db.getMany(`
         SELECT 
             p.id,
@@ -167,9 +175,9 @@ router.get('/:id', asyncHandler(async (req, res) => {
         JOIN clubs c ON p.club_id = c.id
         WHERE cp.competition_id = $1
         ORDER BY cp.is_required DESC
-    `, [competition.id]);
+    `, [competitionId]);
     
-    // CRITICAL: Only set required_products if there are actual products linked
+    // CRITICAL: Set to null if no products, not empty array
     competition.required_products = requiredProducts.length > 0 ? requiredProducts : null;
     
     // Check if current user has registered (if authenticated)
@@ -180,7 +188,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
             WHERE competition_id = $1 AND user_id = $2
             ORDER BY created_at DESC
             LIMIT 1
-        `, [competition.id, req.user.id]);
+        `, [competitionId, req.user.id]);
         
         competition.user_registration_status = userRegistration ? userRegistration.registration_status : null;
     }

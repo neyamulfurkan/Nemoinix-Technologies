@@ -3245,19 +3245,23 @@
         
         // Check if products actually exist and have items
         const hasProducts = comp.required_products && 
+                          comp.required_products !== null &&
                           Array.isArray(comp.required_products) && 
-                          comp.required_products.length > 0 &&
-                          comp.required_products[0] !== null; // Extra check for null entries
+                          comp.required_products.length > 0;
         
         if (hasProducts) {
+            console.log('Has products, rendering:', comp.required_products.length);
             renderRequiredProducts(comp.required_products);
-            document.getElementById('addAllBtn').style.display = 'block';
+            const addAllBtn = document.getElementById('addAllBtn');
+            if (addAllBtn) addAllBtn.style.display = 'block';
         } else {
+            console.log('No products found');
             const productsList = document.getElementById('productsList');
             if (productsList) {
                 productsList.innerHTML = '<div class="no-products-message">No required products listed</div>';
             }
-            document.getElementById('addAllBtn').style.display = 'none';
+            const addAllBtn = document.getElementById('addAllBtn');
+            if (addAllBtn) addAllBtn.style.display = 'none';
         }
 
         // Club info
@@ -3516,11 +3520,17 @@
     // Update countdown timer
     function updateCountdown(deadline) {
         const now = new Date();
-        const diff = deadline - now;
+        const deadlineDate = deadline instanceof Date ? deadline : new Date(deadline);
+        const diff = deadlineDate - now;
+        
+        const countdownValue = document.getElementById('countdownValue');
+        const countdownSection = document.getElementById('countdownSection');
+        const leftCountdown = document.getElementById('leftCountdown');
         
         if (diff <= 0) {
-            document.getElementById('countdownValue').textContent = 'Registration Closed';
-            document.getElementById('countdownSection').style.background = 'rgba(239, 68, 68, 0.2)';
+            if (countdownValue) countdownValue.textContent = 'Registration Closed';
+            if (countdownSection) countdownSection.style.background = 'rgba(239, 68, 68, 0.2)';
+            if (leftCountdown) leftCountdown.textContent = 'Closed';
             return;
         }
 
@@ -3529,11 +3539,12 @@
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        document.getElementById('countdownValue').textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        if (countdownValue) {
+            countdownValue.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
         
-        // Update left sidebar countdown
-        if (document.getElementById('leftCountdown')) {
-            document.getElementById('leftCountdown').textContent = diff <= 0 ? 'Closed' : `${days}d ${hours}h ${minutes}m`;
+        if (leftCountdown) {
+            leftCountdown.textContent = `${days}d ${hours}h ${minutes}m`;
         }
     }
 
