@@ -1287,6 +1287,18 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+        
+        .register-btn:disabled {
+            cursor: not-allowed !important;
+            opacity: 0.6 !important;
+            background: var(--gray-400) !important;
+            transform: none !important;
+        }
+        
+        .register-btn:disabled:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
 
         .login-notice {
             text-align: center;
@@ -3216,28 +3228,89 @@
         updateCountdown(registrationDeadline);
         setInterval(() => updateCountdown(registrationDeadline), 1000);
 
-        // Registration button
+        // Registration button - ALL variations (desktop, mobile, left sidebar)
         const registerBtn = document.getElementById('registerBtn');
         const loginNotice = document.getElementById('loginNotice');
         
+        // Get mobile/left sidebar buttons too
+        const mobileRegisterBtns = document.querySelectorAll('.register-btn');
+        const leftSidebarBtn = document.querySelector('.left-sidebar .register-btn');
+        
+        // Check if registration is closed
+        const isRegistrationClosed = new Date() > registrationDeadline || 
+                                     (comp.max_participants && spotsRemaining !== null && spotsRemaining <= 0) ||
+                                     status === 'Registration Closed' ||
+                                     status === 'Fully Booked';
+        
         if (!currentUser) {
-            registerBtn.style.display = 'none';
-            loginNotice.style.display = 'block';
+            // Not logged in - hide button, show login notice
+            if (registerBtn) {
+                registerBtn.style.display = 'none';
+            }
+            if (loginNotice) {
+                loginNotice.style.display = 'block';
+            }
+            // Disable mobile buttons and show login message
+            mobileRegisterBtns.forEach(btn => {
+                btn.disabled = true;
+                btn.textContent = 'Login to Register';
+                btn.onclick = () => window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.href);
+            });
         } else if (comp.user_registration_status) {
             // User has already registered
-            registerBtn.disabled = true;
-            registerBtn.className = 'btn btn-success';
-            if (comp.user_registration_status === 'approved') {
-                registerBtn.textContent = '✅ You are Registered';
-            } else if (comp.user_registration_status === 'pending') {
-                registerBtn.textContent = '⏳ Application Submitted (Pending Approval)';
-            } else if (comp.user_registration_status === 'rejected') {
-                registerBtn.textContent = '❌ Application Rejected';
-                registerBtn.className = 'btn btn-danger';
+            const statusText = comp.user_registration_status === 'approved' ? '✅ You are Registered' :
+                              comp.user_registration_status === 'pending' ? '⏳ Pending Approval' :
+                              '❌ Application Rejected';
+            const btnClass = comp.user_registration_status === 'rejected' ? 'btn btn-danger' : 'btn btn-success';
+            
+            if (registerBtn) {
+                registerBtn.disabled = true;
+                registerBtn.className = btnClass;
+                registerBtn.textContent = statusText;
             }
-        } else if (new Date() > registrationDeadline || (comp.max_participants && spotsRemaining <= 0)) {
-            registerBtn.disabled = true;
-            registerBtn.textContent = status;
+            mobileRegisterBtns.forEach(btn => {
+                btn.disabled = true;
+                btn.className = btnClass;
+                btn.textContent = statusText;
+            });
+        } else if (isRegistrationClosed) {
+            // Registration is closed - DISABLE ALL BUTTONS
+            const closedText = status;
+            
+            if (registerBtn) {
+                registerBtn.disabled = true;
+                registerBtn.className = 'btn btn-secondary';
+                registerBtn.textContent = closedText;
+                registerBtn.style.cursor = 'not-allowed';
+                registerBtn.style.opacity = '0.6';
+            }
+            
+            mobileRegisterBtns.forEach(btn => {
+                btn.disabled = true;
+                btn.className = 'btn btn-secondary';
+                btn.textContent = closedText;
+                btn.style.cursor = 'not-allowed';
+                btn.style.opacity = '0.6';
+                btn.onclick = null; // Remove click handler
+            });
+        } else {
+            // Registration is open - enable buttons
+            if (registerBtn) {
+                registerBtn.disabled = false;
+                registerBtn.className = 'btn btn-success';
+                registerBtn.textContent = 'Register for Competition';
+                registerBtn.style.cursor = 'pointer';
+                registerBtn.style.opacity = '1';
+            }
+            
+            mobileRegisterBtns.forEach(btn => {
+                btn.disabled = false;
+                btn.className = 'btn btn-success';
+                btn.textContent = 'Register Now';
+                btn.style.cursor = 'pointer';
+                btn.style.opacity = '1';
+                btn.onclick = () => openRegistrationModal();
+            });
         }
 
         // Required products - CRITICAL: Check for null, undefined, empty array
@@ -3566,10 +3639,42 @@
 
     // Registration modal functions
     function openRegistrationModal() {
+        // Check if user is logged in
         if (!currentUser) {
-            window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.href);
+            Utils.showToast('Please login to register for this competition', 'warning');
+            setTimeout(() => {
+                window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.href);
+            }, 1500);
             return;
         }
+        
+        // Check if registration is closed
+        if (!currentCompetition) {
+            Utils.showToast('Competition data not loaded', 'error');
+            return;
+        }
+        
+        const registrationDeadline = new Date(currentCompetition.registration_deadline);
+        const now = new Date();
+        const spotsRemaining = currentCompetition.max_participants ? 
+            (currentCompetition.max_participants - (currentCompetition.approved_count || 0)) : null;
+        
+        if (now > registrationDeadline) {
+            Utils.showToast('Registration deadline has passed', 'error');
+            return;
+        }
+        
+        if (currentCompetition.max_participants && spotsRemaining !== null && spotsRemaining <= 0) {
+            Utils.showToast('This competition is fully booked', 'error');
+            return;
+        }
+        
+        if (currentCompetition.user_registration_status) {
+            Utils.showToast('You have already registered for this competition', 'info');
+            return;
+        }
+        
+        // All checks passed - open modal
         document.getElementById('registrationModal').classList.add('active');
     }
 
