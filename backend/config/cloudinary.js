@@ -29,6 +29,8 @@ async function uploadImage(buffer, options = {}) {
             resource_type: 'image',
             allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
             transformation: options.transformation || [
+                { quality: 'auto:best' },
+                { fetch_format: 'auto' },
                 { width: 1920, height: 1080, crop: 'limit' },
                 { quality: 'auto' },
                 { fetch_format: 'auto' }
@@ -69,6 +71,8 @@ async function uploadImageFromUrl(url, options = {}) {
             resource_type: 'image',
             allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
             transformation: options.transformation || [
+                { quality: 'auto:best' },
+                { fetch_format: 'auto' },
                 { width: 1920, height: 1080, crop: 'limit' },
                 { quality: 'auto' },
                 { fetch_format: 'auto' }

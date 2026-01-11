@@ -7,8 +7,9 @@
 const CLOUDINARY_CLOUD_NAME = 'da35fjcqb';
 const CLOUDINARY_UPLOAD_PRESET = 'robotics-marketplace';
 const CLOUDINARY_API_BASE = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}`;
-const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
-const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const MAX_IMAGE_SIZE = 50 * 1024 * 1024; // 50MB - Allow large files for preprocessing
+const MAX_PROCESSED_SIZE = 5 * 1024 * 1024; // 5MB - Max after processing
+const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg', 'image/bmp', 'image/gif', 'image/tiff'];
 
 // Remove the import statement below
 /*
@@ -35,15 +36,15 @@ function validateImage(file, maxSize = MAX_IMAGE_SIZE) {
         throw new Error('No file selected');
     }
     
-    // Check file type
-    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-        throw new Error('Only JPG and PNG images are allowed');
+    // Check file type - Accept all common image formats
+    if (!file.type.startsWith('image/')) {
+        throw new Error('Please select a valid image file');
     }
     
-    // Check file size
+    // Check file size - Allow large files as they will be compressed
     if (file.size > maxSize) {
         const maxMB = (maxSize / (1024 * 1024)).toFixed(1);
-        throw new Error(`Image must be less than ${maxMB}MB`);
+        throw new Error(`Image must be less than ${maxMB}MB. Large images will be automatically optimized.`);
     }
     
     return true;
@@ -62,19 +63,25 @@ function createImagePreview(file) {
             reject(new Error('Failed to read file'));
         };
         
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(preprocessed);
     });
 }
 
 // Upload single image to Cloudinary
 async function uploadImage(file, options = {}) {
     try {
-        // Validate
+                // Validate original file
         validateImage(file, options.maxSize);
+        
+        // Preprocess image before upload
+        let processedFile = await preprocessImage(file, options);
+        
+        // Ensure processed file meets size requirements
+        processedFile = await validateProcessedImage(processedFile);
         
         // Create FormData
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', processedFile);
         formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
         
         // Optional folder
@@ -207,7 +214,7 @@ async function uploadWithProgress(file, onProgress, options = {}) {
             
             // Prepare and send request
             const formData = new FormData();
-            formData.append('file', file);
+            formData.append('file', processedFile);
             formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
             
             if (options.folder) {
@@ -492,7 +499,7 @@ async function compressImage(file, maxWidth = 1920, quality = 0.9) {
         };
         
         reader.onerror = () => reject(new Error('Failed to read file'));
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(preprocessed);
     });
 }
 
@@ -546,7 +553,7 @@ async function resizeImage(file, width, height, maintainAspect = true) {
         };
         
         reader.onerror = () => reject(new Error('Failed to read file'));
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(preprocessed);
     });
 }
 
@@ -571,10 +578,139 @@ async function getImageDimensions(file) {
         };
         
         reader.onerror = () => reject(new Error('Failed to read file'));
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(preprocessed);
+    });
+}
+// Preprocess image before upload
+async function preprocessImage(file, options = {}) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        
+        reader.onload = (e) => {
+            const img = new Image();
+            
+            img.onload = () => {
+                // Determine max dimensions based on image type
+                let maxWidth = options.maxWidth || 1920;
+                let maxHeight = options.maxHeight || 1920;
+                
+                // Calculate new dimensions while maintaining aspect ratio
+                let width = img.width;
+                let height = img.height;
+                
+                if (width > maxWidth || height > maxHeight) {
+                    const aspectRatio = width / height;
+                    
+                    if (width > height) {
+                        width = maxWidth;
+                        height = width / aspectRatio;
+                    } else {
+                        height = maxHeight;
+                        width = height * aspectRatio;
+                    }
+                }
+                
+                // Create canvas for processing
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                
+                const ctx = canvas.getContext('2d');
+                
+                // Enable image smoothing for better quality
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                
+                // Draw image
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                // Determine output format and quality
+                let outputFormat = 'image/jpeg';
+                let quality = 0.85;
+                
+                // Use WebP if supported and not already WebP
+                if (canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0) {
+                    outputFormat = 'image/webp';
+                    quality = 0.90;
+                }
+                
+                // For PNG images with transparency, keep PNG format
+                if (file.type === 'image/png' && hasTransparency(ctx, width, height)) {
+                    outputFormat = 'image/png';
+                    quality = 0.92;
+                }
+                
+                // Convert to blob
+                canvas.toBlob(
+                    (blob) => {
+                        if (blob) {
+                            // Create new file with original name
+                            const extension = outputFormat.split('/')[1];
+                            const nameWithoutExt = file.name.replace(/\.[^/.]+$/, '');
+                            const processedFile = new File(
+                                [blob], 
+                                `${nameWithoutExt}.${extension}`,
+                                { 
+                                    type: outputFormat,
+                                    lastModified: Date.now()
+                                }
+                            );
+                            
+                            // Only use processed version if it's smaller
+                            if (processedFile.size < file.size) {
+                                console.log(`Image optimized: ${file.size} → ${processedFile.size} bytes (${Math.round((1 - processedFile.size / file.size) * 100)}% reduction)`);
+                                resolve(processedFile);
+                            } else {
+                                console.log('Original file is smaller, using original');
+                                resolve(file);
+                            }
+                        } else {
+                            reject(new Error('Failed to process image'));
+                        }
+                    },
+                    outputFormat,
+                    quality
+                );
+            };
+            
+            img.onerror = () => reject(new Error('Failed to load image for processing'));
+            img.src = e.target.result;
+        };
+        
+        reader.onerror = () => reject(new Error('Failed to read file'));
+        reader.readAsDataURL(preprocessed);
     });
 }
 
+// Check if image has transparency
+function hasTransparency(ctx, width, height) {
+    try {
+        const imageData = ctx.getImageData(0, 0, width, height);
+        const data = imageData.data;
+        
+        for (let i = 3; i < data.length; i += 4) {
+            if (data[i] < 255) {
+                return true;
+            }
+        }
+        return false;
+    } catch (e) {
+        return false;
+    }
+}
+
+// Validate processed image size
+async function validateProcessedImage(file) {
+    if (file.size > MAX_PROCESSED_SIZE) {
+        // If still too large, compress more aggressively
+        return await preprocessImage(file, { 
+            maxWidth: 1280, 
+            maxHeight: 1280,
+            quality: 0.75 
+        });
+    }
+    return file;
+}
 // Delete image from Cloudinary (requires backend implementation)
 async function deleteImage(publicId) {
     try {
