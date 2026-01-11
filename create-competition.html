@@ -1146,8 +1146,8 @@
     }
     
     .content-area {
-        padding: 1rem;
-        padding-bottom: 120px;
+        padding: 1rem 0.5rem;
+        padding-bottom: 80px;
         width: 100% !important;
         max-width: 100vw !important;
         overflow-x: hidden !important;
@@ -1155,12 +1155,36 @@
     }
     
     .topbar {
-        padding: 0 1rem;
+        padding: 0 0.5rem;
         height: auto;
         min-height: 60px;
         width: 100% !important;
         max-width: 100vw !important;
         box-sizing: border-box;
+        overflow-x: hidden;
+    }
+    
+    .page-title-wrapper {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+    
+    .page-title {
+        font-size: 0.875rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .topbar-actions {
+        flex-shrink: 0;
+    }
+    
+    .icon-button {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
     }
     
     .page-title {
@@ -1192,27 +1216,43 @@
     }
     
     .sticky-save-bar {
-        flex-direction: column;
-        gap: 0.75rem;
-        padding: 1rem;
+        padding: 0.5rem;
         left: 0;
         width: 100%;
         box-sizing: border-box;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
     }
     
     .save-info {
-        text-align: center;
-        font-size: 0.8125rem;
+        display: none;
     }
     
     .save-actions {
         width: 100%;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        gap: 0.25rem;
     }
     
     .save-actions .btn {
-        width: 100%;
-        justify-content: center;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        min-width: auto;
+    }
+    
+    .save-actions .btn-secondary {
+        grid-column: 1;
+    }
+    
+    .save-actions .btn-outline {
+        grid-column: 2;
+    }
+    
+    .save-actions .btn-primary {
+        grid-column: 3;
     }
     
     .user-info {
