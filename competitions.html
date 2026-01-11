@@ -1522,17 +1522,38 @@
             }
         }
 
-        // Initialize
-        window.addEventListener('load', () => {
-            initializeDatePickers();
-            initializePriceSlider();
-            initializeEventListeners();
-            loadCompetitions();
-            setupFilterToggles();
-            checkAuthStatus();
-            readURLParams();
-            updateNavigation();
-        });
+        // Initialize - Safe loader with fallback
+        function initializeApp() {
+            try {
+                // Check if libraries are loaded
+                if (typeof flatpickr === 'undefined' || typeof noUiSlider === 'undefined') {
+                    console.log('Waiting for libraries...');
+                    setTimeout(initializeApp, 100);
+                    return;
+                }
+                
+                console.log('Initializing app...');
+                initializeDatePickers();
+                initializePriceSlider();
+                initializeEventListeners();
+                setupFilterToggles();
+                checkAuthStatus();
+                readURLParams();
+                updateNavigation();
+                loadCompetitions();
+            } catch (error) {
+                console.error('Initialization error:', error);
+                // Still try to load competitions even if filters fail
+                loadCompetitions();
+            }
+        }
+
+        // Start initialization when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
 
         // Initialize Date Pickers
         function initializeDatePickers() {
