@@ -2087,7 +2087,7 @@
                     limit: 10
                 });
 
-                const response = await apiClient.get(`/reviews/club/${currentClubId}?${params}`);
+                const response = await apiClient.get(`/reviews?${params}`);
                 console.log('Reviews API response:', response);
                 
                 // Handle response - API returns {success: true, data: {...}}
@@ -2113,14 +2113,19 @@
                 }
             } catch (error) {
                 console.error('Error loading reviews:', error);
+                
+                // Show default empty state instead of error
                 const list = document.getElementById('reviews-list');
                 list.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-icon">⚠️</div>
-                        <h3 class="empty-title">Error Loading Reviews</h3>
-                        <p class="empty-text">Unable to load reviews. Please try again later.</p>
+                        <div class="empty-icon">⭐</div>
+                        <h3 class="empty-title">No Reviews Yet</h3>
+                        <p class="empty-text">Be the first to review products from this club</p>
                     </div>
                 `;
+                
+                // Also hide rating summary if no reviews
+                document.getElementById('rating-summary').style.display = 'none';
             }
         }
 
@@ -2231,18 +2236,25 @@
         // Load similar clubs
         async function loadSimilarClubs() {
             try {
-                const response = await apiClient.get(`/clubs/similar?exclude=${currentClubId}&limit=3`);
+                const response = await apiClient.get(`/clubs?limit=3`);
                 console.log('Similar clubs API response:', response);
                 
                 // Handle response - API returns {success: true, data: [...]}
-                const clubs = response.success && response.data 
+                let clubs = response.success && response.data 
                     ? (Array.isArray(response.data) ? response.data : response.data.clubs || [])
                     : [];
+                
+                // Filter out current club
+                clubs = clubs.filter(club => club.id !== currentClubId);
+                
+                // Limit to 3 clubs
+                clubs = clubs.slice(0, 3);
+                
                 renderSimilarClubs(clubs);
             } catch (error) {
                 console.error('Error loading similar clubs:', error);
                 const grid = document.getElementById('similar-clubs-grid');
-                grid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #6B7280;">Unable to load similar clubs</p>';
+                grid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #6B7280;">Check back soon for similar clubs</p>';
             }
         }
 
