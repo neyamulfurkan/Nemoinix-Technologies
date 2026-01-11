@@ -1121,7 +1121,7 @@
                                 <div class="form-group full-width">
                                     <label class="form-label">Admin Email<span class="required">*</span></label>
                                     <div class="input-wrapper">
-                                        <input type="email" id="club-email" name="email" class="form-input with-icon" placeholder="Must be .edu.bd or .ac.bd domain">
+                                        <input type="email" id="club-email" name="email" class="form-input with-icon" placeholder="your.club@example.com">
                                         <i class="fas fa-envelope input-icon"></i>
                                     </div>
                                     <span class="field-error" id="club-email-error"></span>
@@ -1409,7 +1409,7 @@
         }
 
         function validateClubEmail(email) {
-            return email.endsWith('.edu.bd') || email.endsWith('.ac.bd');
+            return true; // Accept any valid email format
         }
 
         document.getElementById('email').addEventListener('blur', (e) => {
@@ -1425,8 +1425,6 @@
             const email = e.target.value.trim();
             if (email && !isValidEmail(email)) {
                 showFieldError('club-email', 'Invalid email format');
-            } else if (email && !validateClubEmail(email)) {
-                showFieldError('club-email', 'Club email must be from .edu.bd or .ac.bd domain');
             } else {
                 hideFieldError('club-email');
             }
@@ -1605,8 +1603,8 @@
             }
             
             const email = document.getElementById('club-email').value.trim();
-            if (!isValidEmail(email) || !validateClubEmail(email)) {
-                showFieldError('club-email', 'Must be .edu.bd or .ac.bd domain');
+            if (!isValidEmail(email)) {
+                showFieldError('club-email', 'Invalid email format');
                 isValid = false;
             }
             

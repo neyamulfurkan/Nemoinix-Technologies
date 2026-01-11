@@ -121,6 +121,8 @@ router.post('/register', upload.fields([
         });
     }
     
+    // Note: Email domain validation removed - all valid emails accepted for club registration
+    
     // Validate phone number (BD format)
     const phoneRegex = /^01[3-9]\d{8}$/;
     if (!phoneRegex.test(phone)) {
