@@ -63,7 +63,7 @@ function createImagePreview(file) {
             reject(new Error('Failed to read file'));
         };
         
-        reader.readAsDataURL(preprocessed);
+        reader.readAsDataURL(file);
     });
 }
 
@@ -163,6 +163,9 @@ async function uploadWithProgress(file, onProgress, options = {}) {
     try {
         validateImage(file, options.maxSize);
         
+        // Preprocess image BEFORE creating Promise (await works here because parent function is async)
+        const processedFile = await preprocessImage(file, options);
+        
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             
@@ -212,7 +215,7 @@ async function uploadWithProgress(file, onProgress, options = {}) {
                 reject(new Error('Upload timeout'));
             });
             
-            // Prepare and send request
+            // Prepare and send request (processedFile is already available from outer scope)
             const formData = new FormData();
             formData.append('file', processedFile);
             formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
@@ -499,7 +502,7 @@ async function compressImage(file, maxWidth = 1920, quality = 0.9) {
         };
         
         reader.onerror = () => reject(new Error('Failed to read file'));
-        reader.readAsDataURL(preprocessed);
+        reader.readAsDataURL(file);
     });
 }
 
@@ -553,7 +556,7 @@ async function resizeImage(file, width, height, maintainAspect = true) {
         };
         
         reader.onerror = () => reject(new Error('Failed to read file'));
-        reader.readAsDataURL(preprocessed);
+        reader.readAsDataURL(file);
     });
 }
 
@@ -578,7 +581,7 @@ async function getImageDimensions(file) {
         };
         
         reader.onerror = () => reject(new Error('Failed to read file'));
-        reader.readAsDataURL(preprocessed);
+        reader.readAsDataURL(file);
     });
 }
 // Preprocess image before upload
@@ -678,7 +681,7 @@ async function preprocessImage(file, options = {}) {
         };
         
         reader.onerror = () => reject(new Error('Failed to read file'));
-        reader.readAsDataURL(preprocessed);
+        reader.readAsDataURL(file);
     });
 }
 
@@ -703,11 +706,17 @@ function hasTransparency(ctx, width, height) {
 async function validateProcessedImage(file) {
     if (file.size > MAX_PROCESSED_SIZE) {
         // If still too large, compress more aggressively
-        return await preprocessImage(file, { 
+        const compressed = await preprocessImage(file, { 
             maxWidth: 1280, 
-            maxHeight: 1280,
-            quality: 0.75 
+            maxHeight: 1280
         });
+        
+        // If still too large after aggressive compression, try JPEG with lower quality
+        if (compressed.size > MAX_PROCESSED_SIZE) {
+            return await compressImage(compressed, 1024, 0.7);
+        }
+        
+        return compressed;
     }
     return file;
 }

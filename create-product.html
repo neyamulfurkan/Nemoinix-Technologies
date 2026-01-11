@@ -2856,14 +2856,19 @@
                     const result = await response.json();
                     console.log('Upload result:', result);
                     
-                    // Use the correct field name from API response
-                    const imageUrl = result.imageUrl || result.url || result.data?.imageUrl;
+                    // Handle all possible response structures from Cloudinary/backend
+                    const imageUrl = result.imageUrl || 
+                                    result.url || 
+                                    result.data?.imageUrl || 
+                                    result.data?.url ||
+                                    result.secure_url;
                     
                     if (!imageUrl) {
                         console.error('No image URL in response:', result);
-                        throw new Error('Failed to get image URL from upload');
+                        throw new Error('Failed to get image URL from upload response. Check backend /upload/image endpoint.');
                     }
                     
+                    console.log('Image uploaded successfully:', imageUrl);
                     uploadedImages.push(imageUrl);
                 } else {
                     // Existing image
