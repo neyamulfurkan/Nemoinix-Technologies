@@ -649,24 +649,24 @@
         const showLoading = () => { if (typeof Utils !== 'undefined') Utils.showLoading(); };
         const hideLoading = () => { if (typeof Utils !== 'undefined') Utils.hideLoading(); };
         
-       // Progressive page initialization
-document.addEventListener('DOMContentLoaded', async () => {
-    console.log('Index page loaded, updating cart badge...');
-    
-    // 1. INSTANT: Show UI immediately
+       // OPTIMIZED: Progressive page initialization
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. INSTANT: Critical UI (0ms)
     updateNavigation();
     initMobileMenu();
     
-    // 2. FAST: Critical user data
+    // 2. ASYNC: Non-blocking cart update (background)
     if (typeof Cart !== 'undefined' && Cart.updateCartBadge) {
-        Cart.updateCartBadge().catch(err => console.error('Cart badge error:', err));
+        Cart.updateCartBadge().catch(() => {});
     }
     
-    // 3. PROGRESSIVE: Load sections independently (NO await)
-    loadFeaturedCompetitions();  // Starts immediately
-    loadFeaturedProducts();      // Starts immediately  
-    loadTopClubs();              // Starts immediately
-    loadPlatformStats();         // Starts immediately
+    // 3. PROGRESSIVE: Staggered data loading (feels faster)
+    requestAnimationFrame(() => {
+        loadFeaturedCompetitions();
+        setTimeout(() => loadFeaturedProducts(), 100);
+        setTimeout(() => loadTopClubs(), 200);
+        setTimeout(() => loadPlatformStats(), 300);
+    });
 });
 
         // Update navigation based on auth state
@@ -751,12 +751,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const grid = document.getElementById('competitions-grid');
     
     try {
-        // NO global loading spinner - show section skeleton only
         const API_BASE = window.CONFIG ? window.CONFIG.API_BASE_URL : 'http://localhost:3000/api';
         const response = await fetch(`${API_BASE}/competitions?limit=6&status=upcoming&sort=date_asc`);
         const data = await response.json();
         
-        // IMMEDIATELY render as data arrives
+        // PROGRESSIVE: Render immediately, no blocking
                 
                 console.log('Competitions response:', data);
                 
@@ -764,14 +763,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const competitions = data.data || data.competitions || [];
                 
                 if (Array.isArray(competitions) && competitions.length > 0) {
-    // PROGRESSIVE: Render items one-by-one with delay
-    grid.innerHTML = ''; // Clear skeletons
-    competitions.slice(0, 6).forEach((comp, index) => {
-        setTimeout(() => {
-            grid.insertAdjacentHTML('beforeend', `
+                    // Clear skeletons instantly
+                    grid.innerHTML = '';
+                    
+                    // Render progressively (50ms stagger = smoother perception)
+                    competitions.slice(0, 6).forEach((comp, index) => {
+                        setTimeout(() => {
+                            const cardHTML = `
                         <div class="competition-card" onclick="window.location.href='competition-detail.html?id=${comp.id}'">
                             <div class="competition-image">
-                                <img src="${comp.banner_url || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23f3f4f6' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='sans-serif' font-size='24' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3E🏆 Competition%3C/text%3E%3C/svg%3E"}" alt="${comp.title}" loading="lazy" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27400%27 height=%27300%27%3E%3Crect fill=%27%23f3f4f6%27 width=%27400%27 height=%27300%27/%3E%3Ctext fill=%27%239ca3af%27 font-family=%27sans-serif%27 font-size=%2724%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27%3E🏆%3C/text%3E%3C/svg%3E';">
+                                <img data-src="${comp.banner_url || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23f3f4f6' width='400' height='300'/%3E%3Ctext fill='%239ca3af' font-family='sans-serif' font-size='24' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3E🏆 Competition%3C/text%3E%3C/svg%3E"}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e5e7eb' width='400' height='300'/%3E%3C/svg%3E" alt="${comp.title}" loading="lazy" class="lazy-img" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27400%27 height=%27300%27%3E%3Crect fill=%27%23f3f4f6%27 width=%27400%27 height=%27300%27/%3E%3Ctext fill=%27%239ca3af%27 font-family=%27sans-serif%27 font-size=%2724%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27%3E🏆%3C/text%3E%3C/svg%3E';">
                                 ${comp.registration_fee > 0 ? `
                                     <div class="competition-fee-badge">৳${comp.registration_fee}</div>
                                 ` : '<div class="competition-free-badge">Free</div>'}
@@ -811,7 +812,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <button class="btn-competition-detail">View Details</button>
                             </div>
                         </div>
-                    `).join('');
+                    `;
+                            grid.insertAdjacentHTML('beforeend', cardHTML);
+                        }, index * 50);
+                    });
                 } else {
                     grid.innerHTML = '<p class="no-data">No competitions available at the moment.</p>';
                 }
@@ -1064,26 +1068,34 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             return stars;
         }
-// Lazy load images
+// OPTIMIZED: Lazy load images with immediate observer
         if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries, observer) => {
+            const lazyObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const img = entry.target;
-                        if (img.dataset.src) {
-                            img.src = img.dataset.src;
+                        const src = img.dataset.src;
+                        if (src) {
+                            img.src = src;
                             img.removeAttribute('data-src');
+                            img.classList.remove('lazy-img');
                         }
-                        observer.unobserve(img);
+                        lazyObserver.unobserve(img);
+                    }
+                });
+            }, { rootMargin: '50px' });
+            
+            // Auto-observe new images as they're added
+            const observer = new MutationObserver(() => {
+                document.querySelectorAll('.lazy-img').forEach(img => {
+                    if (!img.dataset.observed) {
+                        lazyObserver.observe(img);
+                        img.dataset.observed = 'true';
                     }
                 });
             });
             
-            document.addEventListener('DOMContentLoaded', () => {
-                document.querySelectorAll('img[data-src]').forEach(img => {
-                    imageObserver.observe(img);
-                });
-            });
+            observer.observe(document.body, { childList: true, subtree: true });
         }
         // Helper: Format date
         function formatDate(dateString) {
