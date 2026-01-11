@@ -2067,6 +2067,7 @@ competitionId = urlParams.get('id');
 
             // Fill form with existing data
             if (comp.banner_url) {
+                bannerFile = comp.banner_url; // Store existing URL
                 document.getElementById('bannerPreview').src = comp.banner_url;
                 document.getElementById('bannerPreview').classList.add('show');
                 document.getElementById('uploadPlaceholder').classList.add('hide');
@@ -2182,14 +2183,14 @@ competitionId = urlParams.get('id');
         });
     }
 
-    // Handle Banner Upload
-    function handleBannerUpload(event) {
+    // Handle Banner Upload - Upload immediately to Cloudinary
+    async function handleBannerUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
 
-        // Validate file size (5MB)
-        if (file.size > 5 * 1024 * 1024) {
-            showToast('Banner size must be less than 5MB', 'error');
+        // Validate file size (50MB - will be compressed)
+        if (file.size > 50 * 1024 * 1024) {
+            showToast('Banner size must be less than 50MB', 'error');
             return;
         }
 
@@ -2199,28 +2200,85 @@ competitionId = urlParams.get('id');
             return;
         }
 
-        bannerFile = file;
+        try {
+            // Show loading state
+            showLoading();
+            
+            // Show preview immediately for better UX
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('bannerPreview').src = e.target.result;
+                document.getElementById('bannerPreview').classList.add('show');
+                document.getElementById('uploadPlaceholder').classList.add('hide');
+                document.getElementById('bannerActions').classList.add('show');
+                document.getElementById('bannerUploadZone').classList.add('has-image');
+            };
+            reader.readAsDataURL(file);
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            document.getElementById('bannerPreview').src = e.target.result;
-            document.getElementById('bannerPreview').classList.add('show');
-            document.getElementById('uploadPlaceholder').classList.add('hide');
-            document.getElementById('bannerActions').classList.add('show');
-            document.getElementById('bannerUploadZone').classList.add('has-image');
-        };
-        reader.readAsDataURL(file);
+            // Upload to Cloudinary immediately
+            const bannerFormData = new FormData();
+            bannerFormData.append('image', file);
+
+            const uploadResponse = await fetch(`${API_BASE_URL}/upload/image`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: bannerFormData
+            });
+
+            if (!uploadResponse.ok) {
+                const errorData = await uploadResponse.json().catch(() => ({}));
+                throw new Error(errorData.message || 'Failed to upload banner');
+            }
+
+            const uploadData = await uploadResponse.json();
+            console.log('Banner upload response:', uploadData);
+            
+            // Handle all possible response structures
+            const bannerUrl = uploadData.imageUrl || 
+                             uploadData.url || 
+                             uploadData.data?.imageUrl || 
+                             uploadData.secure_url;
+            
+            if (!bannerUrl) {
+                console.error('No banner URL in response:', uploadData);
+                throw new Error('Failed to get banner URL from upload response');
+            }
+            
+            console.log('✅ Banner uploaded successfully:', bannerUrl);
+            
+            // Store the uploaded URL globally so it can be used in form submission
+            bannerFile = bannerUrl; // Change from File object to URL string
+            
+            // Update preview with actual Cloudinary URL
+            document.getElementById('bannerPreview').src = bannerUrl;
+            
+            showToast('Banner uploaded successfully!', 'success');
+            
+        } catch (error) {
+            console.error('Banner upload error:', error);
+            showToast(error.message || 'Failed to upload banner', 'error');
+            
+            // Reset on error
+            removeBanner();
+            
+        } finally {
+            hideLoading();
+        }
     }
 
     // Remove Banner
     function removeBanner() {
-        bannerFile = null;
+        bannerFile = null; // This now clears the URL string, not File object
         document.getElementById('bannerPreview').src = '';
         document.getElementById('bannerPreview').classList.remove('show');
         document.getElementById('uploadPlaceholder').classList.remove('hide');
         document.getElementById('bannerActions').classList.remove('show');
         document.getElementById('bannerUploadZone').classList.remove('has-image');
         document.getElementById('bannerInput').value = '';
+        
+        console.log('Banner removed');
     }
 
     // Calculate Total Prize
@@ -2500,38 +2558,13 @@ competitionId = urlParams.get('id');
         try {
             showLoading();
 
-            let bannerUrl = null;
-
-            // Upload banner if new file selected
-            if (bannerFile) {
-                const bannerFormData = new FormData();
-                bannerFormData.append('image', bannerFile);
-
-                const uploadResponse = await fetch(`${API_BASE_URL}/upload/image`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: bannerFormData
-                });
-
-                if (!uploadResponse.ok) {
-                    const errorData = await uploadResponse.json().catch(() => ({}));
-                    throw new Error(errorData.message || 'Failed to upload banner');
-                }
-
-                const uploadData = await uploadResponse.json();
-                console.log('Banner upload response:', uploadData);
-                
-                // Handle all possible response structures
-                bannerUrl = uploadData.imageUrl || uploadData.url || uploadData.data?.imageUrl || uploadData.secure_url;
-                
-                if (!bannerUrl) {
-                    console.error('No banner URL in response:', uploadData);
-                    throw new Error('Failed to get banner URL from upload response');
-                }
-                
-                console.log('Banner uploaded successfully:', bannerUrl);
+            // Banner URL is already uploaded in handleBannerUpload function
+            // bannerFile now contains the Cloudinary URL string (not File object)
+            const bannerUrl = bannerFile || null;
+            
+            if (isEditMode && !bannerUrl) {
+                // In edit mode, if no new banner uploaded, keep the existing one
+                // This will be handled by not sending banner_url in the update payload
             }
 
             // Prepare form data
