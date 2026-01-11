@@ -23,10 +23,12 @@
 
     // API Client class
     class APIClient {
-        constructor() {
-            this.baseURL = API_BASE_URL;
-            this.timeout = API_TIMEOUT;
-        }
+    constructor() {
+        this.baseURL = API_BASE_URL;
+        this.timeout = API_TIMEOUT;
+        this.cache = new Map();
+        this.cacheTimeout = 60000; // 1 minute cache
+    }
         
         // Build headers
         _getHeaders(customHeaders = {}) {
@@ -89,24 +91,52 @@
         }
         
         // GET request
-        async get(endpoint, params = {}) {
-            const url = new URL(`${this.baseURL}${endpoint}`);
-            
-            // Add query parameters
-            Object.keys(params).forEach(key => {
-                if (params[key] !== undefined && params[key] !== null && params[key] !== '') {
-                    url.searchParams.append(key, params[key]);
-                }
-            });
-            
-            const fetchPromise = fetch(url.toString(), {
-                method: 'GET',
-                headers: this._getHeaders()
-            });
-            
-            const response = await this._timeout(this.timeout, fetchPromise);
-            return this._handleResponse(response);
+        // Simple cache object
+    constructor() {
+        this.baseURL = API_BASE_URL;
+        this.timeout = API_TIMEOUT;
+        this.cache = new Map();
+        this.cacheTimeout = 60000; // 1 minute cache
+    }
+    
+    // GET request with caching
+    async get(endpoint, params = {}) {
+        const url = new URL(`${this.baseURL}${endpoint}`);
+        
+        // Add query parameters
+        Object.keys(params).forEach(key => {
+            if (params[key] !== undefined && params[key] !== null && params[key] !== '') {
+                url.searchParams.append(key, params[key]);
+            }
+        });
+        
+        const cacheKey = url.toString();
+        
+        // Check cache
+        if (this.cache.has(cacheKey)) {
+            const cached = this.cache.get(cacheKey);
+            if (Date.now() - cached.timestamp < this.cacheTimeout) {
+                return cached.data;
+            }
+            this.cache.delete(cacheKey);
         }
+        
+        const fetchPromise = fetch(url.toString(), {
+            method: 'GET',
+            headers: this._getHeaders()
+        });
+        
+        const response = await this._timeout(this.timeout, fetchPromise);
+        const data = await this._handleResponse(response);
+        
+        // Cache the response
+        this.cache.set(cacheKey, {
+            data: data,
+            timestamp: Date.now()
+        });
+        
+        return data;
+    }
         
         // POST request
         async post(endpoint, body = {}, customHeaders = {}) {

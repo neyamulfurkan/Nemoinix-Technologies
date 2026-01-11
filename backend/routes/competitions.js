@@ -39,8 +39,11 @@ router.get('/', asyncHandler(async (req, res) => {
         filters.registration_open = true;
     }
     
-    const competitions = await Competition.findAll(filters);
-    const totalCount = await Competition.count(filters);
+    // Parallel execution
+    const [competitions, totalCount] = await Promise.all([
+        Competition.findAll(filters),
+        Competition.count(filters)
+    ]);
     
     // Add user registration status if authenticated
     if (req.user) {

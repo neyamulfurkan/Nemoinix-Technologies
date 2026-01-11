@@ -25,20 +25,17 @@ router.get('/', optionalAuth, asyncHandler(async (req, res) => {
         sort_by: req.query.sort_by || 'created_at',
         order_by: req.query.order_by || 'DESC',
         page: parseInt(req.query.page) || 1,
-        limit: parseInt(req.query.limit) || 24
+        limit: Math.min(parseInt(req.query.limit) || 24, 100) // Max 100 items
     };
     
-    console.log('Fetching products with filters:', filters);
-    
-    const products = await Product.findAll(filters);
-    
-    console.log(`Found ${products.length} products`);
-    
-    // Get total count for pagination
-    const totalCount = await Product.count({
-        category: filters.category,
-        club_id: filters.club_id
-    });
+    // Parallel execution for better performance
+    const [products, totalCount] = await Promise.all([
+        Product.findAll(filters),
+        Product.count({
+            category: filters.category,
+            club_id: filters.club_id
+        })
+    ]);
     
     res.json({
         success: true,

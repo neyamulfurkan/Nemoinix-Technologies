@@ -4225,11 +4225,23 @@ button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
   
   body {
     animation: none !important;
   }
+}
+
+/* Performance: Will-change optimization */
+.card:hover,
+.btn:hover {
+  will-change: transform;
+}
+
+.card:not(:hover),
+.btn:not(:hover) {
+  will-change: auto;
 }
 
 /* Performance Optimizations */

@@ -2205,15 +2205,19 @@
     }
 
     function setupEventListeners() {
-        // Search input
+        // Search input with debounce
         const searchInput = document.getElementById('searchInput');
         let searchTimeout;
-        searchInput.addEventListener('input', (e) => {
+        const debouncedSearch = (value) => {
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(() => {
-                filterState.search = e.target.value;
+                filterState.search = value;
                 applyFilters();
-            }, 300);
+            }, 500); // Increased to 500ms for better performance
+        };
+        
+        searchInput.addEventListener('input', (e) => {
+            debouncedSearch(e.target.value);
         });
 
         // Search suggestions
@@ -2514,7 +2518,7 @@ function updateFilterState() {
         }
     }
 
-    function renderProducts() {
+   function renderProducts() {
         const grid = document.getElementById('productsGrid');
         
         if (filteredProducts.length === 0) {
@@ -2522,7 +2526,17 @@ function updateFilterState() {
             return;
         }
         
-        grid.innerHTML = filteredProducts.map(product => createProductCard(product)).join('');
+        // Use DocumentFragment for better performance
+        const fragment = document.createDocumentFragment();
+        const tempDiv = document.createElement('div');
+        
+        filteredProducts.forEach(product => {
+            tempDiv.innerHTML = createProductCard(product);
+            fragment.appendChild(tempDiv.firstElementChild);
+        });
+        
+        grid.innerHTML = '';
+        grid.appendChild(fragment);
     }
 
     function createProductCard(product) {
