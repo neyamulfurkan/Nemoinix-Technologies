@@ -1524,28 +1524,46 @@
 
         // Initialize - Safe loader with fallback
         function initializeApp() {
-            try {
-                // Check if libraries are loaded
-                if (typeof flatpickr === 'undefined' || typeof noUiSlider === 'undefined') {
-                    console.log('Waiting for libraries...');
-                    setTimeout(initializeApp, 100);
-                    return;
-                }
-                
-                console.log('Initializing app...');
-                initializeDatePickers();
-                initializePriceSlider();
-                initializeEventListeners();
-                setupFilterToggles();
-                checkAuthStatus();
-                readURLParams();
-                updateNavigation();
-                loadCompetitions();
-            } catch (error) {
-                console.error('Initialization error:', error);
-                // Still try to load competitions even if filters fail
-                loadCompetitions();
+            // Check if libraries are loaded
+            if (typeof flatpickr === 'undefined' || typeof noUiSlider === 'undefined') {
+                console.log('Waiting for libraries...');
+                setTimeout(initializeApp, 100);
+                return;
             }
+            
+            console.log('Initializing app...');
+            
+            // Initialize each component safely
+            try {
+                initializeDatePickers();
+            } catch (error) {
+                console.warn('Date pickers initialization failed:', error);
+            }
+            
+            try {
+                initializePriceSlider();
+            } catch (error) {
+                console.warn('Price slider initialization failed:', error);
+            }
+            
+            try {
+                initializeEventListeners();
+            } catch (error) {
+                console.warn('Event listeners initialization failed:', error);
+            }
+            
+            try {
+                setupFilterToggles();
+            } catch (error) {
+                console.warn('Filter toggles initialization failed:', error);
+            }
+            
+            checkAuthStatus();
+            readURLParams();
+            updateNavigation();
+            
+            // Always load competitions last
+            loadCompetitions();
         }
 
         // Start initialization when DOM is ready
