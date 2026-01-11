@@ -59,20 +59,20 @@
             line-height: 1.5;
             overflow-x: hidden;
         }
-        /* Hero Stats Visibility Fix */
+        /* Hero Stats Visibility Fix - Enhanced Contrast */
         .hero-stats {
-            background: rgba(255, 255, 255, 0.25) !important;
-            backdrop-filter: blur(16px) !important;
+            background: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(20px) !important;
             padding: 1.5rem 2rem !important;
             border-radius: 16px !important;
-            border: 2px solid rgba(255, 255, 255, 0.4) !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+            border: 2px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
             margin-top: 2rem !important;
         }
         
         .hero-stats .stat-value {
             color: white !important;
-            text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4) !important;
+            text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 255, 255, 0.4) !important;
             font-weight: 800 !important;
             font-size: 2.5rem !important;
             line-height: 1 !important;
@@ -82,11 +82,11 @@
             color: rgba(255, 255, 255, 1) !important;
             font-weight: 600 !important;
             font-size: 0.875rem !important;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
         }
         
         .hero-stats .stat-divider {
-            background: rgba(255, 255, 255, 0.4) !important;
+            background: rgba(255, 255, 255, 0.5) !important;
             width: 1px;
             height: 50px;
         }
@@ -96,6 +96,7 @@
                 flex-direction: column !important;
                 gap: 1.5rem !important;
                 padding: 1.25rem 1.5rem !important;
+                background: rgba(0, 0, 0, 0.6) !important;
             }
             
             .hero-stats .stat-value {
@@ -109,25 +110,6 @@
             .hero-stats .stat-divider {
                 display: none !important;
             }
-        }
-        
-        .hero-stats .stat-value {
-            color: white !important;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            font-weight: 800 !important;
-            font-size: 2rem !important;
-        }
-        
-        .hero-stats .stat-label {
-            color: rgba(255, 255, 255, 0.95) !important;
-            font-weight: 600 !important;
-            font-size: 0.875rem !important;
-        }
-        
-        .hero-stats .stat-divider {
-            background: rgba(255, 255, 255, 0.3) !important;
-            width: 1px;
-            height: 40px;
         }
         .navbar {
             background: white;
@@ -267,20 +249,20 @@
                     </div>
 
                     <!-- Stats -->
-                    <div class="hero-stats" style="background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(16px); padding: 1.5rem 2rem; border-radius: 16px; border: 2px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);">
+                    <div class="hero-stats" style="background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(20px); padding: 1.5rem 2rem; border-radius: 16px; border: 2px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);">
                         <div class="stat-item">
-                            <span class="stat-value" id="stat-clubs" style="color: white; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">50+</span>
-                            <span class="stat-label" style="color: rgba(255, 255, 255, 0.95); font-weight: 500;">University Clubs</span>
+                            <span class="stat-value" id="stat-clubs" style="color: white; text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 255, 255, 0.4); font-weight: 800;">50+</span>
+                            <span class="stat-label" style="color: rgba(255, 255, 255, 1); font-weight: 600; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);">University Clubs</span>
                         </div>
-                        <div class="stat-divider" style="background: rgba(255, 255, 255, 0.3);"></div>
+                        <div class="stat-divider" style="background: rgba(255, 255, 255, 0.5);"></div>
                         <div class="stat-item">
-                            <span class="stat-value" id="stat-products" style="color: white; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">1000+</span>
-                            <span class="stat-label" style="color: rgba(255, 255, 255, 0.95); font-weight: 500;">Components</span>
+                            <span class="stat-value" id="stat-products" style="color: white; text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 255, 255, 0.4); font-weight: 800;">1000+</span>
+                            <span class="stat-label" style="color: rgba(255, 255, 255, 1); font-weight: 600; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);">Components</span>
                         </div>
-                        <div class="stat-divider" style="background: rgba(255, 255, 255, 0.3);"></div>
+                        <div class="stat-divider" style="background: rgba(255, 255, 255, 0.5);"></div>
                         <div class="stat-item">
-                            <span class="stat-value" id="stat-competitions" style="color: white; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">200+</span>
-                            <span class="stat-label" style="color: rgba(255, 255, 255, 0.95); font-weight: 500;">Competitions</span>
+                            <span class="stat-value" id="stat-competitions" style="color: white; text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 255, 255, 0.4); font-weight: 800;">200+</span>
+                            <span class="stat-label" style="color: rgba(255, 255, 255, 1); font-weight: 600; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);">Competitions</span>
                         </div>
                     </div>
                 </div>
