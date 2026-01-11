@@ -23,12 +23,12 @@
 
     // API Client class
     class APIClient {
-    constructor() {
-        this.baseURL = API_BASE_URL;
-        this.timeout = API_TIMEOUT;
-        this.cache = new Map();
-        this.cacheTimeout = 60000; // 1 minute cache
-    }
+        constructor() {
+            this.baseURL = API_BASE_URL;
+            this.timeout = API_TIMEOUT;
+            this.cache = new Map();
+            this.cacheTimeout = 60000; // 1 minute cache
+        }
         
         // Build headers
         _getHeaders(customHeaders = {}) {
@@ -90,14 +90,7 @@
             });
         }
         
-        // GET request
-        // Simple cache object
-    constructor() {
-        this.baseURL = API_BASE_URL;
-        this.timeout = API_TIMEOUT;
-        this.cache = new Map();
-        this.cacheTimeout = 60000; // 1 minute cache
-    }
+        // GET request with caching
     
     // GET request with caching
     async get(endpoint, params = {}) {
