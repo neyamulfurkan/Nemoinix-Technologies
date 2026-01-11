@@ -1112,7 +1112,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/students/cart`, {
+                const API_BASE = window.CONFIG ? window.CONFIG.API_BASE_URL : 'http://localhost:3000/api';
+                const response = await fetch(`${API_BASE}/students/cart`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
