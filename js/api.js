@@ -93,44 +93,40 @@
         // GET request with caching
     
     // GET request with caching
-    async get(endpoint, params = {}) {
-        const url = new URL(`${this.baseURL}${endpoint}`);
-        
-        // Add query parameters
-        Object.keys(params).forEach(key => {
-            if (params[key] !== undefined && params[key] !== null && params[key] !== '') {
-                url.searchParams.append(key, params[key]);
-            }
-        });
-        
-        const cacheKey = url.toString();
-        
-        // Check cache
-        if (this.cache.has(cacheKey)) {
-            const cached = this.cache.get(cacheKey);
-            if (Date.now() - cached.timestamp < this.cacheTimeout) {
-                return cached.data;
-            }
-            this.cache.delete(cacheKey);
+   async get(endpoint, params = {}) {
+    const url = new URL(`${this.baseURL}${endpoint}`);
+    
+    // Add query parameters
+    Object.keys(params).forEach(key => {
+        if (params[key] !== undefined && params[key] !== null && params[key] !== '') {
+            url.searchParams.append(key, params[key]);
         }
-        
-        const fetchPromise = fetch(url.toString(), {
-            method: 'GET',
-            headers: this._getHeaders()
-        });
-        
-        const response = await this._timeout(this.timeout, fetchPromise);
-        const data = await this._handleResponse(response);
-        
-        // Cache the response
-        this.cache.set(cacheKey, {
-            data: data,
-            timestamp: Date.now()
-        });
-        
-        return data;
+    });
+    
+    const cacheKey = url.toString();
+    
+    // Check cache FIRST - instant return
+    if (this.cache.has(cacheKey)) {
+        const cached = this.cache.get(cacheKey);
+        if (Date.now() - cached.timestamp < this.cacheTimeout) {
+            return Promise.resolve(cached.data); // Return cached data immediately
+        }
+        this.cache.delete(cacheKey);
     }
-        
+    
+    // Start fetch without blocking
+    const fetchPromise = fetch(url.toString(), {
+        method: 'GET',
+        headers: this._getHeaders()
+    }).then(response => this._handleResponse(response))
+      .then(data => {
+        // Cache in background
+        this.cache.set(cacheKey, { data, timestamp: Date.now() });
+        return data;
+    });
+    
+    return this._timeout(this.timeout, fetchPromise);
+}
         // POST request
         async post(endpoint, body = {}, customHeaders = {}) {
             const fetchPromise = fetch(`${this.baseURL}${endpoint}`, {
