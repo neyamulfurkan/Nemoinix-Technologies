@@ -2233,31 +2233,33 @@ competitionId = urlParams.get('id');
             }
 
             const uploadData = await uploadResponse.json();
-            console.log('Banner upload response:', uploadData);
+            console.log('✅ Banner upload response:', uploadData);
             
             // Handle all possible response structures
-            const bannerUrl = uploadData.imageUrl || 
-                             uploadData.url || 
-                             uploadData.data?.imageUrl || 
-                             uploadData.secure_url;
+            let bannerUrl = uploadData.imageUrl || 
+                           uploadData.url || 
+                           uploadData.data?.imageUrl || 
+                           uploadData.data?.url ||
+                           uploadData.secure_url;
             
             if (!bannerUrl) {
-                console.error('No banner URL in response:', uploadData);
+                console.error('❌ No banner URL in response:', uploadData);
                 throw new Error('Failed to get banner URL from upload response');
             }
             
             console.log('✅ Banner uploaded successfully:', bannerUrl);
+            console.log('✅ Storing banner URL in bannerFile variable:', bannerUrl);
             
-            // Store the uploaded URL globally so it can be used in form submission
-            bannerFile = bannerUrl; // Change from File object to URL string
+            // CRITICAL: Store the uploaded URL globally
+            bannerFile = bannerUrl;
             
             // Update preview with actual Cloudinary URL
             document.getElementById('bannerPreview').src = bannerUrl;
             
-            showToast('Banner uploaded successfully!', 'success');
+            showToast('✅ Banner uploaded successfully!', 'success');
             
         } catch (error) {
-            console.error('Banner upload error:', error);
+            console.error('❌ Banner upload error:', error);
             showToast(error.message || 'Failed to upload banner', 'error');
             
             // Reset on error
@@ -2595,6 +2597,15 @@ competitionId = urlParams.get('id');
                 console.warn('No banner uploaded for new competition');
             }
 
+            // Debug: Log the formData being sent
+            console.log('📤 Submitting competition data:', {
+                ...formData,
+                description: formData.description?.substring(0, 50) + '...',
+                rules: formData.rules?.substring(0, 50) + '...',
+                eligibility: formData.eligibility?.substring(0, 50) + '...'
+            });
+            console.log('🖼️ Banner URL being sent:', formData.banner_url);
+
             // Submit form
             const url = isEditMode 
                 ? `${API_BASE_URL}/club-admin/competitions/${competitionId}` 
@@ -2612,6 +2623,7 @@ competitionId = urlParams.get('id');
             });
 
             const data = await response.json();
+            console.log('📥 Server response:', data);
 
             if (!response.ok) {
                 throw new Error(data.message || 'Failed to save competition');
