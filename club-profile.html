@@ -2291,36 +2291,41 @@
         function initializeTabNavigation() {
             const tabs = document.querySelectorAll('.club-nav-tab');
             const sections = ['about', 'products', 'competitions', 'reviews'];
+tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active to clicked tab
+                tab.classList.add('active');
+                
+                // Scroll to section
+                const sectionId = tab.dataset.section;
+                const section = document.getElementById(sectionId);
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const clubNavHeight = document.querySelector('.club-nav').offsetHeight;
+                const offset = navbarHeight + clubNavHeight + 20; // Added 20px padding
+                const elementPosition = section.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - offset;
 
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Remove active from all tabs
-                    tabs.forEach(t => t.classList.remove('active'));
-                    
-                    // Add active to clicked tab
-                    tab.classList.add('active');
-                    
-                    // Scroll to section
-                    const sectionId = tab.dataset.section;
-                    const section = document.getElementById(sectionId);
-                    const offset = 145; // navbar + club-nav height
-                    const elementPosition = section.offsetTop;
-                    const offsetPosition = elementPosition - offset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
                 });
             });
 
             // Update active tab on scroll
             window.addEventListener('scroll', () => {
                 let current = '';
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const clubNavHeight = document.querySelector('.club-nav').offsetHeight;
+                const scrollOffset = navbarHeight + clubNavHeight + 50;
+                
                 sections.forEach(sectionId => {
                     const section = document.getElementById(sectionId);
-                    const sectionTop = section.offsetTop - 200;
-                    if (window.pageYOffset >= sectionTop) {
+                    const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
+                    if (window.pageYOffset >= sectionTop - scrollOffset) {
                         current = sectionId;
                     }
                 });
