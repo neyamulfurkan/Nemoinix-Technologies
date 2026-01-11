@@ -2561,11 +2561,6 @@ competitionId = urlParams.get('id');
             // Banner URL is already uploaded in handleBannerUpload function
             // bannerFile now contains the Cloudinary URL string (not File object)
             const bannerUrl = bannerFile || null;
-            
-            if (isEditMode && !bannerUrl) {
-                // In edit mode, if no new banner uploaded, keep the existing one
-                // This will be handled by not sending banner_url in the update payload
-            }
 
             // Prepare form data
             const formData = {
@@ -2592,8 +2587,12 @@ competitionId = urlParams.get('id');
                 status: document.getElementById('status').value
             };
 
+            // Always send banner_url if available (for both create and edit)
             if (bannerUrl) {
                 formData.banner_url = bannerUrl;
+            } else if (!isEditMode) {
+                // For new competitions, banner is required - this will be caught by backend validation
+                console.warn('No banner uploaded for new competition');
             }
 
             // Submit form
