@@ -18,15 +18,15 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Verify connection configuration
-transporter.verify((error, success) => {
-    if (error) {
-        console.error('❌ Email configuration error:', error.message);
-        console.error('Please check your .env file EMAIL_USER and EMAIL_PASSWORD');
-    } else {
+// Verify connection configuration (async, non-blocking)
+transporter.verify()
+    .then(() => {
         console.log('✅ Email server ready and connected to Gmail SMTP');
-    }
-});
+    })
+    .catch((error) => {
+        console.error('⚠️ Email configuration warning:', error.message);
+        console.error('Emails may not send. Check EMAIL_USER and EMAIL_PASSWORD in .env');
+    });
 
 // Load email template
 async function loadTemplate(templateName) {

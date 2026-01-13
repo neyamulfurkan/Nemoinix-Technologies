@@ -8,7 +8,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 class EmailService {
-    constructor() {
+        constructor() {
         this.transporter = nodemailer.createTransport({
             host: process.env.EMAIL_HOST || 'smtp.gmail.com',
             port: process.env.EMAIL_PORT || 587,
@@ -16,16 +16,22 @@ class EmailService {
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASSWORD
-            }
+            },
+            connectionTimeout: 10000,
+            greetingTimeout: 10000,
+            socketTimeout: 10000
         });
         
         this.templateCache = new Map();
         this.emailQueue = [];
         this.isProcessing = false;
         
-        // Verify connection on initialization
-        this.verifyConnection();
-        console.log('✅ EmailService initialized and ready');
+        console.log('✅ EmailService initialized');
+        
+        // Verify connection asynchronously (non-blocking)
+        this.verifyConnection().catch(() => {
+            console.log('⚠️ Email verification will retry on first send attempt');
+        });
     }
     
     // Load and compile template
@@ -400,14 +406,20 @@ class EmailService {
         return { success: true, queued: recipients.length };
     }
     
-    // Test email connection
+    // Test email connection (with timeout)
     async verifyConnection() {
         try {
-            await this.transporter.verify();
+            await Promise.race([
+                this.transporter.verify(),
+                new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Verification timeout')), 5000)
+                )
+            ]);
             console.log('✅ Email server connection verified');
             return true;
         } catch (error) {
-            console.error('❌ Email server connection failed:', error.message);
+            console.error('⚠️ Email verification failed:', error.message);
+            console.error('Emails will be attempted but may fail. Check your EMAIL credentials.');
             return false;
         }
     }
