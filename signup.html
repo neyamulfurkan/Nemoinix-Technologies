@@ -1033,7 +1033,10 @@
 
                                 <div class="form-group">
                                     <label class="form-label">University<span class="required">*</span></label>
-                                    <input type="text" id="university" class="form-input" placeholder="e.g., Green University, BUET, etc." required>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="university" class="form-input with-icon" placeholder="e.g., Green University, BUET, etc." required>
+                                        <i class="fas fa-university input-icon"></i>
+                                    </div>
                                     <span class="field-error" id="university-error"></span>
                                 </div>
                             </div>
@@ -1249,29 +1252,50 @@
                 
                 document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
                 
-                // Disable required on all form inputs first
+                // Disable required and clear invalid states on ALL form inputs
                 document.querySelectorAll('#student-form input, #student-form select, #student-form textarea').forEach(input => {
                     input.removeAttribute('required');
+                    input.classList.remove('invalid');
                 });
+                document.querySelectorAll('#student-form .field-error').forEach(error => {
+                    error.classList.remove('show');
+                });
+                
                 document.querySelectorAll('#club-form input, #club-form select, #club-form textarea').forEach(input => {
                     input.removeAttribute('required');
+                    input.classList.remove('invalid');
+                });
+                document.querySelectorAll('#club-form .field-error').forEach(error => {
+                    error.classList.remove('show');
                 });
                 
                 if (selectedRole === 'student') {
                     document.getElementById('student-form').classList.add('active');
                     document.getElementById('submit-btn').innerHTML = '<span>Create Student Account</span>';
-                    // Re-enable required on student form
-                    document.querySelectorAll('#student-form input[type="text"], #student-form input[type="email"], #student-form input[type="password"], #student-form input[type="tel"], #student-form select').forEach(input => {
-                        input.setAttribute('required', 'required');
-                    });
+                    // Re-enable required on student form visible inputs only
+                    document.getElementById('full-name').setAttribute('required', 'required');
+                    document.getElementById('email').setAttribute('required', 'required');
+                    document.getElementById('password').setAttribute('required', 'required');
+                    document.getElementById('confirm-password').setAttribute('required', 'required');
+                    document.getElementById('phone').setAttribute('required', 'required');
+                    document.getElementById('university').setAttribute('required', 'required');
+                    document.getElementById('student-id').setAttribute('required', 'required');
+                    document.getElementById('department').setAttribute('required', 'required');
                     document.getElementById('terms').setAttribute('required', 'required');
                 } else {
                     document.getElementById('club-form').classList.add('active');
                     document.getElementById('club-submit-btn').innerHTML = '<span>Submit Club Application</span>';
-                    // Re-enable required on club form
-                    document.querySelectorAll('#club-form input[type="text"], #club-form input[type="email"], #club-form input[type="password"], #club-form input[type="tel"], #club-form input[type="number"], #club-form select, #club-form textarea, #club-form input[type="file"]').forEach(input => {
-                        input.setAttribute('required', 'required');
-                    });
+                    // Re-enable required on club form visible inputs only
+                    document.getElementById('club-name').setAttribute('required', 'required');
+                    document.getElementById('club-university').setAttribute('required', 'required');
+                    document.getElementById('established-year').setAttribute('required', 'required');
+                    document.getElementById('club-email').setAttribute('required', 'required');
+                    document.getElementById('club-password').setAttribute('required', 'required');
+                    document.getElementById('club-confirm-password').setAttribute('required', 'required');
+                    document.getElementById('club-phone').setAttribute('required', 'required');
+                    document.getElementById('description').setAttribute('required', 'required');
+                    document.getElementById('logo-upload').setAttribute('required', 'required');
+                    document.getElementById('certificate-upload').setAttribute('required', 'required');
                     document.getElementById('club-terms').setAttribute('required', 'required');
                 }
             });
@@ -1533,8 +1557,9 @@
                 isValid = false;
             }
             
-            if (!document.getElementById('university').value) {
-                showFieldError('university', 'Please select a university');
+            const university = document.getElementById('university').value.trim();
+            if (!university || university.length < 3) {
+                showFieldError('university', 'University name is required (min 3 characters)');
                 isValid = false;
             }
             
@@ -1565,8 +1590,9 @@
                 isValid = false;
             }
             
-            if (!document.getElementById('club-university').value) {
-                showFieldError('club-university', 'Please select a university');
+            const clubUniversity = document.getElementById('club-university').value.trim();
+            if (!clubUniversity || clubUniversity.length < 3) {
+                showFieldError('club-university', 'University name is required (min 3 characters)');
                 isValid = false;
             }
             
@@ -1657,7 +1683,7 @@
                         password: document.getElementById('password').value,
                         full_name: document.getElementById('full-name').value.trim(),
                         phone: document.getElementById('phone').value.trim(),
-                        university: document.getElementById('university').value,
+                        university: document.getElementById('university').value.trim(),
                         student_id: document.getElementById('student-id').value.trim(),
                         department: document.getElementById('department').value.trim()
                     };
@@ -1684,7 +1710,7 @@
                     formData.append('role', 'club_admin');
                     formData.append('club_name', clubName);
                     formData.append('full_name', clubName);
-                    formData.append('university', document.getElementById('club-university').value);
+                    formData.append('university', document.getElementById('club-university').value.trim());
                     formData.append('established_year', document.getElementById('established-year').value);
                     formData.append('email', document.getElementById('club-email').value.trim());
                     formData.append('password', document.getElementById('club-password').value);
