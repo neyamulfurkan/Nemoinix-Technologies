@@ -117,17 +117,26 @@ class EmailService {
             
             // Send email via Resend
             const result = await this.resend.emails.send({
-                from: process.env.EMAIL_FROM || 'Bangladesh Robotics Marketplace <noreply@roboticsbd.com>',
+                from: process.env.EMAIL_FROM || 'Bangladesh Robotics <onboarding@resend.dev>',
                 to,
                 subject,
                 html: emailHtml
             });
+            
+            // Check if email actually sent
+            if (!result || !result.id) {
+                console.error('❌ Resend returned no message ID - email NOT sent!');
+                console.error('   This usually means invalid FROM address or unverified domain');
+                console.error('   Current EMAIL_FROM:', process.env.EMAIL_FROM);
+                return { success: false, error: 'Email send failed - no message ID returned' };
+            }
             
             console.log('✅ Email sent via Resend:', result.id, 'to:', to);
             
             return { success: true, messageId: result.id };
         } catch (error) {
             console.error('❌ Resend email error:', error.message);
+            console.error('   Full error:', error);
             throw error;
         }
     }
