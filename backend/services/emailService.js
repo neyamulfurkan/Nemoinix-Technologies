@@ -23,10 +23,9 @@ class EmailService {
         this.emailQueue = [];
         this.isProcessing = false;
         
-        // Verify connection on initialization (DISABLED FOR TESTING)
-        // TODO: Enable in production
-        // this.verifyConnection();
-        console.log('⚠️  EmailService initialized (verification disabled for testing)');
+        // Verify connection on initialization
+        this.verifyConnection();
+        console.log('✅ EmailService initialized and ready');
     }
     
     // Load and compile template

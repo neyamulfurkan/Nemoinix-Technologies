@@ -231,13 +231,17 @@ router.post('/register', upload.fields([
         });
     }
     
-    // AUTO-VERIFY FOR TESTING - Remove this block in production
-    const db = require('../config/database');
-    await db.query('UPDATE users SET is_verified = TRUE WHERE id = $1', [user.id]);
+    // Send email verification (email will be sent automatically)
+    try {
+        await sendEmailVerification(user, verificationToken);
+        console.log('✅ Verification email sent to:', user.email);
+    } catch (emailError) {
+        console.error('❌ Failed to send verification email:', emailError.message);
+    }
     
     const message = role === 'club_admin' 
-        ? 'Club application submitted successfully. You can login once approved.'
-        : 'Registration successful. You can now login immediately.';
+        ? 'Club application submitted successfully. Check your email for verification link.'
+        : 'Registration successful! Check your email to verify your account before logging in.';
     
     res.status(201).json({
         success: true,
@@ -296,8 +300,6 @@ router.post('/login', asyncHandler(async (req, res) => {
     }
     
     // Check if email is verified (except for super_admin)
-    // DISABLED FOR TESTING - Enable this in production
-    /*
     if (user.role !== 'super_admin' && !user.is_verified) {
         return res.status(403).json({
             success: false,
@@ -305,7 +307,6 @@ router.post('/login', asyncHandler(async (req, res) => {
             requires_verification: true
         });
     }
-    */
     
     // Get club info if club_admin
     let clubInfo = null;

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Shipped</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .tracking-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #3B82F6;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .tracking-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1E40AF;
+            margin: 10px 0;
+            letter-spacing: 2px;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #3B82F6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .timeline {
+            margin: 30px 0;
+        }
+        .timeline-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 3px solid #3B82F6;
+            padding-left: 20px;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚚 Your Order is On the Way!</h1>
+            <p style="margin: 10px 0 0 0;">Order #{{ORDER_NUMBER}}</p>
+        </div>
+        
+        <div class="content">
+            <h2 style="color: #3B82F6;">Great News, {{USER_NAME}}!</h2>
+            
+            <p>Your order has been shipped and is on its way to you. Here are your tracking details:</p>
+            
+            <div class="tracking-box">
+                <p style="margin: 0; color: #666; font-size: 14px;">Tracking Number</p>
+                <div class="tracking-number">{{TRACKING_NUMBER}}</div>
+                <p style="margin: 10px 0 0 0; color: #666;">
+                    Courier: <strong>{{COURIER_NAME}}</strong>
+                </p>
+            </div>
+            
+            <center>
+                <a href="{{TRACKING_URL}}" class="button">Track Your Package</a>
+            </center>
+            
+            <div class="timeline">
+                <h3>Delivery Timeline</h3>
+                <div class="timeline-item" style="background: #f0f9ff;">
+                    <strong>✓ Order Confirmed</strong><br>
+                    <small>Your order has been confirmed</small>
+                </div>
+                <div class="timeline-item" style="background: #f0f9ff;">
+                    <strong>✓ Shipped</strong><br>
+                    <small>Package is with courier</small>
+                </div>
+                <div class="timeline-item">
+                    <strong>⏳ In Transit</strong><br>
+                    <small>On the way to you</small>
+                </div>
+                <div class="timeline-item">
+                    <strong>📦 Delivered</strong><br>
+                    <small>Expected delivery</small>
+                </div>
+            </div>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ff9119; padding: 15px; margin: 20px 0;">
+                <strong>📍 Delivery Address:</strong><br>
+                {{DELIVERY_ADDRESS}}
+            </div>
+            
+            <h3>What to Expect?</h3>
+            <ul>
+                <li>Standard delivery takes 3-5 business days</li>
+                <li>You'll receive SMS updates from the courier</li>
+                <li>Please keep your phone reachable for delivery</li>
+                <li>Inspect items upon delivery</li>
+            </ul>
+            
+            <p>Having issues? Contact us at <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a></p>
+        </div>
+        
+        <div class="footer">
+            <p>© {{CURRENT_YEAR}} {{PLATFORM_NAME}}. All rights reserved.</p>
+            <p>Order #{{ORDER_NUMBER}} | Tracking: {{TRACKING_NUMBER}}</p>
+        </div>
+    </div>
+</body>
+</html>

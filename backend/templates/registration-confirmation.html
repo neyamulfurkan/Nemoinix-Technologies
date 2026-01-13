@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competition Registration Confirmed</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .competition-card {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            border: 2px solid #8B5CF6;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .competition-card h2 {
+            margin: 0 0 15px 0;
+            color: #6D28D9;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9d5ff;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #8B5CF6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .checklist {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .checklist li {
+            margin: 10px 0;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 Registration Confirmed!</h1>
+            <p style="margin: 10px 0 0 0;">You're all set to compete</p>
+        </div>
+        
+        <div class="content">
+            <h2 style="color: #8B5CF6;">Congratulations, {{USER_NAME}}!</h2>
+            
+            <p>Your team has been successfully registered for the competition. Get ready to showcase your robotics skills!</p>
+            
+            <div class="competition-card">
+                <h2>{{COMPETITION_TITLE}}</h2>
+                
+                <div class="info-row">
+                    <span><strong>📅 Date:</strong></span>
+                    <span>{{COMPETITION_DATE}}</span>
+                </div>
+                
+                <div class="info-row">
+                    <span><strong>🕐 Time:</strong></span>
+                    <span>{{COMPETITION_TIME}}</span>
+                </div>
+                
+                <div class="info-row">
+                    <span><strong>📍 Venue:</strong></span>
+                    <span>{{COMPETITION_VENUE}}</span>
+                </div>
+                
+                <div class="info-row">
+                    <span><strong>👥 Team Name:</strong></span>
+                    <span>{{TEAM_NAME}}</span>
+                </div>
+                
+                <div class="info-row">
+                    <span><strong>💰 Registration Fee:</strong></span>
+                    <span>{{REGISTRATION_FEE}}</span>
+                </div>
+                
+                <div class="info-row">
+                    <span><strong>💳 Payment Status:</strong></span>
+                    <span style="color: #059669; font-weight: bold;">{{PAYMENT_STATUS}}</span>
+                </div>
+            </div>
+            
+            <center>
+                <a href="{{COMPETITION_URL}}" class="button">View Competition Details</a>
+            </center>
+            
+            <div class="checklist">
+                <h3 style="margin-top: 0;">📋 Pre-Competition Checklist</h3>
+                <ul>
+                    <li>✓ Review competition rules and regulations</li>
+                    <li>✓ Prepare your robot according to specifications</li>
+                    <li>✓ Test your robot thoroughly before the event</li>
+                    <li>✓ Arrive 30 minutes early for registration</li>
+                    <li>✓ Bring your student ID and registration confirmation</li>
+                    <li>✓ Charge all batteries and backup equipment</li>
+                </ul>
+            </div>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ff9119; padding: 15px; margin: 20px 0;">
+                <strong>⚠️ Important:</strong> Make sure to bring this email (printed or on phone) and your student ID on competition day for verification.
+            </div>
+            
+            <h3>Team Members</h3>
+            <p>{{TEAM_MEMBERS}}</p>
+            
+            <h3>Need Help?</h3>
+            <p>If you have any questions or concerns about the competition:</p>
+            <ul>
+                <li>Check the competition page for FAQs</li>
+                <li>Contact the organizing club</li>
+                <li>Email us at <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a></li>
+            </ul>
+            
+            <p style="text-align: center; margin: 30px 0; font-size: 18px;">
+                <strong>Best of luck! May the best team win! 🏆</strong>
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>© {{CURRENT_YEAR}} {{PLATFORM_NAME}}. All rights reserved.</p>
+            <p>Registration ID: Keep this email for your records</p>
+        </div>
+    </div>
+</body>
+</html>

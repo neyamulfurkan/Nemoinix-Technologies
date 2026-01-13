@@ -18,16 +18,15 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Verify connection (DISABLED FOR TESTING)
-// TODO: Enable email verification in production
-// transporter.verify((error, success) => {
-//     if (error) {
-//         console.error('❌ Email configuration error:', error.message);
-//     } else {
-//         console.log('✅ Email server ready');
-//     }
-// });
-console.log('⚠️  Email service disabled for testing');
+// Verify connection configuration
+transporter.verify((error, success) => {
+    if (error) {
+        console.error('❌ Email configuration error:', error.message);
+        console.error('Please check your .env file EMAIL_USER and EMAIL_PASSWORD');
+    } else {
+        console.log('✅ Email server ready and connected to Gmail SMTP');
+    }
+});
 
 // Load email template
 async function loadTemplate(templateName) {

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Application Approved</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #1F2937;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+        .celebration {
+            font-size: 60px;
+            margin: 20px 0;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .approved-badge {
+            background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+            border: 3px solid #FFD700;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .approved-badge h2 {
+            margin: 0;
+            color: #92400e;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #FF9119;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+            font-weight: bold;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .feature-card strong {
+            display: block;
+            margin-top: 10px;
+            color: #FF9119;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="celebration">🎉🎊🏆</div>
+            <h1>Congratulations!</h1>
+            <p style="margin: 10px 0 0 0; font-size: 18px;">Your club has been approved</p>
+        </div>
+        
+        <div class="content">
+            <div class="approved-badge">
+                <h2>{{CLUB_NAME}}</h2>
+                <p style="margin: 10px 0 0 0; font-size: 16px;">{{UNIVERSITY}}</p>
+                <p style="margin: 15px 0 0 0; font-size: 14px; color: #78350f;">
+                    ✓ Verified Club Member
+                </p>
+            </div>
+            
+            <p>Dear <strong>{{USER_NAME}}</strong>,</p>
+            
+            <p>We're thrilled to inform you that <strong>{{CLUB_NAME}}</strong> has been approved and is now officially part of the Bangladesh Robotics Marketplace! 🚀</p>
+            
+            <p>You can now access your club dashboard and start:</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span style="font-size: 30px;">🛍️</span>
+                    <strong>Sell Products</strong>
+                    <p style="font-size: 13px; margin: 5px 0 0 0;">List robotics components</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span style="font-size: 30px;">🏆</span>
+                    <strong>Host Competitions</strong>
+                    <p style="font-size: 13px; margin: 5px 0 0 0;">Organize events</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span style="font-size: 30px;">⭐</span>
+                    <strong>Earn Rewards</strong>
+                    <p style="font-size: 13px; margin: 5px 0 0 0;">Get points & badges</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span style="font-size: 30px;">📊</span>
+                    <strong>Track Analytics</strong>
+                    <p style="font-size: 13px; margin: 5px 0 0 0;">Monitor performance</p>
+                </div>
+            </div>
+            
+            <center>
+                <a href="{{DASHBOARD_URL}}" class="button">Go to Dashboard</a>
+                <a href="{{PROFILE_URL}}" class="button" style="background: #1991EB;">View Profile</a>
+            </center>
+            
+            <h3>🚀 Getting Started</h3>
+            <ol>
+                <li><strong>Complete Your Profile:</strong> Add cover photo, social links, and description</li>
+                <li><strong>List Your First Product:</strong> Start selling robotics components</li>
+                <li><strong>Create a Competition:</strong> Organize your first event</li>
+                <li><strong>Promote Your Club:</strong> Share your profile link with students</li>
+            </ol>
+            
+            <div style="background: #dbeafe; border-left: 4px solid #1991EB; padding: 15px; margin: 20px 0;">
+                <strong>💡 Pro Tips:</strong>
+                <ul style="margin: 10px 0 0 0;">
+                    <li>Upload high-quality product images</li>
+                    <li>Write detailed product descriptions</li>
+                    <li>Respond quickly to customer inquiries</li>
+                    <li>Ship orders within 24 hours for bonus points</li>
+                </ul>
+            </div>
+            
+            <h3>📱 Your Club Profile</h3>
+            <p>Your public profile is now live at:<br>
+            <a href="{{PROFILE_URL}}" style="color: #FF9119; word-break: break-all;">{{PROFILE_URL}}</a></p>
+            
+            <h3>💰 Commission Structure</h3>
+            <p>You'll earn <strong>95%</strong> of each sale (5% platform fee). As you grow and earn reward points, you'll unlock lower commission rates:</p>
+            <ul>
+                <li>🥉 Bronze (0-499 pts): 5% commission</li>
+                <li>🥈 Silver (500-1499 pts): 3% commission</li>
+                <li>🥇 Gold (1500-4999 pts): 2% commission</li>
+                <li>💎 Platinum (5000+ pts): 1% commission</li>
+            </ul>
+            
+            <p>Need help? We're here for you:</p>
+            <ul>
+                <li>Email: <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a></li>
+                <li>Check our <a href="{{FRONTEND_URL}}/docs">documentation</a></li>
+                <li>Join our club community group</li>
+            </ul>
+            
+            <p style="text-align: center; margin: 30px 0; font-size: 18px;">
+                <strong>Welcome to the family! Let's build Bangladesh's robotics ecosystem together! 🇧🇩🤖</strong>
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>© {{CURRENT_YEAR}} {{PLATFORM_NAME}}. All rights reserved.</p>
+            <p>Club: {{CLUB_NAME}} | {{UNIVERSITY}}</p>
+        </div>
+    </div>
+</body>
+</html>
