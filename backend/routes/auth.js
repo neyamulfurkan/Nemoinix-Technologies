@@ -80,26 +80,48 @@ router.post('/register', upload.fields([
     }
     
     // Validate student fields
-    if (role === 'student' && (!university || !student_id || !department)) {
-        return res.status(400).json({
-            success: false,
-            message: 'University, student ID, and department are required for students'
-        });
+    if (role === 'student') {
+        if (!university || university.trim().length < 3) {
+            return res.status(400).json({
+                success: false,
+                message: 'University name is required (minimum 3 characters)'
+            });
+        }
+        if (!student_id || !department) {
+            return res.status(400).json({
+                success: false,
+                message: 'Student ID and department are required for students'
+            });
+        }
     }
     
     // Validate club fields
     if (role === 'club_admin') {
-        if (!club_name || !university || !established_year || !description) {
+        if (!club_name || club_name.trim().length < 5) {
             return res.status(400).json({
                 success: false,
-                message: 'Club name, university, established year, and description are required for clubs'
+                message: 'Club name is required (minimum 5 characters)'
             });
         }
         
-        if (description.length < 50) {
+        if (!university || university.trim().length < 3) {
             return res.status(400).json({
                 success: false,
-                message: 'Club description must be at least 50 characters'
+                message: 'University name is required (minimum 3 characters)'
+            });
+        }
+        
+        if (!established_year) {
+            return res.status(400).json({
+                success: false,
+                message: 'Established year is required'
+            });
+        }
+        
+        if (!description || description.trim().length < 50) {
+            return res.status(400).json({
+                success: false,
+                message: 'Club description is required (minimum 50 characters)'
             });
         }
     }
@@ -200,7 +222,7 @@ router.post('/register', upload.fields([
         full_name: role === 'club_admin' ? club_name : full_name,
         phone,
         role,
-        university: role === 'club_admin' ? university : university,
+        university: university.trim(),
         student_id: role === 'club_admin' ? null : student_id,
         department: role === 'club_admin' ? null : department
     });
