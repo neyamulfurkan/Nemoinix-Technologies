@@ -88,18 +88,28 @@ async function sendEmail({ to, subject, template, data = {}, html = null }) {
         }
 
         // Send email via Resend
+        console.log('📧 Attempting to send email...');
+        console.log('   From:', process.env.EMAIL_FROM || 'onboarding@resend.dev');
+        console.log('   To:', to);
+        console.log('   Subject:', subject);
+        console.log('   API Key present:', !!process.env.RESEND_API_KEY);
+        console.log('   API Key starts with:', process.env.RESEND_API_KEY?.substring(0, 5));
+        
         const result = await resend.emails.send({
-            from: process.env.EMAIL_FROM || 'Bangladesh Robotics <onboarding@resend.dev>',
+            from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
             to: to,
             subject: subject,
             html: emailHtml
         });
+
+        console.log('📬 Resend API Response:', JSON.stringify(result, null, 2));
 
         // Check if email actually sent
         if (!result || !result.id) {
             console.error('❌ Resend returned no message ID - email NOT sent!');
             console.error('   This usually means invalid FROM address or unverified domain');
             console.error('   Current EMAIL_FROM:', process.env.EMAIL_FROM);
+            console.error('   Full result object:', result);
             return { success: false, error: 'Email send failed - no message ID returned' };
         }
 
@@ -107,7 +117,9 @@ async function sendEmail({ to, subject, template, data = {}, html = null }) {
         return { success: true, messageId: result.id };
     } catch (error) {
         console.error('❌ Resend email error:', error.message);
-        console.error('   Full error:', error);
+        console.error('   Full error:', JSON.stringify(error, null, 2));
+        console.error('   Error name:', error.name);
+        console.error('   Error stack:', error.stack);
         throw error;
     }
 }
