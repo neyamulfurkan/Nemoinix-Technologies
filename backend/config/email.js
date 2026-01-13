@@ -1,32 +1,22 @@
 // backend/config/email.js
-// NodeMailer configuration for sending transactional emails
-// GLOBAL REFERENCE: Environment Variables (EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASSWORD, EMAIL_FROM)
-// PURPOSE: Configure email transport and provide email sending functions with templates
+// Resend configuration for sending transactional emails
+// GLOBAL REFERENCE: Environment Variables (RESEND_API_KEY, EMAIL_FROM)
+// PURPOSE: Configure Resend email service and provide email sending functions with templates
 
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const fs = require('fs').promises;
 const path = require('path');
 
-// Create transporter
-const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-    port: process.env.EMAIL_PORT || 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
-    }
-});
+// Initialize Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Verify connection configuration (async, non-blocking)
-transporter.verify()
-    .then(() => {
-        console.log('✅ Email server ready and connected to Gmail SMTP');
-    })
-    .catch((error) => {
-        console.error('⚠️ Email configuration warning:', error.message);
-        console.error('Emails may not send. Check EMAIL_USER and EMAIL_PASSWORD in .env');
-    });
+// Verify API key is present
+if (!process.env.RESEND_API_KEY) {
+    console.error('⚠️ RESEND_API_KEY is not set in environment variables');
+    console.error('Emails will not be sent. Please add RESEND_API_KEY to your .env file');
+} else {
+    console.log('✅ Resend email service initialized');
+}
 
 // Load email template
 async function loadTemplate(templateName) {
@@ -72,6 +62,12 @@ function replacePlaceholders(template, data) {
 // Send email with template
 async function sendEmail({ to, subject, template, data = {}, html = null }) {
     try {
+        // Check if Resend is configured
+        if (!process.env.RESEND_API_KEY) {
+            console.warn(`⚠️ Email not sent (Resend not configured): ${subject} to ${to}`);
+            return { success: false, error: 'Resend not configured' };
+        }
+
         // Use provided HTML or load template
         let emailHtml;
         
@@ -91,18 +87,18 @@ async function sendEmail({ to, subject, template, data = {}, html = null }) {
             throw new Error('Either template or html must be provided');
         }
 
-        // Send email
-        const info = await transporter.sendMail({
-            from: process.env.EMAIL_FROM || '"Bangladesh Robotics Marketplace" <noreply@roboticsbd.com>',
+        // Send email via Resend
+        const result = await resend.emails.send({
+            from: process.env.EMAIL_FROM || 'Bangladesh Robotics Marketplace <noreply@roboticsbd.com>',
             to: to,
             subject: subject,
             html: emailHtml
         });
 
-        console.log('✉️  Email sent:', info.messageId, 'to:', to);
-        return { success: true, messageId: info.messageId };
+        console.log('✅ Email sent via Resend:', result.id, 'to:', to);
+        return { success: true, messageId: result.id };
     } catch (error) {
-        console.error('❌ Email sending error:', error.message);
+        console.error('❌ Resend email error:', error.message);
         throw error;
     }
 }
@@ -225,7 +221,7 @@ async function sendClubApproved(club, user) {
             CLUB_NAME: club.club_name,
             UNIVERSITY: club.university,
             DASHBOARD_URL: `${process.env.FRONTEND_URL}/club-dashboard.html`,
-            GETTING_STARTED_URL: `${process.env.FRONTEND_URL}/club-getting-started.html`
+            PROFILE_URL: `${process.env.FRONTEND_URL}/club-profile.html?slug=${club.slug}`
         }
     });
 }

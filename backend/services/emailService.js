@@ -1,37 +1,24 @@
 // backend/services/emailService.js
-// Centralized email service for all transactional emails with template rendering.
+// Centralized email service for all transactional emails with template rendering using Resend.
 // GLOBAL REFERENCE: Email Configuration, Email Templates, User/Order/Competition Structures
 // PURPOSE: Handle all email operations with queue management and retry logic.
 
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const fs = require('fs').promises;
 const path = require('path');
 
 class EmailService {
-        constructor() {
-        this.transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-            port: process.env.EMAIL_PORT || 587,
-            secure: false,
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASSWORD
-            },
-            connectionTimeout: 10000,
-            greetingTimeout: 10000,
-            socketTimeout: 10000
-        });
-        
+    constructor() {
+        this.resend = new Resend(process.env.RESEND_API_KEY);
         this.templateCache = new Map();
         this.emailQueue = [];
         this.isProcessing = false;
         
-        console.log('✅ EmailService initialized');
-        
-        // Verify connection asynchronously (non-blocking)
-        this.verifyConnection().catch(() => {
-            console.log('⚠️ Email verification will retry on first send attempt');
-        });
+        if (!process.env.RESEND_API_KEY) {
+            console.warn('⚠️ RESEND_API_KEY not configured. Emails will not be sent.');
+        } else {
+            console.log('✅ EmailService initialized with Resend');
+        }
     }
     
     // Load and compile template
@@ -120,23 +107,27 @@ class EmailService {
     // Send email
     async sendEmail({ to, subject, template, data = {}, html = null, attachments = [] }) {
         try {
+            if (!process.env.RESEND_API_KEY) {
+                console.warn(`⚠️ Email not sent (Resend not configured): ${subject} to ${to}`);
+                return { success: false, error: 'Resend not configured' };
+            }
+
             // Render HTML content
             const emailHtml = html || await this.renderTemplate(template, data);
             
-            // Send email
-            const info = await this.transporter.sendMail({
-                from: process.env.EMAIL_FROM || '"Bangladesh Robotics Marketplace" <noreply@roboticsbd.com>',
+            // Send email via Resend
+            const result = await this.resend.emails.send({
+                from: process.env.EMAIL_FROM || 'Bangladesh Robotics Marketplace <noreply@roboticsbd.com>',
                 to,
                 subject,
-                html: emailHtml,
-                attachments
+                html: emailHtml
             });
             
-            console.log('✅ Email sent:', info.messageId, 'to:', to);
+            console.log('✅ Email sent via Resend:', result.id, 'to:', to);
             
-            return { success: true, messageId: info.messageId };
+            return { success: true, messageId: result.id };
         } catch (error) {
-            console.error('❌ Email sending error:', error.message);
+            console.error('❌ Resend email error:', error.message);
             throw error;
         }
     }
@@ -406,20 +397,17 @@ class EmailService {
         return { success: true, queued: recipients.length };
     }
     
-    // Test email connection (with timeout)
+    // Test email connection
     async verifyConnection() {
         try {
-            await Promise.race([
-                this.transporter.verify(),
-                new Promise((_, reject) => 
-                    setTimeout(() => reject(new Error('Verification timeout')), 5000)
-                )
-            ]);
-            console.log('✅ Email server connection verified');
+            if (!process.env.RESEND_API_KEY) {
+                console.error('⚠️ RESEND_API_KEY not set');
+                return false;
+            }
+            console.log('✅ Resend email service ready');
             return true;
         } catch (error) {
             console.error('⚠️ Email verification failed:', error.message);
-            console.error('Emails will be attempted but may fail. Check your EMAIL credentials.');
             return false;
         }
     }
